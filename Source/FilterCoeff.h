@@ -1,0 +1,11 @@
+#define FILTER_TAPS			512
+#define NUM_FILTER_RATES	3
+
+#define FILTER_INDEX_44100	0
+#define FILTER_INDEX_48000	1
+#define FILTER_INDEX_96000	2
+
+extern double A_Weight[NUM_FILTER_RATES][FILTER_TAPS];
+extern double Bandpass[NUM_FILTER_RATES][FILTER_TAPS];
+extern double BandRjct[NUM_FILTER_RATES][FILTER_TAPS];
+

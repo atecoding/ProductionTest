@@ -1,0 +1,1384 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+
+	<!-- **************************************************** -->
+	<!-- Gibson RIP                                           -->
+	<!-- **************************************************** -->
+	<device>
+		RIP
+		
+		<!-- Flash update -->
+		<flash_update>
+			<min_arm_version>0x04090000</min_arm_version>
+      <min_fpga_version>0x01000200</min_fpga_version>
+		</flash_update>
+
+
+    <!-- ================================================== -->
+    <!-- Guitar charge mode and hex communcation tests      -->
+    <!-- ================================================== -->
+
+    <message_box>
+      Please insert the communication test adapter into the audio input jack.
+      <show_yes_no>0</show_yes_no>
+    </message_box>
+
+    <!-- Set the "comm data low" test bit -->
+    <write_rip_test_register>
+      <register_value>0x80000080</register_value>
+    </write_rip_test_register>
+
+    <set_rip_charge_mode>
+      <charge_mode>1</charge_mode>
+    </set_rip_charge_mode>
+
+    <message_box>
+      Is the green power LED on?
+      <show_yes_no>1</show_yes_no>
+      <log>Guitar charge power test: </log>
+    </message_box>
+
+    <set_rip_charge_mode>
+      <charge_mode>0</charge_mode>
+    </set_rip_charge_mode>
+
+    <!-- If "comm data low" is set, then the data bit should be low and data sync should be high in the status reg -->
+    <check_rip_status_register>
+      Guitar comm data low
+      <register_bitwise_and_mask>0x00000c00</register_bitwise_and_mask>
+      <register_expected_value>0x00000400</register_expected_value>
+    </check_rip_status_register>
+
+    <!-- Set the "comm data high" test bit -->
+    <write_rip_test_register>
+      <register_value>0x80000040</register_value>
+    </write_rip_test_register>
+
+    <!-- If "comm data high" is set, then the data bit should be high in the status reg -->
+    <check_rip_status_register>
+      Guitar comm data high
+      <register_bitwise_and_mask>0x00000c00</register_bitwise_and_mask>
+      <register_expected_value>0x00000800</register_expected_value>
+    </check_rip_status_register>
+
+    <write_rip_test_register>
+      <register_value>0x00000000</register_value>
+    </write_rip_test_register>
+
+    <message_box>
+      Please remove the communication test adapter.  Then, connect the outputs to the inputs with a stereo Y cable.
+      <show_yes_no>0</show_yes_no>
+    </message_box>
+
+
+    <!-- =========================== -->
+    <!-- Analog out 1 => analog in 1 -->
+    <!-- =========================== -->
+
+    <prompt>
+      Analog output 1 to analog input 1
+      <output_amplitude_db>-1.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-7.0</min_input_db>
+      <max_input_db>-3.0</max_input_db>
+    </prompt>
+
+    <!-- Analog out 1 to analog in 1 tests -->
+    <test>
+      Analog output 1 to analog input 1
+      <type>THD+N</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-6.0</output_amplitude_db>
+      <pass_threshold_db>-80.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Dynamic range</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-60.0</output_amplitude_db>
+      <pass_threshold_db>90.0</pass_threshold_db>
+    </test>
+
+    <test>
+      <!-- Frequency response - 20 Hz at 48 kHz -->
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>20.0</output_frequency>
+      <pass_threshold_db>-9.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>100.0</output_frequency>
+      <pass_threshold_db>-9.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>1000.0</output_frequency>
+      <pass_threshold_db>-9.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>6000.0</output_frequency>
+      <pass_threshold_db>-9.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>10000.0</output_frequency>
+      <pass_threshold_db>-9.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>12000.0</output_frequency>
+      <pass_threshold_db>-9.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>15000.0</output_frequency>
+      <pass_threshold_db>-9.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>20000.0</output_frequency>
+      <pass_threshold_db>-9.0</pass_threshold_db>
+    </test>
+
+    <!-- ============================== -->
+    <!-- Analog out 2 => analog input 2 -->
+    <!-- ============================== -->
+		<write_rip_test_register>
+			<register_value>0x8000003f</register_value>
+		</write_rip_test_register>	
+    
+		<prompt>
+			Analog output 2 to analog input 2
+			<output_amplitude_db>-6.0</output_amplitude_db>
+			<input>1</input>
+			<output>1</output>
+			<num_channels>1</num_channels>	
+			<sample_rate>48000</sample_rate>
+			<min_input_db>-5.0</min_input_db>
+			<max_input_db>-1.0</max_input_db>
+		</prompt>
+    
+		<test>
+			Analog output 2 to analog input 2 
+			<type>THD+N</type>
+			<input>1</input>
+			<output>1</output>
+			<num_channels>1</num_channels>
+			<sample_rate>48000</sample_rate>
+			<output_amplitude_db>-6.0</output_amplitude_db>
+      <pass_threshold_db>-47.0</pass_threshold_db>
+		</test>
+		<test>
+			<type>Dynamic range</type>
+			<input>1</input>
+			<output>1</output>
+			<num_channels>1</num_channels>
+			<sample_rate>48000</sample_rate>
+			<output_amplitude_db>-60.0</output_amplitude_db>
+      <pass_threshold_db>80.0</pass_threshold_db>
+		</test>
+		
+		<test> <!-- Frequency response - A2 to A2 - 20 Hz at 48 kHz -->
+			<type>Frequency response</type>
+			<input>1</input>
+			<output>1</output>
+			<num_channels>1</num_channels>
+			<sample_rate>48000</sample_rate>
+			<output_amplitude_db>-6.0</output_amplitude_db>
+			<output_frequency>20.0</output_frequency>
+      <pass_threshold_db>-6.0</pass_threshold_db>
+		</test>		
+		<test>
+			<type>Frequency response</type>
+			<input>1</input>
+			<output>1</output>
+			<num_channels>1</num_channels>
+			<sample_rate>48000</sample_rate>
+			<output_amplitude_db>-6.0</output_amplitude_db>
+			<output_frequency>100.0</output_frequency>
+      <pass_threshold_db>-6.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>1</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-6.0</output_amplitude_db>
+      <output_frequency>1000.0</output_frequency>
+      <pass_threshold_db>-6.0</pass_threshold_db>
+		</test>
+		<test>
+			<type>Frequency response</type>
+			<input>1</input>
+			<output>1</output>
+			<num_channels>1</num_channels>
+			<sample_rate>48000</sample_rate>
+			<output_amplitude_db>-6.0</output_amplitude_db>
+			<output_frequency>6000.0</output_frequency>
+      <pass_threshold_db>-7.0</pass_threshold_db>
+		</test>
+		<test>
+			<type>Frequency response</type>
+			<input>1</input>
+			<output>1</output>
+			<num_channels>1</num_channels>
+			<sample_rate>48000</sample_rate>
+			<output_amplitude_db>-6.0</output_amplitude_db>
+			<output_frequency>10000.0</output_frequency>
+      <pass_threshold_db>-7.5</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>1</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-6.0</output_amplitude_db>
+      <output_frequency>12000.0</output_frequency>
+      <pass_threshold_db>-11.0</pass_threshold_db>
+		</test>
+		<test>
+			<type>Frequency response</type>
+			<input>1</input>
+			<output>1</output>
+			<num_channels>1</num_channels>
+			<sample_rate>48000</sample_rate>
+			<output_amplitude_db>-6.0</output_amplitude_db>
+			<output_frequency>15000.0</output_frequency>
+      <pass_threshold_db>-11.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>1</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-6.0</output_amplitude_db>
+      <output_frequency>20000.0</output_frequency>
+      <pass_threshold_db>-14.0</pass_threshold_db>
+		</test>
+
+    
+    <!-- =========================== -->
+		<!-- Analog out 2 => hex input 1 -->
+    <!-- =========================== -->
+    
+    <write_rip_test_register>
+      <register_value>0x80000001</register_value>
+    </write_rip_test_register>
+    
+    <prompt>
+      Analog output 2 to hex input 1
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <input>2</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-7.0</min_input_db>
+      <max_input_db>-3.0</max_input_db>
+    </prompt>
+    <test>
+      Analog output 2 to hex input 1
+      <type>THD+N</type>
+      <input>2</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-6.0</output_amplitude_db>
+      <pass_threshold_db>-45.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Dynamic range</type>
+      <input>2</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-60.0</output_amplitude_db>
+      <pass_threshold_db>68</pass_threshold_db>
+    </test>
+
+    <test>
+      <!-- Frequency response - 20 Hz at 48 kHz -->
+      <type>Frequency response</type>
+      <input>2</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>20.0</output_frequency>
+      <pass_threshold_db>-8.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>2</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>100.0</output_frequency>
+      <pass_threshold_db>-8.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>2</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>1000.0</output_frequency>
+      <pass_threshold_db>-8.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>2</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>6000.0</output_frequency>
+      <pass_threshold_db>-9.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>2</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>10000.0</output_frequency>
+      <pass_threshold_db>-9.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>2</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>12000.0</output_frequency>
+      <pass_threshold_db>-12.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>2</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>15000.0</output_frequency>
+      <pass_threshold_db>-12.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>2</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>20000.0</output_frequency>
+      <pass_threshold_db>-16.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Guitar hex input crosstalk</type>
+      <input>2</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>0.0</output_amplitude_db>
+      <pass_threshold_db>-50.0</pass_threshold_db>
+    </test>
+    <!-- end of analog out 2 -> hex input 1 -->
+
+
+    <!-- =========================== -->
+    <!-- Analog out 2 => hex input 2 -->
+    <!-- =========================== -->
+
+    <write_rip_test_register>
+      <register_value>0x80000002</register_value>
+    </write_rip_test_register>
+
+    <prompt>
+      Analog output 2 to hex input 2
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <input>3</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-7.0</min_input_db>
+      <max_input_db>-3.0</max_input_db>
+    </prompt>
+    <test>
+      Analog output 2 to hex input 2
+      <type>THD+N</type>
+      <input>3</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-6.0</output_amplitude_db>
+      <pass_threshold_db>-45.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Dynamic range</type>
+      <input>3</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-60.0</output_amplitude_db>
+      <pass_threshold_db>68</pass_threshold_db>
+    </test>
+
+    <test>
+      <!-- Frequency response - 20 Hz at 48 kHz -->
+      <type>Frequency response</type>
+      <input>3</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>20.0</output_frequency>
+      <pass_threshold_db>-8.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>3</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>100.0</output_frequency>
+      <pass_threshold_db>-8.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>3</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>1000.0</output_frequency>
+      <pass_threshold_db>-8.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>3</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>6000.0</output_frequency>
+      <pass_threshold_db>-9.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>3</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>10000.0</output_frequency>
+      <pass_threshold_db>-9.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>3</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>12000.0</output_frequency>
+      <pass_threshold_db>-12.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>3</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>15000.0</output_frequency>
+      <pass_threshold_db>-12.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>3</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>20000.0</output_frequency>
+      <pass_threshold_db>-16.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Guitar hex input crosstalk</type>
+      <input>3</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>0.0</output_amplitude_db>
+      <pass_threshold_db>-50.0</pass_threshold_db>
+    </test>
+    <!-- end of analog input 2 -> hex input 2 -->
+
+    
+    <!-- =========================== -->
+    <!-- Analog out 2 => hex input 3 -->
+    <!-- =========================== -->
+
+    <write_rip_test_register>
+      <register_value>0x80000004</register_value>
+    </write_rip_test_register>
+
+    <prompt>
+      Analog output 2 to hex input 3
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <input>4</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-7.0</min_input_db>
+      <max_input_db>-3.0</max_input_db>
+    </prompt>
+    <test>
+      Analog output 2 to hex input 3
+      <type>THD+N</type>
+      <input>4</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-6.0</output_amplitude_db>
+      <pass_threshold_db>-45.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Dynamic range</type>
+      <input>4</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-60.0</output_amplitude_db>
+      <pass_threshold_db>68</pass_threshold_db>
+    </test>
+
+    <test>
+      <!-- Frequency response - 20 Hz at 48 kHz -->
+      <type>Frequency response</type>
+      <input>4</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>20.0</output_frequency>
+      <pass_threshold_db>-8.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>4</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>100.0</output_frequency>
+      <pass_threshold_db>-8.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>4</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>1000.0</output_frequency>
+      <pass_threshold_db>-8.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>4</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>6000.0</output_frequency>
+      <pass_threshold_db>-9.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>4</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>10000.0</output_frequency>
+      <pass_threshold_db>-9.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>4</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>12000.0</output_frequency>
+      <pass_threshold_db>-12.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>4</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>15000.0</output_frequency>
+      <pass_threshold_db>-12.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>4</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>20000.0</output_frequency>
+      <pass_threshold_db>-16.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Guitar hex input crosstalk</type>
+      <input>4</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>0.0</output_amplitude_db>
+      <pass_threshold_db>-50.0</pass_threshold_db>
+    </test>
+    <!-- end of analog input 2 -> hex input 3 -->
+
+    
+    <!-- =========================== -->
+    <!-- Analog out 2 => hex input 4 -->
+    <!-- =========================== -->
+
+    <write_rip_test_register>
+      <register_value>0x80000008</register_value>
+    </write_rip_test_register>
+
+    <prompt>
+      Analog output 2 to hex input 4
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <input>5</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-7.0</min_input_db>
+      <max_input_db>-3.0</max_input_db>
+    </prompt>
+    <test>
+      Analog output 2 to hex input 4
+      <type>THD+N</type>
+      <input>5</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-6.0</output_amplitude_db>
+      <pass_threshold_db>-45.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Dynamic range</type>
+      <input>5</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-60.0</output_amplitude_db>
+      <pass_threshold_db>68</pass_threshold_db>
+    </test>
+
+    <test>
+      <!-- Frequency response - 20 Hz at 48 kHz -->
+      <type>Frequency response</type>
+      <input>5</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>20.0</output_frequency>
+      <pass_threshold_db>-8.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>5</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>100.0</output_frequency>
+      <pass_threshold_db>-8.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>5</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>1000.0</output_frequency>
+      <pass_threshold_db>-8.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>5</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>6000.0</output_frequency>
+      <pass_threshold_db>-9.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>5</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>10000.0</output_frequency>
+      <pass_threshold_db>-9.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>5</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>12000.0</output_frequency>
+      <pass_threshold_db>-12.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>5</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>15000.0</output_frequency>
+      <pass_threshold_db>-12.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>5</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>20000.0</output_frequency>
+      <pass_threshold_db>-16.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Guitar hex input crosstalk</type>
+      <input>5</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>0.0</output_amplitude_db>
+      <pass_threshold_db>-50.0</pass_threshold_db>
+    </test>
+    <!-- end of analog input 2 -> hex input 4 -->
+
+
+    <!-- =========================== -->
+    <!-- Analog out 2 => hex input 5 -->
+    <!-- =========================== -->
+
+    <write_rip_test_register>
+      <register_value>0x80000010</register_value>
+    </write_rip_test_register>
+
+    <prompt>
+      Analog output 2 to hex input 5
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <input>6</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-7.0</min_input_db>
+      <max_input_db>-3.0</max_input_db>
+    </prompt>
+    <test>
+      Analog output 2 to hex input 5
+      <type>THD+N</type>
+      <input>6</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-6.0</output_amplitude_db>
+      <pass_threshold_db>-45.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Dynamic range</type>
+      <input>6</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-60.0</output_amplitude_db>
+      <pass_threshold_db>68</pass_threshold_db>
+    </test>
+
+    <test>
+      <!-- Frequency response - 20 Hz at 48 kHz -->
+      <type>Frequency response</type>
+      <input>6</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>20.0</output_frequency>
+      <pass_threshold_db>-8.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>6</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>100.0</output_frequency>
+      <pass_threshold_db>-8.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>6</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>1000.0</output_frequency>
+      <pass_threshold_db>-8.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>6</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>6000.0</output_frequency>
+      <pass_threshold_db>-9.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>6</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>10000.0</output_frequency>
+      <pass_threshold_db>-9.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>6</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>12000.0</output_frequency>
+      <pass_threshold_db>-12.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>6</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>15000.0</output_frequency>
+      <pass_threshold_db>-12.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>6</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>20000.0</output_frequency>
+      <pass_threshold_db>-16.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Guitar hex input crosstalk</type>
+      <input>6</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>0.0</output_amplitude_db>
+      <pass_threshold_db>-50.0</pass_threshold_db>
+    </test>
+    <!-- end of analog input 2 -> hex input 5 -->
+
+
+    <!-- =========================== -->
+    <!-- Analog out 2 => hex input 6 -->
+    <!-- =========================== -->
+
+    <write_rip_test_register>
+      <register_value>0x80000020</register_value>
+    </write_rip_test_register>
+
+    <prompt>
+      Analog output 2 to hex input 6
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <input>7</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-7.0</min_input_db>
+      <max_input_db>-3.0</max_input_db>
+    </prompt>
+    <test>
+      Analog output 2 to hex input 6
+      <type>THD+N</type>
+      <input>7</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-6.0</output_amplitude_db>
+      <pass_threshold_db>-45.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Dynamic range</type>
+      <input>7</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-60.0</output_amplitude_db>
+      <pass_threshold_db>68</pass_threshold_db>
+    </test>
+
+    <test>
+      <!-- Frequency response - 20 Hz at 48 kHz -->
+      <type>Frequency response</type>
+      <input>7</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>20.0</output_frequency>
+      <pass_threshold_db>-8.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>7</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>100.0</output_frequency>
+      <pass_threshold_db>-8.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>7</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>1000.0</output_frequency>
+      <pass_threshold_db>-8.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>7</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>6000.0</output_frequency>
+      <pass_threshold_db>-9.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>7</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>10000.0</output_frequency>
+      <pass_threshold_db>-9.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>7</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>12000.0</output_frequency>
+      <pass_threshold_db>-12.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>7</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>15000.0</output_frequency>
+      <pass_threshold_db>-12.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>7</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-2.5</output_amplitude_db>
+      <output_frequency>20000.0</output_frequency>
+      <pass_threshold_db>-16.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Guitar hex input crosstalk</type>
+      <input>7</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>0.0</output_amplitude_db>
+      <pass_threshold_db>-50.0</pass_threshold_db>
+    </test>
+    <!-- end of analog input 2 -> hex input 6 -->
+
+
+    <!-- ================================================== -->
+    <!-- Hex output test with 7-LED adapter                 -->
+    <!-- ================================================== -->
+
+    <write_rip_test_register>
+      <register_value>0x8000003f</register_value>
+    </write_rip_test_register>
+
+    <audio_output>
+      <output>1</output>
+      <output_amplitude_db>-1.0</output_amplitude_db>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+    </audio_output>
+
+    <message_box>
+      Are all seven LEDs lit?
+      <show_yes_no>1</show_yes_no>
+      <log>Hex output LED check: </log>
+    </message_box>
+
+    
+    <!-- ================================================== -->
+    <!-- set the test register to disable robot guitar ping -->
+    <!-- ================================================== -->
+    
+    <write_rip_test_register>
+      <register_value>0x80000000</register_value>
+    </write_rip_test_register>
+    
+    
+    <!-- ==================================== -->
+    <!-- Headphone output 1 to analog input 1 -->
+    <!-- ==================================== -->
+    
+    <message_box>
+      Please connect the headphone jack to the inputs with a stereo cable.  Adjust the headphone knob until the OK button lights up.
+      <show_yes_no>0</show_yes_no>
+    </message_box>
+
+    <prompt>
+      Headphone output 1 to analog input 1
+      <output_amplitude_db>-1.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-18.0</min_input_db>
+      <max_input_db>-16.0</max_input_db>
+      <wait_for_user>1</wait_for_user>
+    </prompt>
+
+    <!-- Headphone out 1 to analog in 1 tests -->
+    <test>
+      Headphone output 1 to analog input 1
+      <type>THD+N</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-6.0</output_amplitude_db>
+      <pass_threshold_db>-74.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Dynamic range</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-60.0</output_amplitude_db>
+      <pass_threshold_db>81.0</pass_threshold_db>
+    </test>
+
+    <test>
+      <!-- Frequency response - 20 Hz at 48 kHz -->
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>20.0</output_frequency>
+      <pass_threshold_db>-24.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>100.0</output_frequency>
+      <pass_threshold_db>-24.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>1000.0</output_frequency>
+      <pass_threshold_db>-24.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>6000.0</output_frequency>
+      <pass_threshold_db>-24.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>10000.0</output_frequency>
+      <pass_threshold_db>-24.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>12000.0</output_frequency>
+      <pass_threshold_db>-24.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>15000.0</output_frequency>
+      <pass_threshold_db>-24.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>20000.0</output_frequency>
+      <pass_threshold_db>-24.0</pass_threshold_db>
+    </test>
+
+
+    <!-- ================================= -->
+    <!-- Headphone out 2 => analog input 2 -->
+    <!-- ================================= -->
+    <write_rip_test_register>
+      <register_value>0x8000003f</register_value>
+    </write_rip_test_register>
+
+    <prompt>
+      Headphone output 2 to analog input 2
+      <output_amplitude_db>-6.0</output_amplitude_db>
+      <input>1</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-15.0</min_input_db>
+      <max_input_db>-13.0</max_input_db>
+    </prompt>
+
+    <test>
+      Headphone output 2 to analog input 2
+      <type>THD+N</type>
+      <input>1</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-6.0</output_amplitude_db>
+      <pass_threshold_db>-55.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Dynamic range</type>
+      <input>1</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-60.0</output_amplitude_db>
+      <pass_threshold_db>65.0</pass_threshold_db>
+    </test>
+
+    <test>
+      <!-- Frequency response - A2 to A2 - 20 Hz at 48 kHz -->
+      <type>Frequency response</type>
+      <input>1</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-6.0</output_amplitude_db>
+      <output_frequency>20.0</output_frequency>
+      <pass_threshold_db>-20.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>1</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-6.0</output_amplitude_db>
+      <output_frequency>100.0</output_frequency>
+      <pass_threshold_db>-20.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>1</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-6.0</output_amplitude_db>
+      <output_frequency>1000.0</output_frequency>
+      <pass_threshold_db>-20.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>1</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-6.0</output_amplitude_db>
+      <output_frequency>6000.0</output_frequency>
+      <pass_threshold_db>-21.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>1</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-6.0</output_amplitude_db>
+      <output_frequency>10000.0</output_frequency>
+      <pass_threshold_db>-21.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>1</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-6.0</output_amplitude_db>
+      <output_frequency>12000.0</output_frequency>
+      <pass_threshold_db>-25.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>1</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-6.0</output_amplitude_db>
+      <output_frequency>15000.0</output_frequency>
+      <pass_threshold_db>-25.0</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>1</input>
+      <output>1</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-6.0</output_amplitude_db>
+      <output_frequency>20000.0</output_frequency>
+      <pass_threshold_db>-28.0</pass_threshold_db>
+    </test>
+    
+    
+    <!-- =========================== -->
+    <!-- reset the test register     -->
+    <!-- =========================== -->
+
+    <write_rip_test_register>
+      <register_value>0x80000000</register_value>
+    </write_rip_test_register>
+  
+  </device>
+</root>
