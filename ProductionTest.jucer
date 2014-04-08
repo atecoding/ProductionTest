@@ -6,6 +6,10 @@
   <MAINGROUP id="Hy9Uv1" name="ProductionTest">
     <GROUP id="{F5F8022C-4B50-F7EA-332C-CB7B7E4CC186}" name="Source">
       <GROUP id="{DA8D154C-40D6-68C2-D87D-B987A4D94DF0}" name="ehw">
+        <FILE id="mmiggn" name="NotificationWindow.cpp" compile="1" resource="0"
+              file="Source/ehw/win/NotificationWindow.cpp"/>
+        <FILE id="GndjL0" name="NotificationWindow.h" compile="0" resource="0"
+              file="Source/ehw/win/NotificationWindow.h"/>
         <FILE id="YEb5lL" name="CDevChange.cpp" compile="1" resource="0" file="Source/ehw/win/CDevChange.cpp"/>
         <FILE id="StkJWB" name="CDevChange.h" compile="0" resource="0" file="Source/ehw/win/CDevChange.h"/>
         <FILE id="u68L72" name="ehwlist.h" compile="0" resource="0" file="Source/ehw/win/ehwlist.h"/>

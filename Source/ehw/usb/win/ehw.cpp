@@ -256,11 +256,6 @@ int ehw::OpenDriver()
 			//		return 1;
 			//	}
 			//}
-
-			if (TSTATUS_SUCCESS == status)
-			{
-				sampleRateChangeBroadcaster.initialize(GetNativeHandle());
-			}
 		}
 
 		return TSTATUS_SUCCESS != status;
@@ -280,7 +275,6 @@ void ehw::CloseDriver()
 	DBG_PRINTF(("ehw::CloseDriver handle:0x%x",handle));
 	if (handle)
 	{
-		sampleRateChangeBroadcaster.shutdown();
 		TUSBAUDIO_CloseDevice(handle);
 		DBG_PRINTF(("\tclosed 0x%x",handle));
 		handle = 0;

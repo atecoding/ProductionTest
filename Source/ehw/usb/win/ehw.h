@@ -23,7 +23,6 @@ typedef unsigned __int8 byte;
 #include "tusbaudioapi.h"
 #include "../Session.h"
 #include "hwcaps.h"
-#include "SampleRateBroadcaster.h"
 
 //
 // ehw
@@ -250,8 +249,6 @@ public:
 	static uint32 PanFloatToEfc(float pan);
 	static float EfcToPanFloat(uint32 pan);
 	static float PanFloatToDb(float pan);
-
-	SampleRateBroadcaster sampleRateChangeBroadcaster;
 
 protected:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ehw)

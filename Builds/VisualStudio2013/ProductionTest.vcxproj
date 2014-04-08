@@ -131,6 +131,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\ehw\win\NotificationWindow.cpp"/>
     <ClCompile Include="..\..\Source\ehw\win\CDevChange.cpp"/>
     <ClCompile Include="..\..\Source\ehw\usb\win\ehw.cpp"/>
     <ClCompile Include="..\..\Source\ehw\usb\win\ehwlist_usb.cpp"/>
@@ -1154,6 +1155,7 @@
     <ClCompile Include="..\..\JuceLibraryCode\modules\juce_gui_extra\juce_gui_extra.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\ehw\win\NotificationWindow.h"/>
     <ClInclude Include="..\..\Source\ehw\win\CDevChange.h"/>
     <ClInclude Include="..\..\Source\ehw\win\ehwlist.h"/>
     <ClInclude Include="..\..\Source\ehw\usb\win\ehw.h"/>

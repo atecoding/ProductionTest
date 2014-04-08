@@ -253,6 +253,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\ehw\win\NotificationWindow.cpp">
+      <Filter>ProductionTest\Source\ehw</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\ehw\win\CDevChange.cpp">
       <Filter>ProductionTest\Source\ehw</Filter>
     </ClCompile>
@@ -1410,6 +1413,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\ehw\win\NotificationWindow.h">
+      <Filter>ProductionTest\Source\ehw</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\ehw\win\CDevChange.h">
       <Filter>ProductionTest\Source\ehw</Filter>
     </ClInclude>

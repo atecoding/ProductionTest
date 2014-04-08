@@ -2,7 +2,7 @@
 
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
-#include "juce.h"
+#include "../../../base.h"
 #include "NotificationWindow.h"
 
 static char classname[] = "notification msg window";
