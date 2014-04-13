@@ -1277,6 +1277,34 @@ void ProductionUnit::ParseScript()
 			_script = _script->getNextElement();
 			continue;
 		}
+
+		if (_script->hasTagName("AIO_constant_current_test"))
+		{
+			bool RunConstantCurrentTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter);
+
+			String msg;
+			int input;
+			bool ok = RunConstantCurrentTest(_script, msg, input, _content->aioTestAdapter) == TestPrompt::ok;
+
+			_content->log(String::empty);
+			_content->log(msg);
+
+			_unit_passed &= ok;
+
+			_num_tests++;
+
+			_channel_group_name = "Constant current ";
+			if (input >= 0)
+			{
+				_channel_group_name += " " + String(input) + "-" + String(input + 3);
+			}
+			_channel_group_passed = ok;
+
+			FinishGroup();
+
+			_script = _script->getNextElement();
+			continue;
+		}
 #endif
 
 		//-----------------------------------------------------------------------------

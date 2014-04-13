@@ -1359,6 +1359,9 @@
     <ClCompile Include="..\..\Source\AIOTestAdapter.cpp">
       <Filter>ProductionTest\Source\AIO</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\ConstantCurrentTest.cpp">
+      <Filter>ProductionTest\Source\AIO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\ehw\win\NotificationWindow.h">

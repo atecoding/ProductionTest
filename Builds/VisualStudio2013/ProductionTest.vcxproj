@@ -189,6 +189,7 @@
     <ClCompile Include="..\..\Source\AIODevices_win.cpp" />
     <ClCompile Include="..\..\Source\AIODevice_win.cpp" />
     <ClCompile Include="..\..\Source\AIOTestAdapter.cpp" />
+    <ClCompile Include="..\..\Source\ConstantCurrentTest.cpp" />
     <ClCompile Include="..\..\Source\ehw\win\NotificationWindow.cpp" />
     <ClCompile Include="..\..\Source\ehw\win\CDevChange.cpp" />
     <ClCompile Include="..\..\Source\ehw\usb\win\ehw.cpp" />

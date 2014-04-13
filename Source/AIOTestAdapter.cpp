@@ -45,7 +45,16 @@ int AIOTestAdapter::write(uint8 byte)
 int AIOTestAdapter::read(uint16 data[4])
 {
 	uint8 temp[9];
-	return api.Read(temp);
+	int count = api.Read(temp);
+	if (sizeof(temp) == count)
+	{
+		uint16 *source = (uint16 *)temp + 1;
+		for (int i = 0; i < 4; ++i)
+		{
+			data[i] = source[i];
+		}
+	}
+	return count;
 }
 
 #endif
