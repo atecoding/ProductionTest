@@ -287,7 +287,7 @@ void ehw::CloseDriver()
 //
 //******************************************************************************
 
-#if 1
+#if 0
 
 //==============================================================================
 // get input nominal shift
@@ -325,7 +325,6 @@ int ehw::setingain(int input,float gain)
 	return 0;
 }
 
-#endif
 
 //******************************************************************************
 //
@@ -422,14 +421,17 @@ int ehw::getmonpan(uint32 input,uint32 output,float &pan)
 // set monitor pan
 //==============================================================================
 
-int ehw::setmonpan(uint32 input,uint32 output,float pan)
+#if 0
+int ehw::setmonpan(uint32 input, uint32 output, float pan)
 {
 	if (1 == input)
 		input = 0;
 
 	session.s.monitorpans[input][output >> 1] = PanFloatToEfc(pan);
-	return setInMixer(input,output);
+	return setInMixer(input, output);
 } // setmonpan
+
+#endif // 0
 
 ////==============================================================================
 //// get most recent polled stuff
@@ -451,6 +453,7 @@ int ehw::updatepolledstuff()
 //	return TSTATUS_SUCCESS != status;
 	return 0;
 }
+#endif
 
 //******************************************************************************
 //
@@ -458,7 +461,7 @@ int ehw::updatepolledstuff()
 //
 //******************************************************************************
 
-#if 1
+#if 0
 //==============================================================================
 // set playback gain
 //==============================================================================
@@ -1306,4 +1309,161 @@ int ehw::ReceiveTestBuffer (uint8 *buffer,size_t buffer_size,size_t &bytes_recei
 										1000);
 	return TSTATUS_SUCCESS != status;
 }
+#endif
+
+#if ACOUSTICIO_BUILD
+
+#include "AcousticIO.h"
+
+void ehw::setMicGain(XmlElement const *element)
+{
+	/*TUsbAudioStatus status;*/
+	uint8 channel;
+	uint8 gain;
+	int attribute;
+
+	if (false == element->hasAttribute("input"))
+	{
+		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
+			"AIO_set_mic_gain missing 'input' setting", false);
+		return;
+	}
+
+	attribute = element->getIntAttribute("input", -1);
+	if (attribute < 0 || attribute > 7)
+	{
+		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
+			"AIO_set_mic_gain - input " + String(attribute) + " out of range", false);
+		return;
+	}
+	channel = (uint8)attribute;
+
+
+	if (false == element->hasAttribute("gain"))
+	{
+		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
+			"AIO_set_mic_gain missing 'gain' setting", false);
+		return;
+	}
+
+	attribute = element->getIntAttribute("gain", -1);
+	switch (attribute)
+	{
+	case 1:
+	case 10:
+	case 100:
+		break;
+	default:
+		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
+			"AIO_set_mic_gain - gain " + String(attribute) + " is invalid", false);
+		break;
+	}
+	gain = (uint8)attribute;
+
+	TUSBAUDIO_AudioControlRequestSet(handle,
+		ACOUSTICIO_EXTENSION_UNIT,	// unit ID
+		CUR,
+		ACOUSTICIO_MIC_GAIN_CONTROL,
+		channel,
+		(void *)&gain,
+		1,
+		NULL,
+		1000);
+}
+void ehw::setAmpGain(XmlElement const *element)
+{
+	uint8 channel;
+	uint8 gain;
+	int attribute;
+
+	if (false == element->hasAttribute("output"))
+	{
+		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
+			"AIO_set_amp_gain missing 'output' setting", false);
+		return;
+	}
+
+	attribute = element->getIntAttribute("output", -1);
+	if (attribute < 0 || attribute > 3)
+	{
+		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
+			"AIO_set_amp_gain - output " + String(attribute) + " out of range", false);
+		return;
+	}
+	channel = (uint8)attribute;
+
+
+	if (false == element->hasAttribute("gain"))
+	{
+		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
+			"AIO_set_amp_gain missing 'gain' setting", false);
+		return;
+	}
+
+	attribute = element->getIntAttribute("gain", -1);
+	switch (attribute)
+	{
+	case 26:
+	case 255:
+		break;
+	default:
+		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
+			"AIO_set_amp_gain - gain " + String(attribute) + " is invalid", false);
+		break;
+	}
+	gain = (uint8)attribute;
+
+	TUSBAUDIO_AudioControlRequestSet(handle,
+		ACOUSTICIO_EXTENSION_UNIT,	// unit ID
+		CUR,
+		ACOUSTICIO_AMP_GAIN_CONTROL,
+		channel,
+		(void *)&gain,
+		1,
+		NULL,
+		1000);
+}
+void ehw::setConstantCurrent(XmlElement const *element)
+{
+	uint8 channel;
+	uint8 enabled;
+	int attribute;
+
+	if (false == element->hasAttribute("input"))
+	{
+		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
+			"AIO_set_constant_current missing 'input' setting", false);
+		return;
+	}
+
+	attribute = element->getIntAttribute("input", -1);
+	if (attribute < 0 || attribute > 7)
+	{
+		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
+			"AIO_set_constant_current - input " + String(attribute) + " out of range", false);
+		return;
+	}
+	channel = (uint8)attribute;
+
+
+	if (false == element->hasAttribute("enabled"))
+	{
+		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
+			"AIO_set_constant_current missing 'enabled' setting", false);
+		return;
+	}
+
+	enabled = element->getIntAttribute("enabled", 0) != 0;
+
+	TUSBAUDIO_AudioControlRequestSet(handle,
+		ACOUSTICIO_EXTENSION_UNIT,	// unit ID
+		CUR,
+		ACOUSTICIO_CONSTANT_CURRENT_CONTROL,
+		channel,
+		(void *)&enabled,
+		1,
+		NULL,
+		1000);
+}
+
 #endif

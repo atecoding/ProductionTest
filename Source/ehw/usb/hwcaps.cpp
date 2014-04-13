@@ -82,6 +82,9 @@ char const *hwcaps::BoxTypeName()
 
 	case ECHO4:
 		return "Echo4";
+
+	case ACOUSTICIO:
+		return "Acoustic AIO";
 	}
 
 	return "Echo USB";

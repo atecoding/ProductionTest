@@ -37,6 +37,8 @@ protected:
 		timer_msec = 100
 	};
 
+	float input_meters[max_inputs];
+
 	bool _ok;
 	ehw *_dev;
 	ehwlist *_devlist;
@@ -67,8 +69,6 @@ protected:
 
 	String _channel_group_name;
 	int _channel_group_passed;
-
-	volatile float input_meters[max_inputs];
 
 	void Cleanup();
 	bool ShowMeterWindow(Test &test);

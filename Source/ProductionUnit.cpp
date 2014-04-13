@@ -27,7 +27,7 @@ _unit_passed(true),
 _skipped(false),
 _num_tests(0)
 {
-	memset((void *) input_meters,0,sizeof(input_meters));
+	zerostruct(input_meters);
 
 	_dev->incReferenceCount();
 
@@ -1206,6 +1206,76 @@ void ProductionUnit::ParseScript()
 
 			_script = _script->getNextElement();
 			break;
+		}
+#endif
+
+		//-----------------------------------------------------------------------------
+		//
+		// AcousticIO
+		//
+		//-----------------------------------------------------------------------------
+
+#if defined(ECHOUSB) && defined(ACOUSTICIO_BUILD)
+		if (_script->hasTagName("AIO_set_mic_gain"))
+		{
+			_dev->setMicGain(_script);
+
+			_script = _script->getNextElement();
+			continue;
+		}
+
+		if (_script->hasTagName("AIO_set_amp_gain"))
+		{
+			_dev->setAmpGain(_script);
+
+			_script = _script->getNextElement();
+			continue;
+		}
+
+		if (_script->hasTagName("AIO_set_constant_current"))
+		{
+			_dev->setConstantCurrent(_script);
+
+			_script = _script->getNextElement();
+			continue;
+		}
+
+		if (_script->hasTagName("AIO_TEDS_test"))
+		{
+			bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &input);
+
+			String msg;
+			int input;
+			bool ok = RunTEDSTest(_script, _dev, msg, input) == TestPrompt::ok;
+
+			_content->log(String::empty);
+			_content->log(msg);
+
+			_unit_passed &= ok;
+
+			_num_tests++;
+
+			_channel_group_name = "TEDS";
+			if (input >= 0)
+			{
+				_channel_group_name += " " + String(input);
+			}
+			_channel_group_passed = ok;
+
+			FinishGroup();
+
+			_script = _script->getNextElement();
+			continue;
+		}
+
+		if (_script->hasTagName("AIO_write_test_adapter"))
+		{
+			uint8 byte = (uint8)_script->getStringAttribute("byte").getHexValue32();
+
+			int count = _content->aioTestAdapter.write(byte);
+			_content->log("HID write count:" + String(count) + " value:0x" + String::toHexString(byte));
+			_script = _script->getNextElement();
+			continue;
 		}
 #endif
 

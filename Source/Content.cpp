@@ -98,6 +98,8 @@ Content::~Content()
 {
 	DBG("~Content");
 
+	//Reset();
+
 	deleteAllChildren();
 
 	if (_audio_devices)
@@ -224,6 +226,16 @@ void Content::buttonClicked(Button *button)
 			_start_button->grabKeyboardFocus();
 		}
 #else
+
+#if ACOUSTICIO_BUILD
+		int adapterFound = aioTestAdapter.open();
+		if (0 == adapterFound)
+		{
+			AlertWindow::showMessageBox(AlertWindow::NoIcon, "Production Test", "Please connect the AcousticIO test adapter to this computer.", "Close");
+			return;
+		}
+#endif
+
 		if (_unit)
 		{
 			_start_button->setEnabled(false);
@@ -319,7 +331,7 @@ void Content::FinishTests(bool pass,bool skipped)
 
 #endif
 
-#ifdef ECHOUSB
+#if defined(ECHOUSB) && defined(ECHO2_BUILD)
 	if (_audio_devices)
 	{
 		_audio_devices->closeAudioDevice();
@@ -338,6 +350,10 @@ void Content::FinishTests(bool pass,bool skipped)
 		DevArrived(_devlist->GetNthDevice(0));
 	}
 	_devlist->RegisterMessageListener(&_dev_listener);
+#endif
+
+#if ACOUSTICIO_BUILD
+	aioTestAdapter.close();
 #endif
 }
 
@@ -361,6 +377,7 @@ void Content::DevArrived(ehw *dev)
 #endif
 
 	_unit = new ProductionUnit(dev,_devlist,this);
+
 	_unit_name = dev->getcaps()->BoxTypeName();
 #ifdef PCI_BUILD
 	_unit->RunTests();
@@ -385,12 +402,17 @@ void Content::DevRemoved(ehw *dev)
 
 void DevChangeListener::handleMessage(const Message &message)
 {
-#if 0
+#if 1
 	ehw *dev;
+	DeviceChangeMessage const*const deviceChangeMessage = dynamic_cast <DeviceChangeMessage const*const>(&message);
+	if (nullptr == deviceChangeMessage)
+	{
+		return;
+	}
 
-	DBG("DevChangeListener::handleMessage " + String::toHexString(message.intParameter1) + String::toHexString((int) message.pointerParameter));
+	DBG("DevChangeListener::handleMessage " + String::toHexString(deviceChangeMessage->intParameter1) + String::toHexString((int)deviceChangeMessage->pointerParameter));
 
-	switch (message.intParameter1)
+	switch (deviceChangeMessage->intParameter1)
 	{
 		case EHW_DEVICE_ARRIVAL :
 #ifdef ECHOUSB
@@ -404,7 +426,7 @@ void DevChangeListener::handleMessage(const Message &message)
 			break;
 
 		case EHW_DEVICE_REMOVAL :
-			dev = (ehw *) message.pointerParameter;
+			dev = (ehw *)deviceChangeMessage->pointerParameter;
 			_content->DevRemoved(dev);
 			break;
 	}

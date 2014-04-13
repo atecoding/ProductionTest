@@ -54,7 +54,8 @@ public:
 	enum
 	{
 		ECHO2 = 0x0010,
-		ECHO4 = 0x0040
+		ECHO4 = 0x0040,
+		ACOUSTICIO = 0xa0
 	};
 	
 	void init(unsigned product_id);

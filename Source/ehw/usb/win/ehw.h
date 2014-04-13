@@ -230,6 +230,14 @@ public:
 	int closetransport();
 	int starttransport();
 
+#if ACOUSTICIO_BUILD
+
+	void setMicGain(XmlElement const *element);
+	void setAmpGain(XmlElement const *element);
+	void setConstantCurrent(XmlElement const *element);
+
+#endif
+
 
 	//------------------------------------------------------------------------------
 	// MIDI status

@@ -67,7 +67,7 @@ void CDevChangeNotify::Win32MessageReceived(UINT uMsg,WPARAM wParam,LPARAM lPara
 	if ((WM_USER == uMsg) && (_listeners.size()))
 	{
 		bool post_message = false;
-		int parameter;
+		int parameter = 0;
 
 		switch (wParam)
 		{
