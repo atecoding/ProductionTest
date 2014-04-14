@@ -8,8 +8,9 @@
 		Acoustic AIO
 	  <ASIO_driver>ASIO Echo Acoustic AIO</ASIO_driver>
 
+    <AIO_write_test_adapter byte="0x0f"/> <!-- value in hex -->
+    <AIO_set_constant_current input="5" enabled="1"/>
     <AIO_constant_current_test input="0" minimum="40000" maximum="50000" /> <!-- minimum and maximum are unsigned decimal 16-bit values -->
-    <AIO_constant_current_test input="5" minimum="1000" maximum="60000" /> <!-- minimum and maximum are unsigned decimal 16-bit values -->
 
 
     <ignore>
@@ -22,7 +23,6 @@
       <AIO_set_amp_gain output="3" gain="26"/>
       <!-- gain values are 26 or 255 -->
 
-      <AIO_set_constant_current input="5" enabled="1"/>
 
       <AIO_TEDS_test input="4"/>
     <AIO_TEDS_test input="5"/>

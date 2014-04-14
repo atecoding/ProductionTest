@@ -65,13 +65,10 @@ bool RunConstantCurrentTest(XmlElement const *element, String &msg, int &display
 	// Read values from test adapter
 	//
 	uint16 values[4];
-	Random r(Time::currentTimeMillis());
 
-	for (int i = 0; i < 4; i++)
-	{
-		values[i] = (uint16)r.nextInt();
-	}
-
+	testAdapter.read(values);
+	testAdapter.read(values);
+	testAdapter.read(values);
 
 	//
 	// Return the results

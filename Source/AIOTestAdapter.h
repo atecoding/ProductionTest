@@ -1,8 +1,6 @@
 
 #pragma once
 
-//#include "UsbHidApi.h"
-
 
 class AIOTestAdapter
 {
@@ -10,16 +8,15 @@ public:
 	AIOTestAdapter();
 	~AIOTestAdapter();
 
-	int open();
+	bool open();
 	void close();
 	int write(uint8 byte);
 	int read(uint16 data[4]);
 
-	static void foo();
-
 protected:
-	/*CUsbHidApi api;*/
-	int opened;
+	HANDLE deviceHandle;
+	HANDLE readHandle;
+	HANDLE writeHandle;
 
 	enum
 	{

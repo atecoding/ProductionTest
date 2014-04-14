@@ -1,19 +1,20 @@
 #if ACOUSTICIO_BUILD
-
-#include "base.h"
-#include "AIOTestAdapter.h"
-
-extern "C" 
+extern "C"
 {
+#include <windows.h>
 #include "hidsdi.h"
 #include <setupapi.h>
 #include <dbt.h>
 }
-//#pragma comment (lib, "UsbHidApi")
+#include "base.h"
+#include "AIOTestAdapter.h"
+
 #pragma comment (lib, "Hid")
 
 AIOTestAdapter::AIOTestAdapter() :
-opened(0)
+deviceHandle(INVALID_HANDLE_VALUE),
+readHandle(INVALID_HANDLE_VALUE),
+writeHandle(INVALID_HANDLE_VALUE)
 {
 }
 
@@ -23,16 +24,7 @@ AIOTestAdapter::~AIOTestAdapter()
 }
 
 
-int AIOTestAdapter::open()
-{
-	//opened = api.Open(ECHO_VENDOR_ID,
-	//	ECHO_HID_TESTER_PRODUCT_ID,
-	//	nullptr, nullptr, nullptr, 0);
-
-	return 0;
-}
-
-void AIOTestAdapter::foo()
+bool AIOTestAdapter::open()
 {
 	GUID HidGuid;
 	SP_DEVICE_INTERFACE_DATA devInfoData;
@@ -64,7 +56,7 @@ void AIOTestAdapter::foo()
 			PSP_DEVICE_INTERFACE_DETAIL_DATA detailData;
 			ULONG bytesNeeded;
 
-			BOOL r1 = SetupDiGetDeviceInterfaceDetail
+			SetupDiGetDeviceInterfaceDetail
 				(hDevInfo,
 				&devInfoData,
 				NULL,
@@ -79,7 +71,7 @@ void AIOTestAdapter::foo()
 			
 			detailData = (PSP_DEVICE_INTERFACE_DETAIL_DATA)detailDataBlock.getData();
 			detailData->cbSize = sizeof(SP_DEVICE_INTERFACE_DETAIL_DATA);
-			BOOL r2 = SetupDiGetDeviceInterfaceDetail
+			SetupDiGetDeviceInterfaceDetail
 				(hDevInfo,
 				&devInfoData,
 				detailData,
@@ -87,7 +79,7 @@ void AIOTestAdapter::foo()
 				&bytesNeeded,
 				NULL);
 
-			HANDLE deviceHandle = CreateFile
+			deviceHandle = CreateFile
 				(detailData->DevicePath,
 				0,
 				FILE_SHARE_READ | FILE_SHARE_WRITE,
@@ -101,9 +93,31 @@ void AIOTestAdapter::foo()
 
 				zerostruct(attributes);
 				attributes.Size = sizeof(attributes);
-				BOOL r3 = HidD_GetAttributes(deviceHandle,&attributes);
+				BOOL attributes_result = HidD_GetAttributes(deviceHandle,&attributes);
+				if (attributes_result && ECHO_VENDOR_ID == attributes.VendorID && ECHO_HID_TESTER_PRODUCT_ID == attributes.ProductID)
+				{
+					readHandle = CreateFile
+						(detailData->DevicePath,
+						GENERIC_READ,
+						FILE_SHARE_READ | FILE_SHARE_WRITE,
+						(LPSECURITY_ATTRIBUTES)NULL,
+						OPEN_EXISTING,
+						FILE_FLAG_OVERLAPPED,
+						NULL);
+
+					writeHandle = CreateFile
+						(detailData->DevicePath,
+						GENERIC_WRITE,
+						FILE_SHARE_READ | FILE_SHARE_WRITE,
+						(LPSECURITY_ATTRIBUTES)NULL,
+						OPEN_EXISTING,
+						FILE_FLAG_OVERLAPPED,
+						NULL);
+					break;
+				}
 
 				CloseHandle(deviceHandle);
+				deviceHandle = INVALID_HANDLE_VALUE;
 			}
 		}
 		else
@@ -115,42 +129,66 @@ void AIOTestAdapter::foo()
 	} while (false == done);
 
 	SetupDiDestroyDeviceInfoList(hDevInfo);
+
+	return deviceHandle != INVALID_HANDLE_VALUE && readHandle != INVALID_HANDLE_VALUE && writeHandle != INVALID_HANDLE_VALUE;
 }
 
 void AIOTestAdapter::close()
 {
-	if (opened)
+	if (readHandle != INVALID_HANDLE_VALUE)
 	{
-		//api.CloseRead();
-		//api.CloseWrite();
-		opened = 0;
+		CloseHandle(readHandle);
+		readHandle = INVALID_HANDLE_VALUE;
+	}
+
+	if (writeHandle != INVALID_HANDLE_VALUE)
+	{
+		CloseHandle(writeHandle);
+		writeHandle = INVALID_HANDLE_VALUE;
+	}
+
+	if (deviceHandle != INVALID_HANDLE_VALUE)
+	{
+		CloseHandle(deviceHandle);
+		deviceHandle = INVALID_HANDLE_VALUE;
 	}
 }
 
 int AIOTestAdapter::write(uint8 byte)
 {
-	//uint8 data[2];
-	//data[0] = 0;
-	//data[1] = byte;
-	//return api.Write(data);
-	return 0;
+	uint8 data[2];
+	data[0] = 0;
+	data[1] = byte;
+
+	if (INVALID_HANDLE_VALUE == writeHandle)
+		return 0;
+
+	BOOLEAN result = HidD_SetOutputReport(writeHandle, data, sizeof(data));
+
+	return result;
 }
 
 int AIOTestAdapter::read(uint16 data[4])
 {
-	//uint8 temp[9];
-	//int count = api.Read(temp);
-	//if (sizeof(temp) == count)
-	//{
-	//	uint16 *source = (uint16 *)temp + 1;
-	//	for (int i = 0; i < 4; ++i)
-	//	{
-	//		data[i] = source[i];
-	//	}
-	//}
-	//return count;
+	uint8 temp[9];
 
-	return 0;
+	if (INVALID_HANDLE_VALUE == readHandle)
+		return 0;
+
+	zerostruct(temp);
+	BOOLEAN result = HidD_GetInputReport(readHandle, temp, sizeof(temp));
+	if (0 == result)
+	{
+		return 0;
+	}
+
+	uint16 *source = (uint16 *)(temp + 1);
+	for (int i = 0; i < 4; ++i)
+	{
+		data[i] = source[i];
+	}
+	
+	return 4;
 }
 
 #endif

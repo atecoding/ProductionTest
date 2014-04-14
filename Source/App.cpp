@@ -46,9 +46,6 @@ void App::initialise (const String& /*commandLine*/)
 	hardwareInstances = DisableAllPCIDevices();	// store the list of hardware instances
 #endif
 
-#if ACOUSTICIO_BUILD
-	AIOTestAdapter::foo();
-#endif
 
 	//
 	// Build the hardware list
