@@ -1,6 +1,7 @@
+
 #pragma once
 
-#include "UsbHidApi.h"
+//#include "UsbHidApi.h"
 
 
 class AIOTestAdapter
@@ -14,8 +15,10 @@ public:
 	int write(uint8 byte);
 	int read(uint16 data[4]);
 
+	static void foo();
+
 protected:
-	CUsbHidApi api;
+	/*CUsbHidApi api;*/
 	int opened;
 
 	enum

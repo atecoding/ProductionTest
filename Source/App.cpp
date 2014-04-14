@@ -5,6 +5,9 @@
 #include "ehwlist.h"
 #include "Content.h"
 #include "hwcaps.h"
+#if ACOUSTICIO_BUILD
+#include "AIOTestAdapter.h"
+#endif
 
 App *application;
 const char boundariesName[] = "Window boundaries";
@@ -41,6 +44,10 @@ void App::initialise (const String& /*commandLine*/)
 
 	EnableDevices(hardwareInstances);	// unconditionally enable PCI devices
 	hardwareInstances = DisableAllPCIDevices();	// store the list of hardware instances
+#endif
+
+#if ACOUSTICIO_BUILD
+	AIOTestAdapter::foo();
 #endif
 
 	//
