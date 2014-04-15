@@ -15,15 +15,25 @@
     <AIO_set_constant_current input="2" enabled="0" /> <!-- turn off constant current for input 3 -->
     <AIO_set_constant_current input="3" enabled="0" /> <!-- turn off constant current for input 4 -->
     <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for CC voltage measurement and read ADCs-->
-    <AIO_CC_off_voltage_test input="0" minimum="0" maximum="1" /> <!-- minimum and maximum are in volts -->
+    <AIO_CC_off_voltage_test input="0">
+      <minimum>0.0</minimum> <!-- minimum and maximum are in volts -->
+      <maximum>1.0</maximum>
+    </AIO_CC_off_voltage_test>
     <AIO_set_constant_current input="0" enabled="1" /> <!-- turn off constant current for input 1 -->
     <AIO_set_constant_current input="1" enabled="1" /> <!-- turn off constant current for input 2 -->
     <AIO_set_constant_current input="2" enabled="1" /> <!-- turn off constant current for input 3 -->
     <AIO_set_constant_current input="3" enabled="1" /> <!-- turn off constant current for input 4 -->
     <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for CC voltage measurement and read ADCs-->
-    <AIO_CC_on_voltage_test input="0" minimum="18.5" maximum="19.5" /> <!-- minimum and maximum are in volts -->
+    <AIO_CC_on_voltage_test input="0">
+      <minimum>18.5</minimum>
+      <!-- minimum and maximum are in volts -->
+      <maximum>19.5</maximum>
+    </AIO_CC_on_voltage_test>
     <AIO_write_test_adapter byte="0x0f"/> <!-- set adapter for CC current measurement and read ADCs-->
-    <AIO_CC_current_test input="0" minimum="4.0" maximum="4.4" /> <!-- minimum and maximum are in volts -->
+    <AIO_CC_current_test input="0">
+      <minimum>4.0</minimum> <!-- minimum and maximum are in volts -->
+      <maximum>4.4</maximum>
+    </AIO_CC_current_test>
 
     <AIO_TEDS_test input="0" />
 
