@@ -5,8 +5,10 @@
 bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter)
 {
 	int attribute;
+	float fattribute;
+	String sattribute;
 	uint8 channel;
-	uint16 minimum, maximum;
+	float minimum, maximum;
 
 	//
 	// Read XML parameters
@@ -36,14 +38,16 @@ bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInpu
 			"AIO_CC_voltage_test missing 'minimum' setting", false);
 		return false;
 	}
-	attribute = element->getIntAttribute("minimum", -1);
-	if (attribute < 0 || attribute > 25)
+//	attribute = element->getIntAttribute("minimum", -1);
+	sattribute = element->getStringAttribute("minimum");
+	fattribute = String::getFloatValue(sattribute);
+	if (fattribute < 0.0f || fattribute > 25.0f)
 	{
 		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
-			"AIO_CC_voltage_test - minimum " + String(attribute) + " out of range", false);
+			"AIO_CC_voltage_test - minimum " + String(fattribute) + " out of range", false);
 		return false;
 	}
-	minimum = (float)attribute;
+	minimum = fattribute;
 
 
 	if (false == element->hasAttribute("maximum"))
@@ -132,13 +136,13 @@ bool RunCCCurrentTest(XmlElement const *element, String &msg, int &displayedInpu
 		return false;
 	}
 	attribute = element->getIntAttribute("minimum", -1);
-	if (attribute < 0 || attribute > 0xffff)
+	if (attribute < 0 || attribute > 10)
 	{
 		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
 			"AIO_constant_current_test - minimum " + String(attribute) + " out of range", false);
 		return false;
 	}
-	minimum = (uint16)attribute;
+	minimum = (float)attribute;
 
 
 	if (false == element->hasAttribute("maximum"))
@@ -148,13 +152,13 @@ bool RunCCCurrentTest(XmlElement const *element, String &msg, int &displayedInpu
 		return false;
 	}
 	attribute = element->getIntAttribute("maximum", -1);
-	if (attribute < 0 || attribute > 0xffff)
+	if (attribute < 0 || attribute > 10)
 	{
 		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
 			"AIO_constant_current_test - maximum " + String(attribute) + " out of range", false);
 		return false;
 	}
-	maximum = (uint16)attribute;
+	maximum = (float)attribute;
 
 	//
 	// Read values from test adapter
@@ -169,18 +173,21 @@ bool RunCCCurrentTest(XmlElement const *element, String &msg, int &displayedInpu
 	//
 	bool pass = true;
 
-	msg = "Constant current test, channels " + String(displayedInput) + "-" + String(displayedInput + 3) + "\n";
+	msg = "CC current test, channels " + String(displayedInput) + "-" + String(displayedInput + 3) + "\n";
 	for (int i = 0; i < 4; i++)
 	{
 		uint16 value = values[i];
+		float current = (float)value / 3933.0f;
+
+
 		if (value < minimum || value > maximum)
 		{
-			msg += "Channel " + String(i + displayedInput) + ": " + String::toHexString(value) + " out of range\n";
+			msg += "    Channel " + String(i + displayedInput) + ": " + String(current,1) + " out of range\n";
 			pass = false;
 		}
 		else
 		{
-			msg += "Channel " + String(i + displayedInput) + ": " + String::toHexString(value) + " OK\n";
+			msg += "    Channel " + String(i + displayedInput) + ": " + String(current,1) + " OK\n";
 		}
 	}
 
