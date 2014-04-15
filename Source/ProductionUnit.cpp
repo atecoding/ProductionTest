@@ -1273,18 +1273,18 @@ void ProductionUnit::ParseScript()
 			uint8 byte = (uint8)_script->getStringAttribute("byte").getHexValue32();
 
 			int count = _content->aioTestAdapter.write(byte);
-			_content->log("HID write count:" + String(count) + " value:0x" + String::toHexString(byte));
+			// _content->log("HID write count:" + String(count) + " value:0x" + String::toHexString(byte));
 			_script = _script->getNextElement();
 			continue;
 		}
 
-		if (_script->hasTagName("AIO_constant_current_test"))
+		if (_script->hasTagName("AIO_CC_off_voltage_test"))
 		{
-			bool RunConstantCurrentTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter);
+			bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter);
 
 			String msg;
 			int input;
-			bool ok = RunConstantCurrentTest(_script, msg, input, _content->aioTestAdapter) == TestPrompt::ok;
+			bool ok = RunCCVoltageTest(_script, msg, input, _content->aioTestAdapter) == TestPrompt::ok;
 
 			_content->log(String::empty);
 			_content->log(msg);
@@ -1293,7 +1293,63 @@ void ProductionUnit::ParseScript()
 
 			_num_tests++;
 
-			_channel_group_name = "Constant current ";
+			_channel_group_name = "Constant Current off voltage ";
+			if (input >= 0)
+			{
+				_channel_group_name += " " + String(input) + "-" + String(input + 3);
+			}
+			_channel_group_passed = ok;
+
+			FinishGroup();
+
+			_script = _script->getNextElement();
+			continue;
+		}
+
+		if (_script->hasTagName("AIO_CC_on_voltage_test"))
+		{
+			bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter);
+
+			String msg;
+			int input;
+			bool ok = RunCCVoltageTest(_script, msg, input, _content->aioTestAdapter) == TestPrompt::ok;
+
+			_content->log(String::empty);
+			_content->log(msg);
+
+			_unit_passed &= ok;
+
+			_num_tests++;
+
+			_channel_group_name = "Constant Current on voltage ";
+			if (input >= 0)
+			{
+				_channel_group_name += " " + String(input) + "-" + String(input + 3);
+			}
+			_channel_group_passed = ok;
+
+			FinishGroup();
+
+			_script = _script->getNextElement();
+			continue;
+		}
+
+		if (_script->hasTagName("AIO_CC_current_test"))
+		{
+			bool RunCCCurrentTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter);
+
+			String msg;
+			int input;
+			bool ok = RunCCCurrentTest(_script, msg, input, _content->aioTestAdapter) == TestPrompt::ok;
+
+			_content->log(String::empty);
+			_content->log(msg);
+
+			_unit_passed &= ok;
+
+			_num_tests++;
+
+			_channel_group_name = "CC current ";
 			if (input >= 0)
 			{
 				_channel_group_name += " " + String(input) + "-" + String(input + 3);

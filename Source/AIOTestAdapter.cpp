@@ -163,7 +163,8 @@ int AIOTestAdapter::write(uint8 byte)
 	if (INVALID_HANDLE_VALUE == writeHandle)
 		return 0;
 
-	BOOLEAN result = HidD_SetOutputReport(writeHandle, data, sizeof(data));
+	HidD_SetOutputReport(writeHandle, data, sizeof(data));
+	BOOLEAN result = HidD_SetOutputReport(writeHandle, data, sizeof(data));		// send twice because of buffering somewhere -- quien sabes?
 
 	return result;
 }
