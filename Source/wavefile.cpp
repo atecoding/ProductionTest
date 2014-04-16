@@ -8,7 +8,6 @@ void WriteWaveFile(String filename,int rate,AudioSampleBuffer *asb)
 	WavAudioFormat waf;
 	AudioFormatWriter *writer;
 	StringPairArray meta;
-	int samples = asb->getNumSamples();
 
 	f = File::getSpecialLocation(File::currentApplicationFile);
 	f = f.getParentDirectory().getChildFile(filename);
@@ -18,7 +17,7 @@ void WriteWaveFile(String filename,int rate,AudioSampleBuffer *asb)
 	writer = waf.createWriterFor(stream,rate,1,32,meta,0);
 	if (writer)
 	{
-		asb->writeToAudioWriter(writer,0,samples);
+		writer->writeFromAudioSampleBuffer(*asb, 0, asb->getNumSamples());
 		delete writer;
 	}
 	else

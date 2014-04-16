@@ -29,7 +29,7 @@ public:
 protected:
 	enum
 	{
-		device_buffer_size_samples = 256,
+		device_buffer_size_samples = 512,
 		callback_skip_count = 128,
 
 		max_inputs = 64,
