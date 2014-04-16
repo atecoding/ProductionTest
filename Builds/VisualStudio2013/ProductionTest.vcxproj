@@ -205,6 +205,7 @@
     <ClCompile Include="..\..\Source\FrequencyResponseTest.cpp" />
     <ClCompile Include="..\..\Source\FxpAudioIODeviceType.cpp" />
     <ClCompile Include="..\..\Source\Images.cpp" />
+    <ClCompile Include="..\..\Source\LevelCheckTest.cpp" />
     <ClCompile Include="..\..\Source\MeterWindow.cpp" />
     <ClCompile Include="..\..\Source\MIDILoopTest.cpp" />
     <ClCompile Include="..\..\Source\MidiTest.cpp" />

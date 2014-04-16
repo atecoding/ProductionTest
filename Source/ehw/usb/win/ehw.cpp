@@ -1401,6 +1401,10 @@ void ehw::setAmpGain(XmlElement const *element)
 	}
 
 	attribute = element->getIntAttribute("gain", -1);
+	if (1 == attribute)
+		attribute = 26;
+	if (10 == attribute)
+		attribute = 255;
 	switch (attribute)
 	{
 	case 26:

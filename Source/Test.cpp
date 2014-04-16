@@ -29,8 +29,7 @@ Test::Test(XmlElement *xe,bool &ok) :
 
 	ok = getIntValue(xe,T("sample_rate"),sample_rate);
 	ok &= getFloatValue(xe,T("output_amplitude_db"),output_amplitude_db);
-	ok &= getFloatValue(xe,T("pass_threshold_db"),pass_threshold_db);
-	getFloatValue(xe,T("dc_offset"),_dc_offset);
+	getFloatValue(xe, T("dc_offset"), _dc_offset);
 	getIntValue(xe,T("sawtooth"),_sawtooth);
 	getIntValue(xe,T("pulsate"),_pulsate);
 
@@ -77,7 +76,10 @@ Test *Test::Create(XmlElement *xe, int input, int output, bool &ok)
 			test = new DynRangeTest(xe,ok);
 
 		if (String("Frequency response") == type->getAllSubText())
-			test = new FrequencyResponseTest(xe,ok);
+			test = new FrequencyResponseTest(xe, ok);
+
+		if (String("Level check") == type->getAllSubText())
+			test = new LevelCheckTest(xe,ok);
 
 #if ECHO1394
 		if (String("Guitar hex input crosstalk") == type->getAllSubText())

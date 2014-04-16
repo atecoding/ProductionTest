@@ -27,6 +27,8 @@ public:
 	float output_amplitude_db;	
 	float output_frequency;
 	float pass_threshold_db;
+	float min_level_db;
+	float max_level_db;
 	float _dc_offset;
 	int _sawtooth;
 	int _pulsate;
@@ -60,10 +62,21 @@ public:
 class FrequencyResponseTest : public Test
 {
 public:
-	FrequencyResponseTest(XmlElement *xe,bool &ok);
+	FrequencyResponseTest(XmlElement *xe, bool &ok);
 	~FrequencyResponseTest();
 
-	bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg);
+	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg);
+
+};
+
+
+class LevelCheckTest : public Test
+{
+public:
+	LevelCheckTest(XmlElement *xe, bool &ok);
+	~LevelCheckTest();
+
+	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg);
 
 };
 

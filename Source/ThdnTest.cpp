@@ -8,6 +8,7 @@
 ThdnTest::ThdnTest(XmlElement *xe,bool &ok) :
 	Test(xe,ok)
 {
+	ok &= getFloatValue(xe, T("pass_threshold_db"), pass_threshold_db);
 }
 
 

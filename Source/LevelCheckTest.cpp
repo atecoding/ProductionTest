@@ -5,27 +5,27 @@
 #include "xml.h"
 
 
-FrequencyResponseTest::FrequencyResponseTest(XmlElement *xe,bool &ok) :
+LevelCheckTest::LevelCheckTest(XmlElement *xe,bool &ok) :
 	Test(xe,ok)
 {
-	ok &= getFloatValue(xe, T("pass_threshold_db"), pass_threshold_db);
-	ok &= getFloatValue(xe, T("output_frequency"), output_frequency);
+	ok &= getFloatValue(xe, T("min_level_db"), min_level_db);
+	ok &= getFloatValue(xe, T("max_level_db"), max_level_db);
 }
 
 
-FrequencyResponseTest::~FrequencyResponseTest()
+LevelCheckTest::~LevelCheckTest()
 {
 }
 
 
-bool FrequencyResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
+bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 {
 	int channel;
 	int idx,zc,num_samples,temp;
 	float last,*data,max,min,peak,s,max_db,min_db;//,rms;//,rms_db;
 	bool pass = true;
 
-	msg = String::formatted(T("%.0f Hz freq. response at "),output_frequency);
+	msg = String::formatted(T("Level check at "));
 	msg += MsgSampleRate();
 	msg += ": ";
 	for (channel = 0; channel < num_channels; channel++)
@@ -42,7 +42,7 @@ bool FrequencyResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &ms
 	
 		if (peak < 0.0001)
 		{
-			msg = String::formatted(T("%.0f Hz freq. response at "),output_frequency);
+			msg = String::formatted(T("Level check at "));
 			msg += MsgSampleRate();
 			msg += String::formatted(T(": level too low (peak %f)"),peak);
 
@@ -117,10 +117,10 @@ bool FrequencyResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &ms
 				rms_db = 20.0f * log10(rms);
 			*/
 
-			msg += String::formatted(T("  max %.1f dB"),max_db);
+			msg += String::formatted(T("  level %.1f dB"),max_db);
 		}
 
-		pass &= (max_db >= pass_threshold_db) && (max_db <= pass_threshold_db + 10.0f);
+		pass &= (max_db >= min_level_db) && (max_db <= max_level_db);
 	}
 
 #ifdef WRITE_WAVE_FILES
