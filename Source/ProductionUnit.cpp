@@ -1256,9 +1256,13 @@ void ProductionUnit::ParseScript()
 			_num_tests++;
 
 			_channel_group_name = "TEDS";
-			if (input >= 0)
+			if (input == 4)
 			{
-				_channel_group_name += " " + String(input);
+				_channel_group_name += " 1-4";
+			}
+			if (input == 8)
+			{
+				_channel_group_name += " 5-8";
 			}
 			_channel_group_passed = ok;
 

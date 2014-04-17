@@ -42,20 +42,40 @@ protected:
 class ThdnTest : public Test
 {
 public:
-	ThdnTest(XmlElement *xe,bool &ok);
+	ThdnTest(XmlElement *xe, bool &ok);
 	~ThdnTest();
 
-	bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg);
+	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg);
+};
+
+
+class DiffThdnTest : public Test
+{
+public:
+	DiffThdnTest(XmlElement *xe, bool &ok);
+	~DiffThdnTest();
+
+	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg);
 };
 
 
 class DynRangeTest : public Test
 {
 public:
-	DynRangeTest(XmlElement *xe,bool &ok);
+	DynRangeTest(XmlElement *xe, bool &ok);
 	~DynRangeTest();
 
-	bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg);
+	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg);
+};
+
+
+class DiffDynRangeTest : public Test
+{
+public:
+	DiffDynRangeTest(XmlElement *xe, bool &ok);
+	~DiffDynRangeTest();
+
+	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg);
 };
 
 

@@ -46,3 +46,38 @@ bool ThdnTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 	return pass;
 }
 
+DiffThdnTest::DiffThdnTest(XmlElement *xe, bool &ok) :
+Test(xe, ok)
+{
+	ok &= getFloatValue(xe, T("pass_threshold_db"), pass_threshold_db);
+}
+
+
+DiffThdnTest::~DiffThdnTest()
+{
+}
+
+
+bool DiffThdnTest::calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg)
+{
+	double result;
+	bool pass = true;
+
+	msg = "THD+N at ";
+	msg += MsgSampleRate();
+	msg += ": ";
+	result = computeDiffTHDN(buffs[input]->getSampleData(0), buffs[input+1]->getSampleData(0), sample_rate);
+	msg += String::formatted(T("  %.1f dB"), result);
+
+#ifdef WRITE_WAVE_FILES
+	String name;
+
+	name = String::formatted("Differential THDN out%d-in%d-in%d ", output, input, input + 1);
+	name += MsgSampleRate();
+	name += ".wav";
+	WriteWaveFile(name, sample_rate, buffs[input]);
+#endif
+
+	return result <= pass_threshold_db;
+}
+

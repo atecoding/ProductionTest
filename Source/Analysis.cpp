@@ -164,6 +164,109 @@ double computeTHDN(float *input,int rate)
 #endif
 }
 
+// computeTHDN of Differential Input to two channels
+// Compute the THD+N of the given audio data
+// The filters require that at least 2,560 samples are provided.
+double computeDiffTHDN(float *input1, float *input2, int rate)
+{
+	int filterIndex,i;
+	double rmsSignal,rmsNoise,thdn;
+	double *aWeight,*bandPass,*bandReject;
+
+	// determine the filter index
+	switch (rate)
+	{
+	case 44100 :
+		filterIndex = FILTER_INDEX_44100;
+		break;
+
+	case 48000 :
+		filterIndex = FILTER_INDEX_48000;
+		break;
+
+	case 96000:
+		filterIndex = FILTER_INDEX_96000;
+		break;
+
+	default:
+		assert(false);
+		return 0.0;
+	}
+
+	// save the A-weighting, bandpass, and bandreject filters
+	aWeight = A_Weight[filterIndex];
+	bandPass = Bandpass[filterIndex];
+	bandReject = BandRjct[filterIndex];
+
+	// Create a single differential signal from both inputs
+	for (i = 0; i < THDN_SAMPLES_REQUIRED; i++)
+	{
+		input1[i] = (input1[i] - input2[i])/2;
+	}
+
+	// filter the data to create A-weighted signal
+	RunFIRFilter(input1, 2048, aWeight, 512, aweightedData);
+	//WriteWaveFile("aweight.wav",rate,aweightedData,2048);
+
+	// filter the data to create signal
+	RunFIRFilter(aweightedData, 1024, bandPass, 512, signal);
+	//WriteWaveFile("bandpass.wav",rate,signal,1024);
+
+	// filter the data to create noise, first pass
+	RunFIRFilter(aweightedData, 2048 - 512, bandReject, 512, bandRejectResults);
+	//WriteWaveFile("reject1.wav",rate,bandRejectResults,2048-512);
+
+	// filter the data to create noise, second pass
+	RunFIRFilter(bandRejectResults, 1024, bandReject, 512, noise);
+	//WriteWaveFile("noise.wav",rate,noise,1024);
+
+	// sum up signal and noise
+	rmsSignal = 0;
+	rmsNoise = 0;
+	for (i = 0; i < 1024; i++) {
+		rmsSignal += signal[i] * signal[i];
+		rmsNoise += noise[i] * noise[i];
+	}
+
+	// finish computing rms values
+	rmsSignal = sqrt((double)rmsSignal / 1024);
+	rmsNoise = sqrt((double)rmsNoise / 1024);
+
+	// check if the signal is zero
+	if (rmsSignal == 0)
+		return 0.0;
+
+	// calculate THD+N
+	thdn = 20.0 * log10(rmsNoise / rmsSignal);
+	return thdn;
+
+#if 0
+	// calculate amplitude (magic # = (2^31)(sqrt(2)/2)(10^(-2/20)))
+	result->ampL = 8.0 + 20.0 * log10(rmsSignalL / 1206187622L);
+	result->ampR = 8.0 + 20.0 * log10(rmsSignalR / 1206187622L);
+
+	// fudge the amplitude
+	// fixme ... result->ampL += device->getDeviceInfo(INFO_FUDGE_AMP);
+	//result->ampR += device->getDeviceInfo(INFO_FUDGE_AMP);
+
+	// return if we don't need to compute max amplitude
+	if (saveMax == false)
+		return;
+
+	// save the maximum amplitude for the left and right channels
+	for (i = 0, result->maxAmpL = 0, result->maxAmpR = 0; i < 2560; i++) {
+		int l, r;
+
+		l = abs(inputDataL[i]);
+		r = abs(inputDataR[i]);
+
+		if (l > result->maxAmpL)
+			result->maxAmpL = l;
+		if (r > result->maxAmpR)
+			result->maxAmpR = r;
+	}
+#endif
+}
 
 #if 0
 // computeDynRange

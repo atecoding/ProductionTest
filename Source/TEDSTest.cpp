@@ -11,6 +11,7 @@ bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &displaye
 	uint8 channel;
 	uint8 data[ACOUSTICIO_TEDS_DATA_BYTES];
 	uint8 expectedValue;
+	bool ok = true;
 	
 	displayedInput = -1;
 
@@ -29,38 +30,41 @@ bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &displaye
 		return false;
 	}
 	channel = (uint8)attribute;
-	displayedInput = attribute + 1;
-
-	TUsbAudioStatus status;
-	status = TUSBAUDIO_AudioControlRequestGet(dev->GetNativeHandle(),
-		ACOUSTICIO_EXTENSION_UNIT,	// unit ID
-		CUR,
-		ACOUSTICIO_TEDS_DATA_CONTROL,
-		channel,
-		(void *)data,
-		sizeof(data),
-		NULL,
-		1000);
-	if (TSTATUS_SUCCESS != status)
+	for (int j = 0; j < 4; j++)
 	{
-		msg = "Could not read TEDS data for input " + String(displayedInput);
-		return false;
-	}
+		displayedInput = attribute + j + 1;
 
-	expectedValue = (channel % 4) + 1;
-	expectedValue |= expectedValue << 4;
-
-	for (int i = 0; i < ACOUSTICIO_TEDS_DATA_BYTES - 1; i++)
-	{
-		if (data[i] != expectedValue)
+		TUsbAudioStatus status;
+		status = TUSBAUDIO_AudioControlRequestGet(dev->GetNativeHandle(),
+			ACOUSTICIO_EXTENSION_UNIT,	// unit ID
+			CUR,
+			ACOUSTICIO_TEDS_DATA_CONTROL,
+			channel,
+			(void *)data,
+			sizeof(data),
+			NULL,
+			1000);
+		if (TSTATUS_SUCCESS != status)
 		{
-			msg = "Read unexpected TEDS data for input " + String(displayedInput) + " (value of 0x" + String::toHexString(data[i]) + " at offset " + String(i) + ")";
+			msg = "Could not read TEDS data for input " + String(displayedInput);
 			return false;
 		}
-	}
 
-	msg = "Read expected TEDS data for input " + String(displayedInput);
-	return true;
+		expectedValue = (channel % 4) + 1;
+		expectedValue |= expectedValue << 4;
+
+		for (int i = 0; i < ACOUSTICIO_TEDS_DATA_BYTES - 1; i++)
+		{
+			if (data[i] != expectedValue)
+			{
+				msg = "Read unexpected TEDS data for input " + String(displayedInput) + " (value of 0x" + String::toHexString(data[i]) + " at offset " + String(i) + ")";
+				ok = false;
+			}
+		}
+
+		msg = "Read expected TEDS data for input " + String(displayedInput);
+	}
+	return ok;
 }
 
 #endif

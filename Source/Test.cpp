@@ -70,10 +70,16 @@ Test *Test::Create(XmlElement *xe, int input, int output, bool &ok)
 	if (type)
 	{
 		if (String("THD+N") == type->getAllSubText())
-			test = new ThdnTest(xe,ok);
+			test = new ThdnTest(xe, ok);
+
+		if (String("Differential THD+N") == type->getAllSubText())
+			test = new DiffThdnTest(xe, ok);
 
 		if (String("Dynamic range") == type->getAllSubText())
-			test = new DynRangeTest(xe,ok);
+			test = new DynRangeTest(xe, ok);
+
+		if (String("Differential Dynamic range") == type->getAllSubText())
+			test = new DiffDynRangeTest(xe, ok);
 
 		if (String("Frequency response") == type->getAllSubText())
 			test = new FrequencyResponseTest(xe, ok);

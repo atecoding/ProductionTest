@@ -21,6 +21,9 @@ int32 hwcaps::numbusin()
 {
 	switch (productId)
 	{
+	case ACOUSTICIO:
+		return 8;
+
 	case ECHO2:
 		return 2;
 
@@ -35,6 +38,9 @@ int32 hwcaps::numbusout()
 {
 	switch (productId)
 	{
+	case ACOUSTICIO:
+		return 4;
+
 	case ECHO2:
 		return 4;
 
@@ -49,6 +55,9 @@ int32 hwcaps::numplaychan(int /*samplerate*/)
 {
 	switch (productId)
 	{
+	case ACOUSTICIO:
+		return 4;
+
 	case ECHO2:
 		return 4;
 
@@ -63,6 +72,9 @@ int32 hwcaps::numrecchan(int /*samplerate*/)
 {
 	switch (productId)
 	{
+	case ACOUSTICIO:
+		return 8;
+
 	case ECHO2:
 		return 2;
 
@@ -94,6 +106,9 @@ int hwcaps::NumMixInGroups()
 {
 	switch (productId)
 	{
+	case ACOUSTICIO:
+		return 1;
+
 	case ECHO2:
 		return 2;
 
@@ -108,6 +123,9 @@ int hwcaps::MixInGroupSize(int /*group*/)
 {
 	switch (productId)
 	{
+	case ACOUSTICIO:
+		return 8;
+
 	case ECHO2:
 		return 2;
 
@@ -183,6 +201,9 @@ int hwcaps::NumMixOutGroups()
 {
 	switch (productId)
 	{
+	case ACOUSTICIO:
+		return 1;
+
 	case ECHO2:
 		return 2;
 
@@ -212,6 +233,9 @@ int hwcaps::MixOutGroup(int chan)
 {
 	switch (productId)
 	{
+	case ACOUSTICIO:
+		return chan >> 1;
+
 	case ECHO2:
 		return chan >> 1;
 
@@ -225,6 +249,9 @@ int hwcaps::MixOutGroupOffset(int chan)
 {
 	switch (productId)
 	{
+	case ACOUSTICIO:
+		return chan % 8;
+
 	case ECHO2:
 		return chan % 2;
 
@@ -248,6 +275,9 @@ int hwcaps::MinSampleRate()
 {
 	switch (productId)
 	{
+	case ACOUSTICIO:
+		return 48000;
+
 	case ECHO2:
 		return 32000;
 
@@ -261,6 +291,9 @@ int hwcaps::MaxSampleRate()
 {
 	switch (productId)
 	{
+	case ACOUSTICIO:
+		return 192000;
+
 	case ECHO2:
 		return 192000;
 

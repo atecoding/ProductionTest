@@ -16,7 +16,8 @@ typedef struct {
     double freqR;
 	 } FREQ_RSLT;
 
-double computeTHDN(float *input,int rate);
+double computeTHDN(float *input, int rate);
+double computeDiffTHDN(float *input1, float *input2, int rate);
 
 #if 0
 void computeDynRange(THDN_RSLT *thdnDynRange,
@@ -28,4 +29,4 @@ bool verifyRate(int rate,int *data,int samples,double freq);
 void computeFreqResp(int *bufL,int *bufR,int count,int maxL,int maxR,FREQ_RSLT *r);
 #endif
 
-#define THDN_SAMPLES_REQUIRED	9600 //2560
+#define THDN_SAMPLES_REQUIRED	9600

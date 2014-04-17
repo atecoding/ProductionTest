@@ -164,6 +164,7 @@ int AIOTestAdapter::write(uint8 byte)
 		return 0;
 
 	HidD_SetOutputReport(writeHandle, data, sizeof(data));
+	Thread::sleep(100);
 	BOOLEAN result = HidD_SetOutputReport(writeHandle, data, sizeof(data));		// send twice because of buffering somewhere -- quien sabes?
 
 	return result;
