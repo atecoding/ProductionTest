@@ -212,7 +212,7 @@ void ProductionUnit::RunTests()
 	f = f.getChildFile("ProductionTests.xml");
 	if (false == f.exists())
 	{
-		f = f.getParentDirectory().getParentDirectory().getChildFile("ProductionTests.xml");
+		f = f.getParentDirectory().getParentDirectory().getChildFile("AIOProductionTests.xml");
 	}
 #endif
 	XmlDocument myDocument(f);
@@ -247,7 +247,7 @@ void ProductionUnit::RunTests()
 	else
 	{
 		AlertWindow::showNativeDialogBox(	"Production Test",
-											"Could not load ProductionTests.xml.",
+											"Could not load AIOProductionTests.xml.",
 											false);
 		JUCEApplication::quit();
 		_ok = false;
@@ -257,7 +257,7 @@ void ProductionUnit::RunTests()
 	if (!_ok || (NULL == _script))
 	{
 		AlertWindow::showNativeDialogBox(	"Production Test",
-											"Could not parse ProductionTests.xml.",
+											"Could not parse AIOProductionTests.xml.",
 											false);
 		JUCEApplication::quit();
 		return;
