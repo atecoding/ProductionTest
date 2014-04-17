@@ -25,6 +25,7 @@ public:
 	int	_num_tests;
 	bool _unit_passed;
 	bool _skipped;
+	bool _running;
 
 protected:
 	enum

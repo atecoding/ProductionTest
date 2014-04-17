@@ -8,6 +8,7 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug AIO|Win32 = Debug AIO|Win32
 		Debug|Win32 = Debug|Win32
+		Release AIO|Win32 = Release AIO|Win32
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
@@ -15,6 +16,8 @@ Global
 		{498A5E7A-69BC-9F52-F361-A970D485F629}.Debug AIO|Win32.Build.0 = Debug AIO|Win32
 		{498A5E7A-69BC-9F52-F361-A970D485F629}.Debug|Win32.ActiveCfg = Debug|Win32
 		{498A5E7A-69BC-9F52-F361-A970D485F629}.Debug|Win32.Build.0 = Debug|Win32
+		{498A5E7A-69BC-9F52-F361-A970D485F629}.Release AIO|Win32.ActiveCfg = Release AIO|Win32
+		{498A5E7A-69BC-9F52-F361-A970D485F629}.Release AIO|Win32.Build.0 = Release AIO|Win32
 		{498A5E7A-69BC-9F52-F361-A970D485F629}.Release|Win32.ActiveCfg = Release|Win32
 		{498A5E7A-69BC-9F52-F361-A970D485F629}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection

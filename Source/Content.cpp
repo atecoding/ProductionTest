@@ -227,27 +227,37 @@ void Content::buttonClicked(Button *button)
 		}
 #else
 
-#if ACOUSTICIO_BUILD
-		int adapterFound = aioTestAdapter.open();
-		if (0 == adapterFound)
-		{
-			AlertWindow::showMessageBox(AlertWindow::NoIcon, "Production Test", "Please connect the AcousticIO test adapter to this computer.", "Close");
-			return;
-		}
-#endif
-
 		if (_unit)
 		{
-			_start_button->setEnabled(false);
 
-#ifdef ECHOUSB
-			//
-			// Unregister to handle the Echo2 power test, which generates PnP arrival & removal messages
-			//
-			_devlist->UnregisterMessageListener(&_dev_listener);
+			if (false == _unit->_running)
+			{
+				_start_button->setButtonText("Stop");
+
+#if ACOUSTICIO_BUILD
+				int adapterFound = aioTestAdapter.open();
+				if (0 == adapterFound)
+				{
+					AlertWindow::showMessageBox(AlertWindow::NoIcon, "Production Test", "Please connect the AcousticIO test adapter to this computer.", "Close");
+					return;
+				}
 #endif
 
-			_unit->RunTests();
+#if defined(ECHOUSB) && defined(ECHO2_BUILD)
+				//
+				// Unregister to handle the Echo2 power test, which generates PnP arrival & removal messages
+				//
+				_devlist->UnregisterMessageListener(&_dev_listener);
+#endif
+
+				_unit->RunTests();
+			}
+			else // stop button pressed
+			{
+				_start_button->setButtonText("Start");
+				_start_button->setEnabled(false);
+				_unit->_running = false;
+			}
 		}
 #endif
 	}
@@ -311,6 +321,8 @@ void Content::FinishTests(bool pass,bool skipped)
 {
 	_log_stream->flush();
 
+	_unit->_running = false;
+	_start_button->setButtonText("Start");
 	_start_button->setEnabled(true);
 	_start_button->grabKeyboardFocus();
 
@@ -354,6 +366,11 @@ void Content::FinishTests(bool pass,bool skipped)
 
 #if ACOUSTICIO_BUILD
 	aioTestAdapter.close();
+	if (_audio_devices)
+	{
+		_audio_devices->closeAudioDevice();
+		_audio_devices = nullptr;
+	}
 #endif
 }
 
@@ -397,6 +414,14 @@ void Content::DevRemoved(ehw *dev)
 	_unit_name = String::empty;
 #ifndef PCI_BUILD
 	_start_button->setEnabled(false);
+#endif
+
+#if 0 // def ECHOUSB
+	if (_audio_devices)
+	{
+		_audio_devices->closeAudioDevice();
+		_audio_devices = nullptr;
+	}
 #endif
 }
 

@@ -25,7 +25,8 @@ _script(NULL),
 active_outputs(0),
 _unit_passed(true),
 _skipped(false),
-_num_tests(0)
+_num_tests(0),
+_running(false)
 {
 	zerostruct(input_meters);
 
@@ -190,6 +191,7 @@ void ProductionUnit::RunTests()
 	_content->Reset();
 	_skipped = false;
 	_unit_passed = true;
+	_running = true;
 
 	//
 	// Load the set of tests from XML
@@ -511,7 +513,7 @@ void ProductionUnit::ParseScript()
 	bool ok;
 	int rval;
 
-	while (_script)
+	while (_script  && _running)
 	{
 		//-----------------------------------------------------------------------------
 		//
@@ -598,6 +600,7 @@ void ProductionUnit::ParseScript()
 			continue;
 		}
 
+
 		//-----------------------------------------------------------------------------
 		//
 		// Show user prompt with audio meters?
@@ -643,6 +646,16 @@ void ProductionUnit::ParseScript()
 				continue;
 			}
 
+			if (1 == tp.stop_group)
+			{
+				//
+				// Finish any previous test group
+				//
+				FinishGroup();
+				_script = _script->getNextElement();
+				continue;
+			}
+			
 			if(tp.num_channels == 2)
 			{
 				//
@@ -669,10 +682,13 @@ void ProductionUnit::ParseScript()
 			//
 			tp.Setup(device_buffer_size_samples,_tone,active_outputs,_dc_offset,_sawtooth,_pulsate);
 
-			_asio->start(this);
-			rval = tp.ShowMeterWindow(_content,_dev,input_meters);
-			_asio->stop();
-			//DBG("_asio start and stop");
+			if (0 == tp.start_group)
+			{
+				_asio->start(this);
+				rval = tp.ShowMeterWindow(_content, _dev, input_meters);
+				_asio->stop();
+				//DBG("_asio start and stop");
+			}
 
 			//
 			// If the user selected "skip", move ahead to the next user prompt
@@ -1215,7 +1231,7 @@ void ProductionUnit::ParseScript()
 		//
 		//-----------------------------------------------------------------------------
 
-#if defined(ECHOUSB) && defined(ACOUSTICIO_BUILD)
+#ifdef ACOUSTICIO_BUILD
 		if (_script->hasTagName("AIO_set_mic_gain"))
 		{
 			_dev->setMicGain(_script);
@@ -1282,7 +1298,7 @@ void ProductionUnit::ParseScript()
 			continue;
 		}
 
-		if (_script->hasTagName("AIO_CC_off_voltage_test"))
+		if (_script->hasTagName("AIO_mic_supply_off_voltage_test"))
 		{
 			bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter);
 
@@ -1297,7 +1313,7 @@ void ProductionUnit::ParseScript()
 
 			_num_tests++;
 
-			_channel_group_name = "Constant Current off voltage ";
+			_channel_group_name = "Mic Supply off voltage ";
 			if (input >= 0)
 			{
 				_channel_group_name += " " + String(input) + "-" + String(input + 3);
@@ -1310,7 +1326,7 @@ void ProductionUnit::ParseScript()
 			continue;
 		}
 
-		if (_script->hasTagName("AIO_CC_on_voltage_test"))
+		if (_script->hasTagName("AIO_mic_supply_on_voltage_test"))
 		{
 			bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter);
 
@@ -1325,7 +1341,7 @@ void ProductionUnit::ParseScript()
 
 			_num_tests++;
 
-			_channel_group_name = "Constant Current on voltage ";
+			_channel_group_name = "Mic Supply on voltage ";
 			if (input >= 0)
 			{
 				_channel_group_name += " " + String(input) + "-" + String(input + 3);
@@ -1338,7 +1354,7 @@ void ProductionUnit::ParseScript()
 			continue;
 		}
 
-		if (_script->hasTagName("AIO_CC_current_test"))
+		if (_script->hasTagName("AIO_mic_supply_current_test"))
 		{
 			bool RunCCCurrentTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter);
 
@@ -1353,7 +1369,7 @@ void ProductionUnit::ParseScript()
 
 			_num_tests++;
 
-			_channel_group_name = "CC current ";
+			_channel_group_name = "Mic Supply current ";
 			if (input >= 0)
 			{
 				_channel_group_name += " " + String(input) + "-" + String(input + 3);
@@ -1401,10 +1417,12 @@ void ProductionUnit::ParseScript()
 		String msg;
 
 		_content->log(String::empty);
-		if (_unit_passed && !_skipped)
+		if (_unit_passed && !_skipped && _running)
 			msg = T("Unit passed.");
 		else if (_unit_passed && _skipped)
 			msg = T("Unit failed (skipped tests).");
+		else if (_unit_passed && (!_running))
+			msg = T("Unit failed (stopped).");
 		else
 			msg = T("Unit failed.");
 		_content->log(msg);

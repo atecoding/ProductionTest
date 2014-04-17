@@ -17,6 +17,8 @@ public:
 	int num_channels;
 	int sample_rate;
 	int wait_for_user;
+	int start_group;
+	int stop_group;
 	float output_amplitude_db;
 	float min_input_db;
 	float max_input_db;

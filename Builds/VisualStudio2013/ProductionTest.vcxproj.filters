@@ -294,9 +294,6 @@
     <ClCompile Include="..\..\Source\FrequencyResponseTest.cpp">
       <Filter>ProductionTest\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\FxpAudioIODeviceType.cpp">
-      <Filter>ProductionTest\Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\Images.cpp">
       <Filter>ProductionTest\Source</Filter>
     </ClCompile>
@@ -1425,12 +1422,6 @@
       <Filter>ProductionTest\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\FilterCoeff.h">
-      <Filter>ProductionTest\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\FxpAudioIODevice.h">
-      <Filter>ProductionTest\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\FxpAudioIODeviceType.h">
       <Filter>ProductionTest\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\iasiodrv.h">

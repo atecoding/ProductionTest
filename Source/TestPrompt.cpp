@@ -19,6 +19,8 @@ TestPrompt::TestPrompt(XmlElement *xe,int input_,int output_,bool &ok) :
 	ok = false;
 
 	wait_for_user = 0;
+	start_group = 0;
+	stop_group = 0;
 
 	temp = xe->getFirstChildElement();
     if (temp && temp->isTextElement())
@@ -38,7 +40,9 @@ TestPrompt::TestPrompt(XmlElement *xe,int input_,int output_,bool &ok) :
 		ok &= getFloatValue(xe,T("min_input_db"),min_input_db);
 		ok &= getFloatValue(xe,T("max_input_db"),max_input_db);
 		getFloatValue(xe,T("dc_offset"),_dc_offset);
-		getIntValue(xe,T("wait_for_user"),wait_for_user);
+		getIntValue(xe, T("wait_for_user"), wait_for_user);
+		getIntValue(xe, T("start_group"), start_group);
+		getIntValue(xe, T("stop_group"), stop_group);
 	}
 }
 

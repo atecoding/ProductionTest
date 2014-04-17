@@ -20,11 +20,11 @@
     <AIO_set_constant_current input="5" enabled="1" /> <!-- turn on constant current for input 6 -->
     <AIO_set_constant_current input="6" enabled="1" /> <!-- turn on constant current for input 7 -->
     <AIO_set_constant_current input="7" enabled="1" /> <!-- turn on constant current for input 8 -->
-    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for CC voltage measurement and read ADCs-->
-    <AIO_CC_off_voltage_test input="0">
+    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
+    <AIO_mic_supply_off_voltage_test input="0">
       <minimum>0.0</minimum> <!-- minimum and maximum are in volts -->
       <maximum>1.0</maximum>
-    </AIO_CC_off_voltage_test>
+    </AIO_mic_supply_off_voltage_test>
 
     <AIO_set_constant_current input="0" enabled="1" /> <!-- turn on constant current for input 1 -->
     <AIO_set_constant_current input="1" enabled="1" /> <!-- turn on constant current for input 2 -->
@@ -34,19 +34,19 @@
     <AIO_set_constant_current input="5" enabled="0" /> <!-- turn off constant current for input 6 -->
     <AIO_set_constant_current input="6" enabled="0" /> <!-- turn off constant current for input 7 -->
     <AIO_set_constant_current input="7" enabled="0" /> <!-- turn off constant current for input 8 -->
-    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for CC voltage measurement and read ADCs-->
-    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for CC voltage measurement and read ADCs-->
-    <AIO_CC_on_voltage_test input="0">
+    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
+    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
+    <AIO_mic_supply_on_voltage_test input="0">
       <minimum>19.0</minimum> <!-- minimum and maximum are in volts -->
       <maximum>20.0</maximum>
-    </AIO_CC_on_voltage_test>
+    </AIO_mic_supply_on_voltage_test>
 
-    <AIO_write_test_adapter byte="0x0f"/> <!-- set adapter for CC current measurement and read ADCs-->
+    <AIO_write_test_adapter byte="0x0f"/> <!-- set adapter for Mic Supply current measurement and read ADCs-->
     <AIO_write_test_adapter byte="0x0f"/> <!-- second time to allow capacitor discharge-->
-    <AIO_CC_current_test input="0">
+    <AIO_mic_supply_current_test input="0">
       <minimum>4.0</minimum> <!-- minimum and maximum are in volts -->
       <maximum>4.4</maximum>
-    </AIO_CC_current_test>
+    </AIO_mic_supply_current_test>
 
     <!-- Check TEDS read circuits -->
 
@@ -59,7 +59,7 @@
     <prompt>
       Input and Output Gains 1-4
       <text>Check levels for gain settings 1-4</text>
-      <output_amplitude_db>-20.0</output_amplitude_db>
+      <output_amplitude_db>0.0</output_amplitude_db>
       <input>0</input>
       <output>0</output>
       <num_channels>2</num_channels>
@@ -67,6 +67,7 @@
       <min_input_db>-200.0</min_input_db>
       <max_input_db>0.0</max_input_db>
       <wait_for_user>0</wait_for_user>
+      <start_group>1</start_group>
     </prompt>
 
     <AIO_set_mic_gain input="0" gain="100" />
@@ -185,7 +186,7 @@
       <max_level_db>-21.0</max_level_db>
     </test>
 
-    <!-- Audio Quality Tests -->
+    <!-- Audio Quality Tests 1-4 -->
 
     <AIO_set_amp_gain output="0" gain="10" />
     <AIO_set_amp_gain output="1" gain="10" />
@@ -202,6 +203,8 @@
       <max_input_db>0.0</max_input_db>
       <wait_for_user>0</wait_for_user>
     </prompt>
+
+    <!-- THD+N and DNR Channels 1-2 -->
 
     <test>
       Output 1 to Inputs 1 and 2
@@ -234,6 +237,51 @@
       <pass_threshold_db>100.0</pass_threshold_db>
     </test>
 
+    <!-- Frequency response tests for 1-2 -->
+
+    <test>
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>20.0</output_frequency>
+      <pass_threshold_db>-6.5</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>1000.0</output_frequency>
+      <pass_threshold_db>-6.5</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>10000.0</output_frequency>
+      <pass_threshold_db>-6.5</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>20000.0</output_frequency>
+      <pass_threshold_db>-6.5</pass_threshold_db>
+    </test>
+
+    <!-- THD+N and DNR Channels 3-4 -->
+
     <test>
       Output 2 to Inputs 3 and 4
       <type>Differential THD+N</type>
@@ -265,8 +313,51 @@
       <pass_threshold_db>100.0</pass_threshold_db>
     </test>
 
+    <!-- Frequency response tests for 3-4 -->
+
+    <test>
+      <type>Frequency response</type>
+      <input>2</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>20.0</output_frequency>
+      <pass_threshold_db>-6.5</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>2</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>1000.0</output_frequency>
+      <pass_threshold_db>-6.5</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>2</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>10000.0</output_frequency>
+      <pass_threshold_db>-6.5</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>2</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>20000.0</output_frequency>
+      <pass_threshold_db>-6.5</pass_threshold_db>
+    </test>
+
     <prompt>
-      Dummy prompt
+      Group End Prompt
       <text>Force printing of last result</text>
       <output_amplitude_db>-0.0</output_amplitude_db>
       <input>0</input>
@@ -276,10 +367,9 @@
       <min_input_db>-200.0</min_input_db>
       <max_input_db>0.0</max_input_db>
       <wait_for_user>0</wait_for_user>
+      <stop_group>1</stop_group>
     </prompt>
 
-    <ignore>
-    
     <message_box>Connect the Test Adapter to Inputs 5-8</message_box>
 
     <AIO_set_constant_current input="0" enabled="1" /> <!-- turn on constant current for input 1 -->
@@ -290,12 +380,12 @@
     <AIO_set_constant_current input="5" enabled="0" /> <!-- turn off constant current for input 6 -->
     <AIO_set_constant_current input="6" enabled="0" /> <!-- turn off constant current for input 7 -->
     <AIO_set_constant_current input="7" enabled="0" /> <!-- turn off constant current for input 8 -->
-    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for CC voltage measurement and read ADCs-->
-    <AIO_CC_off_voltage_test input="4">
+    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
+    <AIO_mic_supply_off_voltage_test input="4">
       <minimum>0.0</minimum>
       <!-- minimum and maximum are in volts -->
       <maximum>1.0</maximum>
-    </AIO_CC_off_voltage_test>
+    </AIO_mic_supply_off_voltage_test>
 
     <AIO_set_constant_current input="0" enabled="0" /> <!-- turn off constant current for input 1 -->
     <AIO_set_constant_current input="1" enabled="0" /> <!-- turn off constant current for input 2 -->
@@ -305,20 +395,20 @@
     <AIO_set_constant_current input="5" enabled="1" /> <!-- turn on constant current for input 6 -->
     <AIO_set_constant_current input="6" enabled="1" /> <!-- turn on constant current for input 7 -->
     <AIO_set_constant_current input="7" enabled="1" /> <!-- turn on constant current for input 8 -->
-    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for CC voltage measurement and read ADCs-->
-    <AIO_CC_on_voltage_test input="4">
+    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
+    <AIO_mic_supply_on_voltage_test input="4">
       <minimum>19.0</minimum>
       <!-- minimum and maximum are in volts -->
       <maximum>20.0</maximum>
-    </AIO_CC_on_voltage_test>
+    </AIO_mic_supply_on_voltage_test>
 
-    <AIO_write_test_adapter byte="0x0f"/> <!-- set adapter for CC current measurement and read ADCs-->
+    <AIO_write_test_adapter byte="0x0f"/> <!-- set adapter for Mic Supply current measurement and read ADCs-->
     <AIO_write_test_adapter byte="0x0f"/> <!-- second time to allow capacitor discharge-->
-    <AIO_CC_current_test input="4">
+    <AIO_mic_supply_current_test input="4">
       <minimum>4.0</minimum>
       <!-- minimum and maximum are in volts -->
       <maximum>4.4</maximum>
-    </AIO_CC_current_test>
+    </AIO_mic_supply_current_test>
 
     <AIO_TEDS_test input="4" />
 
@@ -455,568 +545,177 @@
       <max_level_db>-21.0</max_level_db>
     </test>
 
-    <!-- Audio Quality Tests -->
+    <!-- Audio Quality Tests 5-8 -->
 
-      <prompt>
-        Unity Gain Level
-        <text>Check level for unity gain setting</text>
-        <output_amplitude_db>0.0</output_amplitude_db>
-        <input>4</input>
-        <output>2</output>
-        <num_channels>2</num_channels>
-        <sample_rate>48000</sample_rate>
-        <min_input_db>-5.0</min_input_db>
-        <max_input_db>-1.0</max_input_db>
-        <wait_for_user>1</wait_for_user>
-      </prompt>
+    <AIO_set_amp_gain output="2" gain="10" />
+    <AIO_set_amp_gain output="3" gain="10" />
 
-      <AIO_set_amp_gain output="2" gain="10" />
-      <AIO_set_amp_gain output="3" gain="10" />
+    <prompt>
+      Audio Quality 5-8
+      <text>Test Audio Quality 5-8</text>
+      <output_amplitude_db>-20.0</output_amplitude_db>
+      <input>4</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-200.0</min_input_db>
+      <max_input_db>0.0</max_input_db>
+      <wait_for_user>0</wait_for_user>
+    </prompt>
 
-      <test>
-        Output 3 to Inputs 5 and 6
-        <type>THD+N</type>
-        <input>4</input>
-        <output>2</output>
-        <num_channels>2</num_channels>
-        <sample_rate>48000</sample_rate>
-        <output_amplitude_db>-20.0</output_amplitude_db>
-        <pass_threshold_db>-85.0</pass_threshold_db>
-      </test>
+    <!-- THD+N and DNR Channels 5-6 -->
 
-    </ignore>
+    <test>
+      Output 1 to Inputs 1 and 2
+      <type>Differential THD+N</type>
+      <input>4</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <pass_threshold_db>-80.0</pass_threshold_db>
+    </test>
 
+    <test>
+      <type>Dynamic range</type>
+      <input>4</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-60.0</output_amplitude_db>
+      <pass_threshold_db>100.0</pass_threshold_db>
+    </test>
 
-    <ignore>
-			<echo2_initial_power_test/>
-		
-			<echo2_touch_panel_test/>
+    <test>
+      <type>Differential Dynamic range</type>
+      <input>4</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-60.0</output_amplitude_db>
+      <pass_threshold_db>100.0</pass_threshold_db>
+    </test>
 
-			<!-- ======================================= -->
-			<!-- Phantom power							 -->
-			<!-- ======================================= -->
-		
-			<!-- Select mic input for both inputs -->
-			<set_touch_panel_reg address="INPUT1_SELECT" value="0"/>
-			<set_touch_panel_reg address="INPUT2_SELECT" value="0"/>
-			<set_touch_panel_reg address="INPUT1_LEVEL_POSITION" value="0"/>
-			<set_touch_panel_reg address="INPUT2_LEVEL_POSITION" value="0"/>
-			<set_touch_panel_reg address="PHANTOM_POWER_SELECT" value="0"/>
+    <!-- Frequency response tests for 5-6 -->
 
-			<message_box>Connect the phantom power tester to input 1 using the adapter cable.</message_box>
+    <test>
+      <type>Frequency response</type>
+      <input>4</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>20.0</output_frequency>
+      <pass_threshold_db>-6.5</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>4</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>1000.0</output_frequency>
+      <pass_threshold_db>-6.5</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>4</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>10000.0</output_frequency>
+      <pass_threshold_db>-6.5</pass_threshold_db>
+    </test>
 
-			<set_touch_panel_reg address="PHANTOM_POWER_SELECT" value="1"/>
+    <test>
+      <type>Frequency response</type>
+      <input>4</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>20000.0</output_frequency>
+      <pass_threshold_db>-6.5</pass_threshold_db>
+    </test>
 
-			<message_box>
-				Do you see three green lights on the phantom power tester?
-				<show_yes_no>1</show_yes_no>
-				<log>Phantom power input 1</log>
-			</message_box>
+    <!-- THD+N and DNR Channels 7-8 -->
 
-			<set_touch_panel_reg address="PHANTOM_POWER_SELECT" value="0"/>
+    <test>
+      Output 2 to Inputs 3 and 4
+      <type>Differential THD+N</type>
+      <input>6</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <pass_threshold_db>-80.0</pass_threshold_db>
+    </test>
 
-			<message_box>Connect the phantom power tester to input 2 using the adapter cable.</message_box>
+    <test>
+      <type>Dynamic range</type>
+      <input>6</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-60.0</output_amplitude_db>
+      <pass_threshold_db>100.0</pass_threshold_db>
+    </test>
 
-			<set_touch_panel_reg address="PHANTOM_POWER_SELECT" value="1"/>
+    <test>
+      <type>Differential Dynamic range</type>
+      <input>6</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-60.0</output_amplitude_db>
+      <pass_threshold_db>100.0</pass_threshold_db>
+    </test>
 
-			<message_box>
-				Do you see three green lights on the phantom power tester?
-				<show_yes_no>1</show_yes_no>
-				<log>Phantom power input 2</log>
-			</message_box>
+    <!-- Frequency response tests for 7-8 -->
 
-			<set_touch_panel_reg address="PHANTOM_POWER_SELECT" value="0"/>
-
-
-			<!-- ======================================= -->
-			<!-- Headphones to line inputs 1-2			 -->
-			<!-- ======================================= -->
-
-			<!-- Turn off headphone routing -->
-			<set_touch_panel_reg address="PANEL_STATUS" value="0"/>
-
-			<!-- Select line input for both inputs -->
-			<set_touch_panel_reg address="INPUT1_SELECT" value="1"/>
-			<set_touch_panel_reg address="INPUT2_SELECT" value="1"/>
-			<set_touch_panel_reg address="INPUT1_LEVEL_POSITION" value="16"/>
-			<set_touch_panel_reg address="INPUT2_LEVEL_POSITION" value="16"/>
-
-			<prompt>
-				Headphones to line in
-				<text>Please connect the headphone jack on the front panel to IN 1 and IN 2 on the rear panel.</text>
-				<output_amplitude_db>-4.0</output_amplitude_db>
-				<input>0</input>
-				<output>2</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<min_input_db>-5.0</min_input_db>
-				<max_input_db>-1.0</max_input_db>
-				<wait_for_user>1</wait_for_user>
-			</prompt>
-
-			<!-- Analog outputs 1-2 to analog inputs 1-2 tests, 44.1 & 48 kHz -->
-			<test>
-				Headphones to line in
-				<type>THD+N</type>
-				<input>0</input>
-				<output>2</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-4.0</output_amplitude_db>
-				<pass_threshold_db>-85.0</pass_threshold_db>
-			</test>
-			<test>
-				<type>Dynamic range</type>
-				<input>0</input>
-				<output>2</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-63.0</output_amplitude_db>
-				<pass_threshold_db>102.0</pass_threshold_db>
-			</test>
-
-			<!-- Frequency response tests for headphone outputs -->
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>2</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-3.0</output_amplitude_db>
-				<output_frequency>20.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>2</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-3.0</output_amplitude_db>
-				<output_frequency>100.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>2</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-3.0</output_amplitude_db>
-				<output_frequency>1000.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>2</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-3.0</output_amplitude_db>
-				<output_frequency>6050.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>2</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-3.0</output_amplitude_db>
-				<output_frequency>10000.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>2</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-3.0</output_amplitude_db>
-				<output_frequency>12100.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>2</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-3.0</output_amplitude_db>
-				<output_frequency>15000.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>2</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-3.0</output_amplitude_db>
-				<output_frequency>20000.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-
-
-			<!-- ======================================= -->
-			<!-- Analog outputs 1-2 to line inputs 1-2 -->
-			<!-- ======================================= -->
-
-			<!-- Select line input for both inputs -->
-			<set_touch_panel_reg address="INPUT1_SELECT" value="1"/>
-			<set_touch_panel_reg address="INPUT2_SELECT" value="1"/>
-			<set_touch_panel_reg address="INPUT1_LEVEL_POSITION" value="20"/>
-			<set_touch_panel_reg address="INPUT2_LEVEL_POSITION" value="20"/>
-
-			<prompt>
-				Line out to line in
-				<text>Please connect the OUT L to IN 1 and OUT R to IN 2 on the rear panel.</text>
-				<output_amplitude_db>-1.0</output_amplitude_db>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<min_input_db>-5.0</min_input_db>
-				<max_input_db>-1.0</max_input_db>
-				<wait_for_user>1</wait_for_user>
-			</prompt>
-
-			<!-- Analog outputs 1-2 to analog inputs 1-2 tests, 44.1 & 48 kHz -->
-			<test>
-				Line out to line in
-				<type>THD+N</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>44100</sample_rate>
-				<output_amplitude_db>-1.0</output_amplitude_db>
-				<pass_threshold_db>-90.0</pass_threshold_db>
-			</test>
-			<test>
-				<type>Dynamic range</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>44100</sample_rate>
-				<output_amplitude_db>-58.0</output_amplitude_db>
-				<pass_threshold_db>102.0</pass_threshold_db>
-			</test>
-
-			<test>
-				<type>THD+N</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-1.0</output_amplitude_db>
-				<pass_threshold_db>-90.0</pass_threshold_db>
-			</test>
-			<test>
-				<type>Dynamic range</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-58.0</output_amplitude_db>
-				<pass_threshold_db>102.0</pass_threshold_db>
-			</test>
-
-			<!-- Frequency response tests for line inputs -->
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-3.0</output_amplitude_db>
-				<output_frequency>20.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-3.0</output_amplitude_db>
-				<output_frequency>100.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-3.0</output_amplitude_db>
-				<output_frequency>1000.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-3.0</output_amplitude_db>
-				<output_frequency>6050.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-3.0</output_amplitude_db>
-				<output_frequency>10000.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-3.0</output_amplitude_db>
-				<output_frequency>12100.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-3.0</output_amplitude_db>
-				<output_frequency>15000.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-3.0</output_amplitude_db>
-				<output_frequency>20000.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-
-			<!-- ======================================= -->
-			<!-- Analog outputs 1-2 to guitar inputs 1-2 -->
-			<!-- ======================================= -->
-
-			<!-- Select guitar input for both inputs -->
-			<set_touch_panel_reg address="INPUT1_SELECT" value="2"/>
-			<set_touch_panel_reg address="INPUT2_SELECT" value="2"/>
-			<set_touch_panel_reg address="INPUT1_LEVEL_POSITION" value="16"/>
-			<set_touch_panel_reg address="INPUT2_LEVEL_POSITION" value="16"/>
-
-			<prompt>
-				Line out to guitar in
-				<output_amplitude_db>-7.0</output_amplitude_db>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<min_input_db>-5.0</min_input_db>
-				<max_input_db>-1.0</max_input_db>
-				<wait_for_user>1</wait_for_user>
-			</prompt>
-
-			<!-- Analog outputs 1-2 to analog inputs 1-2 tests, 48 kHz -->
-			<test>
-				Line out to guitar in
-				<type>THD+N</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-7.0</output_amplitude_db>
-				<pass_threshold_db>-70.0</pass_threshold_db>
-			</test>
-			<test>
-				<type>Dynamic range</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-64.0</output_amplitude_db>
-				<pass_threshold_db>100.0</pass_threshold_db>
-			</test>
-		
-
-		<!-- ======================================= -->
-			<!-- Analog outputs 1-2 to mic inputs 1-2 -->
-			<!-- ======================================= -->
-
-			<!-- Select mic input for both inputs -->
-			<set_touch_panel_reg address="INPUT1_SELECT" value="0"/>
-			<set_touch_panel_reg address="INPUT2_SELECT" value="0"/>
-			<set_touch_panel_reg address="INPUT1_LEVEL_POSITION" value="60"/>
-			<set_touch_panel_reg address="INPUT2_LEVEL_POSITION" value="60"/>
-
-			<prompt>
-				Line out to mic in (mid gain)
-				<output_amplitude_db>-34.0</output_amplitude_db>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<min_input_db>-5.0</min_input_db>
-				<max_input_db>-1.0</max_input_db>
-				<wait_for_user>1</wait_for_user>
-			</prompt>
-
-			<!-- Analog outputs 1-2 to analog inputs 1-2 tests, 48 kHz -->
-			<test>
-				Line out to mic in (mid gain)
-				<type>THD+N</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-34.0</output_amplitude_db>
-				<pass_threshold_db>-70.0</pass_threshold_db>
-			</test>
-			<test>
-				<type>Dynamic range</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-94.0</output_amplitude_db>
-				<pass_threshold_db>70.0</pass_threshold_db>
-			</test>
-			<!-- Frequency response tests for mic inputs (mid gain) -->
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-33.0</output_amplitude_db>
-				<output_frequency>20.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-33.0</output_amplitude_db>
-				<output_frequency>100.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-33.0</output_amplitude_db>
-				<output_frequency>1000.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-33.0</output_amplitude_db>
-				<output_frequency>6050.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-33.0</output_amplitude_db>
-				<output_frequency>10000.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-33.0</output_amplitude_db>
-				<output_frequency>12100.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-33.0</output_amplitude_db>
-				<output_frequency>15000.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-			<test>
-				<type>Frequency response</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-33.0</output_amplitude_db>
-				<output_frequency>20000.0</output_frequency>
-				<pass_threshold_db>-8.5</pass_threshold_db>
-			</test>
-
-			
-			<!-- =============================================== -->
-			<!-- Analog outputs 1-2 to mic inputs 1-2  high gain -->
-			<!-- =============================================== -->
-
-			<!-- Select mic input for both inputs -->
-			<set_touch_panel_reg address="INPUT1_SELECT" value="0"/>
-			<set_touch_panel_reg address="INPUT2_SELECT" value="0"/>
-			<set_touch_panel_reg address="INPUT1_LEVEL_POSITION" value="120"/>
-			<set_touch_panel_reg address="INPUT2_LEVEL_POSITION" value="120"/>
-
-			<prompt>
-				Line out to mic in (high gain)
-				<output_amplitude_db>-64.0</output_amplitude_db>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<min_input_db>-5.0</min_input_db>
-				<max_input_db>-1.0</max_input_db>
-				<wait_for_user>1</wait_for_user>
-			</prompt>
-
-			<!-- Analog outputs 1-2 to analog inputs 1-2 tests, 48 kHz -->
-			<test>
-				Line out to mic in (high gain)
-				<type>THD+N</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-64.0</output_amplitude_db>
-				<pass_threshold_db>-40.0</pass_threshold_db>
-			</test>
-			<test>
-				<type>Dynamic range</type>
-				<input>0</input>
-				<output>0</output>
-				<num_channels>2</num_channels>
-				<sample_rate>48000</sample_rate>
-				<output_amplitude_db>-124.0</output_amplitude_db>
-				<pass_threshold_db>45.0</pass_threshold_db>s
-			</test>
-		</ignore>
-
-	</device>
+    <test>
+      <type>Frequency response</type>
+      <input>6</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>20.0</output_frequency>
+      <pass_threshold_db>-6.5</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>6</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>1000.0</output_frequency>
+      <pass_threshold_db>-6.5</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>6</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>10000.0</output_frequency>
+      <pass_threshold_db>-6.5</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>6</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_frequency>20000.0</output_frequency>
+      <pass_threshold_db>-6.5</pass_threshold_db>
+    </test>
+  </device>
 
 </root>
 
