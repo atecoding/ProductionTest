@@ -336,14 +336,14 @@ void ProductionUnit::audioDeviceIOCallback
 	if (InterlockedExchange(&new_test,0))
 	{
 		record_done = false;
-		callback_count = 0;
+		callback_samples = 0;
 		InterlockedExchange(&blocks_recorded,0);
 		last_timestamp.QuadPart = 0;
 		_average_callback_interval.QuadPart = 0;
 	}
 	else
 	{
-		callback_count++;
+		callback_samples += numSamples;
 	}
 
 	//
@@ -367,7 +367,7 @@ void ProductionUnit::audioDeviceIOCallback
 	//
 	// Record
 	//
-	if (callback_count > callback_skip_count)
+	if (callback_samples >= callback_skip_samples)
 	{
 		int count,temp;
 

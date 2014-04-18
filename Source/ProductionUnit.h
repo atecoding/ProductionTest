@@ -30,7 +30,7 @@ public:
 protected:
 	enum
 	{
-		callback_skip_count = 128,
+		callback_skip_samples = 48000,
 
 		max_inputs = 64,
 
@@ -56,7 +56,7 @@ protected:
 	ScopedPointer<XmlElement> _root;
 	XmlElement *_script;
 	LONG new_test;
-	int callback_count;
+	int callback_samples;
 	bool record_done;
 
 	ScopedPointer<Test> _test;
