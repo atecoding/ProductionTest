@@ -1710,9 +1710,7 @@
     <ResourceCompile Include=".\resources.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="ProductionTests.xml">
-      <SubType>Designer</SubType>
-    </Xml>
+    <Xml Include="AIOProductionTests.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

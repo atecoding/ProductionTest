@@ -218,23 +218,13 @@
     </test>
 
     <test>
-      <type>Dynamic range</type>
-      <input>0</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-60.0</output_amplitude_db>
-      <pass_threshold_db>100.0</pass_threshold_db>
-    </test>
-
-    <test>
       <type>Differential Dynamic range</type>
       <input>0</input>
       <output>0</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
       <output_amplitude_db>-60.0</output_amplitude_db>
-      <pass_threshold_db>100.0</pass_threshold_db>
+      <pass_threshold_db>105.0</pass_threshold_db>
     </test>
 
     <!-- Frequency response tests for 1-2 -->
@@ -294,23 +284,13 @@
     </test>
 
     <test>
-      <type>Dynamic range</type>
-      <input>2</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-60.0</output_amplitude_db>
-      <pass_threshold_db>100.0</pass_threshold_db>
-    </test>
-
-    <test>
       <type>Differential Dynamic range</type>
       <input>2</input>
       <output>0</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
       <output_amplitude_db>-60.0</output_amplitude_db>
-      <pass_threshold_db>100.0</pass_threshold_db>
+      <pass_threshold_db>105.0</pass_threshold_db>
     </test>
 
     <!-- Frequency response tests for 3-4 -->
@@ -566,7 +546,7 @@
     <!-- THD+N and DNR Channels 5-6 -->
 
     <test>
-      Output 1 to Inputs 1 and 2
+      Output 3 to Inputs 5 and 6
       <type>Differential THD+N</type>
       <input>4</input>
       <output>2</output>
@@ -577,23 +557,13 @@
     </test>
 
     <test>
-      <type>Dynamic range</type>
-      <input>4</input>
-      <output>2</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-60.0</output_amplitude_db>
-      <pass_threshold_db>100.0</pass_threshold_db>
-    </test>
-
-    <test>
       <type>Differential Dynamic range</type>
       <input>4</input>
       <output>2</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
       <output_amplitude_db>-60.0</output_amplitude_db>
-      <pass_threshold_db>100.0</pass_threshold_db>
+      <pass_threshold_db>105.0</pass_threshold_db>
     </test>
 
     <!-- Frequency response tests for 5-6 -->
@@ -643,7 +613,7 @@
     <!-- THD+N and DNR Channels 7-8 -->
 
     <test>
-      Output 2 to Inputs 3 and 4
+      Output 4 to Inputs 7 and 8
       <type>Differential THD+N</type>
       <input>6</input>
       <output>2</output>
@@ -654,23 +624,13 @@
     </test>
 
     <test>
-      <type>Dynamic range</type>
-      <input>6</input>
-      <output>2</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-60.0</output_amplitude_db>
-      <pass_threshold_db>100.0</pass_threshold_db>
-    </test>
-
-    <test>
       <type>Differential Dynamic range</type>
       <input>6</input>
       <output>2</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
       <output_amplitude_db>-60.0</output_amplitude_db>
-      <pass_threshold_db>100.0</pass_threshold_db>
+      <pass_threshold_db>105.0</pass_threshold_db>
     </test>
 
     <!-- Frequency response tests for 7-8 -->

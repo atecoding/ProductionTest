@@ -2666,7 +2666,7 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="ProductionTests.xml">
+    <Xml Include="AIOProductionTests.xml">
       <Filter>ProductionTest</Filter>
     </Xml>
   </ItemGroup>

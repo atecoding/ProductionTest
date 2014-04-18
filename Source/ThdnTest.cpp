@@ -63,7 +63,7 @@ bool DiffThdnTest::calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg)
 	double result;
 	bool pass = true;
 
-	msg = "THD+N at ";
+	msg = "Differential THD+N at ";
 	msg += MsgSampleRate();
 	msg += ": ";
 	result = computeDiffTHDN(buffs[input]->getSampleData(0), buffs[input+1]->getSampleData(0), sample_rate);

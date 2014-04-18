@@ -209,7 +209,7 @@ void ProductionUnit::RunTests()
 
 #else
 	f = f.getParentDirectory();
-	f = f.getChildFile("ProductionTests.xml");
+	f = f.getChildFile("AIOProductionTests.xml");
 	if (false == f.exists())
 	{
 		f = f.getParentDirectory().getParentDirectory().getChildFile("AIOProductionTests.xml");

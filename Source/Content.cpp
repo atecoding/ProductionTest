@@ -232,7 +232,6 @@ void Content::buttonClicked(Button *button)
 
 			if (false == _unit->_running)
 			{
-				_start_button->setButtonText("Stop");
 
 #if ACOUSTICIO_BUILD
 				int adapterFound = aioTestAdapter.open();
@@ -250,6 +249,7 @@ void Content::buttonClicked(Button *button)
 				_devlist->UnregisterMessageListener(&_dev_listener);
 #endif
 
+				_start_button->setButtonText("Stop");
 				_unit->RunTests();
 			}
 			else // stop button pressed
