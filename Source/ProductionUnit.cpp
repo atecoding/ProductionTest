@@ -316,7 +316,6 @@ void ProductionUnit::audioDeviceIOCallback
 )
 {
 	int in,out,i;
-	float tonebuff[device_buffer_size_samples],*tonebuff_ptr = tonebuff;
 	static int passes = 0;
 	static LARGE_INTEGER last_timestamp = { 0, 0 };
 
@@ -373,9 +372,9 @@ void ProductionUnit::audioDeviceIOCallback
 		int count,temp;
 
 		temp = InterlockedIncrement(&blocks_recorded);
-		if (temp <= (THDN_SAMPLES_REQUIRED/device_buffer_size_samples))
+		if (temp <= (THDN_SAMPLES_REQUIRED/numSamples))
 		{
-			temp = (temp-1)*device_buffer_size_samples;
+			temp = (temp-1)*numSamples;
 			count = jmin(numSamples,THDN_SAMPLES_REQUIRED - temp);
 			if (count)
 			{
@@ -400,23 +399,23 @@ void ProductionUnit::audioDeviceIOCallback
 	// Playback
 	//
 	AudioSourceChannelInfo asci;
-	AudioSampleBuffer asb(&tonebuff_ptr,1,device_buffer_size_samples);
-	float dc_offset = _dc_offset;
+	AudioSampleBuffer asb(outputChannelData, numOutputChannels, numSamples);
+	//float dc_offset = _dc_offset;
 	int sawtooth = _sawtooth;
 	int pulsate = _pulsate;
 
 	asci.buffer = &asb;
-	asci.numSamples = device_buffer_size_samples;
+	asci.numSamples = numSamples;
 	asci.startSample = 0;
 	_tone.getNextAudioBlock(asci);
 
 	for (out = 0; out < numOutputChannels; out++)
 	{
 		if (active_outputs & (1 << out)) {
-			for(int i = 0; i < device_buffer_size_samples; i++)
+			for(int i = 0; i < numSamples; i++)
 			{
 				if(sawtooth)
-					outputChannelData[out][i] = 0.5f * (float) i / (float) device_buffer_size_samples;
+					outputChannelData[out][i] = 0.5f * (float) i / (float) numSamples;
 				else if (pulsate)
 				{
 					if(i < 40)
@@ -427,12 +426,12 @@ void ProductionUnit::audioDeviceIOCallback
 					else
 						outputChannelData[out][i] = 0.0f;
 				}
-				else
-					outputChannelData[out][i] = tonebuff[i] + dc_offset;
 			}
 		}
 		else
-			memset(outputChannelData[out],0,numSamples*sizeof(float));
+		{
+			memset(outputChannelData[out], 0, numSamples*sizeof(float));
+		}
 	}
 	passes++;
 	if(passes >= 100)
@@ -511,7 +510,7 @@ void ProductionUnit::handleMessage(const Message &message)
 void ProductionUnit::ParseScript()
 {
 	bool ok;
-	int rval;
+	int rval = -1;
 
 	while (_script  && _running)
 	{
@@ -680,7 +679,7 @@ void ProductionUnit::ParseScript()
 			//
 			// show user prompt
 			//
-			tp.Setup(device_buffer_size_samples,_tone,active_outputs,_dc_offset,_sawtooth,_pulsate);
+			tp.Setup(_asio->getCurrentBufferSizeSamples(),_tone,active_outputs,_dc_offset,_sawtooth,_pulsate);
 
 			if (0 == tp.start_group)
 			{
@@ -745,7 +744,7 @@ void ProductionUnit::ParseScript()
 				_content->log(_test->title);
 			}
 
-			_test->Setup(device_buffer_size_samples,_tone,active_outputs,_dc_offset,_sawtooth,_pulsate);
+			_test->Setup(_asio->getCurrentBufferSizeSamples(),_tone,active_outputs,_dc_offset,_sawtooth,_pulsate);
 
 			ok = OpenASIO(_test->sample_rate);
 			if (!ok)
@@ -972,7 +971,7 @@ void ProductionUnit::ParseScript()
 			if (!ok)
 				return;
 
-			ao.Setup(device_buffer_size_samples,_tone,active_outputs,_dc_offset,_sawtooth,_pulsate);
+			ao.Setup(_asio->getCurrentBufferSizeSamples(),_tone,active_outputs,_dc_offset,_sawtooth,_pulsate);
 
 			//
 			// Start the audio driver
@@ -1292,7 +1291,7 @@ void ProductionUnit::ParseScript()
 		{
 			uint8 byte = (uint8)_script->getStringAttribute("byte").getHexValue32();
 
-			int count = _content->aioTestAdapter.write(byte);
+			/*int count =*/ _content->aioTestAdapter.write(byte);
 			// _content->log("HID write count:" + String(count) + " value:0x" + String::toHexString(byte));
 			_script = _script->getNextElement();
 			continue;
@@ -1545,7 +1544,7 @@ bool ProductionUnit::OpenASIO(int sample_rate)
 	if (false == _asio->isOpen())
 	{
 		//DBG("configuring _asio");
-		err = _asio->open(inputs,outputs,sample_rate,device_buffer_size_samples);
+		err = _asio->open(inputs,outputs,sample_rate,_asio->getDefaultBufferSize());
 		if (err.isNotEmpty())
 		{
 			AlertWindow::showNativeDialogBox(	"Production Test",

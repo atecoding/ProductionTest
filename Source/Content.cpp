@@ -282,7 +282,6 @@ void Content::sliderValueChanged(Slider *s)
 void Content::log(String msg)
 {
 	const char * cr = "\n";
-	const char * lfcr = "\r\n";
 
 	if (nullptr != _log)
 	{
@@ -291,6 +290,7 @@ void Content::log(String msg)
 		_log->insertTextAtCaret(cr);
 
 		//_logfile.appendText(msg);
+		//const char * lfcr = "\r\n";
 		//_logfile.appendText(lfcr);
 		_log_stream->writeText( msg + cr, false, false );
 	}
