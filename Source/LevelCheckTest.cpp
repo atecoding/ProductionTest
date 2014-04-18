@@ -32,7 +32,7 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 	{
 
 		num_samples = buffs[input]->getNumSamples();
-		data = buffs[input]->getSampleData(0);
+		data = buffs[input + channel]->getSampleData(0);
 
 		peak = 0.0f;
 		for (idx = num_samples/4; idx < 3*num_samples/4; idx++)
@@ -118,17 +118,18 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 			*/
 
 			msg += String::formatted(T("  level %.1f dB"),max_db);
+
+#ifdef WRITE_WAVE_FILES
+			String name;
+
+			name = String::formatted(T("Level out%02d-in%02d at %.0f Hz.wav"), output, input + channel, output_frequency);
+			WriteWaveFile(name, sample_rate, buffs[input]);
+#endif
+
 		}
 
 		pass &= (max_db >= min_level_db) && (max_db <= max_level_db);
 	}
-
-#ifdef WRITE_WAVE_FILES
-	String name;
-
-	name = String::formatted(T("Frequency response out%02d-in%02d at %.0f Hz.wav"),output,input,output_frequency);
-	WriteWaveFile(name,sample_rate,buffs[input]);
-#endif
 
 	return pass;
 }
