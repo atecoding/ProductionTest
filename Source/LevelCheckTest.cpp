@@ -35,7 +35,7 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 		data = buffs[input]->getSampleData(0);
 
 		peak = 0.0f;
-		for (idx = 0; idx < num_samples; idx++)
+		for (idx = num_samples/4; idx < 3*num_samples/4; idx++)
 		{
 			peak = jmax(peak,fabs(data[idx]));
 		}

@@ -84,12 +84,12 @@ bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInpu
 		volts = 0.6f + (float)value / 1966.0f;
 		if (volts < minimum || volts > maximum)
 		{
-			msg += "    Channel " + String(i + displayedInput) + ": " + String(volts,1) + " out of range\n";
+			msg += "    Channel " + String(i + displayedInput) + ": " + String(volts,1) + "V out of range\n";
 			pass = false;
 		}
 		else
 		{
-			msg += "    Channel " + String(i + displayedInput) + ": " + String(volts,1) + " OK\n";
+			msg += "    Channel " + String(i + displayedInput) + ": " + String(volts,1) + "V OK\n";
 		}
 	}
 
@@ -175,12 +175,12 @@ bool RunCCCurrentTest(XmlElement const *element, String &msg, int &displayedInpu
 
 		if (current < minimum || current > maximum)
 		{
-			msg += "    Channel " + String(i + displayedInput) + ": " + String(current,1) + " out of range\n";
+			msg += "    Channel " + String(i + displayedInput) + ": " + String(current,1) + "ma out of range\n";
 			pass = false;
 		}
 		else
 		{
-			msg += "    Channel " + String(i + displayedInput) + ": " + String(current,1) + " OK\n";
+			msg += "    Channel " + String(i + displayedInput) + ": " + String(current,1) + "ma OK\n";
 		}
 	}
 

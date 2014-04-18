@@ -1312,7 +1312,7 @@ void ProductionUnit::ParseScript()
 
 			_num_tests++;
 
-			_channel_group_name = "Mic Supply off voltage ";
+			_channel_group_name = "Mic Supply off voltage";
 			if (input >= 0)
 			{
 				_channel_group_name += " " + String(input) + "-" + String(input + 3);
@@ -1340,7 +1340,7 @@ void ProductionUnit::ParseScript()
 
 			_num_tests++;
 
-			_channel_group_name = "Mic Supply on voltage ";
+			_channel_group_name = "Mic Supply on voltage";
 			if (input >= 0)
 			{
 				_channel_group_name += " " + String(input) + "-" + String(input + 3);
@@ -1368,7 +1368,7 @@ void ProductionUnit::ParseScript()
 
 			_num_tests++;
 
-			_channel_group_name = "Mic Supply current ";
+			_channel_group_name = "Mic Supply current";
 			if (input >= 0)
 			{
 				_channel_group_name += " " + String(input) + "-" + String(input + 3);
