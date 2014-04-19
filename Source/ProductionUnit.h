@@ -30,7 +30,7 @@ public:
 protected:
 	enum
 	{
-		callback_skip_samples = 48000,
+		callback_skip_samples = 32000,
 
 		max_inputs = 64,
 

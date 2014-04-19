@@ -2,10 +2,11 @@
 #include "base.h"
 #include "AcousticIO.h"
 #include "ehw.h"
+#include "content.h"
 
 #define CUR 1
 
-bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &displayedInput)
+bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &displayedInput, Content *content)
 {
 	int attribute;
 	uint8 channel;
@@ -62,7 +63,10 @@ bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &displaye
 			}
 		}
 
-		msg = "Read expected TEDS data for input " + String(displayedInput);
+		if(ok)
+			msg = "Read expected TEDS data for input " + String(displayedInput);
+		if (j < 3)
+			content->log(msg);
 	}
 	if (!ok)
 		Thread::sleep(50);		// delay so things don't get hosed

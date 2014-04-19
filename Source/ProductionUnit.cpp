@@ -325,8 +325,16 @@ void ProductionUnit::audioDeviceIOCallback
 	if (0 != last_timestamp.QuadPart)
 	{
 		uint64 elapsed = now.QuadPart - last_timestamp.QuadPart;
-		_average_callback_interval.QuadPart -= _average_callback_interval.QuadPart >> 5;
-		_average_callback_interval.QuadPart += elapsed >> 5;
+
+		if (0 == _average_callback_interval.QuadPart)
+		{
+			_average_callback_interval.QuadPart = elapsed;
+		}
+		else
+		{
+			_average_callback_interval.QuadPart -= _average_callback_interval.QuadPart >> 5;
+			_average_callback_interval.QuadPart += elapsed >> 5;
+		}
 	}
 	last_timestamp = now;
 
@@ -1257,13 +1265,13 @@ void ProductionUnit::ParseScript()
 
 		if (_script->hasTagName("AIO_TEDS_test"))
 		{
-			bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &input);
+			bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &input, Content *content);
 
 			String msg;
 			int input;
-			bool ok = RunTEDSTest(_script, _dev, msg, input) == TestPrompt::ok;
+			bool ok = RunTEDSTest(_script, _dev, msg, input, _content) == TestPrompt::ok;
 
-			_content->log(String::empty);
+//			_content->log(String::empty);
 			_content->log(msg);
 
 			_unit_passed &= ok;
