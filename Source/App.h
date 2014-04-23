@@ -38,6 +38,7 @@ public:
     //==============================================================================
     
     void initialise (const String& commandLine);
+	void parseCommandLine(const String& commandLine);
     void App::shutdown();
     
 

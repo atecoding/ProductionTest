@@ -12,9 +12,13 @@
 App *application;
 const char boundariesName[] = "Window boundaries";
 
+#if ACOUSTICIO_BUILD
+String ProductionTestsXmlFileName("AIOProductionTests.xml");
+#endif
+
 //==============================================================================
 
-void App::initialise (const String& /*commandLine*/)
+void App::initialise (const String& commandLine)
 {
 	application = this;
 
@@ -26,6 +30,18 @@ void App::initialise (const String& /*commandLine*/)
 		quit();
 		return;
 	}
+
+	//
+	// Command line options
+	//
+	if (commandLine.isNotEmpty())
+	{
+		parseCommandLine(commandLine);
+	}
+
+	//
+	// Properties file
+	//
 
 	PropertiesFile::Options options;
 	options.applicationName     = "ProductionTest";
@@ -134,6 +150,11 @@ bool App::SingleInstanceCheck()
 void App::systemRequestedQuit()
 {
 	JUCEApplication::systemRequestedQuit();
+}
+
+void App::parseCommandLine(const String& commandLine)
+{
+	ProductionTestsXmlFileName = commandLine;
 }
 
 //==============================================================================

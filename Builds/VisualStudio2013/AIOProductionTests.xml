@@ -48,23 +48,31 @@
       <maximum>4.4</maximum>
     </AIO_mic_supply_current_test>
 
-    <!-- Check TEDS read circuits -->
-
-    <AIO_TEDS_test input="0" />
-
     <AIO_set_constant_current input="0" enabled="0" /> <!-- turn off constant current for input 1 -->
     <AIO_set_constant_current input="1" enabled="0" /> <!-- turn off constant current for input 2 -->
     <AIO_set_constant_current input="2" enabled="0" /> <!-- turn off constant current for input 3 -->
     <AIO_set_constant_current input="3" enabled="0" /> <!-- turn off constant current for input 4 -->
 
-    <!-- Test gain settings for inputs and outputs -->
+    <!-- Check TEDS read circuits -->
 
+    <AIO_TEDS_test input="0" />
+
+    <!-- Test gain settings for inputs and outputs -->
+    
     <AIO_write_test_adapter byte="0x30"/> <!-- set adapter for audio measurements-->
+    
+    <AIO_set_mic_gain input="0" gain="1" />
+    <AIO_set_mic_gain input="1" gain="1" />
+    <AIO_set_mic_gain input="2" gain="1" />
+    <AIO_set_mic_gain input="3" gain="1" />
+
+    <AIO_set_amp_gain output="0" gain="1" />
+    <AIO_set_amp_gain output="1" gain="1" />
 
     <prompt>
       Input and Output Gains 1-4
       <text>Check levels for gain settings 1-4</text>
-      <output_amplitude_db>-20.0</output_amplitude_db>
+      <output_amplitude_db>0.0</output_amplitude_db>
       <input>2</input>
       <output>0</output>
       <num_channels>2</num_channels>
@@ -74,14 +82,6 @@
       <wait_for_user>0</wait_for_user>
       <start_group>1</start_group>
     </prompt>
-
-    <AIO_set_mic_gain input="0" gain="1" />
-    <AIO_set_mic_gain input="1" gain="1" />
-    <AIO_set_mic_gain input="2" gain="1" />
-    <AIO_set_mic_gain input="3" gain="1" />
-
-    <AIO_set_amp_gain output="0" gain="1" />
-    <AIO_set_amp_gain output="1" gain="1" />
 
     <test>
       1x Input - 1x Output Level Check 1-2

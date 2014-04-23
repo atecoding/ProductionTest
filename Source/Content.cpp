@@ -143,6 +143,12 @@ void Content::paint(Graphics &g)
 	g.drawRect(x-1,y-1,w+2,h+2);
 	if (_unit)
 		g.drawText(_unit_name,x,y,w,h,Justification::centred,false);
+#if ACOUSTICIO_BUILD
+	else
+		g.drawText("Acoustic AIO", x, y, w, h, Justification::centred, false);
+#endif
+
+	result_w = roundFloatToInt(getWidth() * 0.05f);
 
 	if (_unit) // && (false == _unit->_skipped))
 	{
@@ -151,7 +157,6 @@ void Content::paint(Graphics &g)
 		w = roundFloatToInt(_log->getX() * 0.6f);
 		h = 24;
 		inset = roundFloatToInt(w * 0.02f);
-		result_w = roundFloatToInt(getWidth() * 0.05f);
 		for (int i = 0; i < _group_names.size(); i++)
 		{
 			g.setColour(Colours::white);
@@ -187,6 +192,18 @@ void Content::paint(Graphics &g)
 
 			y += h + 8;
 		}
+	}
+
+	if (finalResult.isNotEmpty())
+	{
+		juce::Rectangle<int> r(x, y + 10, w + inset + result_w, h * 4);
+		g.setFont(Font(24.0f, Font::bold));
+		g.setColour(Colours::darkgrey);
+		g.drawRect(r, 4);
+		g.setColour(Colours::black);
+		g.fillRect(r);
+		g.setColour(finalResultColour);
+		g.drawFittedText(finalResult, r, Justification::centred, 2);
 	}
 }
 
@@ -396,6 +413,7 @@ void Content::DevArrived(ehw *dev)
 	_unit = new ProductionUnit(dev,_devlist,this);
 
 	_unit_name = dev->getcaps()->BoxTypeName();
+
 #ifdef PCI_BUILD
 	_unit->RunTests();
 #else
@@ -477,3 +495,11 @@ void Content::handleAsyncUpdate()
 		DevArrived(_devlist->GetNthDevice(0));
 	}
 }
+
+void Content::setFinalResult(String text,Colour color)
+{
+	finalResult = text;
+	finalResultColour = color;
+	repaint();
+}
+

@@ -60,6 +60,7 @@ bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &displaye
 			{
 				msg = "Read unexpected TEDS data for input " + String(displayedInput) + " (value of 0x" + String::toHexString(data[i]) + " at offset " + String(i) + ")";
 				ok = false;
+				break;
 			}
 		}
 

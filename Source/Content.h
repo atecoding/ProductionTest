@@ -41,6 +41,7 @@ public:
 	virtual void handleCommandMessage(int commandId);
 
 	void log(String msg);
+	void setFinalResult(String text,Colour color);
 
 	void AddResult(String &name,int pass);
 	void FinishTests(bool pass,bool skipped);
@@ -66,6 +67,8 @@ protected:
 	StringArray hardwareInstances;
 	ehwlist		*_devlist;
 	Font		_f;
+	String finalResult;
+	Colour finalResultColour;
 
 	TextEditor *_log;
 	

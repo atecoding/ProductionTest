@@ -15,6 +15,8 @@
 #endif
 #include "OldMessage.h"
 
+extern String ProductionTestsXmlFileName;
+
 ProductionUnit::ProductionUnit(ehw *dev,ehwlist *devlist,Content *content) :
 _dev(dev),
 _devlist(devlist),
@@ -209,10 +211,10 @@ void ProductionUnit::RunTests()
 
 #else
 	f = f.getParentDirectory();
-	f = f.getChildFile("AIOProductionTests.xml");
+	f = f.getChildFile(ProductionTestsXmlFileName);
 	if (false == f.exists())
 	{
-		f = f.getParentDirectory().getParentDirectory().getChildFile("AIOProductionTests.xml");
+		f = f.getParentDirectory().getParentDirectory().getChildFile(ProductionTestsXmlFileName);
 	}
 #endif
 	XmlDocument myDocument(f);
@@ -1422,18 +1424,36 @@ void ProductionUnit::ParseScript()
 	if (_num_tests)
 	{
 		String msg;
+		String finalResult;
+		Colour finalResultColor;
 
 		_content->log(String::empty);
 		if (_unit_passed && !_skipped && _running)
+		{
 			msg = T("Unit passed.");
+			finalResult = "UNIT PASSED";
+			finalResultColor = Colours::limegreen;
+		}
 		else if (_unit_passed && _skipped)
+		{
 			msg = T("Unit failed (skipped tests).");
+			finalResult = "UNIT FAILED\n(skipped)";
+			finalResultColor = Colours::red;
+		}
 		else if (_unit_passed && (!_running))
+		{
 			msg = T("Unit failed (stopped).");
+			finalResult = "UNIT FAILED\n(stopped)";
+			finalResultColor = Colours::red;
+		}
 		else
+		{
 			msg = T("Unit failed.");
+			finalResult = "UNIT FAILED";
+			finalResultColor = Colours::red;
+		}
 		_content->log(msg);
-		AlertWindow::showMessageBox(AlertWindow::NoIcon,"Production Test",msg,"OK");
+		_content->setFinalResult(finalResult,finalResultColor);
 	}
 
 	_content->FinishTests(_unit_passed,_skipped);
