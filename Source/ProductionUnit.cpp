@@ -249,7 +249,7 @@ void ProductionUnit::RunTests()
 	else
 	{
 		AlertWindow::showNativeDialogBox(	"Production Test",
-											"Could not load AIOProductionTests.xml.",
+											"Could not load " + ProductionTestsXmlFileName,
 											false);
 		JUCEApplication::quit();
 		_ok = false;
@@ -259,7 +259,7 @@ void ProductionUnit::RunTests()
 	if (!_ok || (NULL == _script))
 	{
 		AlertWindow::showNativeDialogBox(	"Production Test",
-											"Could not parse AIOProductionTests.xml.",
+											"Could not parse " + ProductionTestsXmlFileName,
 											false);
 		JUCEApplication::quit();
 		return;

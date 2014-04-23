@@ -149,6 +149,7 @@ void Content::paint(Graphics &g)
 #endif
 
 	result_w = roundFloatToInt(getWidth() * 0.05f);
+	inset = roundFloatToInt(w * 0.02f);
 
 	if (_unit) // && (false == _unit->_skipped))
 	{
@@ -156,7 +157,6 @@ void Content::paint(Graphics &g)
 		y = roundFloatToInt(getHeight() * 0.1f);
 		w = roundFloatToInt(_log->getX() * 0.6f);
 		h = 24;
-		inset = roundFloatToInt(w * 0.02f);
 		for (int i = 0; i < _group_names.size(); i++)
 		{
 			g.setColour(Colours::white);
@@ -265,7 +265,8 @@ void Content::buttonClicked(Button *button)
 				//
 				_devlist->UnregisterMessageListener(&_dev_listener);
 #endif
-
+				finalResult = String::empty;
+				repaint();
 				_start_button->setButtonText("Stop");
 				_unit->RunTests();
 			}
