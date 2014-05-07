@@ -33,6 +33,7 @@ protected:
 		callback_skip_samples = 32000,
 
 		max_inputs = 64,
+		MAX_TIMESTAMPS = 128,
 
 		timer_msec = 100
 	};
@@ -65,7 +66,8 @@ protected:
 	int _input;
 	int _output;
 
-	LARGE_INTEGER _average_callback_interval;
+	Atomic<int> timestampCount;
+	int64 timestamps[MAX_TIMESTAMPS];
 
 	String _channel_group_name;
 	int _channel_group_passed;
@@ -78,5 +80,5 @@ protected:
 	bool CreateASIO(XmlElement *script);
 	void clockDetectTest();
 
-	bool CheckSampleRate();
+	Result CheckSampleRate();
 };

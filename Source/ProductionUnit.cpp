@@ -319,26 +319,15 @@ void ProductionUnit::audioDeviceIOCallback
 {
 	int in,out,i;
 	static int passes = 0;
-	static LARGE_INTEGER last_timestamp = { 0, 0 };
-
+	
 	LARGE_INTEGER now;
 	QueryPerformanceCounter(&now);
 
-	if (0 != last_timestamp.QuadPart)
+	int timestampIndex = ++timestampCount - 1;
+	if (timestampIndex < numElementsInArray(timestamps))
 	{
-		uint64 elapsed = now.QuadPart - last_timestamp.QuadPart;
-
-		if (0 == _average_callback_interval.QuadPart)
-		{
-			_average_callback_interval.QuadPart = elapsed;
-		}
-		else
-		{
-			_average_callback_interval.QuadPart -= _average_callback_interval.QuadPart >> 5;
-			_average_callback_interval.QuadPart += elapsed >> 5;
-		}
+		timestamps[timestampIndex] = now.QuadPart;
 	}
-	last_timestamp = now;
 
 	//
 	// Update test state if necessary
@@ -348,8 +337,7 @@ void ProductionUnit::audioDeviceIOCallback
 		record_done = false;
 		callback_samples = 0;
 		InterlockedExchange(&blocks_recorded,0);
-		last_timestamp.QuadPart = 0;
-		_average_callback_interval.QuadPart = 0;
+		timestampCount = 0;
 	}
 	else
 	{
@@ -470,10 +458,10 @@ void ProductionUnit::handleMessage(const Message &message)
 
 			Process::setPriority(Process::NormalPriority);
 
-			bool sample_rate_ok = CheckSampleRate();
+			Result sampleRateResult(CheckSampleRate());
 
 			result = _test->calc(_inbuffs,msg);
-			result &= sample_rate_ok;
+			result &= sampleRateResult.wasOk();
 			_unit_passed &= result;
 			_channel_group_passed &= (int)result;
 
@@ -485,9 +473,24 @@ void ProductionUnit::handleMessage(const Message &message)
 				msg = String("*** ") + msg;
 			_content->log(msg);
 
-			if (false == sample_rate_ok)
+			if (sampleRateResult.failed())
 			{
 				_content->log("*** Sample rate out of range");
+				_content->log(sampleRateResult.getErrorMessage());
+
+				if (timestampCount.get() != 0)
+				{
+					LARGE_INTEGER freq;
+					QueryPerformanceFrequency(&freq);
+
+					for (int i = 1; i < timestampCount.get(); ++i)
+					{
+						int64 diff = timestamps[i] - timestamps[i - 1];
+						double msec = (diff * 1000.0) / freq.QuadPart;
+						String line(String(i) + " " + String(msec, 1));
+						_content->log(line);
+					}
+				}
 			}
 		#endif
 
@@ -1586,24 +1589,43 @@ bool ProductionUnit::OpenASIO(int sample_rate)
 	return true;
 }
 
-bool ProductionUnit::CheckSampleRate()
+Result ProductionUnit::CheckSampleRate()
 {
 	LARGE_INTEGER freq;
-
 	QueryPerformanceFrequency(&freq);
 
 	if (_asio)
 	{
-		double msec = (_average_callback_interval.QuadPart * 1000.0)/((double)freq.QuadPart);
-		double expected_msec = 1000.0 * _asio->getCurrentBufferSizeSamples()/_asio->getCurrentSampleRate();
-		double ratio = 100.0 * msec / expected_msec;
-		DBG_PRINTF(("Average callback interval %f msec",msec));
-		DBG_PRINTF(("Sample rate %f",_asio->getCurrentSampleRate()));
-		DBG_PRINTF(("Expected %f msec",expected_msec));
-		DBG_PRINTF(("Ratio %f %%",ratio));
+		int blocks = timestampCount.get();
+		int samples = blocks * _asio->getCurrentBufferSizeSamples();
+		int64 totalTicks = 0;
+		double measuredSampleRate = 0.0;
 
-		return (ratio <= 104.0) && (ratio >= 96.0);
+		if (timestampCount.get() != 0)
+		{
+			totalTicks = timestamps[blocks - 1] - timestamps[0];
+		}
+
+		measuredSampleRate = samples;
+		measuredSampleRate *= freq.QuadPart;
+		if (totalTicks != 0)
+		{
+			measuredSampleRate /= totalTicks;
+		}
+
+		double ratio = measuredSampleRate / _asio->getCurrentSampleRate();
+		ratio *= 100.0;
+		if ((ratio <= 106.0) && (ratio >= 94.0))
+		{
+			return Result::ok();
+		}
+
+		String error("Sample rate " + String(_asio->getCurrentSampleRate(), 1) + " Hz\n");
+		error += "Measured sample rate " + String(measuredSampleRate, 1) + " Hz\n";
+		error += "Ratio " + String(ratio, 3) + "%";
+
+		return Result::fail(error);
 	}
 
-	return true;
+	return Result::ok();
 }
