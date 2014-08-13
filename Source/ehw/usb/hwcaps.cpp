@@ -24,6 +24,9 @@ int32 hwcaps::numbusin()
 	case ACOUSTICIO:
 		return 8;
 
+	case ANALYZERBR:
+		return 4;
+	
 	case ECHO2:
 		return 2;
 
@@ -39,6 +42,9 @@ int32 hwcaps::numbusout()
 	switch (productId)
 	{
 	case ACOUSTICIO:
+		return 4;
+
+	case ANALYZERBR:
 		return 4;
 
 	case ECHO2:
@@ -58,6 +64,9 @@ int32 hwcaps::numplaychan(int /*samplerate*/)
 	case ACOUSTICIO:
 		return 4;
 
+	case ANALYZERBR:
+		return 4;
+
 	case ECHO2:
 		return 4;
 
@@ -74,6 +83,9 @@ int32 hwcaps::numrecchan(int /*samplerate*/)
 	{
 	case ACOUSTICIO:
 		return 8;
+
+	case ANALYZERBR:
+		return 4;
 
 	case ECHO2:
 		return 2;
@@ -97,6 +109,9 @@ char const *hwcaps::BoxTypeName()
 
 	case ACOUSTICIO:
 		return "Acoustic AIO";
+
+	case ANALYZERBR:
+		return "Analyzer BR";
 	}
 
 	return "Echo USB";
@@ -108,6 +123,9 @@ int hwcaps::NumMixInGroups()
 	{
 	case ACOUSTICIO:
 		return 1;
+
+	case ANALYZERBR:
+		return 2;
 
 	case ECHO2:
 		return 2;
@@ -125,6 +143,9 @@ int hwcaps::MixInGroupSize(int /*group*/)
 	{
 	case ACOUSTICIO:
 		return 8;
+
+	case ANALYZERBR:
+		return 2;
 
 	case ECHO2:
 		return 2;
@@ -169,12 +190,12 @@ char const *hwcaps::MixInGroupName(int /*group*/)
 	//switch (group)
 	//{
 	//case 0:
-	//	return "Guitar";
+	//	return "Analog";
 	//case 1:
-	//	return "Strings";
+	//	return "S/PDIF";
 	//}
-
 	return "Input";
+
 }
 
 char const *hwcaps::MixInGroupShortName(int /*group*/)
@@ -203,6 +224,9 @@ int hwcaps::NumMixOutGroups()
 	{
 	case ACOUSTICIO:
 		return 1;
+
+	case ANALYZERBR:
+		return 2;
 
 	case ECHO2:
 		return 2;
@@ -236,6 +260,9 @@ int hwcaps::MixOutGroup(int chan)
 	case ACOUSTICIO:
 		return chan >> 1;
 
+	case ANALYZERBR:
+		return chan >> 1;
+
 	case ECHO2:
 		return chan >> 1;
 
@@ -252,6 +279,9 @@ int hwcaps::MixOutGroupOffset(int chan)
 	case ACOUSTICIO:
 		return chan % 8;
 
+	case ANALYZERBR:
+		return chan % 2;
+	
 	case ECHO2:
 		return chan % 2;
 
@@ -277,6 +307,9 @@ int hwcaps::MinSampleRate()
 	{
 	case ACOUSTICIO:
 		return 48000;
+
+	case ANALYZERBR:
+		return 44100;
 
 	case ECHO2:
 		return 32000;
@@ -316,12 +349,12 @@ bool hwcaps::HasDigitalModeSwitch()
 
 bool hwcaps::HasSpdifOut()
 {
-	return false;
+	return true;
 }
 
 bool hwcaps::HasSpdifIn()
 {
-	return false;
+	return true;
 }
 
 bool hwcaps::ExternalSync()

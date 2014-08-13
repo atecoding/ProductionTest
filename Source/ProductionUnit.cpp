@@ -478,6 +478,7 @@ void ProductionUnit::handleMessage(const Message &message)
 				_content->log("*** Sample rate out of range");
 				_content->log(sampleRateResult.getErrorMessage());
 
+				/*
 				if (timestampCount.get() != 0)
 				{
 					LARGE_INTEGER freq;
@@ -491,6 +492,7 @@ void ProductionUnit::handleMessage(const Message &message)
 						_content->log(line);
 					}
 				}
+				*/				
 			}
 		#endif
 
@@ -1596,14 +1598,16 @@ Result ProductionUnit::CheckSampleRate()
 
 	if (_asio)
 	{
-		int blocks = timestampCount.get();
+//		int blocks = timestampCount.get();
+		int blocks = timestampCount.get() - 1;
 		int samples = blocks * _asio->getCurrentBufferSizeSamples();
 		int64 totalTicks = 0;
 		double measuredSampleRate = 0.0;
 
 		if (timestampCount.get() != 0)
 		{
-			totalTicks = timestamps[blocks - 1] - timestamps[0];
+//			totalTicks = timestamps[blocks - 1] - timestamps[0];
+			totalTicks = timestamps[blocks] - timestamps[0];
 		}
 
 		measuredSampleRate = samples;
@@ -1613,16 +1617,17 @@ Result ProductionUnit::CheckSampleRate()
 			measuredSampleRate /= totalTicks;
 		}
 
-		double ratio = measuredSampleRate / _asio->getCurrentSampleRate();
-		ratio *= 100.0;
-		if ((ratio <= 106.0) && (ratio >= 94.0))
+		if ((measuredSampleRate >= _test->minSampleRate) && (measuredSampleRate <= _test->maxSampleRate))
 		{
 			return Result::ok();
 		}
 
 		String error("Sample rate " + String(_asio->getCurrentSampleRate(), 1) + " Hz\n");
 		error += "Measured sample rate " + String(measuredSampleRate, 1) + " Hz\n";
-		error += "Ratio " + String(ratio, 3) + "%";
+		double ratio = measuredSampleRate / _asio->getCurrentSampleRate();
+		ratio *= 100.0;
+		error += "Ratio " + String(ratio, 3) + "%\n";
+		error += "Allowed " + String(_test->minSampleRate) + "/" + String(_test->maxSampleRate);
 
 		return Result::fail(error);
 	}

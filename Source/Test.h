@@ -32,6 +32,8 @@ public:
 	float _dc_offset;
 	int _sawtooth;
 	int _pulsate;
+	float minSampleRate;
+	float maxSampleRate;
 
 protected:
 	String MsgSampleRate();

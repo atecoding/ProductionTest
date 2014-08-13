@@ -55,6 +55,7 @@ build/
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
+Debug AnalyzerBR/
 
 *_i.c
 *_p.c
@@ -81,6 +82,9 @@ build/
 *.scc
 *.tlog
 *.res
+*.wav
+*.exe
+*.txt
 
 
 # Visual C++ cache files

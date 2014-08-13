@@ -29,6 +29,12 @@ Test::Test(XmlElement *xe,bool &ok) :
 
 	ok = getIntValue(xe,T("sample_rate"),sample_rate);
 	ok &= getFloatValue(xe,T("output_amplitude_db"),output_amplitude_db);
+
+	minSampleRate = sample_rate * 0.96f;
+	maxSampleRate = sample_rate * 1.04f;
+	getFloatValue(xe, "min_sample_rate", minSampleRate);
+	getFloatValue(xe, "max_sample_rate", maxSampleRate);
+
 	getFloatValue(xe, T("dc_offset"), _dc_offset);
 	getIntValue(xe,T("sawtooth"),_sawtooth);
 	getIntValue(xe,T("pulsate"),_pulsate);

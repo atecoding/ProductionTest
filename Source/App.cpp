@@ -16,6 +16,10 @@ const char boundariesName[] = "Window boundaries";
 String ProductionTestsXmlFileName("AIOProductionTests.xml");
 #endif
 
+#if ANALYZERBR_BUILD
+String ProductionTestsXmlFileName("ABRProductionTests.xml");
+#endif
+
 //==============================================================================
 
 void App::initialise (const String& commandLine)

@@ -53,8 +53,9 @@ public:
 
 	enum
 	{
-		ECHO2 = 0x0010,
-		ECHO4 = 0x0040,
+		ECHO2 = 0x10,
+		ECHO4 = 0x40,
+		ANALYZERBR = 0x80,
 		ACOUSTICIO = 0xa0
 	};
 	
