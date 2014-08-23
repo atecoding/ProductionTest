@@ -172,6 +172,10 @@ ProductionUnit::~ProductionUnit(void)
 	CloseUSBDevice(_dev->GetNativeHandle());
 #endif
 
+#if ACOUSTICIO_BUILD
+	aioTestAdapter.close();
+#endif
+
 	_dev->CloseDriver();
 	_dev->decReferenceCount();
 
@@ -264,6 +268,31 @@ void ProductionUnit::RunTests()
 		JUCEApplication::quit();
 		return;
 	}
+
+
+#if ACOUSTICIO_BUILD
+	//
+	// Look for the AIO test adapter (USB HID-class device)
+	//
+	{
+		XmlElement *requireTestAdapterElement = _script->getChildByName("Require_AIO_Test_Adapter");
+		if (requireTestAdapterElement != nullptr)
+		{
+			String text(requireTestAdapterElement->getAllSubText());
+			if (text.compareIgnoreCase("true") == 0)
+			{
+				int adapterFound = aioTestAdapter.open();
+				if (0 == adapterFound)
+				{
+					AlertWindow::showMessageBox(AlertWindow::NoIcon, "Production Test", "Please connect the AcousticIO test adapter to this computer.", "Close");
+					return;
+				}
+			}
+
+			//_script = requireTestAdapterElement->getNextElement();
+		}
+	}
+#endif
 
 	//
 	// Create the ASIO driver
@@ -1003,9 +1032,9 @@ void ProductionUnit::ParseScript()
 		}
 
 		//
-		// Ignore ASIO_driver
+		// Ignore ASIO_driver && Require_AIO_Test_Adapter
 		//
-		if (_script->hasTagName("ASIO_driver"))
+		if (_script->hasTagName("ASIO_driver") || _script->hasTagName("Require_AIO_Test_Adapter"))
 		{
 			_script = _script->getNextElement();
 			continue;
@@ -1306,7 +1335,7 @@ void ProductionUnit::ParseScript()
 		{
 			uint8 byte = (uint8)_script->getStringAttribute("byte").getHexValue32();
 
-			/*int count =*/ _content->aioTestAdapter.write(byte);
+			/*int count =*/ aioTestAdapter.write(byte);
 			// _content->log("HID write count:" + String(count) + " value:0x" + String::toHexString(byte));
 			_script = _script->getNextElement();
 			continue;
@@ -1318,7 +1347,7 @@ void ProductionUnit::ParseScript()
 
 			String msg;
 			int input;
-			bool ok = RunCCVoltageTest(_script, msg, input, _content->aioTestAdapter) == TestPrompt::ok;
+			bool ok = RunCCVoltageTest(_script, msg, input, aioTestAdapter) == TestPrompt::ok;
 
 			_content->log(String::empty);
 			_content->log(msg);
@@ -1346,7 +1375,7 @@ void ProductionUnit::ParseScript()
 
 			String msg;
 			int input;
-			bool ok = RunCCVoltageTest(_script, msg, input, _content->aioTestAdapter) == TestPrompt::ok;
+			bool ok = RunCCVoltageTest(_script, msg, input, aioTestAdapter) == TestPrompt::ok;
 
 			_content->log(String::empty);
 			_content->log(msg);
@@ -1374,7 +1403,7 @@ void ProductionUnit::ParseScript()
 
 			String msg;
 			int input;
-			bool ok = RunCCCurrentTest(_script, msg, input, _content->aioTestAdapter) == TestPrompt::ok;
+			bool ok = RunCCCurrentTest(_script, msg, input, aioTestAdapter) == TestPrompt::ok;
 
 			_content->log(String::empty);
 			_content->log(msg);

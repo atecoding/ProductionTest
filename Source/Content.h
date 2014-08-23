@@ -19,10 +19,6 @@ class Content;
 class AppWindow;
 class ProductionUnit;
 
-#if ACOUSTICIO_BUILD
-#include "AIOTestAdapter.h"
-#endif
-
 class Content : public Component, ButtonListener, SliderListener, public AsyncUpdater
 {
 public:
@@ -53,10 +49,6 @@ public:
 	AudioDeviceManager *GetAudioDeviceManager();
 
 	void handleAsyncUpdate();
-
-#if ACOUSTICIO_BUILD
-	AIOTestAdapter aioTestAdapter;
-#endif
 
 protected:
 	virtual void paint (Graphics& g);

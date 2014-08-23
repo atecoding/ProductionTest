@@ -250,15 +250,6 @@ void Content::buttonClicked(Button *button)
 			if (false == _unit->_running)
 			{
 
-#if ACOUSTICIO_BUILD
-				int adapterFound = aioTestAdapter.open();
-				if (0 == adapterFound)
-				{
-					AlertWindow::showMessageBox(AlertWindow::NoIcon, "Production Test", "Please connect the AcousticIO test adapter to this computer.", "Close");
-					return;
-				}
-#endif
-
 #if defined(ECHOUSB) && defined(ECHO2_BUILD)
 				//
 				// Unregister to handle the Echo2 power test, which generates PnP arrival & removal messages
@@ -383,7 +374,6 @@ void Content::FinishTests(bool pass,bool skipped)
 #endif
 
 #if ACOUSTICIO_BUILD
-	aioTestAdapter.close();
 	if (_audio_devices)
 	{
 		_audio_devices->closeAudioDevice();

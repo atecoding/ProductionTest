@@ -2,6 +2,9 @@
 
 #include "Test.h"
 #include "MIDILoopTest.h"
+#if ACOUSTICIO_BUILD
+#include "AIOTestAdapter.h"
+#endif
 
 class ehw;
 class ehwlist;
@@ -81,4 +84,8 @@ protected:
 	void clockDetectTest();
 
 	Result CheckSampleRate();
+
+#if ACOUSTICIO_BUILD
+	AIOTestAdapter aioTestAdapter;
+#endif
 };
