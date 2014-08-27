@@ -235,6 +235,7 @@ public:
 	void setMicGain(XmlElement const *element);
 	void setAmpGain(XmlElement const *element);
 	void setConstantCurrent(XmlElement const *element);
+	void setConstantCurrent(uint8 const input, uint8 const enabled);
 
 #endif
 
@@ -330,3 +331,4 @@ protected:
 
 
 #endif // _Ehw_h_
+

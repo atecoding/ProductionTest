@@ -1427,6 +1427,7 @@ void ehw::setAmpGain(XmlElement const *element)
 		NULL,
 		1000);
 }
+
 void ehw::setConstantCurrent(XmlElement const *element)
 {
 	uint8 channel;
@@ -1458,12 +1459,16 @@ void ehw::setConstantCurrent(XmlElement const *element)
 	}
 
 	enabled = element->getIntAttribute("enabled", 0) != 0;
+	setConstantCurrent(channel, enabled);
+}
 
+void ehw::setConstantCurrent(uint8 const input, uint8 const enabled)
+{
 	TUSBAUDIO_AudioControlRequestSet(handle,
 		ACOUSTICIO_EXTENSION_UNIT,	// unit ID
 		CUR,
 		ACOUSTICIO_CONSTANT_CURRENT_CONTROL,
-		channel,
+		input,
 		(void *)&enabled,
 		1,
 		NULL,

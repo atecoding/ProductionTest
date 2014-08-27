@@ -284,7 +284,7 @@ void ProductionUnit::RunTests()
 				int adapterFound = aioTestAdapter.open();
 				if (0 == adapterFound)
 				{
-					AlertWindow::showMessageBox(AlertWindow::NoIcon, "Production Test", "Please connect the AcousticIO test adapter to this computer.", "Close");
+					AlertWindow::showMessageBox(AlertWindow::NoIcon, "Production Test", "Please connect the AcousticIO test adapter to this computer and restart.", "Close");
 					return;
 				}
 			}
@@ -626,12 +626,13 @@ void ProductionUnit::ParseScript()
 				{
 					String msg;
 
-					_content->log(String::empty);
+//					_content->log(String::empty);
 					msg = log_text->getFirstChildElement()->getText();
 					_content->AddResult(msg,(int)ok);
 					msg += ": ";
 					msg += ok ? "ok" : "failed";
 					_content->log(msg);
+
 				}
 			}
 			else
@@ -649,7 +650,7 @@ void ProductionUnit::ParseScript()
 		// Show user prompt with audio meters?
 		//
 		//-----------------------------------------------------------------------------
-
+		
 		if (_script->hasTagName("prompt"))
 		{
 			XmlElement *text;
@@ -1307,7 +1308,7 @@ void ProductionUnit::ParseScript()
 			int input;
 			bool ok = RunTEDSTest(_script, _dev, msg, input, _content) == TestPrompt::ok;
 
-//			_content->log(String::empty);
+			//			_content->log(String::empty);
 			_content->log(msg);
 
 			_unit_passed &= ok;
@@ -1323,6 +1324,30 @@ void ProductionUnit::ParseScript()
 			{
 				_channel_group_name += " 5-8";
 			}
+			_channel_group_passed = ok;
+
+			FinishGroup();
+
+			_script = _script->getNextElement();
+			continue;
+		}
+
+		if (_script->hasTagName("AIO_input_test"))
+		{
+			bool RunInputTest(XmlElement const *element, ehw *dev, String &msg, int &input, Content *content);
+
+			String msg;
+			int input;
+			bool ok = RunInputTest(_script, _dev, msg, input, _content) == TestPrompt::ok;
+
+			//			_content->log(String::empty);
+			_content->log(msg);
+
+			_unit_passed &= ok;
+
+			_num_tests++;
+
+			_channel_group_name = "Input " + String(input);
 			_channel_group_passed = ok;
 
 			FinishGroup();
