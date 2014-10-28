@@ -36,7 +36,7 @@ bool RunInputTest(XmlElement const *element, ehw *dev, String &msg, int &display
 	displayedInput = channel + 1;
 
 	dev->setConstantCurrent(channel, true);	// turn on constant current for channel
-	ok = AlertWindow::showOkCancelBox(AlertWindow::NoIcon, "Production Test", "Is the LED on at the correct brightness?", T("Yes"), T("No"));
+	ok = AlertWindow::showOkCancelBox(AlertWindow::NoIcon, "Production Test", "Is the LED on at the correct brightness?\n\nOptional: VDC approx 21.5V, Current approx 4mA", T("Yes"), T("No"));
 	if (ok)
 		msg = "Constant Current on input " + String(displayedInput) + ": ok";
 	else
