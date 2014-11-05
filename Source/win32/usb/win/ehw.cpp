@@ -1475,4 +1475,21 @@ void ehw::setConstantCurrent(uint8 const input, uint8 const enabled)
 		1000);
 }
 
+int ehw::readTEDSData(uint8 const input, uint8* data, size_t dataBufferBytes)
+{
+	TUsbAudioStatus status;
+
+	status = TUSBAUDIO_AudioControlRequestGet(handle,
+		ACOUSTICIO_EXTENSION_UNIT,
+		CUR,
+		ACOUSTICIO_TEDS_DATA_CONTROL,
+		input,
+		data,
+		dataBufferBytes,
+		NULL,
+		1000);
+
+	return TSTATUS_SUCCESS != status;
+}
+
 #endif

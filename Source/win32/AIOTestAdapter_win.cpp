@@ -6,8 +6,8 @@ extern "C"
 #include <setupapi.h>
 #include <dbt.h>
 }
-#include "base.h"
-#include "AIOTestAdapter.h"
+#include "../base.h"
+#include "../AIOTestAdapter.h"
 
 #pragma comment (lib, "Hid")
 

@@ -6,11 +6,11 @@
 //
 //
 
-#include "base.h"
+#include "../base.h"
 
 #if JUCE_WIN32 && ACOUSTICIO_BUILD
-#include "AIODevice.h"
-#include "AcousticIO.h"
+#include "../AIODevice.h"
+#include "../AcousticIO.h"
 
 const float AIODevice::peakScale = 1.0f / 2147483648.0f;
 

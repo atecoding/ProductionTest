@@ -6,9 +6,12 @@
 //
 //
 
-#include "base.h"
+#include "../base.h"
+
 #if JUCE_WIN32 && ACOUSTICIO_BUILD
-#include "AIODevices.h"
+
+#include "../AIODevices.h"
+
 #pragma comment (lib, "tusbaudioapi")
 
 AIODevices::AIODevices()
