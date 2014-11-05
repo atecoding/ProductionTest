@@ -17,7 +17,7 @@ public:
     }
         
 #ifdef JUCE_MAC
-	virtual void keyPressed(const KeyPress &key);
+	//virtual bool keyPressed(const KeyPress &key);
 #endif
         
     ehwlist *GetDevList()

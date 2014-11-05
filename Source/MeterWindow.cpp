@@ -97,9 +97,9 @@ void MeterWindow::closeButtonPressed()
 
 MeterWindowContent::MeterWindowContent(MeterWindow *parent,hwcaps *caps,TestPrompt &prompt,volatile float *peaks) :
 	_parent(parent),
-	_peaks(peaks),
 	_caps(caps),
-	_prompt(prompt)
+    _prompt(prompt),
+    _peaks(peaks)
 {
 	_ok_button = new TextButton("OK");
 	_ok_button->addShortcut(KeyPress(KeyPress::returnKey));

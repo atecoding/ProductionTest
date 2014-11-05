@@ -3,6 +3,7 @@
 
 bool MidiTest(ehw *dev, bool &passed)
 {
+#if 0
 	uint64 sernum;
 
 	sernum = dev->GetSerialNumber();
@@ -12,5 +13,8 @@ bool MidiTest(ehw *dev, bool &passed)
 	else
 		passed = false;
 	return true;
+#else
+    return false;
+#endif
 }
 

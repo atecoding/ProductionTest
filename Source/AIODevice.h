@@ -10,7 +10,12 @@
 #define __AppleBox__USBDevice__
 
 #if JUCE_MAC
-#include "libusb.h"
+#include <CoreFoundation/CoreFoundation.h>
+#include <IOKit/IOKitLib.h>
+#include <IOKit/usb/IOUSBLib.h>
+#include <IOKit/usb/USBSpec.h>
+#include <IOKit/IOCFPlugIn.h>
+
 #endif
 
 #if JUCE_WIN32
@@ -22,7 +27,7 @@ class AIODevice
 {
 public:
 #if JUCE_MAC
-	AIODevice(libusb_device_handle * handle_);
+	AIODevice(IOUSBDeviceInterface** deviceInterface_);
 #endif
 
 #if JUCE_WIN32
@@ -74,9 +79,11 @@ public:
 
 private:
 #if JUCE_MAC
-	libusb_device_handle *handle;
-	
-	Result createResult(ssize_t status);
+    IOUSBDeviceInterface** deviceInterface;
+    
+    Result setRequest(uint8 unit, uint8 type, uint8 channel, uint8 *data, uint16 length);
+    Result getRequest(uint8 unit, uint8 type, uint8 channel, uint8 *data, uint16 length);
+    Result createResult(IOReturn const status);
 #endif
 #if JUCE_WIN32
 	TUsbAudioHandle handle;

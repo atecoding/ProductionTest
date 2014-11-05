@@ -7,12 +7,12 @@
 #include "hwcaps.h"
 
 Test::Test(XmlElement *xe,bool &ok) :
-	_dc_offset(0.0f),
-	_sawtooth(0),
-	_pulsate(0),
 	input (-1),
 	output (-1),
-	num_channels(1)
+	num_channels(1),
+    _dc_offset(0.0f),
+    _sawtooth(0),
+    _pulsate(0)
 {
 	XmlElement *temp;
 

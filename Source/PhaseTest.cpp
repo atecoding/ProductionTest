@@ -18,16 +18,17 @@ PhaseTest::~PhaseTest()
 bool PhaseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 {
 	int i,num_samples;
-	float last,*data,peak,jump;
+	float last,peak,jump;
+    float const *data = buffs[input]->getReadPointer(0);
 	num_samples = buffs[input]->getNumSamples();
-	data = buffs[input]->getSampleData(0);
 
 	peak = 0.0f;
 	jump = 0.0f;
 
 	for (i = 0; i < num_samples; i++)
 	{
-		peak = jmax(peak,fabs(data[i]));
+        float sample = fabs(data[i]);
+		peak = jmax(peak, sample);
 	}
 	
 	if (peak < 0.008)

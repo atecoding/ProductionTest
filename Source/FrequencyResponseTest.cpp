@@ -22,7 +22,7 @@ bool FrequencyResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &ms
 {
 	int channel;
 	int idx,zc,num_samples,temp;
-	float last,*data,max,min,peak,s,max_db,min_db;//,rms;//,rms_db;
+	float last,max,min,peak,s,max_db,min_db;//,rms;//,rms_db;
 	bool pass = true;
 
 	msg = String::formatted(T("%.0f Hz freq. response at "),output_frequency);
@@ -30,14 +30,15 @@ bool FrequencyResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &ms
 	msg += ": ";
 	for (channel = 0; channel < num_channels; channel++)
 	{
+        float const *data = buffs[input + channel]->getReadPointer(0);
 
-		num_samples = buffs[input]->getNumSamples();
-		data = buffs[input]->getSampleData(0);
+		num_samples = buffs[input + channel]->getNumSamples();
 
 		peak = 0.0f;
 		for (idx = 0; idx < num_samples; idx++)
 		{
-			peak = jmax(peak,fabs(data[idx]));
+            float sample = fabs(data[idx]);
+			peak = jmax( peak, sample );
 		}
 	
 		if (peak < 0.0001)

@@ -30,7 +30,7 @@ void WriteWaveFile(String filename,int rate,double *data,int samples)
 {
 	int i;
 	AudioSampleBuffer asb(1,samples);
-	float *dest = asb.getSampleData(0);
+	float *dest = asb.getWritePointer(0);
 
 	for (i = 0; i < samples; i++)
 		dest[i] = (float) data[i];

@@ -12,42 +12,37 @@
  *
  ********************************************************************************/
 
-#ifndef _Ehw_h_
-#define _Ehw_h_
+#pragma once
 
-#include <setupapi.h>
-typedef unsigned __int8 byte;
-#ifdef WINDOWS_VOLUME_CONTROL
-#include "SysVolume.h"
-#endif
-#include "tusbaudioapi.h"
-#include "../Session.h"
+#include <CoreFoundation/CoreFoundation.h>
+#include <IOKit/IOKitLib.h>
+#include <IOKit/usb/IOUSBLib.h>
+#include <IOKit/usb/USBSpec.h>
+#include <IOKit/IOCFPlugIn.h>
+
 #include "hwcaps.h"
+#include "Description.h"
 
 //
 // ehw
 //
 class ehwlist;
-class MixDevList;
-class SysVolume;
+
 
 #ifndef DBG_PRINTF
 #define DBG_PRINTF(x) DBG(String::formatted x )
 #endif
 
-class ehw : public ReferenceCountedObject
+class ehw //: public ReferenceCountedObject
 {
 public:
-	typedef ReferenceCountedObjectPtr<ehw> ptr;
+	//typedef ReferenceCountedObjectPtr<ehw> ptr;
 
-	ehw(
-		unsigned device_index,
-		CriticalSection *lock
-		);	
+    ehw(IOUSBDeviceInterface** deviceInterface_);
 	~ehw();
 	
 	void removed();
-	
+    
 	hwcaps *getcaps()
 	{	
 		return &_caps;
@@ -67,19 +62,6 @@ public:
 	uint64 GetSerialNumber();
 
 	uint32 GetDriverVersion();
-
-	SESSION &GetSession()
-	{
-		return session;
-	}
-	
-	void AddMixerListener(ChangeListener *cl);
-	void RemoveMixerListener(ChangeListener *cl);
-
-	TUsbAudioHandle GetNativeHandle()
-	{
-		return handle;
-	}
 	
 	
 	//------------------------------------------------------------------------------
@@ -225,17 +207,13 @@ public:
 	int getratelock(bool &locked);
 	int setratelock(bool locked);
 	
-	int opentransport();
-	int settransportevent(HANDLE transport_event);
-	int closetransport();
-	int starttransport();
-
 #if ACOUSTICIO_BUILD
 
 	void setMicGain(XmlElement const *element);
 	void setAmpGain(XmlElement const *element);
 	void setConstantCurrent(XmlElement const *element);
 	void setConstantCurrent(uint8 const input, uint8 const enabled);
+    int readTEDSData(uint8 const input, uint8* data, size_t dataBufferBytes);
 
 #endif
 
@@ -263,7 +241,6 @@ protected:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ehw)
 
 	friend class ehwlist;
-	friend class SysVolume;
 	
 	ehw *_prev;
 	ehw *_next;
@@ -271,64 +248,25 @@ protected:
 	hwcaps	_caps;
 	String	_uniquename;
 	
-	CriticalSection *_lock;	
-	bool localLock;
-
-	unsigned deviceIndex;
-	TUsbAudioHandle handle;
-	TUsbAudioDeviceProperties props;
-	int		_ok;
+    int		_ok;
 	String	_error;
-	DWORD	m_dwRefCount;
-	ScopedPointer<PropertiesFile> _file;
-
-	int meters[10];
-	
-	SESSION session;
-	void initializeSession();
-	void loadSession();
-	void saveSession();
-
-	int setOutMixer(int output);
-	int setInMixer(int input,int output);
-	int setInMixers(int output);
-	
-#ifdef WINDOWS_VOLUME_CONTROL
-	SysVolume *_SysVolume;
-#endif
 
 	enum
 	{
 		CUR = 1,
-		GNODE_USB_TIMEOUT_MILLISECONDS = 20
+        USB_REQUEST_FROM_DEV = 0xa1,
+        USB_REQUEST_TO_DEV = 0x21
 	};
-
-	enum
-	{
-		GNODE_GUITAR_COMMUNICATION_XU = 0xfb,
-
-		GNODE_GUITAR_COMMUNICATION_CONTROL_SELECTOR = 0,
-		GNODE_BLUETOOTH_UART_CONTROL_SELECTOR,
-
-		GNODE_GET_BLUETOOTH_STATUS_SELECTOR = 0x40,
-		GNODE_DIGITAL_PASS_THROUGH_SELECTOR,
-		GNODE_MIDI_TEST_MODE_SELECTOR,
-		GNODE_TEST_SELECTOR,
-		GNODE_AUDIO_SELECTOR
-	};
-
-	enum
-	{
-		//
-		// pass as channel number with GNODE_AUDIO_SELECTOR
-		//
-		GNODE_PEAK_METERS = 0
-	};
-
+    
+    IOUSBDeviceInterface** deviceInterface;
+    ScopedPointer<Description> description;
+    
+    Result createResult(IOReturn const status);
+    Result setRequest(uint8 unit, uint8 type, uint8 channel, uint8 *data, uint16 length);
+    Result getRequest(uint8 unit, uint8 type, uint8 channel, uint8 *data, uint16 length);
 };
 
 #define COMMAND_TIMEOUT_MSEC				2000
 
 
-#endif // _Ehw_h_
 

@@ -24,8 +24,8 @@ void colorlabel(Label *lbl)
 // c-tor
 //
 Content::Content(ehwlist *devlist,const StringArray &hardwareInstances_) :
-	_unit(NULL),
-	hardwareInstances (hardwareInstances_)
+	hardwareInstances (hardwareInstances_),
+    _unit(NULL)
 {
 	Font f;
 
@@ -274,11 +274,10 @@ void Content::buttonClicked(Button *button)
 
 bool Content::keyPressed(const KeyPress &key)
 {
-	switch (key.getKeyCode())
-	{
-		case VK_ESCAPE :
-			JUCEApplication::quit();
-			break;
+    if (key == KeyPress::escapeKey)
+    {
+        JUCEApplication::quit();
+        return true;
 	}
 
 	return false;
@@ -445,22 +444,22 @@ void DevChangeListener::handleMessage(const Message &message)
 		return;
 	}
 
-	DBG("DevChangeListener::handleMessage " + String::toHexString(deviceChangeMessage->intParameter1) + String::toHexString((int)deviceChangeMessage->pointerParameter));
+	DBG("DevChangeListener::handleMessage " + String::toHexString(deviceChangeMessage->intParameter1) + String::toHexString((pointer_sized_int)deviceChangeMessage->pointerParameter));
 
 	switch (deviceChangeMessage->intParameter1)
 	{
-		case EHW_DEVICE_ARRIVAL :
-#ifdef ECHOUSB
+		case (int)EHW_DEVICE_ARRIVAL :
+#if defined(ECHOUSB) && defined(_WIN32)
 			_content->_devlist->Cleanup();
 			_content->_devlist->BuildDeviceList(nullptr);
 			dev = _content->_devlist->GetNthDevice(0);
 #else
-			dev = (ehw *) message.pointerParameter;
+			dev = (ehw *) deviceChangeMessage->pointerParameter;
 #endif
 			_content->DevArrived(dev);
 			break;
 
-		case EHW_DEVICE_REMOVAL :
+		case (int)EHW_DEVICE_REMOVAL :
 			dev = (ehw *)deviceChangeMessage->pointerParameter;
 			_content->DevRemoved(dev);
 			break;

@@ -22,7 +22,7 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 {
 	int channel;
 	int idx,zc,num_samples,temp;
-	float last,*data,max,min,peak,s,max_db,min_db;//,rms;//,rms_db;
+	float last,max,min,peak,s,max_db,min_db;//,rms;//,rms_db;
 	bool pass = true;
 
 	msg = String::formatted(T("Level check at "));
@@ -32,12 +32,13 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 	{
 
 		num_samples = buffs[input]->getNumSamples();
-		data = buffs[input + channel]->getSampleData(0);
+		float const *data = buffs[input + channel]->getReadPointer(0);
 
 		peak = 0.0f;
 		for (idx = num_samples/4; idx < 3*num_samples/4; idx++)
 		{
-			peak = jmax(peak,fabs(data[idx]));
+            float sample = fabs(data[idx]);
+			peak = jmax(peak, sample);
 		}
 	
 		if (peak < 0.0001)

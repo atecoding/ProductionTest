@@ -18,21 +18,21 @@
 extern String ProductionTestsXmlFileName;
 
 ProductionUnit::ProductionUnit(ehw *dev,ehwlist *devlist,Content *content) :
-_dev(dev),
-_devlist(devlist),
-_asio(nullptr),
-_content(content),
-_ok(true),
-_script(NULL),
-active_outputs(0),
+_num_tests(0),
 _unit_passed(true),
 _skipped(false),
-_num_tests(0),
-_running(false)
+_running(false),
+_ok(true),
+_dev(dev),
+_devlist(devlist),
+_content(content),
+_asio(nullptr),
+active_outputs(0),
+_script(NULL)
 {
 	zerostruct(input_meters);
 
-	_dev->incReferenceCount();
+	//_dev->incReferenceCount();
 
 	//
 	// Set up the mixer and buffer size
@@ -177,7 +177,7 @@ ProductionUnit::~ProductionUnit(void)
 #endif
 
 	_dev->CloseDriver();
-	_dev->decReferenceCount();
+	//_dev->decReferenceCount();
 
 	DBG("ProductionUnit::~ProductionUnit");
 }
@@ -253,7 +253,7 @@ void ProductionUnit::RunTests()
 	else
 	{
 		AlertWindow::showNativeDialogBox(	"Production Test",
-											"Could not load " + ProductionTestsXmlFileName,
+											"Could not load " + ProductionTestsXmlFileName + " from " + f.getFullPathName(),
 											false);
 		JUCEApplication::quit();
 		_ok = false;
@@ -331,6 +331,7 @@ void ProductionUnit::RunTests()
 
 void ProductionUnit::audioDeviceAboutToStart(AudioIODevice *device)
 {
+    DBG("ProductionUnit::audioDeviceAboutToStart " << device->getName());
 }
 
 void ProductionUnit::audioDeviceStopped()
@@ -348,24 +349,23 @@ void ProductionUnit::audioDeviceIOCallback
 {
 	int in,out,i;
 	static int passes = 0;
-	
-	LARGE_INTEGER now;
-	QueryPerformanceCounter(&now);
 
+    int64 now = Time::getHighResolutionTicks();
+	
 	int timestampIndex = ++timestampCount - 1;
 	if (timestampIndex < numElementsInArray(timestamps))
 	{
-		timestamps[timestampIndex] = now.QuadPart;
+		timestamps[timestampIndex] = now;
 	}
 
 	//
 	// Update test state if necessary
 	//
-	if (InterlockedExchange(&new_test,0))
+	if (new_test.exchange(0))
 	{
 		record_done = false;
 		callback_samples = 0;
-		InterlockedExchange(&blocks_recorded,0);
+		blocks_recorded.exchange(0);
 		timestampCount = 0;
 	}
 	else
@@ -398,7 +398,7 @@ void ProductionUnit::audioDeviceIOCallback
 	{
 		int count,temp;
 
-		temp = InterlockedIncrement(&blocks_recorded);
+		temp = ++blocks_recorded;
 		if (temp <= (THDN_SAMPLES_REQUIRED/numSamples))
 		{
 			temp = (temp-1)*numSamples;
@@ -418,7 +418,7 @@ void ProductionUnit::audioDeviceIOCallback
 				postMessage(new OldMessage(MESSAGE_AUDIO_TEST_DONE,0,0,nullptr));
 				record_done = true;
 			}
-			InterlockedDecrement(&blocks_recorded);
+			--blocks_recorded;
 		}
 	}
 
@@ -798,8 +798,8 @@ void ProductionUnit::ParseScript()
 			Process::setPriority(Process::RealtimePriority);
 
 			_asio->start(this);
-			Sleep(20);  // prime the pump
-			InterlockedExchange(&new_test,1);
+            Thread::sleep(20);  // prime the pump
+			new_test.exchange(1);
 			//DBG("_asio->start");
 
 			_script = _script->getNextElement();
@@ -1570,8 +1570,11 @@ bool ProductionUnit::CreateASIO(XmlElement *script)
 			  String typeName (types[i]->getTypeName());  // This will be things like "DirectSound", "CoreAudio", etc.
 
 			  DBG(typeName);
-				if (typeName != String("ASIO"))
-					continue;
+             
+#ifdef _WIN32
+            if (typeName != String("ASIO"))
+                continue;
+#endif
 
 			  types[i]->scanForDevices();                 // This must be called before getting the list of devices
 
@@ -1630,7 +1633,7 @@ bool ProductionUnit::OpenASIO(int sample_rate)
 
 	if (false == _asio->isOpen())
 	{
-		//DBG("configuring _asio");
+		DBG("configuring _asio");
 		err = _asio->open(inputs,outputs,sample_rate,_asio->getDefaultBufferSize());
 		if (err.isNotEmpty())
 		{
@@ -1639,7 +1642,7 @@ bool ProductionUnit::OpenASIO(int sample_rate)
 												false);
 			return false;
 		}
-		//DBG("_asio->open");
+		DBG("_asio->open");
 	}
 
 	return true;
@@ -1647,8 +1650,7 @@ bool ProductionUnit::OpenASIO(int sample_rate)
 
 Result ProductionUnit::CheckSampleRate()
 {
-	LARGE_INTEGER freq;
-	QueryPerformanceFrequency(&freq);
+    int64 ticksPerSecond = Time::getHighResolutionTicksPerSecond();
 
 	if (_asio)
 	{
@@ -1665,7 +1667,7 @@ Result ProductionUnit::CheckSampleRate()
 		}
 
 		measuredSampleRate = samples;
-		measuredSampleRate *= freq.QuadPart;
+		measuredSampleRate *= ticksPerSecond;
 		if (totalTicks != 0)
 		{
 			measuredSampleRate /= totalTicks;

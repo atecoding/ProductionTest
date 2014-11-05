@@ -21,6 +21,6 @@ void 	SawtoothAudioSource::getNextAudioBlock (const AudioSourceChannelInfo& info
         const float sample = - 0.5f + (float) i / (float) info.numSamples;
 
         for (int j = info.buffer->getNumChannels(); --j >= 0;)
-            *info.buffer->getSampleData (j, info.startSample + i) = sample;
+            *info.buffer->getWritePointer(j, info.startSample + i) = sample;
     }
 }

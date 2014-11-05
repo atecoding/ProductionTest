@@ -54,12 +54,12 @@ protected:
 	int _pulsate;
 	
 	uint32 active_outputs;
-	volatile LONG blocks_recorded;
+	Atomic<int32> blocks_recorded;
 	OwnedArray<AudioSampleBuffer> _inbuffs;
 
 	ScopedPointer<XmlElement> _root;
 	XmlElement *_script;
-	LONG new_test;
+	Atomic<int32> new_test;
 	int callback_samples;
 	bool record_done;
 

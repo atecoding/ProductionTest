@@ -16,8 +16,8 @@ typedef struct {
     double freqR;
 	 } FREQ_RSLT;
 
-double computeTHDN(float *input, int rate);
-double computeDiffTHDN(float *input1, float *input2, int rate);
+double computeTHDN(float const *input, int rate);
+double computeDiffTHDN(float const *input1, float const *input2, int rate);
 
 #if 0
 void computeDynRange(THDN_RSLT *thdnDynRange,

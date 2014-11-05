@@ -7,12 +7,12 @@
 #include "MeterWindow.h"
 
 TestPrompt::TestPrompt(XmlElement *xe,int input_,int output_,bool &ok) :
-	_dc_offset(0.0f),
-	_sawtooth(0),
-	_pulsate(0),
-	num_channels (1),
 	input (input_),
-	output (output_)
+	output (output_),
+    num_channels (1),
+    _dc_offset(0.0f),
+    _sawtooth(0),
+    _pulsate(0)
 {
 	XmlElement *temp;
 

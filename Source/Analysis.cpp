@@ -10,9 +10,9 @@
 // usage:   Used to store A-weighted input data
 double aweightedData[4096-512];
 
-// global:  signal
+// global:  signalBuffer
 // usage:   Used to store signal data
-double signal[1024];
+double signalBuffer[1024];
 
 // global:  noise
 // usage:   Used to store noise data
@@ -20,16 +20,15 @@ double noise[1024];
 
 double bandRejectResults[2048];
 
-void RunFIRFilter(float *audio,int num_samples,double *taps,int num_taps,double *dest)
+void RunFIRFilter(float const *audio,int num_samples,double *taps,int num_taps,double *dest)
 {
 	int i,j;
 	double mac,*tap;
-	float *src;
-
+    
 	for (i = 0; i < num_samples; i++)
 	{
 		mac = 0;
-		src = audio + i;
+        float const *src = audio + i;
 		tap = taps;
 		for (j = 0; j < num_taps; j++)
 		{
@@ -43,16 +42,15 @@ void RunFIRFilter(float *audio,int num_samples,double *taps,int num_taps,double 
 	}
 }
 
-void RunFIRFilter(double *audio,int num_samples,double *taps,int num_taps,double *dest)
+void RunFIRFilter(double const *audio,int num_samples,double *taps,int num_taps,double *dest)
 {
 	int i,j;
 	double mac,*tap;
-	double *src;
 
 	for (i = 0; i < num_samples; i++)
 	{
 		mac = 0;
-		src = audio + i;
+		double const *src = audio + i;
 		tap = taps;
 		for (j = 0; j < num_taps; j++)
 		{
@@ -69,7 +67,7 @@ void RunFIRFilter(double *audio,int num_samples,double *taps,int num_taps,double
 // computeTHDN
 // Compute the THD+N of the given audio data
 // The filters require that at least 2,560 samples are provided.
-double computeTHDN(float *input,int rate)
+double computeTHDN(float const *input,int rate)
 {
     int filterIndex,i;
     double rmsSignal,rmsNoise,thdn;
@@ -105,7 +103,7 @@ double computeTHDN(float *input,int rate)
 	//WriteWaveFile("aweight.wav",rate,aweightedData,2048);
 
     // filter the data to create signal
-	RunFIRFilter(aweightedData,1024,bandPass,512,signal);
+	RunFIRFilter(aweightedData,1024,bandPass,512,signalBuffer);
 	//WriteWaveFile("bandpass.wav",rate,signal,1024);
 
     // filter the data to create noise, first pass
@@ -120,7 +118,7 @@ double computeTHDN(float *input,int rate)
     rmsSignal = 0;
 	rmsNoise = 0;
     for(i=0;i < 1024;i++) {
-        rmsSignal += signal[i] * signal[i];
+        rmsSignal += signalBuffer[i] * signalBuffer[i];
         rmsNoise += noise[i] * noise[i];
         }
 
@@ -167,7 +165,7 @@ double computeTHDN(float *input,int rate)
 // computeTHDN of Differential Input to two channels
 // Compute the THD+N of the given audio data
 // The filters require that at least 2,560 samples are provided.
-double computeDiffTHDN(float *input1, float *input2, int rate)
+double computeDiffTHDN(float const *input1, float const *input2, int rate)
 {
 	int filterIndex,i;
 	double rmsSignal,rmsNoise,thdn;
@@ -199,17 +197,18 @@ double computeDiffTHDN(float *input1, float *input2, int rate)
 	bandReject = BandRjct[filterIndex];
 
 	// Create a single differential signal from both inputs
+    float differentialSignal[THDN_SAMPLES_REQUIRED];
 	for (i = 0; i < THDN_SAMPLES_REQUIRED; i++)
 	{
-		input1[i] = (input1[i] - input2[i])/2;
+		differentialSignal[i] = (input1[i] - input2[i])/2;
 	}
 
 	// filter the data to create A-weighted signal
-	RunFIRFilter(input1, 2048, aWeight, 512, aweightedData);
+	RunFIRFilter(differentialSignal, 2048, aWeight, 512, aweightedData);
 	//WriteWaveFile("aweight.wav",rate,aweightedData,2048);
 
 	// filter the data to create signal
-	RunFIRFilter(aweightedData, 1024, bandPass, 512, signal);
+	RunFIRFilter(aweightedData, 1024, bandPass, 512, signalBuffer);
 	//WriteWaveFile("bandpass.wav",rate,signal,1024);
 
 	// filter the data to create noise, first pass
@@ -224,7 +223,7 @@ double computeDiffTHDN(float *input1, float *input2, int rate)
 	rmsSignal = 0;
 	rmsNoise = 0;
 	for (i = 0; i < 1024; i++) {
-		rmsSignal += signal[i] * signal[i];
+		rmsSignal += signalBuffer[i] * signalBuffer[i];
 		rmsNoise += noise[i] * noise[i];
 	}
 

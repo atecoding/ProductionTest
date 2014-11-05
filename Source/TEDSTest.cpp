@@ -3,7 +3,7 @@
 #include "AcousticIO.h"
 #include "ehw.h"
 #include "content.h"
-#include "AIODevice.h"
+//#include "AIODevice.h"
 
 #define CUR 1
 
@@ -55,6 +55,7 @@ bool RunInputTest(XmlElement const *element, ehw *dev, String &msg, int &display
 
 	ok = true;
 	
+#if 0
 	TUsbAudioStatus status;
 	status = TUSBAUDIO_AudioControlRequestGet(dev->GetNativeHandle(),
 		ACOUSTICIO_EXTENSION_UNIT,	// unit ID
@@ -70,6 +71,14 @@ bool RunInputTest(XmlElement const *element, ehw *dev, String &msg, int &display
 		msg = "Could not read TEDS data for input " + String(displayedInput);
 		return false;
 	}
+#else
+    int status = dev->readTEDSData(channel,data, sizeof(data));
+    if (status != 0)
+    {
+        msg = "Could not read TEDS data for input " + String(displayedInput);
+        return false;
+    }
+#endif
 
 	expectedValue = 0x22;
 
@@ -121,6 +130,7 @@ bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &displaye
 		channel = (uint8)attribute + j;
 		displayedInput = channel + 1;
 
+#if 0
 		TUsbAudioStatus status;
 		status = TUSBAUDIO_AudioControlRequestGet(dev->GetNativeHandle(),
 			ACOUSTICIO_EXTENSION_UNIT,	// unit ID
@@ -136,6 +146,14 @@ bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &displaye
 			msg = "Could not read TEDS data for input " + String(displayedInput);
 			return false;
 		}
+#else
+        int status = dev->readTEDSData(channel,data, sizeof(data));
+        if (status != 0)
+        {
+            msg = "Could not read TEDS data for input " + String(displayedInput);
+            return false;
+        }
+#endif
 
 		expectedValue = (channel % 4) + 1;
 		expectedValue |= expectedValue << 4;

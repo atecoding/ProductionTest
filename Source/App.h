@@ -10,11 +10,11 @@ protected :
 	
 	bool SingleInstanceCheck();
 	
-    AppWindow *_window;
-    ehwlist *_hwlist;
+    ScopedPointer<AppWindow> _window;
+    ScopedPointer<ehwlist> _hwlist;
 	 StringArray hardwareInstances;
 
-    InterProcessLock	*_processlock;
+    ScopedPointer<InterProcessLock> _processlock;
 
 	ScopedPointer <PropertiesFile> props;
     
@@ -23,11 +23,6 @@ public:
     //==============================================================================
     App()
     {
-        // avoid doing anything complicated in the constructor - use initialise() instead.
-        _window = NULL;
-		_hwlist = NULL;
-		
-		_processlock = NULL;
     }
 
     ~App()
@@ -39,7 +34,7 @@ public:
     
     void initialise (const String& commandLine);
 	void parseCommandLine(const String& commandLine);
-    void App::shutdown();
+    void shutdown();
     
 
     //==============================================================================

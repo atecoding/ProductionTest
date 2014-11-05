@@ -9,7 +9,7 @@ protected:
 
 public:
 	static Test *Create(XmlElement *xe,int input, int output, bool &ok);
-	~Test();
+	virtual ~Test();
 
 	void Setup( int samples_per_block,
 				ToneGeneratorAudioSource &tone,

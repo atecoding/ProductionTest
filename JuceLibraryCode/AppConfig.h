@@ -36,15 +36,15 @@
 // juce_audio_devices flags:
 
 #ifndef    JUCE_ASIO
-#define JUCE_ASIO 1
+ //#define JUCE_ASIO
 #endif
 
 #ifndef    JUCE_WASAPI
-#define JUCE_WASAPI 0
+ //#define JUCE_WASAPI
 #endif
 
 #ifndef    JUCE_DIRECTSOUND
-#define JUCE_DIRECTSOUND 0
+ //#define JUCE_DIRECTSOUND
 #endif
 
 #ifndef    JUCE_ALSA

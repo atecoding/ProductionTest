@@ -24,6 +24,8 @@ String ProductionTestsXmlFileName("ABRProductionTests.xml");
 
 void App::initialise (const String& commandLine)
 {
+    //DBG("App::initialise " << commandLine);
+    
 	application = this;
 
 	//
@@ -119,10 +121,11 @@ void App::shutdown()
 		juce::Rectangle <int> bounds (_window->getBounds());
 
 		props->setValue(boundariesName,bounds.toString());
-		delete _window;
+        _window = nullptr;
 	}
-	deleteAndZero(_hwlist);
-	deleteAndZero(_processlock);
+    
+    _hwlist = nullptr;
+    _processlock = nullptr;
 }
 
 //==============================================================================
@@ -158,7 +161,19 @@ void App::systemRequestedQuit()
 
 void App::parseCommandLine(const String& commandLine)
 {
-	ProductionTestsXmlFileName = commandLine;
+    StringArray tokens;
+    
+    tokens.addTokens(commandLine,true);
+    
+    String script("-script");
+    for (int i =0; i < tokens.size(); ++i)
+    {
+        if (tokens[i] == script)
+        {
+            ProductionTestsXmlFileName = tokens[i+1];
+            break;
+        }
+    }
 }
 
 //==============================================================================

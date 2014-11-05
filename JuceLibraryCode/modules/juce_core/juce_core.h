@@ -194,6 +194,7 @@ extern JUCE_API void JUCE_CALLTYPE logAssertion (const char* file, int line) noe
 #include "threads/juce_ScopedLock.h"
 #include "threads/juce_CriticalSection.h"
 #include "maths/juce_Range.h"
+#include "maths/juce_NormalisableRange.h"
 #include "containers/juce_ElementComparator.h"
 #include "containers/juce_ArrayAllocationBase.h"
 #include "containers/juce_Array.h"
@@ -244,6 +245,7 @@ extern JUCE_API void JUCE_CALLTYPE logAssertion (const char* file, int line) noe
 #include "misc/juce_Uuid.h"
 #include "misc/juce_WindowsRegistry.h"
 #include "system/juce_PlatformDefs.h"
+#include "system/juce_CompilerSupport.h"
 #include "system/juce_SystemStats.h"
 #include "threads/juce_ChildProcess.h"
 #include "threads/juce_DynamicLibrary.h"
@@ -272,6 +274,7 @@ extern JUCE_API void JUCE_CALLTYPE logAssertion (const char* file, int line) noe
 #include "zip/juce_GZIPDecompressorInputStream.h"
 #include "zip/juce_ZipFile.h"
 #include "containers/juce_PropertySet.h"
+#include "memory/juce_SharedResourcePointer.h"
 
 }
 
