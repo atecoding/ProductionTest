@@ -1278,7 +1278,13 @@ void ProductionUnit::ParseScript()
 #ifdef ACOUSTICIO_BUILD
 		if (_script->hasTagName("AIO_set_mic_gain"))
 		{
-			_dev->setMicGain(_script);
+			Result result(_dev->setMicGain(_script));
+            
+            if (result.failed())
+            {
+                _content->log(String::empty);
+                _content->log(result.getErrorMessage());
+            }
 
 			_script = _script->getNextElement();
 			continue;
@@ -1286,7 +1292,13 @@ void ProductionUnit::ParseScript()
 
 		if (_script->hasTagName("AIO_set_amp_gain"))
 		{
-			_dev->setAmpGain(_script);
+			Result result(_dev->setAmpGain(_script));
+            
+            if (result.failed())
+            {
+                _content->log(String::empty);
+                _content->log(result.getErrorMessage());
+            }
 
 			_script = _script->getNextElement();
 			continue;
@@ -1294,7 +1306,13 @@ void ProductionUnit::ParseScript()
 
 		if (_script->hasTagName("AIO_set_constant_current"))
 		{
-			_dev->setConstantCurrent(_script);
+			Result result(_dev->setConstantCurrent(_script));
+            
+            if (result.failed())
+            {
+                _content->log(String::empty);
+                _content->log(result.getErrorMessage());
+            }
 
 			_script = _script->getNextElement();
 			continue;

@@ -27,8 +27,6 @@ Content::Content(ehwlist *devlist,const StringArray &hardwareInstances_) :
 	hardwareInstances (hardwareInstances_),
     _unit(NULL)
 {
-	Font f;
-
 	_dev_listener._content = this;
 
 	_devlist = devlist;
@@ -42,15 +40,14 @@ Content::Content(ehwlist *devlist,const StringArray &hardwareInstances_) :
 	setName("content");
 	setOpaque(true);
 
-	_f.setTypefaceName("Arial");
-	_f.setHeight(15);
-	_f.setStyleFlags(Font::bold);
+	//_f.setTypefaceName("Arial");
+	//_f.setHeight(15);
+	//_f.setStyleFlags(Font::bold);
 
 	_log = new TextEditor;
 	_log->setMultiLine(true);
-	f = _log->getFont();
-	f.setBold(true);
-	_log->setFont(f);
+    Font f(12.0f, Font::bold);
+    _log->setFont(f);
 	_log->setReadOnly(true);
 	_log->setCaretVisible(false);
 	addAndMakeVisible(_log);

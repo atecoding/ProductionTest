@@ -58,7 +58,7 @@ protected:
 	
 	StringArray hardwareInstances;
 	ehwlist		*_devlist;
-	Font		_f;
+	//Font		_f;
 	String finalResult;
 	Colour finalResultColour;
 
