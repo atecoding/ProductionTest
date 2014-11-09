@@ -12,12 +12,14 @@
 App *application;
 const char boundariesName[] = "Window boundaries";
 
+#if 0
 #if ACOUSTICIO_BUILD
 String ProductionTestsXmlFileName("AIOProductionTests.xml");
 #endif
 
 #if ANALYZERBR_BUILD
 String ProductionTestsXmlFileName("ABRProductionTests.xml");
+#endif
 #endif
 
 //==============================================================================
@@ -44,6 +46,17 @@ void App::initialise (const String& commandLine)
 	{
 		parseCommandLine(commandLine);
 	}
+    
+    //
+    // Set up the test manager
+    //
+    testManager = new TestManager;
+    if (testManager->getNumScripts() < 1)
+    {
+        AlertWindow::showNativeDialogBox(getApplicationName(), "No scripts found", false);
+        quit();
+        return;
+    }
 
 	//
 	// Properties file
@@ -52,10 +65,12 @@ void App::initialise (const String& commandLine)
 	PropertiesFile::Options options;
 	options.applicationName     = "ProductionTest";
 	options.folderName          = "Echo";
-	options.filenameSuffix      = "settings";
+	options.filenameSuffix      = "xml";
 	options.osxLibrarySubFolder = "Application Support";
 
 	props = new PropertiesFile (options);
+    
+    testManager->load(props);
 
 	//
 	// For the PCI test, disable all the PCI cards
@@ -125,6 +140,10 @@ void App::shutdown()
 	}
     
     _hwlist = nullptr;
+    
+    testManager->save(props);
+    
+    testManager = nullptr;
     _processlock = nullptr;
 }
 
@@ -161,6 +180,7 @@ void App::systemRequestedQuit()
 
 void App::parseCommandLine(const String& commandLine)
 {
+#if 0
     StringArray tokens;
     
     tokens.addTokens(commandLine,true);
@@ -174,6 +194,7 @@ void App::parseCommandLine(const String& commandLine)
             break;
         }
     }
+#endif
 }
 
 //==============================================================================

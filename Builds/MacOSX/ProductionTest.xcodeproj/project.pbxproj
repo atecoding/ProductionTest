@@ -37,6 +37,7 @@
 		B7D6C59A744D56E2B14115BF /* Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9B94D8A26A077F11C86494B /* Test.cpp */; };
 		C386254A148D1F3DA4084755 /* ProductionUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51932B8BE722EA8393CBEB8C /* ProductionUnit.cpp */; };
 		C56E0875FF2EF880984F9194 /* TestPrompt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D218ABCF456C886AB5867EB0 /* TestPrompt.cpp */; };
+		C91C06851A102394005CAF22 /* AIO Module 1.xml in Resources */ = {isa = PBXBuildFile; fileRef = C91C06841A102394005CAF22 /* AIO Module 1.xml */; };
 		C91ECB311A084C06002D5313 /* hwcaps.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C91ECB2F1A084C06002D5313 /* hwcaps.cpp */; };
 		C942FF591A09379D00F612EE /* AIOTestAdapter_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C942FF561A09379D00F612EE /* AIOTestAdapter_osx.cpp */; };
 		C942FF5B1A09386D00F612EE /* ConstantCurrentTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C942FF5A1A09386D00F612EE /* ConstantCurrentTest.cpp */; };
@@ -45,6 +46,8 @@
 		C942FF611A093B9100F612EE /* ehwlist_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C942FF601A093B9100F612EE /* ehwlist_osx.cpp */; };
 		C942FF631A093C9B00F612EE /* ehw_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C942FF621A093C9B00F612EE /* ehw_osx.cpp */; };
 		C989102F1A094E3B0073250A /* Description.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C98910261A094E3B0073250A /* Description.cpp */; };
+		C9FED8CC1A100C5500B574D4 /* TestManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9FED8CA1A100C5500B574D4 /* TestManager.cpp */; };
+		C9FED8CE1A100F5600B574D4 /* AIOProductionTests.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9FED8CD1A100F5600B574D4 /* AIOProductionTests.xml */; };
 		CCAFCFE69CB697A6CF6F0058 /* juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9FA5C625F428490B83F5393B /* juce_events.mm */; };
 		CE54B4FA36345C53CCB60912 /* MIDILoopTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 873A2AA908695E9CBC5508FC /* MIDILoopTest.cpp */; };
 		DCA7298221B248B21872D763 /* wavefile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAABABBE36DBD2C8C7E97D17 /* wavefile.cpp */; };
@@ -711,6 +714,7 @@
 		C7DA469913E1E9C3F517E69A /* juce_BufferingAudioSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_BufferingAudioSource.h; path = ../../JuceLibraryCode/modules/juce_audio_basics/sources/juce_BufferingAudioSource.h; sourceTree = SOURCE_ROOT; };
 		C8280C66AC1F920421C72B99 /* juce_BorderSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_BorderSize.h; path = ../../JuceLibraryCode/modules/juce_graphics/geometry/juce_BorderSize.h; sourceTree = SOURCE_ROOT; };
 		C89D009A31D6F0311854919A /* juce_ComponentBoundsConstrainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ComponentBoundsConstrainer.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/layout/juce_ComponentBoundsConstrainer.h; sourceTree = SOURCE_ROOT; };
+		C91C06841A102394005CAF22 /* AIO Module 1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "AIO Module 1.xml"; sourceTree = "<group>"; };
 		C91ECB2D1A084AF9002D5313 /* ehw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ehw.h; path = ../../Source/osx/ehw.h; sourceTree = "<group>"; };
 		C91ECB2E1A084BA4002D5313 /* ehwlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ehwlist.h; path = ../../Source/osx/ehwlist.h; sourceTree = "<group>"; };
 		C91ECB2F1A084C06002D5313 /* hwcaps.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hwcaps.cpp; path = ../../Source/osx/hwcaps.cpp; sourceTree = "<group>"; };
@@ -727,6 +731,9 @@
 		C98910271A094E3B0073250A /* Description.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Description.h; path = ../../Source/osx/Description.h; sourceTree = "<group>"; };
 		C98910301A0950270073250A /* AIOTestAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIOTestAdapter.h; path = ../../Source/AIOTestAdapter.h; sourceTree = "<group>"; };
 		C9CC188B6EC29494A14EB4A4 /* juce_ChoicePropertyComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ChoicePropertyComponent.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/properties/juce_ChoicePropertyComponent.h; sourceTree = SOURCE_ROOT; };
+		C9FED8CA1A100C5500B574D4 /* TestManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TestManager.cpp; path = ../../Source/TestManager.cpp; sourceTree = "<group>"; };
+		C9FED8CB1A100C5500B574D4 /* TestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestManager.h; path = ../../Source/TestManager.h; sourceTree = "<group>"; };
+		C9FED8CD1A100F5600B574D4 /* AIOProductionTests.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = AIOProductionTests.xml; sourceTree = "<group>"; };
 		CA53AFFB17039691A4668A6C /* juce_android_GraphicsContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_android_GraphicsContext.cpp; path = ../../JuceLibraryCode/modules/juce_graphics/native/juce_android_GraphicsContext.cpp; sourceTree = SOURCE_ROOT; };
 		CA8D1ABF1507CEBD321ABD1D /* Content.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Content.cpp; path = ../../Source/Content.cpp; sourceTree = SOURCE_ROOT; };
 		CB2BE5219155DD7686BB9BAF /* juce_SubregionStream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_SubregionStream.cpp; path = ../../JuceLibraryCode/modules/juce_core/streams/juce_SubregionStream.cpp; sourceTree = SOURCE_ROOT; };
@@ -1285,6 +1292,8 @@
 				021E3310204BE0747376AB8E /* wavefile.h */,
 				D953EC808550D9DA4B37A9F8 /* xml.cpp */,
 				B043F4EE1B876DBAFD7DAE0D /* xml.h */,
+				C9FED8CA1A100C5500B574D4 /* TestManager.cpp */,
+				C9FED8CB1A100C5500B574D4 /* TestManager.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -1714,6 +1723,8 @@
 		93C619DBF455E2A537DD75BE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C91C06841A102394005CAF22 /* AIO Module 1.xml */,
+				C9FED8CD1A100F5600B574D4 /* AIOProductionTests.xml */,
 				ECB33092A73D580039E20E87 /* Info.plist */,
 				7DDFE4DA407C0FE8084B8C5D /* RecentFilesMenuTemplate.nib */,
 			);
@@ -2478,6 +2489,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C91C06851A102394005CAF22 /* AIO Module 1.xml in Resources */,
+				C9FED8CE1A100F5600B574D4 /* AIOProductionTests.xml in Resources */,
 				6E32B1E6B0A50AF4474A55D8 /* RecentFilesMenuTemplate.nib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2498,6 +2511,7 @@
 				1B473FAFC02D1461D65FD086 /* DynRangeTest.cpp in Sources */,
 				EFAAC4844240D6CAA98D6870 /* FilterCoeff.cpp in Sources */,
 				C942FF5F1A093A6500F612EE /* LevelCheckTest.cpp in Sources */,
+				C9FED8CC1A100C5500B574D4 /* TestManager.cpp in Sources */,
 				191A73BAF7183EEF6875C97C /* FrequencyResponseTest.cpp in Sources */,
 				C942FF611A093B9100F612EE /* ehwlist_osx.cpp in Sources */,
 				89E194B44FB27B0172EDBD47 /* Images.cpp in Sources */,

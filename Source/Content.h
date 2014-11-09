@@ -19,7 +19,8 @@ class Content;
 class AppWindow;
 class ProductionUnit;
 
-class Content : public Component, ButtonListener, SliderListener, public AsyncUpdater
+class Content : public Component, ButtonListener, SliderListener, public AsyncUpdater,
+ComboBox::Listener
 {
 public:
 	Content(ehwlist *devlist, const StringArray &hardwareInstances_);
@@ -55,6 +56,7 @@ protected:
 	virtual void buttonClicked(Button *button);
 	virtual bool keyPressed(const KeyPress &key);
 	virtual void sliderValueChanged(Slider *s);
+    virtual void comboBoxChanged (ComboBox* comboBoxThatHasChanged);
 	
 	StringArray hardwareInstances;
 	ehwlist		*_devlist;
@@ -68,6 +70,8 @@ protected:
 	String _unit_name;
 
 	TextButton *_start_button;
+    
+    ComboBox *scriptCombo;
 
 	DevChangeListener _dev_listener;
 

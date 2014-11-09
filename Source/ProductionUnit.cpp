@@ -14,8 +14,10 @@
 #include "Echo2PowerTestWindow.h"
 #endif
 #include "OldMessage.h"
+#include "App.h"
+#include "TestManager.h"
 
-extern String ProductionTestsXmlFileName;
+//extern String ProductionTestsXmlFileName;
 
 ProductionUnit::ProductionUnit(ehw *dev,ehwlist *devlist,Content *content) :
 _num_tests(0),
@@ -159,6 +161,7 @@ _script(NULL)
 	for (in = 0; in < dev->getcaps()->numrecchan(); in++)
 	{
 		AudioSampleBuffer *buffer = new AudioSampleBuffer(1,THDN_SAMPLES_REQUIRED);
+        buffer->clear();
 		_inbuffs.add(buffer);
 	}
 }
@@ -202,25 +205,9 @@ void ProductionUnit::RunTests()
 	//
 	// Load the set of tests from XML
 	//
-	File f;
+	File f(application->testManager->getCurrentScript());
 	String devname(_dev->getcaps()->BoxTypeName()),txt;
-
-	f = File::getSpecialLocation(File::currentApplicationFile);
-#ifdef PCI_BUILD
-	f = f.getParentDirectory().getChildFile("PCIProductionTests.xml");
-	if (false == f.exists())
-	{
-		f = f.getParentDirectory().getParentDirectory().getChildFile("PCIProductionTests.xml");
-	}
-
-#else
-	f = f.getParentDirectory();
-	f = f.getChildFile(ProductionTestsXmlFileName);
-	if (false == f.exists())
-	{
-		f = f.getParentDirectory().getParentDirectory().getChildFile(ProductionTestsXmlFileName);
-	}
-#endif
+    
 	XmlDocument myDocument(f);
 	XmlElement *temp,*child;
 
@@ -253,7 +240,7 @@ void ProductionUnit::RunTests()
 	else
 	{
 		AlertWindow::showNativeDialogBox(	"Production Test",
-											"Could not load " + ProductionTestsXmlFileName + " from " + f.getFullPathName(),
+											"Could not load " + f.getFullPathName(),
 											false);
 		JUCEApplication::quit();
 		_ok = false;
@@ -263,7 +250,7 @@ void ProductionUnit::RunTests()
 	if (!_ok || (NULL == _script))
 	{
 		AlertWindow::showNativeDialogBox(	"Production Test",
-											"Could not parse " + ProductionTestsXmlFileName,
+											"Could not parse " + f.getFullPathName(),
 											false);
 		JUCEApplication::quit();
 		return;

@@ -3,6 +3,10 @@
 
 class ehw;
 class ehwlist;
+
+#include "AppWindow.h"
+#include "TestManager.h"
+
 class App : public JUCEApplication
 {
 protected :
@@ -12,7 +16,7 @@ protected :
 	
     ScopedPointer<AppWindow> _window;
     ScopedPointer<ehwlist> _hwlist;
-	 StringArray hardwareInstances;
+    StringArray hardwareInstances;
 
     ScopedPointer<InterProcessLock> _processlock;
 
@@ -61,6 +65,8 @@ public:
     
     //==============================================================================	
 	 virtual void systemRequestedQuit();
+    
+    ScopedPointer<TestManager> testManager;
 };
 
 extern App *application;

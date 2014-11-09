@@ -15,6 +15,8 @@ DocumentWindow(T("Production test"),
 			   minimiseButton | closeButton,
 			   true)
 {
+    setLookAndFeel(&lookAndFeelV3);
+    
 	//
 	// Open the driver for this device
 	//

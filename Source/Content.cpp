@@ -4,6 +4,7 @@
 #include "ehwlist.h"
 #include "hwcaps.h"
 #include "ProductionUnit.h"
+#include "App.h"
 
 #define NUM_COLUMNS	7
 #define COLUMN_W	80
@@ -46,7 +47,7 @@ Content::Content(ehwlist *devlist,const StringArray &hardwareInstances_) :
 
 	_log = new TextEditor;
 	_log->setMultiLine(true);
-    Font f(12.0f, Font::bold);
+    Font f(14.0f, Font::bold);
     _log->setFont(f);
 	_log->setReadOnly(true);
 	_log->setCaretVisible(false);
@@ -57,6 +58,17 @@ Content::Content(ehwlist *devlist,const StringArray &hardwareInstances_) :
 	addAndMakeVisible(_start_button);
 	_start_button->addListener(this);
 	_start_button->addShortcut(KeyPress(KeyPress::returnKey));
+    
+    scriptCombo = new ComboBox;
+    TestManager* testManager = application->testManager;
+    for (int index = 0; index < testManager->getNumScripts(); ++index)
+    {
+        File file(testManager->getScript(index));
+        scriptCombo->addItem(file.getFileNameWithoutExtension(), index + 1);
+    }
+    scriptCombo->setSelectedItemIndex(testManager->getCurrentScriptIndex());
+    addAndMakeVisible(scriptCombo);
+    scriptCombo->addListener(this);
 
 	//
 	// Check that only one device is connected
@@ -216,6 +228,7 @@ void Content::buttonClicked(Button *button)
 		DBG("Content::buttonClicked _start_button");
 
 		_start_button->setEnabled(false);
+        scriptCombo->setEnabled(false);
 
 		_devlist->Cleanup();
 
@@ -237,6 +250,7 @@ void Content::buttonClicked(Button *button)
 		{
 			DBG("no hardware instances or user canceled");
 			_start_button->setEnabled(true);
+            scriptCombo->setEnabled(true);
 			_start_button->grabKeyboardFocus();
 		}
 #else
@@ -262,6 +276,7 @@ void Content::buttonClicked(Button *button)
 			{
 				_start_button->setButtonText("Start");
 				_start_button->setEnabled(false);
+                scriptCombo->setEnabled(false);
 				_unit->_running = false;
 			}
 		}
@@ -305,15 +320,25 @@ void Content::resized()
 {
 	int x,y,w,h;
 	float split = 0.45f;
-
+    
 	x = roundFloatToInt(getWidth() * split);
-	y = 4;
+	y = 26;
 	w = getWidth() - x - 4;
 	h = getHeight() - 8;
 	_log->setBounds(x,y,w,h);
+    
+    w = 300;
+    scriptCombo->setBounds((_log->getWidth() - w)/2 + _log->getX(),
+                           3,
+                           w,
+                           20);
 
 	_start_button->setSize(80,30);
+#ifdef JUCE_MAC
+    _start_button->setCentrePosition( proportionOfWidth(split * 0.5f), getHeight() - _start_button->getHeight());
+#else
 	_start_button->setCentreRelative(split * 0.5f,0.9f);
+#endif
 }
 
 void Content::AddResult(String &name,int pass)
@@ -330,6 +355,7 @@ void Content::FinishTests(bool pass,bool skipped)
 	_unit->_running = false;
 	_start_button->setButtonText("Start");
 	_start_button->setEnabled(true);
+    scriptCombo->setEnabled(true);
 	_start_button->grabKeyboardFocus();
 
 #ifdef PCI_BUILD
@@ -408,6 +434,7 @@ void Content::DevArrived(ehw *dev)
 	DBG("Content::DevArrived - button enabled");
 
 	_start_button->setEnabled(true);
+    scriptCombo->setEnabled(true);
 	_start_button->grabKeyboardFocus();
 #endif
 
@@ -420,6 +447,7 @@ void Content::DevRemoved(ehw *dev)
 	_unit_name = String::empty;
 #ifndef PCI_BUILD
 	_start_button->setEnabled(false);
+    scriptCombo->setEnabled(true);
 #endif
 
 #if 0 // def ECHOUSB
@@ -489,5 +517,10 @@ void Content::setFinalResult(String text,Colour color)
 	finalResult = text;
 	finalResultColour = color;
 	repaint();
+}
+
+void Content::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
+{
+    application->testManager->setCurrentScriptIndex(scriptCombo->getSelectedItemIndex());
 }
 
