@@ -75,7 +75,8 @@ bool RunInputTest(XmlElement const *element, ehw *dev, String &msg, int &display
     Result status(dev->readTEDSData(channel, data, sizeof(data)));
     if (status.failed())
     {
-        msg = "Could not read TEDS data for input " + String(displayedInput);
+        msg = "Could not read TEDS data for input " + String(displayedInput) + "\n" +
+        status.getErrorMessage();
         return false;
     }
 #endif
@@ -150,7 +151,8 @@ bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &displaye
         Result status(dev->readTEDSData(channel,data, sizeof(data)));
         if (status.failed())
         {
-            msg = "Could not read TEDS data for input " + String(displayedInput);
+            msg = "Could not read TEDS data for input " + String(displayedInput) + "\n" +
+                status.getErrorMessage();
             return false;
         }
 #endif
