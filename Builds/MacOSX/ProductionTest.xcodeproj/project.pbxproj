@@ -45,6 +45,7 @@
 		C942FF5F1A093A6500F612EE /* LevelCheckTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C942FF5E1A093A6500F612EE /* LevelCheckTest.cpp */; };
 		C942FF611A093B9100F612EE /* ehwlist_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C942FF601A093B9100F612EE /* ehwlist_osx.cpp */; };
 		C942FF631A093C9B00F612EE /* ehw_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C942FF621A093C9B00F612EE /* ehw_osx.cpp */; };
+		C984D9A01A10381300288FD6 /* factory.icns in Resources */ = {isa = PBXBuildFile; fileRef = C984D99F1A10381300288FD6 /* factory.icns */; };
 		C989102F1A094E3B0073250A /* Description.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C98910261A094E3B0073250A /* Description.cpp */; };
 		C9FED8CC1A100C5500B574D4 /* TestManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9FED8CA1A100C5500B574D4 /* TestManager.cpp */; };
 		C9FED8CE1A100F5600B574D4 /* AIOProductionTests.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9FED8CD1A100F5600B574D4 /* AIOProductionTests.xml */; };
@@ -727,6 +728,7 @@
 		C942FF621A093C9B00F612EE /* ehw_osx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ehw_osx.cpp; path = ../../Source/osx/ehw_osx.cpp; sourceTree = "<group>"; };
 		C942FF641A09418B00F612EE /* ScopedCFObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScopedCFObject.h; path = ../../Source/osx/ScopedCFObject.h; sourceTree = "<group>"; };
 		C942FF651A09418B00F612EE /* ScopedIOObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScopedIOObject.h; path = ../../Source/osx/ScopedIOObject.h; sourceTree = "<group>"; };
+		C984D99F1A10381300288FD6 /* factory.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = factory.icns; sourceTree = "<group>"; };
 		C98910261A094E3B0073250A /* Description.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Description.cpp; path = ../../Source/osx/Description.cpp; sourceTree = "<group>"; };
 		C98910271A094E3B0073250A /* Description.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Description.h; path = ../../Source/osx/Description.h; sourceTree = "<group>"; };
 		C98910301A0950270073250A /* AIOTestAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIOTestAdapter.h; path = ../../Source/AIOTestAdapter.h; sourceTree = "<group>"; };
@@ -1723,6 +1725,7 @@
 		93C619DBF455E2A537DD75BE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C984D99F1A10381300288FD6 /* factory.icns */,
 				C91C06841A102394005CAF22 /* AIO Module 1.xml */,
 				C9FED8CD1A100F5600B574D4 /* AIOProductionTests.xml */,
 				ECB33092A73D580039E20E87 /* Info.plist */,
@@ -2492,6 +2495,7 @@
 				C91C06851A102394005CAF22 /* AIO Module 1.xml in Resources */,
 				C9FED8CE1A100F5600B574D4 /* AIOProductionTests.xml in Resources */,
 				6E32B1E6B0A50AF4474A55D8 /* RecentFilesMenuTemplate.nib in Resources */,
+				C984D9A01A10381300288FD6 /* factory.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

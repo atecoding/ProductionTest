@@ -5,7 +5,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
-	<string></string>
+	<string>factory.icns</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.echoaudio.ProductionTest</string>
 	<key>CFBundleName</key>
