@@ -318,7 +318,7 @@ void ProductionUnit::RunTests()
 
 void ProductionUnit::audioDeviceAboutToStart(AudioIODevice *device)
 {
-    DBG("ProductionUnit::audioDeviceAboutToStart " << device->getName());
+    //DBG("ProductionUnit::audioDeviceAboutToStart " << device->getName());
 }
 
 void ProductionUnit::audioDeviceStopped()

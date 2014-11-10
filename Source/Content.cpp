@@ -324,7 +324,7 @@ void Content::resized()
 	x = roundFloatToInt(getWidth() * split);
 	y = 26;
 	w = getWidth() - x - 4;
-	h = getHeight() - 8;
+	h = getHeight() - y;
 	_log->setBounds(x,y,w,h);
     
     w = 300;

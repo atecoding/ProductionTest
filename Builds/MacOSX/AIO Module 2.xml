@@ -71,7 +71,7 @@
       <min_input_db>-200.0</min_input_db>
       <max_input_db>0.0</max_input_db>
       <wait_for_user>0</wait_for_user>
-      <start_group>1</start_group>
+      <start_group>0</start_group>
     </prompt>
 
     <AIO_set_mic_gain input="4" gain="1" />
