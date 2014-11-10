@@ -120,7 +120,7 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 
 			msg += String::formatted(T("  level %.1f dB"),max_db);
 
-#ifdef WRITE_WAVE_FILES
+#if WRITE_WAVE_FILES
 			String name;
 
 			name = String::formatted(T("Level out%02d-in%02d at %.0f Hz.wav"), output, input + channel, output_frequency);

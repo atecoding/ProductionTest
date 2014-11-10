@@ -31,7 +31,7 @@ bool ThdnTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 		result = computeTHDN(buffs[input + channel]->getReadPointer(0),sample_rate);
 		msg += String::formatted(T("  %.1f dB"),result);
 
-	#ifdef WRITE_WAVE_FILES
+	#if WRITE_WAVE_FILES
 		String name;
 
 		name = String::formatted("THDN out%02d-in%02d ",output + channel,input + channel);
@@ -69,7 +69,7 @@ bool DiffThdnTest::calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg)
 	result = computeDiffTHDN(buffs[input]->getReadPointer(0), buffs[input+1]->getReadPointer(0), sample_rate);
 	msg += String::formatted(T("  %.1f dB"), result);
 
-#ifdef WRITE_WAVE_FILES
+#if WRITE_WAVE_FILES
 	String name;
 
 	name = String::formatted("Differential THDN out%d-in%d-in%d ", output, input, input + 1);

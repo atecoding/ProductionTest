@@ -124,7 +124,7 @@ bool FrequencyResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &ms
 		pass &= (max_db >= pass_threshold_db) && (max_db <= pass_threshold_db + 10.0f);
 	}
 
-#ifdef WRITE_WAVE_FILES
+#if WRITE_WAVE_FILES
 	String name;
 
 	name = String::formatted(T("Frequency response out%02d-in%02d at %.0f Hz.wav"),output,input,output_frequency);

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		00D74F3F0EA9EB3AFE475B88 /* juce_audio_devices.mm in Sources */ = {isa = PBXBuildFile; fileRef = 38CF6BDAE86A5ABDBD28CFB1 /* juce_audio_devices.mm */; };
 		0C59FDD1282327ECF83284D4 /* juce_core.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E43F97BAD3398EB4C347895 /* juce_core.mm */; };
+		100D61801A1046A3005CE62A /* AIO Full Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = 100D617E1A1046A3005CE62A /* AIO Full Test.xml */; };
+		100D61811A1046A3005CE62A /* AIO Module 2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 100D617F1A1046A3005CE62A /* AIO Module 2.xml */; };
 		13CC2FD6F41783BEF4701829 /* juce_audio_formats.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3412FE492186B7BB1E9CFCD3 /* juce_audio_formats.mm */; };
 		161DA06812D46B89A9505900 /* juce_gui_extra.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5E7401ACD781E2E7F6B56F8F /* juce_gui_extra.mm */; };
 		191A73BAF7183EEF6875C97C /* FrequencyResponseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4638F066B539886F6C07C35F /* FrequencyResponseTest.cpp */; };
@@ -48,7 +50,6 @@
 		C984D9A01A10381300288FD6 /* factory.icns in Resources */ = {isa = PBXBuildFile; fileRef = C984D99F1A10381300288FD6 /* factory.icns */; };
 		C989102F1A094E3B0073250A /* Description.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C98910261A094E3B0073250A /* Description.cpp */; };
 		C9FED8CC1A100C5500B574D4 /* TestManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9FED8CA1A100C5500B574D4 /* TestManager.cpp */; };
-		C9FED8CE1A100F5600B574D4 /* AIOProductionTests.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9FED8CD1A100F5600B574D4 /* AIOProductionTests.xml */; };
 		CCAFCFE69CB697A6CF6F0058 /* juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9FA5C625F428490B83F5393B /* juce_events.mm */; };
 		CE54B4FA36345C53CCB60912 /* MIDILoopTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 873A2AA908695E9CBC5508FC /* MIDILoopTest.cpp */; };
 		DCA7298221B248B21872D763 /* wavefile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAABABBE36DBD2C8C7E97D17 /* wavefile.cpp */; };
@@ -110,6 +111,8 @@
 		0EB037C956AD763EC8C3DB98 /* juce_ImageCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ImageCache.h; path = ../../JuceLibraryCode/modules/juce_graphics/images/juce_ImageCache.h; sourceTree = SOURCE_ROOT; };
 		0ECDF4901819135C0C2CB42A /* juce_AppleRemote.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_AppleRemote.h; path = ../../JuceLibraryCode/modules/juce_gui_extra/misc/juce_AppleRemote.h; sourceTree = SOURCE_ROOT; };
 		10010F7B032757FAD9772424 /* juce_XmlElement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_XmlElement.h; path = ../../JuceLibraryCode/modules/juce_core/xml/juce_XmlElement.h; sourceTree = SOURCE_ROOT; };
+		100D617E1A1046A3005CE62A /* AIO Full Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "AIO Full Test.xml"; sourceTree = "<group>"; };
+		100D617F1A1046A3005CE62A /* AIO Module 2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "AIO Module 2.xml"; sourceTree = "<group>"; };
 		10CD86A02F8ED6C79EC1D2B6 /* juce_TopLevelWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_TopLevelWindow.cpp; path = ../../JuceLibraryCode/modules/juce_gui_basics/windows/juce_TopLevelWindow.cpp; sourceTree = SOURCE_ROOT; };
 		10E777B2E10E44D8E88CFDA2 /* juce_FileBrowserListener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_FileBrowserListener.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/filebrowser/juce_FileBrowserListener.h; sourceTree = SOURCE_ROOT; };
 		10E7EA8303E7A0218EAC2C7D /* juce_TabbedButtonBar.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_TabbedButtonBar.cpp; path = ../../JuceLibraryCode/modules/juce_gui_basics/layout/juce_TabbedButtonBar.cpp; sourceTree = SOURCE_ROOT; };
@@ -735,7 +738,6 @@
 		C9CC188B6EC29494A14EB4A4 /* juce_ChoicePropertyComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ChoicePropertyComponent.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/properties/juce_ChoicePropertyComponent.h; sourceTree = SOURCE_ROOT; };
 		C9FED8CA1A100C5500B574D4 /* TestManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TestManager.cpp; path = ../../Source/TestManager.cpp; sourceTree = "<group>"; };
 		C9FED8CB1A100C5500B574D4 /* TestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestManager.h; path = ../../Source/TestManager.h; sourceTree = "<group>"; };
-		C9FED8CD1A100F5600B574D4 /* AIOProductionTests.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = AIOProductionTests.xml; sourceTree = "<group>"; };
 		CA53AFFB17039691A4668A6C /* juce_android_GraphicsContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_android_GraphicsContext.cpp; path = ../../JuceLibraryCode/modules/juce_graphics/native/juce_android_GraphicsContext.cpp; sourceTree = SOURCE_ROOT; };
 		CA8D1ABF1507CEBD321ABD1D /* Content.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Content.cpp; path = ../../Source/Content.cpp; sourceTree = SOURCE_ROOT; };
 		CB2BE5219155DD7686BB9BAF /* juce_SubregionStream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_SubregionStream.cpp; path = ../../JuceLibraryCode/modules/juce_core/streams/juce_SubregionStream.cpp; sourceTree = SOURCE_ROOT; };
@@ -1725,9 +1727,10 @@
 		93C619DBF455E2A537DD75BE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				100D617E1A1046A3005CE62A /* AIO Full Test.xml */,
+				100D617F1A1046A3005CE62A /* AIO Module 2.xml */,
 				C984D99F1A10381300288FD6 /* factory.icns */,
 				C91C06841A102394005CAF22 /* AIO Module 1.xml */,
-				C9FED8CD1A100F5600B574D4 /* AIOProductionTests.xml */,
 				ECB33092A73D580039E20E87 /* Info.plist */,
 				7DDFE4DA407C0FE8084B8C5D /* RecentFilesMenuTemplate.nib */,
 			);
@@ -2492,10 +2495,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				100D61801A1046A3005CE62A /* AIO Full Test.xml in Resources */,
 				C91C06851A102394005CAF22 /* AIO Module 1.xml in Resources */,
-				C9FED8CE1A100F5600B574D4 /* AIOProductionTests.xml in Resources */,
 				6E32B1E6B0A50AF4474A55D8 /* RecentFilesMenuTemplate.nib in Resources */,
 				C984D9A01A10381300288FD6 /* factory.icns in Resources */,
+				100D61811A1046A3005CE62A /* AIO Module 2.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

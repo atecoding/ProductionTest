@@ -52,7 +52,7 @@ bool PhaseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 			msg = String::formatted(T("Phase test : Inverted"));
 	}
 
-#ifdef WRITE_WAVE_FILES
+#if WRITE_WAVE_FILES
 	String name;
 
 	name = String::formatted(T("Phase out%02d-in%02d.wav"),output,input);
