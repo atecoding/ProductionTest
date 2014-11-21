@@ -96,7 +96,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\JuceLibraryCode\modules;../../Source/ehw;../../Source/ehw/win;../../Source/ehw/usb;../../Source/ehw/usb/win;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\JuceLibraryCode;..\..\JuceLibraryCode\modules;..\..\Source\win32;..\..\Source\win32\win;..\..\Source\win32\usb;..\..\Source\win32\usb\win;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_WINDOWS;DEBUG;_DEBUG;JUCER_VS2013_78A5020=1;JUCE_APP_VERSION=1.0.0;JUCE_APP_VERSION_HEX=0x10000;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -323,6 +323,7 @@
     <ClCompile Include="..\..\Source\SawtoothAudioSource.cpp" />
     <ClCompile Include="..\..\Source\TEDSTest.cpp" />
     <ClCompile Include="..\..\Source\Test.cpp" />
+    <ClCompile Include="..\..\Source\TestManager.cpp" />
     <ClCompile Include="..\..\Source\TestPrompt.cpp" />
     <ClCompile Include="..\..\Source\ThdnTest.cpp" />
     <ClCompile Include="..\..\Source\wavefile.cpp" />
@@ -1363,6 +1364,7 @@
     <ClInclude Include="..\..\Source\ProductionUnit.h" />
     <ClInclude Include="..\..\Source\SawtoothAudioSource.h" />
     <ClInclude Include="..\..\Source\Test.h" />
+    <ClInclude Include="..\..\Source\TestManager.h" />
     <ClInclude Include="..\..\Source\TestPrompt.h" />
     <ClInclude Include="..\..\Source\UsbHidApi.h" />
     <ClInclude Include="..\..\Source\wavefile.h" />

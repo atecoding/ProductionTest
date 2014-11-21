@@ -1315,35 +1315,39 @@ int ehw::ReceiveTestBuffer (uint8 *buffer,size_t buffer_size,size_t &bytes_recei
 
 #include "AcousticIO.h"
 
-void ehw::setMicGain(XmlElement const *element)
+Result ehw::setMicGain(XmlElement const *element)
 {
-	/*TUsbAudioStatus status;*/
 	uint8 channel;
 	uint8 gain;
 	int attribute;
 
 	if (false == element->hasAttribute("input"))
 	{
+		Result error(Result::fail("AIO_set_mic_gain missing 'input' setting"));
 		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
-			"AIO_set_mic_gain missing 'input' setting", false);
-		return;
+			error.getErrorMessage(), false);
+		return error;
 	}
 
 	attribute = element->getIntAttribute("input", -1);
 	if (attribute < 0 || attribute > 7)
 	{
+		Result error(Result::fail("AIO_set_mic_gain - input " + String(attribute) + " out of range"));
+
 		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
-			"AIO_set_mic_gain - input " + String(attribute) + " out of range", false);
-		return;
+			error.getErrorMessage(), false);
+		return error;
 	}
 	channel = (uint8)attribute;
 
 
 	if (false == element->hasAttribute("gain"))
 	{
+		Result error(Result::fail("AIO_set_mic_gain missing 'gain' setting"));
+
 		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
-			"AIO_set_mic_gain missing 'gain' setting", false);
-		return;
+			error.getErrorMessage(), false);
+		return error;
 	}
 
 	attribute = element->getIntAttribute("gain", -1);
@@ -1360,7 +1364,8 @@ void ehw::setMicGain(XmlElement const *element)
 	}
 	gain = (uint8)attribute;
 
-	TUSBAUDIO_AudioControlRequestSet(handle,
+	TUsbAudioStatus status;
+	status = TUSBAUDIO_AudioControlRequestSet(handle,
 		ACOUSTICIO_EXTENSION_UNIT,	// unit ID
 		CUR,
 		ACOUSTICIO_MIC_GAIN_CONTROL,
@@ -1369,8 +1374,46 @@ void ehw::setMicGain(XmlElement const *element)
 		1,
 		NULL,
 		1000);
+	if (TSTATUS_SUCCESS == status)
+	{
+		uint8 temp;
+
+		status = TUSBAUDIO_AudioControlRequestGet(handle,
+			ACOUSTICIO_EXTENSION_UNIT,	// unit ID
+			CUR,
+			ACOUSTICIO_MIC_GAIN_CONTROL,
+			channel,
+			(void *)&temp,
+			1,
+			NULL,
+			1000);
+		if (TSTATUS_SUCCESS == status)
+		{
+			if (temp == gain)
+			{
+				return Result::ok();
+			}
+			else
+			{
+				String error("Failed to verify mic gain for input " + String((int)channel));
+				error += " - expected " + String::toHexString(gain) + ", read " + String::toHexString(temp);
+				return Result::fail(error);
+			}
+		}
+		else
+		{
+			String error("Failed to get mic gain for input " + String((int)channel));
+			error += " - error " + String::toHexString((int)status);
+			return Result::fail(error);
+		}
+	}
+	String error("Failed to set mic gain for input " + String((int)channel));
+	error += " - error " + String::toHexString((int)status);
+	return Result::fail(error);
 }
-void ehw::setAmpGain(XmlElement const *element)
+
+
+Result ehw::setAmpGain(XmlElement const *element)
 {
 	uint8 channel;
 	uint8 gain;
@@ -1378,26 +1421,30 @@ void ehw::setAmpGain(XmlElement const *element)
 
 	if (false == element->hasAttribute("output"))
 	{
+		Result error(Result::fail("AIO_set_amp_gain missing 'output' setting"));
 		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
-			"AIO_set_amp_gain missing 'output' setting", false);
-		return;
+			error.getErrorMessage(), false);
+		return error;
 	}
 
 	attribute = element->getIntAttribute("output", -1);
 	if (attribute < 0 || attribute > 3)
 	{
+		Result error(Result::fail("AIO_set_amp_gain - output " + String(attribute) + " out of range"));
 		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
-			"AIO_set_amp_gain - output " + String(attribute) + " out of range", false);
-		return;
+			error.getErrorMessage(), false);
+		return error;
 	}
 	channel = (uint8)attribute;
 
 
 	if (false == element->hasAttribute("gain"))
 	{
+		Result error(Result::fail("AIO_set_amp_gain missing 'gain' setting"));
+
 		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
 			"AIO_set_amp_gain missing 'gain' setting", false);
-		return;
+		return error;
 	}
 
 	attribute = element->getIntAttribute("gain", -1);
@@ -1417,7 +1464,8 @@ void ehw::setAmpGain(XmlElement const *element)
 	}
 	gain = (uint8)attribute;
 
-	TUSBAUDIO_AudioControlRequestSet(handle,
+	TUsbAudioStatus status;
+	status = TUSBAUDIO_AudioControlRequestSet(handle,
 		ACOUSTICIO_EXTENSION_UNIT,	// unit ID
 		CUR,
 		ACOUSTICIO_AMP_GAIN_CONTROL,
@@ -1426,9 +1474,45 @@ void ehw::setAmpGain(XmlElement const *element)
 		1,
 		NULL,
 		1000);
+	if (TSTATUS_SUCCESS == status)
+	{
+		uint8 temp;
+		status = TUSBAUDIO_AudioControlRequestGet(handle,
+			ACOUSTICIO_EXTENSION_UNIT,	// unit ID
+			CUR,
+			ACOUSTICIO_AMP_GAIN_CONTROL,
+			channel,
+			(void *)&temp,
+			1,
+			NULL,
+			1000);
+		if (TSTATUS_SUCCESS == status)
+		{
+			if (temp == gain)
+			{
+				return Result::ok();
+			}
+			else
+			{
+				String error("Failed to verify amp gain for input " + String((int)channel));
+				error += " - expected " + String::toHexString(gain) + ", read " + String::toHexString(temp);
+				return Result::fail(error);
+			}
+		}
+		else
+		{
+			String error("Failed to get amp gain for input " + String((int)channel));
+			error += " - error " + String::toHexString((int)status);
+			return Result::fail(error);
+		}
+	}
+
+	String error("Failed to set amp gain for input " + String((int)channel));
+	error += " - error " + String::toHexString((int)status);
+	return Result::fail(error);
 }
 
-void ehw::setConstantCurrent(XmlElement const *element)
+Result ehw::setConstantCurrent(XmlElement const *element)
 {
 	uint8 channel;
 	uint8 enabled;
@@ -1436,35 +1520,43 @@ void ehw::setConstantCurrent(XmlElement const *element)
 
 	if (false == element->hasAttribute("input"))
 	{
+		Result error(Result::fail("AIO_set_constant_current missing 'input' setting"));
+
 		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
 			"AIO_set_constant_current missing 'input' setting", false);
-		return;
+		return error;
 	}
 
 	attribute = element->getIntAttribute("input", -1);
 	if (attribute < 0 || attribute > 7)
 	{
+		Result error(Result::fail("AIO_set_constant_current - input " + String(attribute) + " out of range"));
+
 		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
 			"AIO_set_constant_current - input " + String(attribute) + " out of range", false);
-		return;
+		return error;
 	}
 	channel = (uint8)attribute;
 
 
 	if (false == element->hasAttribute("enabled"))
 	{
+		Result error(Result::fail("AIO_set_constant_current missing 'enabled' setting"));
+
 		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
 			"AIO_set_constant_current missing 'enabled' setting", false);
-		return;
+		return error;
 	}
 
 	enabled = element->getIntAttribute("enabled", 0) != 0;
-	setConstantCurrent(channel, enabled);
+	return setConstantCurrent(channel, enabled);
 }
 
-void ehw::setConstantCurrent(uint8 const input, uint8 const enabled)
+Result ehw::setConstantCurrent(uint8 const input, uint8 const enabled)
 {
-	TUSBAUDIO_AudioControlRequestSet(handle,
+	TUsbAudioStatus status;
+
+	status = TUSBAUDIO_AudioControlRequestSet(handle,
 		ACOUSTICIO_EXTENSION_UNIT,	// unit ID
 		CUR,
 		ACOUSTICIO_CONSTANT_CURRENT_CONTROL,
@@ -1473,9 +1565,45 @@ void ehw::setConstantCurrent(uint8 const input, uint8 const enabled)
 		1,
 		NULL,
 		1000);
+	if (TSTATUS_SUCCESS == status)
+	{
+		uint8 temp;
+		status = TUSBAUDIO_AudioControlRequestGet(handle,
+			ACOUSTICIO_EXTENSION_UNIT,	// unit ID
+			CUR,
+			ACOUSTICIO_CONSTANT_CURRENT_CONTROL,
+			input,
+			(void *)&temp,
+			1,
+			NULL,
+			1000);
+		if (TSTATUS_SUCCESS == status)
+		{
+			if (temp == enabled)
+			{
+				return Result::ok();
+			}
+			else
+			{
+				String error("Failed to verify CC for input " + String((int)input));
+				error += " - expected " + String::toHexString(enabled) + ", read " + String::toHexString(temp);
+				return Result::fail(error);
+			}
+		}
+		else
+		{
+			String error("Failed to get CC for input " + String((int)input));
+			error += " - error " + String::toHexString((int)status);
+			return Result::fail(error);
+		}
+	}
+
+	String error("Failed to set CC for input " + String((int)input));
+	error += " - error " + String::toHexString((int)status);
+	return Result::fail(error);
 }
 
-int ehw::readTEDSData(uint8 const input, uint8* data, size_t dataBufferBytes)
+Result ehw::readTEDSData(uint8 const input, uint8* data, size_t dataBufferBytes)
 {
 	TUsbAudioStatus status;
 
@@ -1488,8 +1616,12 @@ int ehw::readTEDSData(uint8 const input, uint8* data, size_t dataBufferBytes)
 		dataBufferBytes,
 		NULL,
 		1000);
+	if (TSTATUS_SUCCESS == status)
+		return Result::ok();
 
-	return TSTATUS_SUCCESS != status;
+	String error("Failed to read TEDS for input " + String((int)input));
+	error += " - error " + String::toHexString((int)status);
+	return Result::fail(error);
 }
 
 #endif

@@ -1362,6 +1362,9 @@
     <ClCompile Include="..\..\Source\win32\AIOTestAdapter_win.cpp">
       <Filter>ProductionTest\Source\AIO</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\TestManager.cpp">
+      <Filter>ProductionTest\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\ehw\win\NotificationWindow.h">
@@ -2629,6 +2632,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\win32\usb\win\AcousticIO.h">
       <Filter>ProductionTest\Source\AIO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\TestManager.h">
+      <Filter>ProductionTest\Source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

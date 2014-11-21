@@ -23,7 +23,7 @@ typedef unsigned __int8 byte;
 #endif
 #include "tusbaudioapi.h"
 #include "../Session.h"
-#include "hwcaps.h"
+#include "../hwcaps.h"
 
 //
 // ehw
@@ -233,11 +233,11 @@ public:
 
 #if ACOUSTICIO_BUILD
 
-	void setMicGain(XmlElement const *element);
-	void setAmpGain(XmlElement const *element);
-	void setConstantCurrent(XmlElement const *element);
-	void setConstantCurrent(uint8 const input, uint8 const enabled);
-	int readTEDSData(uint8 const input, uint8* data, size_t dataBufferBytes); 
+	Result setMicGain(XmlElement const *element);
+	Result setAmpGain(XmlElement const *element);
+	Result setConstantCurrent(XmlElement const *element);
+	Result setConstantCurrent(uint8 const input, uint8 const enabled);
+	Result readTEDSData(uint8 const input, uint8* data, size_t dataBufferBytes); 
 
 #endif
 

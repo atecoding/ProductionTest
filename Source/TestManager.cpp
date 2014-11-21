@@ -9,6 +9,10 @@ TestManager::TestManager()
     File bundle(File::getSpecialLocation(File::currentApplicationFile));
     File resources(bundle.getChildFile("Contents/Resources"));
 #endif
+
+#ifdef JUCE_WIN32
+	File resources(File::getSpecialLocation(File::currentExecutableFile));
+#endif
     
     resources.findChildFiles(files, File::findFiles, false, "*.xml");
     currentIndex = 0;
