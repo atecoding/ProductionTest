@@ -1598,7 +1598,7 @@ bool ProductionUnit::CreateASIO(XmlElement *script)
 	}
 
 	AlertWindow::showNativeDialogBox(	"Production Test",
-										"ASIO driver not found.",
+			"Audio driver not found: '" + asioname + "'",
 										false);
 	JUCEApplication::quit();
 	_ok = false;
