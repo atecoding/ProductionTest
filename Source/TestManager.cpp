@@ -11,9 +11,9 @@ TestManager::TestManager()
 #endif
 
 #ifdef JUCE_WIN32
-	File resources(File::getSpecialLocation(File::currentExecutableFile));
+	File resources(File::getSpecialLocation(File::currentExecutableFile).getParentDirectory());
 #endif
-    
+
     resources.findChildFiles(files, File::findFiles, false, "*.xml");
     currentIndex = 0;
 }
