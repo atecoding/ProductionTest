@@ -34,6 +34,7 @@ public:
 	int _pulsate;
 	float minSampleRate;
 	float maxSampleRate;
+	int errorBit;
 
 protected:
 	String MsgSampleRate();

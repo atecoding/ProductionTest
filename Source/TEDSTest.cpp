@@ -3,6 +3,7 @@
 #include "AcousticIO.h"
 #include "ehw.h"
 #include "content.h"
+#include "errorbits.h"
 //#include "AIODevice.h"
 
 #define CUR 1
@@ -101,13 +102,15 @@ bool RunInputTest(XmlElement const *element, ehw *dev, String &msg, int &display
 	return test_ok;
 }
 
-bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &displayedInput, Content *content)
+bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &displayedInput, Content *content, int &errorBit)
 {
 	int attribute;
 	uint8 channel;
 	uint8 data[ACOUSTICIO_TEDS_DATA_BYTES];
 	uint8 expectedValue;
 	bool ok = true;
+
+	errorBit = 0;
 
 	displayedInput = -1;
 
@@ -153,6 +156,7 @@ bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &displaye
         {
             msg = "Could not read TEDS data for input " + String(displayedInput) + "\n" +
                 status.getErrorMessage();
+			errorBit |= TEDS_ERROR_INDEX << channel;
             return false;
         }
 #endif
@@ -166,6 +170,7 @@ bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &displaye
 			{
 				msg = "Read unexpected TEDS data for input " + String(displayedInput) + " (value of 0x" + String::toHexString(data[i]) + " at offset " + String(i) + ")";
 				ok = false;
+				errorBit |= TEDS_ERROR_INDEX << channel;
 				break;
 			}
 		}

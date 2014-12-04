@@ -16,11 +16,13 @@
 #include "OldMessage.h"
 #include "App.h"
 #include "TestManager.h"
+#include "errorbits.h"
 
 //extern String ProductionTestsXmlFileName;
 
 ProductionUnit::ProductionUnit(ehw *dev,ehwlist *devlist,Content *content) :
 _num_tests(0),
+_errorBits(0),
 _unit_passed(true),
 _skipped(false),
 _running(false),
@@ -201,6 +203,7 @@ void ProductionUnit::RunTests()
 	_skipped = false;
 	_unit_passed = true;
 	_running = true;
+	_errorBits = 0;
 
 	//
 	// Load the set of tests from XML
@@ -479,6 +482,7 @@ void ProductionUnit::handleMessage(const Message &message)
 			result = _test->calc(_inbuffs,msg);
 			result &= sampleRateResult.wasOk();
 			_unit_passed &= result;
+			_errorBits |= _test->errorBit;
 			_channel_group_passed &= (int)result;
 
 		#if 0
@@ -1307,16 +1311,18 @@ void ProductionUnit::ParseScript()
 
 		if (_script->hasTagName("AIO_TEDS_test"))
 		{
-			bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &input, Content *content);
+			bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &input, Content *content, int &errorBit);
 
 			String msg;
 			int input;
-			bool ok = RunTEDSTest(_script, _dev, msg, input, _content) == TestPrompt::ok;
+			int errorBit;
+			bool ok = RunTEDSTest(_script, _dev, msg, input, _content, errorBit) == TestPrompt::ok;
 
 			//			_content->log(String::empty);
 			_content->log(msg);
 
 			_unit_passed &= ok;
+			_errorBits |= errorBit;
 
 			_num_tests++;
 
@@ -1373,16 +1379,18 @@ void ProductionUnit::ParseScript()
 
 		if (_script->hasTagName("AIO_mic_supply_off_voltage_test"))
 		{
-			bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter);
+			bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter, int &errorBit);
 
 			String msg;
 			int input;
-			bool ok = RunCCVoltageTest(_script, msg, input, aioTestAdapter) == TestPrompt::ok;
+			int errorBit;
+			bool ok = RunCCVoltageTest(_script, msg, input, aioTestAdapter, errorBit) == TestPrompt::ok;
 
 			_content->log(String::empty);
 			_content->log(msg);
 
 			_unit_passed &= ok;
+			_errorBits |= errorBit;
 
 			_num_tests++;
 
@@ -1401,16 +1409,18 @@ void ProductionUnit::ParseScript()
 
 		if (_script->hasTagName("AIO_mic_supply_on_voltage_test"))
 		{
-			bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter);
+			bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter, int &errorBit);
 
 			String msg;
 			int input;
-			bool ok = RunCCVoltageTest(_script, msg, input, aioTestAdapter) == TestPrompt::ok;
+			int errorBit;
+			bool ok = RunCCVoltageTest(_script, msg, input, aioTestAdapter, errorBit) == TestPrompt::ok;
 
 			_content->log(String::empty);
 			_content->log(msg);
 
 			_unit_passed &= ok;
+			_errorBits |= errorBit;
 
 			_num_tests++;
 
@@ -1429,16 +1439,18 @@ void ProductionUnit::ParseScript()
 
 		if (_script->hasTagName("AIO_mic_supply_current_test"))
 		{
-			bool RunCCCurrentTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter);
+			bool RunCCCurrentTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter, int &errorBit);
 
 			String msg;
 			int input;
-			bool ok = RunCCCurrentTest(_script, msg, input, aioTestAdapter) == TestPrompt::ok;
+			int errorBit;
+			bool ok = RunCCCurrentTest(_script, msg, input, aioTestAdapter, errorBit) == TestPrompt::ok;
 
 			_content->log(String::empty);
 			_content->log(msg);
 
 			_unit_passed &= ok;
+			_errorBits |= errorBit;
 
 			_num_tests++;
 
@@ -1487,9 +1499,46 @@ void ProductionUnit::ParseScript()
 
 	if (_num_tests)
 	{
+#ifdef ACOUSTICIO_BUILD
+		String errorCodes[32] = {
+			"10 ",		// LEVEL ERROR INDEX
+			"20 ",
+			"30 ",
+			"40 ",
+			"50 ",
+			"60 ",
+			"70 ",
+			"80 ",
+			"11 ",		// THDN ERROR INDEX
+			"21 ",
+			"31 ",
+			"41 ",
+			"51 ",
+			"61 ",
+			"71 ",
+			"81 ",
+			"12 ",		// DNR ERROR INDEX
+			"22 ",
+			"32 ",
+			"42 ",
+			"52 ",
+			"62 ",
+			"72 ",
+			"82 ",
+			"14 ",		// TEDS ERROR INDEX
+			"24 ",
+			"34 ",
+			"44 ",
+			"54 ",
+			"64 ",
+			"74 ",
+			"84 "
+		};
+#endif
 		String msg;
 		String finalResult;
 		Colour finalResultColor;
+		int i;
 
 		_content->log(String::empty);
 		if (_unit_passed && !_skipped && _running)
@@ -1515,6 +1564,15 @@ void ProductionUnit::ParseScript()
 			msg = T("Unit failed.");
 			finalResult = "UNIT FAILED";
 			finalResultColor = Colours::red;
+			if (_errorBits |= 0)
+			{
+				finalResult += "\n"; 
+				for (i = 0; i < 32; i++)
+				{
+					if ((_errorBits & (1 << i)))
+						finalResult += errorCodes[i];
+				}
+			}
 		}
 		_content->log(msg);
 		_content->setFinalResult(finalResult,finalResultColor);
@@ -1540,65 +1598,42 @@ bool ProductionUnit::CreateASIO(XmlElement *script)
 	//
 	// Load the ASIO driver
 	//
-	AudioDeviceManager *manager = _content->GetAudioDeviceManager();
-   const OwnedArray <AudioIODeviceType> &types(manager->getAvailableDeviceTypes());
-	String asioname;
+	String devicename;
 
 	DBG_PRINTF((T("CreateASIO %p"),_asio));
 
-	forEachXmlChildElementWithTagName(*script,child,"ASIO_driver")
+	forEachXmlChildElementWithTagName(*script, child, "ASIO_driver")
 	{
-		asioname = child->getAllSubText();
-		if ((NULL == child) || asioname.isEmpty())
+		devicename = child->getAllSubText();
+		if ((NULL == child) || devicename.isEmpty())
 		{
-			AlertWindow::showNativeDialogBox(	"Production Test",
-												"ASIO driver XML tag missing.",
-												false);
+			AlertWindow::showNativeDialogBox("Production Test",
+				"ASIO driver XML tag missing.",
+				false);
 			return false;
 		}
 
-		AudioDeviceManager::AudioDeviceSetup setup;
-
-		setup.outputDeviceName = asioname;
-		setup.inputDeviceName = asioname;
-		String result = manager->setAudioDeviceSetup(setup,true);
-		DBG("setAudioDeviceSetup:");
-		DBG(result);
-		if (result.isEmpty())
-		{
-			_asio = manager->getCurrentAudioDevice();
-			return true;
-		}
-
-		 for (int i = 0; i < types.size(); ++i)
-		 {
-			  String typeName (types[i]->getTypeName());  // This will be things like "DirectSound", "CoreAudio", etc.
-
-			  DBG(typeName);
-             
-#ifdef _WIN32
-            if (typeName != String("ASIO"))
-                continue;
+#if JUCE_WIN32
+		ScopedPointer<AudioIODeviceType> type(AudioIODeviceType::createAudioIODeviceType_ASIO());
 #endif
-
-			  types[i]->scanForDevices();                 // This must be called before getting the list of devices
-
-			  StringArray deviceNames (types[i]->getDeviceNames());  // This will now return a list of available devices of this type
-
-			  for (int j = 0; j < deviceNames.size(); ++j)
-			  {
-				if (deviceNames[j] == asioname)
-				{
-					_asio = types[i]->createDevice(asioname,asioname);
-					DBG("CreateASIO ok");
-					return true;
-				}
-			  }
-		 }
+#if JUCE_MAC
+		ScopedPointer<AudioIODeviceType> type(AudioIODeviceType::createAudioIODeviceType_CoreAudio());
+#endif
+		type->scanForDevices();
+		StringArray deviceNames(type->getDeviceNames());  // This will now return a list of available devices of this type
+		for (int j = 0; j < deviceNames.size(); ++j)
+		{
+			if (deviceNames[j] == devicename)
+			{
+				_asio = type->createDevice(devicename, devicename);
+				DBG("CreateASIO ok");
+				return true;
+			}
+		}
 	}
 
 	AlertWindow::showNativeDialogBox(	"Production Test",
-			"Audio driver not found: '" + asioname + "'",
+			"Audio driver not found: '" + devicename + "'",
 										false);
 	JUCEApplication::quit();
 	_ok = false;

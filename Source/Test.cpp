@@ -12,7 +12,8 @@ Test::Test(XmlElement *xe,bool &ok) :
 	num_channels(1),
     _dc_offset(0.0f),
     _sawtooth(0),
-    _pulsate(0)
+    _pulsate(0),
+	errorBit(0)
 {
 	XmlElement *temp;
 

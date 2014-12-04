@@ -47,8 +47,6 @@ public:
 	void DevArrived(ehw *dev);
 	void DevRemoved(ehw *dev);
 
-	AudioDeviceManager *GetAudioDeviceManager();
-
 	void handleAsyncUpdate();
 
 protected:
@@ -80,8 +78,6 @@ protected:
 
 	File _logfile;
 	ScopedPointer <FileOutputStream> _log_stream;
-
-	ScopedPointer<AudioDeviceManager> _audio_devices;
 
 	friend class DevChangeListener;
 };

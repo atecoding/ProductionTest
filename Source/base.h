@@ -35,7 +35,7 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-#define WRITE_WAVE_FILES 0
+#define WRITE_WAVE_FILES 1
 
 enum
 {

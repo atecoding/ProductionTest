@@ -3,6 +3,7 @@
 #include "Analysis.h"
 #include "wavefile.h"
 #include "xml.h"
+#include "errorbits.h"
 
 
 LevelCheckTest::LevelCheckTest(XmlElement *xe,bool &ok) :
@@ -35,17 +36,17 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 		float const *data = buffs[input + channel]->getReadPointer(0);
 
 		peak = 0.0f;
-		for (idx = num_samples/4; idx < 3*num_samples/4; idx++)
+		for (idx = num_samples / 4; idx < 3 * num_samples / 4; idx++)
 		{
-            float sample = fabs(data[idx]);
+			float sample = fabs(data[idx]);
 			peak = jmax(peak, sample);
 		}
-	
+
 		if (peak < 0.0001)
 		{
 			msg = String::formatted(T("Level check at "));
 			msg += MsgSampleRate();
-			msg += String::formatted(T(": level too low (peak %f)"),peak);
+			msg += String::formatted(T(": level too low (peak %f)"), peak);
 
 			max_db = -144.0f;
 		}
@@ -120,19 +121,21 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 
 			msg += String::formatted(T("  level %.1f dB"), max_db);
 
-#if WRITE_WAVE_FILES
-			String name;
-
-			if((max_db <= min_level_db) || (max_db >= max_level_db))
-			{
-				name = String::formatted(T("Level out%02d-in%02d at %.0f Hz.wav"), output, input + channel, output_frequency);
-				WriteWaveFile(name, sample_rate, buffs[input]);
-			}
-#endif
 
 		}
 
 		pass &= (max_db >= min_level_db) && (max_db <= max_level_db);
+		if ((max_db <= min_level_db) || (max_db >= max_level_db))	// only write wave files on failure
+		{
+			errorBit |= LEVEL_ERROR_INDEX << (input + channel);
+
+#if WRITE_WAVE_FILES
+			String name;
+
+			name = String::formatted(T("Level out%02d-in%02d at %.0f Hz.wav"), output, input + channel, output_frequency);
+			WriteWaveFile(name, sample_rate, buffs[input]);
+#endif
+		}
 	}
 
 	return pass;

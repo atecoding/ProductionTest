@@ -2636,6 +2636,9 @@
     <ClInclude Include="..\..\Source\TestManager.h">
       <Filter>ProductionTest\Source</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\errorbits.h">
+      <Filter>ProductionTest\Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\JUCE\modules\juce_audio_basics\juce_module_info">

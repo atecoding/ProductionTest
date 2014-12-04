@@ -26,6 +26,7 @@ public:
 	void handleMessage(const Message &message);
 
 	int	_num_tests;
+	int32 _errorBits;
 	bool _unit_passed;
 	bool _skipped;
 	bool _running;
@@ -47,7 +48,7 @@ protected:
 	ehw *_dev;
 	ehwlist *_devlist;
 	Content *_content;
-	AudioIODevice *_asio;
+	ScopedPointer<AudioIODevice> _asio;
 	ToneGeneratorAudioSource _tone;
 	float _dc_offset;
 	int _sawtooth;

@@ -2,13 +2,16 @@
 #include "base.h"
 #include "xml.h"
 #include "AIOTestAdapter.h"
+#include "errorbits.h"
 
-bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter)
+bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter, int &errorBit)
 {
 	int attribute;
 	uint8 channel;
 	float minimum, maximum, volts;
 	bool ok;
+	
+	errorBit = 0;
 
 	//
 	// Read XML parameters
@@ -86,6 +89,7 @@ bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInpu
 		{
 			msg += "    Channel " + String(i + displayedInput) + ": " + String(volts,1) + "V out of range\n";
 			pass = false;
+			errorBit |= TEDS_ERROR_INDEX << (channel + i);
 		}
 		else
 		{
@@ -96,12 +100,14 @@ bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInpu
 	return pass;
 }
 
-bool RunCCCurrentTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter)
+bool RunCCCurrentTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter, int &errorBit)
 {
 	int attribute;
 	uint8 channel;
 	float minimum, maximum, current;
 	bool ok;
+
+	errorBit = 0;
 
 	//
 	// Read XML parameters
@@ -177,6 +183,7 @@ bool RunCCCurrentTest(XmlElement const *element, String &msg, int &displayedInpu
 		{
 			msg += "    Channel " + String(i + displayedInput) + ": " + String(current,1) + "ma out of range\n";
 			pass = false;
+			errorBit |= TEDS_ERROR_INDEX << (channel + i);
 		}
 		else
 		{

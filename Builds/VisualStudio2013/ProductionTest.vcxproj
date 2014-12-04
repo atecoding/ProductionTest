@@ -1355,6 +1355,7 @@
     <ClInclude Include="..\..\Source\AudioOutput.h" />
     <ClInclude Include="..\..\Source\base.h" />
     <ClInclude Include="..\..\Source\Content.h" />
+    <ClInclude Include="..\..\Source\errorbits.h" />
     <ClInclude Include="..\..\Source\FilterCoeff.h" />
     <ClInclude Include="..\..\Source\iasiodrv.h" />
     <ClInclude Include="..\..\Source\Images.h" />

@@ -3,6 +3,7 @@
 #include "Analysis.h"
 #include "wavefile.h"
 #include "xml.h"
+#include "errorbits.h"
 
 
 DynRangeTest::DynRangeTest(XmlElement *xe,bool &ok) :
@@ -28,18 +29,21 @@ bool DynRangeTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 	msg += ": ";
 	for (channel = 0; channel < num_channels; channel++)
 	{
-		result = computeTHDN(buffs[input + channel]->getReadPointer(0),sample_rate);
+		result = computeTHDN(buffs[input + channel]->getReadPointer(0), sample_rate);
 		result = (-1.0 * result) + 60.0;
 
-		msg += String::formatted(T("  %.1f dB"),result);
+		msg += String::formatted(T("  %.1f dB"), result);
 
-	#if WRITE_WAVE_FILES
-		String name;
+#if WRITE_WAVE_FILES
+		if(result < pass_threshold_db)  // only write wave file on failure
+		{
+			String name;
 
-		name = String::formatted("Dynamic range  out%02d-in%02d ",output + channel,input + channel);
-		name += MsgSampleRate();
-		name += ".wav";		
-		WriteWaveFile(name,sample_rate,buffs[input + channel]);
+			name = String::formatted("Dynamic range  out%02d-in%02d ",output + channel,input + channel);
+			name += MsgSampleRate();
+			name += ".wav";		
+			WriteWaveFile(name, sample_rate, buffs[input + channel]);
+		}
 	#endif
 
 		pass &= result >= pass_threshold_db;
@@ -72,13 +76,23 @@ bool DiffDynRangeTest::calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg)
 	msg += String::formatted(T("  %.1f dB"), result);
 
 #if WRITE_WAVE_FILES
-	String name;
+	if (result < pass_threshold_db)  // only write wave file on failure
+	{
+		String name;
 
-	name = String::formatted("Differential dynamic range out%d-in%d-in%d ", output, input, input + 1);
-	name += MsgSampleRate();
-	name += ".wav";
-	WriteWaveFile(name, sample_rate, buffs[input]);
+		name = String::formatted("Differential dynamic range out%d-in%d-in%d ", output, input, input + 1);
+		name += MsgSampleRate();
+		name += ".wav";
+		WriteWaveFile(name, sample_rate, buffs[input]);
+	}
 #endif
+
+	if (result < pass_threshold_db)
+	{
+		errorBit |= DNR_ERROR_INDEX << input;
+		errorBit |= DNR_ERROR_INDEX << (input + 1);
+
+	}
 
 	return result >= pass_threshold_db;
 }

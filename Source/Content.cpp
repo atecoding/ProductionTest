@@ -111,9 +111,6 @@ Content::~Content()
 
 	deleteAllChildren();
 
-	if (_audio_devices)
-		_audio_devices->closeAudioDevice();
-
 	DBG("~Content done");
 }
 
@@ -362,12 +359,6 @@ void Content::FinishTests(bool pass,bool skipped)
 	_unit = nullptr;
 	_devlist->Cleanup();
 
-	if (_audio_devices)
-	{
-		_audio_devices->closeAudioDevice();
-		_audio_devices = nullptr;
-	}
-
 	StringArray DisableAllPCIDevices();
 	DisableAllPCIDevices();
 
@@ -394,14 +385,6 @@ void Content::FinishTests(bool pass,bool skipped)
 		DevArrived(_devlist->GetNthDevice(0));
 	}
 	_devlist->RegisterMessageListener(&_dev_listener);
-#endif
-
-#if ACOUSTICIO_BUILD
-	if (_audio_devices)
-	{
-		_audio_devices->closeAudioDevice();
-		_audio_devices = nullptr;
-	}
 #endif
 }
 
@@ -490,17 +473,6 @@ void DevChangeListener::handleMessage(const Message &message)
 			break;
 	}
 #endif
-}
-
-AudioDeviceManager *Content::GetAudioDeviceManager()
-{
-	if (nullptr == _audio_devices)
-	{
-		_audio_devices = new AudioDeviceManager;
-		_audio_devices->initialise(2, 2, NULL, false);
-	}
-
-	return _audio_devices;
 }
 
 void Content::handleAsyncUpdate()

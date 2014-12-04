@@ -3,6 +3,7 @@
 #include "Analysis.h"
 #include "wavefile.h"
 #include "xml.h"
+#include "errorbits.h"
 
 
 FrequencyResponseTest::FrequencyResponseTest(XmlElement *xe,bool &ok) :
@@ -122,13 +123,18 @@ bool FrequencyResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &ms
 		}
 
 		pass &= (max_db >= pass_threshold_db) && (max_db <= pass_threshold_db + 10.0f);
+		if ((max_db <= pass_threshold_db) || (max_db >= pass_threshold_db + 10.0f))
+			errorBit |= LEVEL_ERROR_INDEX << (input + channel);
 	}
 
 #if WRITE_WAVE_FILES
-	String name;
+	if (false == pass)	// only write wave file on failure
+	{
+		String name;
 
-	name = String::formatted(T("Frequency response out%02d-in%02d at %.0f Hz.wav"),output,input,output_frequency);
-	WriteWaveFile(name,sample_rate,buffs[input]);
+		name = String::formatted(T("Frequency response out%02d-in%02d at %.0f Hz.wav"), output, input, output_frequency);
+		WriteWaveFile(name, sample_rate, buffs[input]);
+	}
 #endif
 
 	return pass;
