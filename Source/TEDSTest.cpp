@@ -134,23 +134,6 @@ bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &displaye
 		channel = (uint8)(j + attribute);
 		displayedInput = channel + 1;
 
-#if 0
-		TUsbAudioStatus status;
-		status = TUSBAUDIO_AudioControlRequestGet(dev->GetNativeHandle(),
-			ACOUSTICIO_EXTENSION_UNIT,	// unit ID
-			CUR,
-			ACOUSTICIO_TEDS_DATA_CONTROL,
-			channel,
-			(void *)data,
-			sizeof(data),
-			NULL,
-			1000);
-		if (TSTATUS_SUCCESS != status)
-		{
-			msg = "Could not read TEDS data for input " + String(displayedInput);
-			return false;
-		}
-#else
         Result status(dev->readTEDSData(channel,data, sizeof(data)));
         if (status.failed())
         {
@@ -159,7 +142,6 @@ bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &displaye
 			errorBit |= TEDS_ERROR_INDEX << channel;
             return false;
         }
-#endif
 
 		expectedValue = (channel % 4) + 1;
 		expectedValue |= expectedValue << 4;
@@ -168,7 +150,7 @@ bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &displaye
 		{
 			if (data[i] != expectedValue)
 			{
-				msg = "Read unexpected TEDS data for input " + String(displayedInput) + " (value of 0x" + String::toHexString(data[i]) + " at offset " + String(i) + ")";
+				msg = "*** Read unexpected TEDS data for input " + String(displayedInput) + " (value of 0x" + String::toHexString(data[i]) + " at offset " + String(i) + ")";
 				ok = false;
 				errorBit |= TEDS_ERROR_INDEX << channel;
 				break;
@@ -180,6 +162,8 @@ bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &displaye
 		if (j < 3)
 			content->log(msg);
 	}
+    
+    ok = errorBit == 0;
 	if (!ok)
 		Thread::sleep(50);		// delay so things don't get hosed
 	return ok;

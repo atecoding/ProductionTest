@@ -1564,7 +1564,7 @@ void ProductionUnit::ParseScript()
 			msg = T("Unit failed.");
 			finalResult = "UNIT FAILED";
 			finalResultColor = Colours::red;
-			if (_errorBits |= 0)
+			if (_errorBits != 0)
 			{
 				finalResult += "\n"; 
 				for (i = 0; i < 32; i++)
@@ -1600,7 +1600,7 @@ bool ProductionUnit::CreateASIO(XmlElement *script)
 	//
 	String devicename;
 
-	DBG_PRINTF((T("CreateASIO %p"),_asio));
+	DBG("CreateASIO " << (pointer_sized_int)_asio.get());
 
 	forEachXmlChildElementWithTagName(*script, child, "ASIO_driver")
 	{
