@@ -22,13 +22,20 @@ LevelCheckTest::~LevelCheckTest()
 bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 {
 	int channel;
-	int idx,zc,num_samples,temp;
-	float last,max,min,peak,s,max_db,min_db;//,rms;//,rms_db;
+	int idx,zc,num_samples,temp,samples_per_cycle;
+	float last,max,min,peak,s,max_db,min_db,max_delta,max_delta_level,max_level_linear;//,rms;//,rms_db;
 	bool pass = true;
 
 	msg = String::formatted(T("Level check at "));
 	msg += MsgSampleRate();
 	msg += ": ";
+
+	// calculate maximum delta between samples to look for glitches
+	max_level_linear = pow(10.0f, max_level_db * 0.05f);
+	samples_per_cycle = sample_rate / output_frequency;
+	max_delta_level = max_level_linear * sin(2.0f * float_Pi / samples_per_cycle) * 1.1f;
+
+
 	for (channel = 0; channel < num_channels; channel++)
 	{
 
@@ -36,11 +43,16 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 		float const *data = buffs[input + channel]->getReadPointer(0);
 
 		peak = 0.0f;
-		for (idx = num_samples / 4; idx < 3 * num_samples / 4; idx++)
+		max_delta = 0.0f;
+		for (idx = num_samples / 16; idx < 15 * num_samples / 16; idx++)
 		{
 			float sample = fabs(data[idx]);
 			peak = jmax(peak, sample);
+			float delta = fabs(data[idx] - data[idx-1]);
+			max_delta = jmax(max_delta, delta);
 		}
+
+		max_db = 20.0f * log10(peak);
 
 		if (peak < 0.0001)
 		{
@@ -50,6 +62,7 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 
 			max_db = -144.0f;
 		}
+#if 0
 		else
 		{
 
@@ -119,9 +132,18 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 			rms_db = 20.0f * log10(rms);
 			*/
 
+
+
+		}
+#endif
+		if (max_delta > max_delta_level)	// glitch?
+		{
+			max_db = max_level_db + 0.5f;	// force failure
+			msg += String::formatted(T("  GLITCH"));
+		}
+		else
+		{
 			msg += String::formatted(T("  level %.1f dB"), max_db);
-
-
 		}
 
 		pass &= (max_db >= min_level_db) && (max_db <= max_level_db);

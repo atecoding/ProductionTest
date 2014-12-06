@@ -37,7 +37,7 @@ protected:
 		callback_skip_samples = 32000,
 
 		max_inputs = 64,
-		MAX_TIMESTAMPS = 128,
+		MAX_TIMESTAMPS = 256,
 
 		timer_msec = 100
 	};

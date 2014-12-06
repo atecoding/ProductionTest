@@ -428,7 +428,8 @@ void ProductionUnit::audioDeviceIOCallback
 
 	for (out = 0; out < numOutputChannels; out++)
 	{
-		if (active_outputs & (1 << out)) {
+		if (active_outputs & (1 << out)) 
+		{
 			for(int i = 0; i < numSamples; i++)
 			{
 				if(sawtooth)

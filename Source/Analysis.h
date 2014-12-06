@@ -29,4 +29,4 @@ bool verifyRate(int rate,int *data,int samples,double freq);
 void computeFreqResp(int *bufL,int *bufR,int count,int maxL,int maxR,FREQ_RSLT *r);
 #endif
 
-#define THDN_SAMPLES_REQUIRED	9600
+#define THDN_SAMPLES_REQUIRED	48000
