@@ -17,6 +17,9 @@
 #include "App.h"
 #include "TestManager.h"
 #include "errorbits.h"
+#if JUCE_MAC
+#include "osx/osx.h"
+#endif
 
 //extern String ProductionTestsXmlFileName;
 
@@ -303,9 +306,13 @@ void ProductionUnit::RunTests(String const serialNumber_)
 	msg += " " + _serial_number;
 	_content->log(String::empty);
 	_content->log(String::empty);
-	_content->log(T("---------------------------------------"));
+	_content->log("------------------------------------------------");
 	_content->log(msg);
 	_content->log(Time::getCurrentTime().toString(true,true));
+#if JUCE_MAC
+    _content->log(getMacModelID());
+#endif
+    _content->log(SystemStats::getOperatingSystemName());
 	_content->log(String::empty);
 
 	//
@@ -1778,9 +1785,9 @@ File ProductionUnit::getOutputFolder()
 
 void ProductionUnit::CreateLogFile()
 {
-	File logfolder(getOutputFolder());
-
-	_logfile = logfolder.getChildFile(_serial_number + "-Log" + ".txt");
-	_log_stream = new FileOutputStream(_logfile);
+    File logfolder(getOutputFolder());
+    
+    _logfile = logfolder.getChildFile(_serial_number + "-Log" + ".txt");
+    _log_stream = new FileOutputStream(_logfile);
 }
 
