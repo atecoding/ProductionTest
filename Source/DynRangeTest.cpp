@@ -6,8 +6,8 @@
 #include "errorbits.h"
 
 
-DynRangeTest::DynRangeTest(XmlElement *xe,bool &ok) :
-	Test(xe,ok)
+DynRangeTest::DynRangeTest(XmlElement *xe,bool &ok, ProductionUnit *unit_) :
+	Test(xe,ok,unit_)
 {
 	ok &= getFloatValue(xe, T("pass_threshold_db"), pass_threshold_db);
 }
@@ -42,7 +42,7 @@ bool DynRangeTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 			name = String::formatted("Dynamic range  out%02d-in%02d ",output + channel,input + channel);
 			name += MsgSampleRate();
 			name += ".wav";		
-			WriteWaveFile(name, sample_rate, buffs[input + channel]);
+			WriteWaveFile(unit, name, sample_rate, buffs[input + channel]);
 		}
 	#endif
 
@@ -52,8 +52,8 @@ bool DynRangeTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 	return pass;
 }
 
-DiffDynRangeTest::DiffDynRangeTest(XmlElement *xe, bool &ok) :
-Test(xe, ok)
+DiffDynRangeTest::DiffDynRangeTest(XmlElement *xe, bool &ok, ProductionUnit *unit_) :
+Test(xe, ok, unit_)
 {
 	ok &= getFloatValue(xe, T("pass_threshold_db"), pass_threshold_db);
 }
@@ -83,7 +83,7 @@ bool DiffDynRangeTest::calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg)
 		name = String::formatted("Differential dynamic range out%d-in%d-in%d ", output, input, input + 1);
 		name += MsgSampleRate();
 		name += ".wav";
-		WriteWaveFile(name, sample_rate, buffs[input]);
+		WriteWaveFile(unit, name, sample_rate, buffs[input]);
 	}
 #endif
 

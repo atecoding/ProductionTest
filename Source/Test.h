@@ -1,14 +1,15 @@
 #pragma once
 
 class ehw;
+class ProductionUnit;
 
 class Test
 {
 protected:
-	Test(XmlElement *xe,bool &ok);
+	Test(XmlElement *xe, bool &ok, ProductionUnit *unit_);
 
 public:
-	static Test *Create(XmlElement *xe,int input, int output, bool &ok);
+	static Test *Create(XmlElement *xe, int input, int output, bool &ok, ProductionUnit *unit_);
 	virtual ~Test();
 
 	void Setup( int samples_per_block,
@@ -35,6 +36,7 @@ public:
 	float minSampleRate;
 	float maxSampleRate;
 	int errorBit;
+	ProductionUnit* unit;
 
 protected:
 	String MsgSampleRate();
@@ -45,7 +47,7 @@ protected:
 class ThdnTest : public Test
 {
 public:
-	ThdnTest(XmlElement *xe, bool &ok);
+	ThdnTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
 	~ThdnTest();
 
 	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg);
@@ -55,7 +57,7 @@ public:
 class DiffThdnTest : public Test
 {
 public:
-	DiffThdnTest(XmlElement *xe, bool &ok);
+	DiffThdnTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
 	~DiffThdnTest();
 
 	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg);
@@ -65,7 +67,7 @@ public:
 class DynRangeTest : public Test
 {
 public:
-	DynRangeTest(XmlElement *xe, bool &ok);
+	DynRangeTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
 	~DynRangeTest();
 
 	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg);
@@ -75,7 +77,7 @@ public:
 class DiffDynRangeTest : public Test
 {
 public:
-	DiffDynRangeTest(XmlElement *xe, bool &ok);
+	DiffDynRangeTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
 	~DiffDynRangeTest();
 
 	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg);
@@ -85,7 +87,7 @@ public:
 class FrequencyResponseTest : public Test
 {
 public:
-	FrequencyResponseTest(XmlElement *xe, bool &ok);
+	FrequencyResponseTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
 	~FrequencyResponseTest();
 
 	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg);
@@ -96,7 +98,7 @@ public:
 class LevelCheckTest : public Test
 {
 public:
-	LevelCheckTest(XmlElement *xe, bool &ok);
+	LevelCheckTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
 	~LevelCheckTest();
 
 	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg);
@@ -107,7 +109,7 @@ public:
 class HexInputCrosstalkTest : public Test
 {
 public:
-	HexInputCrosstalkTest(XmlElement *xe,bool &ok);
+	HexInputCrosstalkTest(XmlElement *xe,bool &ok, ProductionUnit *unit_);
 	~HexInputCrosstalkTest();
 
 	bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg);
@@ -116,7 +118,7 @@ public:
 class SaturationTest : public Test
 {
 public:
-	SaturationTest(XmlElement *xe,bool &ok);
+	SaturationTest(XmlElement *xe,bool &ok, ProductionUnit *unit_);
 	~SaturationTest();
 
 	bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg);
@@ -126,7 +128,7 @@ public:
 class PhaseTest : public Test
 {
 public:
-	PhaseTest(XmlElement *xe,bool &ok);
+	PhaseTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
 	~PhaseTest();
 
 	bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg);

@@ -6,8 +6,8 @@
 #include "errorbits.h"
 
 
-FrequencyResponseTest::FrequencyResponseTest(XmlElement *xe,bool &ok) :
-	Test(xe,ok)
+FrequencyResponseTest::FrequencyResponseTest(XmlElement *xe,bool &ok, ProductionUnit *unit_) :
+	Test(xe,ok,unit_)
 {
 	ok &= getFloatValue(xe, T("pass_threshold_db"), pass_threshold_db);
 	ok &= getFloatValue(xe, T("output_frequency"), output_frequency);
@@ -22,7 +22,8 @@ FrequencyResponseTest::~FrequencyResponseTest()
 bool FrequencyResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 {
 	int channel;
-	int idx, zc, num_samples, temp, samples_per_cycle;
+	int idx, zc, num_samples, temp;
+	float samples_per_cycle;
 	float last, max, min, peak, s, max_db, min_db, max_delta, max_delta_level, max_level_linear;//,rms;//,rms_db;
 	bool pass = true;
 
@@ -31,20 +32,19 @@ bool FrequencyResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &ms
 	msg += ": ";
 
 	// calculate maximum delta between samples to look for glitches
-	max_level_linear = pow(10.0f, max_level_db * 0.05f);
+	max_level_linear = pow(10.0f, (pass_threshold_db + 2.0f) * 0.05f);
 	samples_per_cycle = sample_rate / output_frequency;
-	max_delta_level = max_level_linear * sin(2.0f * float_Pi / samples_per_cycle) * 1.1f;
-
+	max_delta_level = max_level_linear * sin(float_Pi / samples_per_cycle) * 2.2f;
 
 	for (channel = 0; channel < num_channels; channel++)
 	{
-        float const *data = buffs[input + channel]->getReadPointer(0);
 
-		num_samples = buffs[input + channel]->getNumSamples();
+		num_samples = buffs[input]->getNumSamples();
+		float const *data = buffs[input + channel]->getReadPointer(0);
 
 		peak = 0.0f;
 		max_delta = 0.0f;
-		for (idx = 0; idx < num_samples; idx++)
+		for (idx = num_samples / 16; idx < 15 * num_samples / 16; idx++)
 		{
             float sample = fabs(data[idx]);
 			peak = jmax( peak, sample );
@@ -155,7 +155,7 @@ bool FrequencyResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &ms
 		String name;
 
 		name = String::formatted(T("Frequency response out%02d-in%02d at %.0f Hz.wav"), output, input, output_frequency);
-		WriteWaveFile(name, sample_rate, buffs[input]);
+		WriteWaveFile(unit, name, sample_rate, buffs[input]);
 	}
 #endif
 

@@ -33,11 +33,6 @@ Content::Content(ehwlist *devlist,const StringArray &hardwareInstances_) :
 	_devlist = devlist;
 	_devlist->RegisterMessageListener(&_dev_listener);
 
-	_logfile = File::getSpecialLocation(File::currentExecutableFile ).getParentDirectory();
-	_logfile = _logfile.getChildFile("Echo production test log.txt");
-
-	_log_stream = new FileOutputStream (_logfile);
-
 	setName("content");
 	setOpaque(true);
 
@@ -264,10 +259,19 @@ void Content::buttonClicked(Button *button)
 				//
 				_devlist->UnregisterMessageListener(&_dev_listener);
 #endif
+
+				String serialNumber_(_unit->getSerialNumber());
+				if (serialNumber_.isEmpty())
+				{
+					Result serialNumberResult(GetSerialNumber(serialNumber_));
+					if (serialNumberResult.failed())
+						return;
+				}
+
 				finalResult = String::empty;
 				repaint();
 				_start_button->setButtonText("Stop");
-				_unit->RunTests();
+				_unit->RunTests(serialNumber_);
 			}
 			else // stop button pressed
 			{
@@ -298,6 +302,9 @@ void Content::sliderValueChanged(Slider *s)
 
 void Content::log(String msg)
 {
+	if (nullptr == _unit)
+		return;
+
 	const char * cr = "\n";
 
 	if (nullptr != _log)
@@ -309,7 +316,9 @@ void Content::log(String msg)
 		//_logfile.appendText(msg);
 		//const char * lfcr = "\r\n";
 		//_logfile.appendText(lfcr);
-		_log_stream->writeText( msg + cr, false, false );
+		FileOutputStream* logStream = _unit->getLogStream();
+		if (logStream)
+			logStream->writeText( msg + cr, false, false );
 	}
 }
 
@@ -347,7 +356,9 @@ void Content::AddResult(String &name,int pass)
 
 void Content::FinishTests(bool pass,bool skipped)
 {
-	_log_stream->flush();
+	FileOutputStream* logStream = _unit->getLogStream();
+	if (logStream)
+		logStream->flush();
 
 	_unit->_running = false;
 	_start_button->setButtonText("Start");
@@ -407,7 +418,7 @@ void Content::DevArrived(ehw *dev)
 		return;
 #endif
 
-	_unit = new ProductionUnit(dev,_devlist,this);
+	_unit = new ProductionUnit(dev, _devlist, this);
 
 	_unit_name = dev->getcaps()->BoxTypeName();
 
@@ -494,5 +505,56 @@ void Content::setFinalResult(String text,Colour color)
 void Content::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 {
     application->testManager->setCurrentScriptIndex(scriptCombo->getSelectedItemIndex());
+}
+
+Result Content::GetSerialNumber(String &serialNumber_)
+{
+#if ACOUSTICIO_BUILD
+	String const deviceName("AIO");
+#endif
+	bool ok;
+	String text("Please enter the serial number for this " + deviceName);// String(_dev->getcaps()->BoxTypeName()));
+
+	do
+	{
+		juce::AlertWindow dialog("Enter serial number", text, AlertWindow::QuestionIcon);
+		String textEditorName("serialNumberEditor");
+#if ACOUSTICIO_BUILD
+		dialog.addTextEditor(textEditorName, "AIO", "Serial Number:");
+#else
+#pragma message("Not defined")
+#endif
+
+		TextEditor *editor = dialog.getTextEditor(textEditorName);
+		editor->setSelectAllWhenFocused(false);
+
+		dialog.addButton("OK", 1, KeyPress(KeyPress::returnKey));
+		dialog.addButton("Cancel", 0, KeyPress(KeyPress::escapeKey));
+		int button = dialog.runModalLoop();
+		if (0 == button)
+		{
+			return Result::fail("User cancel");
+		}
+
+		String temp(dialog.getTextEditorContents(textEditorName));
+
+		ok = true;
+#if ACOUSTICIO_BUILD
+		ok &= temp.startsWith("AIO");
+		int length = temp.length();
+		ok &= 10 == length;
+		ok &= temp.substring(4, 6).containsOnly("0123456789");
+#endif
+		if (false == ok)
+		{
+			text = "Please enter a valid serial number";
+		}
+		else
+		{
+			serialNumber_ = temp;
+		}
+	} while (false == ok);
+
+	return Result::ok();
 }
 

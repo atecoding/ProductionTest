@@ -5,8 +5,8 @@
 #include "xml.h"
 
 
-PhaseTest::PhaseTest(XmlElement *xe,bool &ok) :
-	Test(xe,ok)
+PhaseTest::PhaseTest(XmlElement *xe,bool &ok, ProductionUnit *unit_) :
+	Test(xe,ok,unit_)
 {
 }
 
@@ -56,7 +56,7 @@ bool PhaseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 	String name;
 
 	name = String::formatted(T("Phase out%02d-in%02d.wav"),output,input);
-	WriteWaveFile(name,sample_rate,buffs[input]);
+	WriteWaveFile(unit, name, sample_rate, buffs[input]);
 #endif
 
 	if(pass_threshold_db > 0.0f)

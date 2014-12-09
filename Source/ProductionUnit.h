@@ -17,7 +17,7 @@ public:
 	~ProductionUnit(void);
 
 	bool status();
-	void RunTests();
+	void RunTests(String const serialNumber_);
 
 	void audioDeviceAboutToStart(AudioIODevice *device);
 	void audioDeviceIOCallback(const float **inputChannelData, int numInputChannels, float **outputChannelData, int numOutputChannels, int numSamples);
@@ -26,10 +26,22 @@ public:
 	void handleMessage(const Message &message);
 
 	int	_num_tests;
-	int32 _errorBits;
+	int64 _errorBits;
 	bool _unit_passed;
 	bool _skipped;
 	bool _running;
+
+	FileOutputStream *getLogStream() const
+	{
+		return _log_stream;
+	}
+
+	File getOutputFolder();
+
+	String getSerialNumber() const
+	{
+		return _serial_number;
+	}
 
 protected:
 	enum
@@ -76,6 +88,11 @@ protected:
 	String _channel_group_name;
 	int _channel_group_passed;
 
+	String _serial_number;
+	File _logfile;
+	ScopedPointer <FileOutputStream> _log_stream;
+
+	void CreateLogFile();
 	void Cleanup();
 	bool ShowMeterWindow(Test &test);
 	void ParseScript();

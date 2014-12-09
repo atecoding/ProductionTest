@@ -253,6 +253,9 @@
     <Filter Include="ProductionTest\Source\AIO">
       <UniqueIdentifier>{c92f8350-b7f9-4c6f-8fa4-f271a623127f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{e3f4a032-6232-45ba-9e41-4ed57ffd768b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\Analysis.cpp">
@@ -2677,6 +2680,15 @@
   <ItemGroup>
     <Xml Include="AIOProductionTests.xml">
       <Filter>ProductionTest</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO Full Test.xml">
+      <Filter>Scripts</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO Module 1.xml">
+      <Filter>Scripts</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO Module 2.xml">
+      <Filter>Scripts</Filter>
     </Xml>
   </ItemGroup>
 </Project>

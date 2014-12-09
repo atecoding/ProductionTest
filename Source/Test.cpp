@@ -6,14 +6,15 @@
 #include "ehw.h"
 #include "hwcaps.h"
 
-Test::Test(XmlElement *xe,bool &ok) :
+Test::Test(XmlElement *xe,bool &ok, ProductionUnit* unit_) :
 	input (-1),
 	output (-1),
 	num_channels(1),
     _dc_offset(0.0f),
     _sawtooth(0),
     _pulsate(0),
-	errorBit(0)
+	errorBit(0),
+	unit(unit_)
 {
 	XmlElement *temp;
 
@@ -68,7 +69,7 @@ void Test::Setup
 	pulsate = _pulsate;
 }
 
-Test *Test::Create(XmlElement *xe, int input, int output, bool &ok)
+Test *Test::Create(XmlElement *xe, int input, int output, bool &ok, ProductionUnit *unit_)
 {
 	XmlElement *type;
 	Test *test = nullptr;
@@ -77,22 +78,22 @@ Test *Test::Create(XmlElement *xe, int input, int output, bool &ok)
 	if (type)
 	{
 		if (String("THD+N") == type->getAllSubText())
-			test = new ThdnTest(xe, ok);
+			test = new ThdnTest(xe, ok, unit_);
 
 		if (String("Differential THD+N") == type->getAllSubText())
-			test = new DiffThdnTest(xe, ok);
+			test = new DiffThdnTest(xe, ok, unit_);
 
 		if (String("Dynamic range") == type->getAllSubText())
-			test = new DynRangeTest(xe, ok);
+			test = new DynRangeTest(xe, ok, unit_);
 
 		if (String("Differential Dynamic range") == type->getAllSubText())
-			test = new DiffDynRangeTest(xe, ok);
+			test = new DiffDynRangeTest(xe, ok, unit_);
 
 		if (String("Frequency response") == type->getAllSubText())
-			test = new FrequencyResponseTest(xe, ok);
+			test = new FrequencyResponseTest(xe, ok, unit_);
 
 		if (String("Level check") == type->getAllSubText())
-			test = new LevelCheckTest(xe,ok);
+			test = new LevelCheckTest(xe, ok, unit_);
 
 #if ECHO1394
 		if (String("Guitar hex input crosstalk") == type->getAllSubText())
@@ -103,7 +104,7 @@ Test *Test::Create(XmlElement *xe, int input, int output, bool &ok)
 #endif
 
 		if (String("Phase") == type->getAllSubText())
-			test = new PhaseTest(xe,ok);
+			test = new PhaseTest(xe, ok, unit_);
 	}
 
 	if (test)

@@ -55,6 +55,8 @@ protected:
 	virtual bool keyPressed(const KeyPress &key);
 	virtual void sliderValueChanged(Slider *s);
     virtual void comboBoxChanged (ComboBox* comboBoxThatHasChanged);
+
+	Result GetSerialNumber(String &serialNumber);
 	
 	StringArray hardwareInstances;
 	ehwlist		*_devlist;
@@ -75,9 +77,6 @@ protected:
 
 	StringArray _group_names;
 	Array<int> _results;
-
-	File _logfile;
-	ScopedPointer <FileOutputStream> _log_stream;
 
 	friend class DevChangeListener;
 };

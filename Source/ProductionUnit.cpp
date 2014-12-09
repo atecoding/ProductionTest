@@ -20,7 +20,7 @@
 
 //extern String ProductionTestsXmlFileName;
 
-ProductionUnit::ProductionUnit(ehw *dev,ehwlist *devlist,Content *content) :
+ProductionUnit::ProductionUnit(ehw *dev, ehwlist *devlist, Content *content) :
 _num_tests(0),
 _errorBits(0),
 _unit_passed(true),
@@ -196,8 +196,11 @@ bool ProductionUnit::status()
 	return _ok;
 }
 
-void ProductionUnit::RunTests()
+void ProductionUnit::RunTests(String const serialNumber_)
 {
+	_serial_number = serialNumber_;
+	CreateLogFile();
+
 	_channel_group_name = String::empty;
 	_content->Reset();
 	_skipped = false;
@@ -295,8 +298,9 @@ void ProductionUnit::RunTests()
 	//
 	String msg;
 
-	msg = T("Begin testing for ");
+	msg = "Begin testing for ";
 	msg += _dev->getcaps()->BoxTypeName();
+	msg += " " + _serial_number;
 	_content->log(String::empty);
 	_content->log(String::empty);
 	_content->log(T("---------------------------------------"));
@@ -621,10 +625,15 @@ void ProductionUnit::ParseScript()
 //					_content->log(String::empty);
 					msg = log_text->getFirstChildElement()->getText();
 					_content->AddResult(msg,(int)ok);
+					if (!ok)
+					{
+						msg = "*** ";
+						msg += log_text->getFirstChildElement()->getText();
+						_errorBits |= LED_ERROR_INDEX;
+					}
 					msg += ": ";
 					msg += ok ? "ok" : "failed";
 					_content->log(msg);
-
 				}
 			}
 			else
@@ -763,7 +772,7 @@ void ProductionUnit::ParseScript()
 
 		if (_script->hasTagName("test"))
 		{
-			_test = Test::Create(_script,_input,_output,ok);
+			_test = Test::Create(_script,_input,_output,ok,this);
 
 			if (!ok || (NULL == _test))
 			{
@@ -1469,6 +1478,7 @@ void ProductionUnit::ParseScript()
 		}
 #endif
 
+
 		//-----------------------------------------------------------------------------
 		//
 		// Ignore this block?
@@ -1501,7 +1511,8 @@ void ProductionUnit::ParseScript()
 	if (_num_tests)
 	{
 #ifdef ACOUSTICIO_BUILD
-		String errorCodes[32] = {
+		String errorCodes[33] = {
+			"00 ",		// LED ERROR INDEX
 			"10 ",		// LEVEL ERROR INDEX
 			"20 ",
 			"30 ",
@@ -1544,34 +1555,37 @@ void ProductionUnit::ParseScript()
 		_content->log(String::empty);
 		if (_unit_passed && !_skipped && _running)
 		{
-			msg = T("Unit passed.");
+			msg = _serial_number + " passed.";
 			finalResult = "UNIT PASSED";
 			finalResultColor = Colours::limegreen;
 		}
 		else if (_unit_passed && _skipped)
 		{
-			msg = T("Unit failed (skipped tests).");
+			msg = "*** " + _serial_number + " FAILED (skipped tests).";
 			finalResult = "UNIT FAILED\n(skipped)";
 			finalResultColor = Colours::red;
 		}
 		else if (_unit_passed && (!_running))
 		{
-			msg = T("Unit failed (stopped).");
+			msg = "*** " + _serial_number + " FAILED(stopped).";
 			finalResult = "UNIT FAILED\n(stopped)";
 			finalResultColor = Colours::red;
 		}
 		else
 		{
-			msg = T("Unit failed.");
+			msg = "*** " + _serial_number + " FAILED: ";
 			finalResult = "UNIT FAILED";
 			finalResultColor = Colours::red;
 			if (_errorBits != 0)
 			{
 				finalResult += "\n"; 
-				for (i = 0; i < 32; i++)
+				for (i = 0; i < 33; i++)
 				{
-					if ((_errorBits & (1 << i)))
+					if ((_errorBits & (1LL << i)))
+					{
+						msg += errorCodes[i];
 						finalResult += errorCodes[i];
+					}
 				}
 			}
 		}
@@ -1731,3 +1745,33 @@ Result ProductionUnit::CheckSampleRate()
 
 	return Result::ok();
 }
+
+File ProductionUnit::getOutputFolder()
+{
+	File logfolder;
+
+#if JUCE_WIN32
+	logfolder = File::getSpecialLocation(File::currentExecutableFile).getParentDirectory();
+#endif
+#if JUCE_MAC
+	logfolder = File::getSpecialLocation(File::currentApplicationFile).getParentDirectory();
+#endif
+
+#if ACOUSTICIO_BUILD
+	logfolder = logfolder.getChildFile("AIO Test Results");
+	logfolder.createDirectory();
+#else
+#pragma message("Not defined")
+#endif
+
+	return logfolder;
+}
+
+void ProductionUnit::CreateLogFile()
+{
+	File logfolder(getOutputFolder());
+
+	_logfile = logfolder.getChildFile(_serial_number + "-Log" + ".txt");
+	_log_stream = new FileOutputStream(_logfile);
+}
+

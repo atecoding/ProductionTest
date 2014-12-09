@@ -171,6 +171,9 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <OutputFile>$(IntDir)\ProductionTest.bsc</OutputFile>
     </Bscmake>
+    <PreBuildEvent>
+      <Command>copy ..\..\scripts\*.xml "$(OutDir)"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug AnalyzerBR|Win32'">
     <Midl>
@@ -1774,6 +1777,9 @@
     <ResourceCompile Include=".\resources.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="..\..\scripts\AIO Full Test.xml" />
+    <Xml Include="..\..\scripts\AIO Module 1.xml" />
+    <Xml Include="..\..\scripts\AIO Module 2.xml" />
     <Xml Include="AIOProductionTests.xml">
       <SubType>Designer</SubType>
     </Xml>

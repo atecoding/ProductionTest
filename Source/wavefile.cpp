@@ -1,16 +1,18 @@
 #include "base.h"
-
+#include "ProductionUnit.h"
 #if WRITE_WAVE_FILES
-void WriteWaveFile(String filename,int rate,AudioSampleBuffer *asb)
+void WriteWaveFile(ProductionUnit* unit, String filename, int rate, AudioSampleBuffer *asb)
 {
+	File folder(unit->getOutputFolder());
 	File f;
 	FileOutputStream *stream;
 	WavAudioFormat waf;
 	AudioFormatWriter *writer;
 	StringPairArray meta;
 
-	f = File::getSpecialLocation(File::currentApplicationFile);
-	f = f.getParentDirectory().getChildFile(filename);
+	filename = unit->getSerialNumber() + "-" + filename;
+
+	f = folder.getChildFile(filename);
 	f.deleteFile();
 
 	stream = f.createOutputStream();
@@ -26,7 +28,7 @@ void WriteWaveFile(String filename,int rate,AudioSampleBuffer *asb)
 	}
 }
 
-void WriteWaveFile(String filename,int rate,double *data,int samples)
+void WriteWaveFile(ProductionUnit* unit, String filename, int rate, double *data, int samples)
 {
 	int i;
 	AudioSampleBuffer asb(1,samples);
@@ -35,7 +37,7 @@ void WriteWaveFile(String filename,int rate,double *data,int samples)
 	for (i = 0; i < samples; i++)
 		dest[i] = (float) data[i];
 
-	WriteWaveFile(filename,rate,&asb);
+	WriteWaveFile(unit, filename,rate,&asb);
 }
 
 #endif

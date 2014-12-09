@@ -6,8 +6,8 @@
 #include "errorbits.h"
 
 
-ThdnTest::ThdnTest(XmlElement *xe,bool &ok) :
-	Test(xe,ok)
+ThdnTest::ThdnTest(XmlElement *xe,bool &ok, ProductionUnit *unit_) :
+	Test(xe,ok,unit_)
 {
 	ok &= getFloatValue(xe, T("pass_threshold_db"), pass_threshold_db);
 }
@@ -40,7 +40,7 @@ bool ThdnTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 			name = String::formatted("THDN out%02d-in%02d ", output + channel, input + channel);
 			name += MsgSampleRate();
 			name += ".wav";
-			WriteWaveFile(name, sample_rate, buffs[input + channel]);
+			WriteWaveFile(unit, name, sample_rate, buffs[input + channel]);
 		}
 	#endif
 
@@ -50,8 +50,8 @@ bool ThdnTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 	return pass;
 }
 
-DiffThdnTest::DiffThdnTest(XmlElement *xe, bool &ok) :
-Test(xe, ok)
+DiffThdnTest::DiffThdnTest(XmlElement *xe, bool &ok, ProductionUnit* unit_) :
+Test(xe, ok, unit_)
 {
 	ok &= getFloatValue(xe, T("pass_threshold_db"), pass_threshold_db);
 }
@@ -81,7 +81,7 @@ bool DiffThdnTest::calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg)
 		name = String::formatted("Differential THDN out%d-in%d-in%d ", output, input, input + 1);
 		name += MsgSampleRate();
 		name += ".wav";
-		WriteWaveFile(name, sample_rate, buffs[input]);
+		WriteWaveFile(unit, name, sample_rate, buffs[input]);
 	}
 #endif
 

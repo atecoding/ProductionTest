@@ -6,8 +6,8 @@
 #include "errorbits.h"
 
 
-LevelCheckTest::LevelCheckTest(XmlElement *xe,bool &ok) :
-	Test(xe,ok)
+LevelCheckTest::LevelCheckTest(XmlElement *xe,bool &ok, ProductionUnit *unit_) :
+	Test(xe,ok,unit_)
 {
 	ok &= getFloatValue(xe, T("min_level_db"), min_level_db);
 	ok &= getFloatValue(xe, T("max_level_db"), max_level_db);
@@ -22,8 +22,9 @@ LevelCheckTest::~LevelCheckTest()
 bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 {
 	int channel;
-	int idx,zc,num_samples,temp,samples_per_cycle;
-	float last,max,min,peak,s,max_db,min_db,max_delta,max_delta_level,max_level_linear;//,rms;//,rms_db;
+	int idx, zc, num_samples, temp;
+	float samples_per_cycle;
+	float last, ma0x04ee6140x, min, peak, s, max_db, min_db, max_delta, max_delta_level, max_level_linear;//,rms;//,rms_db;
 	bool pass = true;
 
 	msg = String::formatted(T("Level check at "));
@@ -33,8 +34,7 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 	// calculate maximum delta between samples to look for glitches
 	max_level_linear = pow(10.0f, max_level_db * 0.05f);
 	samples_per_cycle = sample_rate / output_frequency;
-	max_delta_level = max_level_linear * sin(2.0f * float_Pi / samples_per_cycle) * 1.1f;
-
+	max_delta_level = max_level_linear * sin(float_Pi / samples_per_cycle) * 2.2f;
 
 	for (channel = 0; channel < num_channels; channel++)
 	{
@@ -132,8 +132,6 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 			rms_db = 20.0f * log10(rms);
 			*/
 
-
-
 		}
 #endif
 		if (max_delta > max_delta_level)	// glitch?
@@ -155,7 +153,7 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 			String name;
 
 			name = String::formatted(T("Level out%02d-in%02d at %.0f Hz.wav"), output, input + channel, output_frequency);
-			WriteWaveFile(name, sample_rate, buffs[input]);
+			WriteWaveFile(unit, name, sample_rate, buffs[input]);
 #endif
 		}
 	}
