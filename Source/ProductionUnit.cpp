@@ -1034,9 +1034,11 @@ void ProductionUnit::ParseScript()
 		}
 
 		//
-		// Ignore ASIO_driver && Require_AIO_Test_Adapter
+		// Ignore ASIO_driver, CoreAudio_driver, && Require_AIO_Test_Adapter
 		//
-		if (_script->hasTagName("ASIO_driver") || _script->hasTagName("Require_AIO_Test_Adapter"))
+		if (_script->hasTagName("ASIO_driver") ||
+            _script->hasTagName("CoreAudio_driver") ||
+            _script->hasTagName("Require_AIO_Test_Adapter"))
 		{
 			_script = _script->getNextElement();
 			continue;
@@ -1616,14 +1618,21 @@ bool ProductionUnit::CreateASIO(XmlElement *script)
 	String devicename;
 
 	DBG("CreateASIO " << (pointer_sized_int)_asio.get());
-
-	forEachXmlChildElementWithTagName(*script, child, "ASIO_driver")
+    
+#if JUCE_WIN32
+    String audioDriverTag("ASIO_driver");
+#endif
+#if JUCE_MAC
+    String audioDriverTag("CoreAudio_driver");
+#endif
+    
+	forEachXmlChildElementWithTagName(*script, child, audioDriverTag)
 	{
 		devicename = child->getAllSubText();
 		if ((NULL == child) || devicename.isEmpty())
 		{
 			AlertWindow::showNativeDialogBox("Production Test",
-				"ASIO driver XML tag missing.",
+				audioDriverTag + " XML tag missing.",
 				false);
 			return false;
 		}
