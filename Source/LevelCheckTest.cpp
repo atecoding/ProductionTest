@@ -4,7 +4,7 @@
 #include "wavefile.h"
 #include "xml.h"
 #include "errorbits.h"
-
+#include "ProductionUnit.h"
 
 LevelCheckTest::LevelCheckTest(XmlElement *xe,bool &ok, ProductionUnit *unit_) :
 	Test(xe,ok,unit_)
@@ -22,9 +22,9 @@ LevelCheckTest::~LevelCheckTest()
 bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 {
 	int channel;
-	int idx, zc, num_samples, temp;
+    int idx, num_samples;
 	float samples_per_cycle;
-	float last, ma0x04ee6140x, min, peak, s, max_db, min_db, max_delta, max_delta_level, max_level_linear;//,rms;//,rms_db;
+	float peak, max_db, max_delta, max_delta_level, max_level_linear;
 	bool pass = true;
 
 	msg = String::formatted(T("Level check at "));
@@ -34,7 +34,7 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 	// calculate maximum delta between samples to look for glitches
 	max_level_linear = pow(10.0f, max_level_db * 0.05f);
 	samples_per_cycle = sample_rate / output_frequency;
-	max_delta_level = max_level_linear * sin(float_Pi / samples_per_cycle) * 2.2f;
+	max_delta_level = max_level_linear * sin(float_Pi / samples_per_cycle) * unit->getGlobalGlitchThreshold();//2.2f;
 
 	for (channel = 0; channel < num_channels; channel++)
 	{

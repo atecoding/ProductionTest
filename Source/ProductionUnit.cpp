@@ -34,6 +34,7 @@ _dev(dev),
 _devlist(devlist),
 _content(content),
 _asio(nullptr),
+glitchThreshold(2.2f),
 active_outputs(0),
 _script(NULL)
 {
@@ -264,7 +265,19 @@ void ProductionUnit::RunTests(String const serialNumber_)
 		JUCEApplication::quit();
 		return;
 	}
-
+    
+    //
+    // Global glitch threshold factor?
+    //
+    {
+        XmlElement *element = _script->getChildByName("Glitch_threshold");
+        if (element != nullptr)
+        {
+            String text(element->getAllSubText());
+            glitchThreshold = jlimit( 1.0f, 10.0f, text.getFloatValue());
+            DBG("Glitch_threshold " << glitchThreshold);
+        }
+    }
 
 #if ACOUSTICIO_BUILD
 	//

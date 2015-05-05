@@ -4,7 +4,7 @@
 #include "wavefile.h"
 #include "xml.h"
 #include "errorbits.h"
-
+#include "ProductionUnit.h"
 
 FrequencyResponseTest::FrequencyResponseTest(XmlElement *xe,bool &ok, ProductionUnit *unit_) :
 	Test(xe,ok,unit_)
@@ -22,9 +22,9 @@ FrequencyResponseTest::~FrequencyResponseTest()
 bool FrequencyResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 {
 	int channel;
-	int idx, zc, num_samples, temp;
+    int idx, num_samples;
 	float samples_per_cycle;
-	float last, max, min, peak, s, max_db, min_db, max_delta, max_delta_level, max_level_linear;//,rms;//,rms_db;
+	float peak, max_db, max_delta, max_delta_level, max_level_linear;//,rms;//,rms_db;
 	bool pass = true;
 
 	msg = String::formatted(T("%.0f Hz freq. response at "),output_frequency);
@@ -34,7 +34,7 @@ bool FrequencyResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &ms
 	// calculate maximum delta between samples to look for glitches
 	max_level_linear = pow(10.0f, (pass_threshold_db + 2.0f) * 0.05f);
 	samples_per_cycle = sample_rate / output_frequency;
-	max_delta_level = max_level_linear * sin(float_Pi / samples_per_cycle) * 2.2f;
+    max_delta_level = max_level_linear * sin(float_Pi / samples_per_cycle) * unit->getGlobalGlitchThreshold(); // 2.2f;
 
 	for (channel = 0; channel < num_channels; channel++)
 	{

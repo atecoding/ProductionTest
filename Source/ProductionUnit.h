@@ -42,6 +42,11 @@ public:
 	{
 		return _serial_number;
 	}
+    
+    float getGlobalGlitchThreshold() const
+    {
+        return glitchThreshold;
+    }
 
 protected:
 	enum
@@ -65,6 +70,7 @@ protected:
 	float _dc_offset;
 	int _sawtooth;
 	int _pulsate;
+    float glitchThreshold;
 	
 	uint32 active_outputs;
 	Atomic<int32> blocks_recorded;
