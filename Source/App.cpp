@@ -92,6 +92,8 @@ void App::initialise (const String& commandLine)
 	//
 	// Make a window
 	//
+    lookAndFeelV3 = new LookAndFeel_V3;
+    LookAndFeel::setDefaultLookAndFeel(lookAndFeelV3);
 	MakeWindow();
 
 	/*  ..and now return, which will fall into to the main event
@@ -138,6 +140,8 @@ void App::shutdown()
 		props->setValue(boundariesName,bounds.toString());
         _window = nullptr;
 	}
+    
+    lookAndFeelV3 = nullptr;
     
     _hwlist = nullptr;
     

@@ -729,6 +729,7 @@
 		C942FF621A093C9B00F612EE /* ehw_osx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ehw_osx.cpp; path = ../../Source/osx/ehw_osx.cpp; sourceTree = "<group>"; };
 		C942FF641A09418B00F612EE /* ScopedCFObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScopedCFObject.h; path = ../../Source/osx/ScopedCFObject.h; sourceTree = "<group>"; };
 		C942FF651A09418B00F612EE /* ScopedIOObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScopedIOObject.h; path = ../../Source/osx/ScopedIOObject.h; sourceTree = "<group>"; };
+		C9757F071AF95DF100F80857 /* errorbits.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = errorbits.h; path = ../../Source/errorbits.h; sourceTree = "<group>"; };
 		C984D99F1A10381300288FD6 /* factory.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = factory.icns; sourceTree = "<group>"; };
 		C98910261A094E3B0073250A /* Description.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Description.cpp; path = ../../Source/osx/Description.cpp; sourceTree = "<group>"; };
 		C98910271A094E3B0073250A /* Description.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Description.h; path = ../../Source/osx/Description.h; sourceTree = "<group>"; };
@@ -1256,6 +1257,7 @@
 		36EE07E9B35589CE09BF7113 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				C9757F071AF95DF100F80857 /* errorbits.h */,
 				E27290DC8B5B776949030F7F /* AcousticIO.h */,
 				2B0110162BDE8AC0AAC824EF /* Analysis.cpp */,
 				86B7076CFA310F35A73A56A2 /* Analysis.h */,

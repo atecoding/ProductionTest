@@ -1054,11 +1054,12 @@ void ProductionUnit::ParseScript()
 		}
 
 		//
-		// Ignore ASIO_driver, CoreAudio_driver, && Require_AIO_Test_Adapter
+		// Ignore ASIO_driver, CoreAudio_driver, Glitch_threshold && Require_AIO_Test_Adapter
 		//
 		if (_script->hasTagName("ASIO_driver") ||
             _script->hasTagName("CoreAudio_driver") ||
-            _script->hasTagName("Require_AIO_Test_Adapter"))
+            _script->hasTagName("Require_AIO_Test_Adapter") ||
+            _script->hasTagName("Glitch_threshold"))
 		{
 			_script = _script->getNextElement();
 			continue;
@@ -1343,11 +1344,11 @@ void ProductionUnit::ParseScript()
 
 		if (_script->hasTagName("AIO_TEDS_test"))
 		{
-			bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &input, Content *content, int &errorBit);
+			bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &input, Content *content, uint64 &errorBit);
 
 			String msg;
 			int input;
-			int errorBit;
+			uint64 errorBit;
 			bool ok = RunTEDSTest(_script, _dev, msg, input, _content, errorBit) == TestPrompt::ok;
 
 			//			_content->log(String::empty);
@@ -1411,11 +1412,11 @@ void ProductionUnit::ParseScript()
 
 		if (_script->hasTagName("AIO_mic_supply_off_voltage_test"))
 		{
-			bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter, int &errorBit);
+			bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter, uint64 &errorBit);
 
 			String msg;
 			int input;
-			int errorBit;
+			uint64 errorBit;
 			bool ok = RunCCVoltageTest(_script, msg, input, aioTestAdapter, errorBit) == TestPrompt::ok;
 
 			_content->log(String::empty);
@@ -1441,11 +1442,11 @@ void ProductionUnit::ParseScript()
 
 		if (_script->hasTagName("AIO_mic_supply_on_voltage_test"))
 		{
-			bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter, int &errorBit);
+			bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter, uint64 &errorBit);
 
 			String msg;
 			int input;
-			int errorBit;
+			uint64 errorBit;
 			bool ok = RunCCVoltageTest(_script, msg, input, aioTestAdapter, errorBit) == TestPrompt::ok;
 
 			_content->log(String::empty);
@@ -1471,11 +1472,11 @@ void ProductionUnit::ParseScript()
 
 		if (_script->hasTagName("AIO_mic_supply_current_test"))
 		{
-			bool RunCCCurrentTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter, int &errorBit);
+			bool RunCCCurrentTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter, uint64 &errorBit);
 
 			String msg;
 			int input;
-			int errorBit;
+			uint64 errorBit;
 			bool ok = RunCCCurrentTest(_script, msg, input, aioTestAdapter, errorBit) == TestPrompt::ok;
 
 			_content->log(String::empty);

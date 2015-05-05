@@ -4,7 +4,7 @@
 #include "AIOTestAdapter.h"
 #include "errorbits.h"
 
-bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter, int &errorBit)
+bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter, uint64 &errorBit)
 {
 	int attribute;
 	uint8 channel;
@@ -100,7 +100,7 @@ bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInpu
 	return pass;
 }
 
-bool RunCCCurrentTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter, int &errorBit)
+bool RunCCCurrentTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter, uint64 &errorBit)
 {
 	int attribute;
 	uint8 channel;

@@ -26,7 +26,7 @@ public:
 	void handleMessage(const Message &message);
 
 	int	_num_tests;
-	int64 _errorBits;
+	uint64 _errorBits;
 	bool _unit_passed;
 	bool _skipped;
 	bool _running;

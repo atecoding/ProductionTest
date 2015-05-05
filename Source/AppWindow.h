@@ -26,7 +26,6 @@ public:
     }
 
 protected:
-    LookAndFeel_V3 lookAndFeelV3;
 	ehwlist				*_devlist;
 };
 

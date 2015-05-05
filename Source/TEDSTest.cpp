@@ -56,23 +56,6 @@ bool RunInputTest(XmlElement const *element, ehw *dev, String &msg, int &display
 
 	ok = true;
 	
-#if 0
-	TUsbAudioStatus status;
-	status = TUSBAUDIO_AudioControlRequestGet(dev->GetNativeHandle(),
-		ACOUSTICIO_EXTENSION_UNIT,	// unit ID
-		CUR,
-		ACOUSTICIO_TEDS_DATA_CONTROL,
-		channel,
-		(void *)data,
-		sizeof(data),
-		NULL,
-		1000);
-	if (TSTATUS_SUCCESS != status)
-	{
-		msg = "Could not read TEDS data for input " + String(displayedInput);
-		return false;
-	}
-#else
     Result status(dev->readTEDSData(channel, data, sizeof(data)));
     if (status.failed())
     {
@@ -80,7 +63,6 @@ bool RunInputTest(XmlElement const *element, ehw *dev, String &msg, int &display
         status.getErrorMessage();
         return false;
     }
-#endif
 
 	expectedValue = 0x22;
 
@@ -102,7 +84,7 @@ bool RunInputTest(XmlElement const *element, ehw *dev, String &msg, int &display
 	return test_ok;
 }
 
-bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &displayedInput, Content *content, int &errorBit)
+bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &displayedInput, Content *content, uint64 &errorBit)
 {
 	int attribute;
 	uint8 channel;

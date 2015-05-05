@@ -35,7 +35,7 @@ public:
 	int _pulsate;
 	float minSampleRate;
 	float maxSampleRate;
-	int errorBit;
+	uint64 errorBit;
 	ProductionUnit* unit;
 
 protected:

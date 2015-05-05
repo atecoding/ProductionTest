@@ -10,13 +10,11 @@
 // constructor
 //
 AppWindow::AppWindow(ehwlist *devlist, const StringArray &hardwareInstances) :  
-DocumentWindow(T("Production test"), 
+DocumentWindow(T("Echo Production Test  (built " __TIME__ "  " __DATE__ ")"),
 			   Colours::white,
 			   minimiseButton | closeButton,
 			   true)
 {
-    setLookAndFeel(&lookAndFeelV3);
-    
 	//
 	// Open the driver for this device
 	//

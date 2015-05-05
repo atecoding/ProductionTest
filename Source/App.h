@@ -14,6 +14,7 @@ protected :
 	
 	bool SingleInstanceCheck();
 	
+    ScopedPointer<LookAndFeel_V3> lookAndFeelV3;
     ScopedPointer<AppWindow> _window;
     ScopedPointer<ehwlist> _hwlist;
     StringArray hardwareInstances;
