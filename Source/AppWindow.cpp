@@ -10,7 +10,7 @@
 // constructor
 //
 AppWindow::AppWindow(ehwlist *devlist, const StringArray &hardwareInstances) :  
-DocumentWindow(T("Echo Production Test  (built " __TIME__ "  " __DATE__ ")"),
+DocumentWindow("Echo Production Test  (built " __TIME__ "  " __DATE__ ")",
 			   Colours::white,
 			   minimiseButton | closeButton,
 			   true)
