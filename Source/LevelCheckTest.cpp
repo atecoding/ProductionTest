@@ -11,6 +11,8 @@ LevelCheckTest::LevelCheckTest(XmlElement *xe,bool &ok, ProductionUnit *unit_) :
 {
 	ok &= getFloatValue(xe, T("min_level_db"), min_level_db);
 	ok &= getFloatValue(xe, T("max_level_db"), max_level_db);
+    getFloatValue(xe, "Glitch_threshold", glitchThreshold);
+    getFloatValue(xe, "output_frequency", output_frequency);
 }
 
 
@@ -34,11 +36,10 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 	// calculate maximum delta between samples to look for glitches
 	max_level_linear = pow(10.0f, max_level_db * 0.05f);
 	samples_per_cycle = sample_rate / output_frequency;
-	max_delta_level = max_level_linear * sin(float_Pi / samples_per_cycle) * unit->getGlobalGlitchThreshold();//2.2f;
+    max_delta_level = max_level_linear * sin(float_Pi / samples_per_cycle) * glitchThreshold;
 
 	for (channel = 0; channel < num_channels; channel++)
 	{
-
 		num_samples = buffs[input]->getNumSamples();
 		float const *data = buffs[input + channel]->getReadPointer(0);
 
@@ -49,7 +50,7 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 			float sample = fabs(data[idx]);
 			peak = jmax(peak, sample);
 			float delta = fabs(data[idx] - data[idx-1]);
-			max_delta = jmax(max_delta, delta);
+            max_delta = jmax(max_delta, delta);
 		}
 
 		max_db = 20.0f * log10(peak);

@@ -34,7 +34,6 @@ _dev(dev),
 _devlist(devlist),
 _content(content),
 _asio(nullptr),
-glitchThreshold(2.2f),
 active_outputs(0),
 _script(NULL)
 {
@@ -266,19 +265,6 @@ void ProductionUnit::RunTests(String const serialNumber_)
 		return;
 	}
     
-    //
-    // Global glitch threshold factor?
-    //
-    {
-        XmlElement *element = _script->getChildByName("Glitch_threshold");
-        if (element != nullptr)
-        {
-            String text(element->getAllSubText());
-            glitchThreshold = jlimit( 1.0f, 10.0f, text.getFloatValue());
-            DBG("Glitch_threshold " << glitchThreshold);
-        }
-    }
-
 #if ACOUSTICIO_BUILD
 	//
 	// Look for the AIO test adapter (USB HID-class device)
@@ -1054,12 +1040,11 @@ void ProductionUnit::ParseScript()
 		}
 
 		//
-		// Ignore ASIO_driver, CoreAudio_driver, Glitch_threshold && Require_AIO_Test_Adapter
+		// Ignore ASIO_driver, CoreAudio_driver && Require_AIO_Test_Adapter
 		//
 		if (_script->hasTagName("ASIO_driver") ||
             _script->hasTagName("CoreAudio_driver") ||
-            _script->hasTagName("Require_AIO_Test_Adapter") ||
-            _script->hasTagName("Glitch_threshold"))
+            _script->hasTagName("Require_AIO_Test_Adapter"))
 		{
 			_script = _script->getNextElement();
 			continue;

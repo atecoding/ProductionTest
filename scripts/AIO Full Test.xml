@@ -6,7 +6,6 @@
 	<!-- **************************************************** -->
 	<device>
     Acoustic AIO
-    <Glitch_threshold>4.0</Glitch_threshold>
     <Require_AIO_Test_Adapter>true</Require_AIO_Test_Adapter>
     <ASIO_driver>ASIO Echo Acoustic AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO</CoreAudio_driver>
@@ -191,25 +190,29 @@
     <test>
       100x Input - 1x Output Level Check 1-2
       <type>Level check</type>
-      <output_amplitude_db>-30.0</output_amplitude_db>
+      <output_amplitude_db>-24.0</output_amplitude_db>
+      <output_frequency>5000.0</output_frequency>
       <input>0</input>
       <output>0</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
-      <min_level_db>-15.0</min_level_db>
-      <max_level_db>-11.0</max_level_db>
+      <min_level_db>-4.5</min_level_db>
+      <max_level_db>-0.5</max_level_db>
+      <Glitch_threshold>8.0</Glitch_threshold>
     </test>
 
     <test>
       100x Input - 1x Output Level Check 3-4
       <type>Level check</type>
-      <output_amplitude_db>-30.0</output_amplitude_db>
+      <output_amplitude_db>-24.0</output_amplitude_db>
+      <output_frequency>5000.0</output_frequency>
       <input>2</input>
       <output>0</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
-      <min_level_db>-15.0</min_level_db>
-      <max_level_db>-11.0</max_level_db>
+      <min_level_db>-4.5</min_level_db>
+      <max_level_db>-0.5</max_level_db>
+      <Glitch_threshold>8.0</Glitch_threshold>
     </test>
 
     <!-- Audio Quality Tests 1-4 -->
@@ -269,6 +272,7 @@
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
       <pass_threshold_db>-13.5</pass_threshold_db>
+      <Glitch_threshold>8.0</Glitch_threshold>
     </test>
     <test>
       <type>Frequency response</type>
@@ -335,6 +339,7 @@
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
       <pass_threshold_db>-13.5</pass_threshold_db>
+      <Glitch_threshold>8.0</Glitch_threshold>
     </test>
     <test>
       <type>Frequency response</type>
@@ -553,25 +558,29 @@
     <test>
       100x Input - 1x Output Level Check 5-6
       <type>Level check</type>
-      <output_amplitude_db>-30.0</output_amplitude_db>
+      <output_amplitude_db>-24.0</output_amplitude_db>
+      <output_frequency>5000.0</output_frequency>
       <input>4</input>
       <output>2</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
-      <min_level_db>-15.0</min_level_db>
-      <max_level_db>-11.0</max_level_db>
+      <min_level_db>-4.5</min_level_db>
+      <max_level_db>-0.5</max_level_db>
+      <Glitch_threshold>8.0</Glitch_threshold>
     </test>
 
     <test>
       100x Input - 1x Output Level Check 7-8
       <type>Level check</type>
-      <output_amplitude_db>-30.0</output_amplitude_db>
+      <output_amplitude_db>-24.0</output_amplitude_db>
+      <output_frequency>5000.0</output_frequency>
       <input>6</input>
       <output>2</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
-      <min_level_db>-15.0</min_level_db>
-      <max_level_db>-11.0</max_level_db>
+      <min_level_db>-4.5</min_level_db>
+      <max_level_db>-0.5</max_level_db>
+      <Glitch_threshold>8.0</Glitch_threshold>
     </test>
 
     <!-- Audio Quality Tests 5-8 -->
@@ -631,6 +640,7 @@
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
       <pass_threshold_db>-13.5</pass_threshold_db>
+      <Glitch_threshold>8.0</Glitch_threshold>
     </test>
     <test>
       <type>Frequency response</type>
@@ -697,6 +707,7 @@
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
       <pass_threshold_db>-13.5</pass_threshold_db>
+      <Glitch_threshold>8.0</Glitch_threshold>
     </test>
     <test>
       <type>Frequency response</type>

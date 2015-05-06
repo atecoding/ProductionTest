@@ -13,6 +13,7 @@ Test::Test(XmlElement *xe,bool &ok, ProductionUnit* unit_) :
     _dc_offset(0.0f),
     _sawtooth(0),
     _pulsate(0),
+    glitchThreshold(4.0f),
 	errorBit(0),
 	unit(unit_)
 {

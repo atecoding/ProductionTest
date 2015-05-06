@@ -11,6 +11,7 @@ FrequencyResponseTest::FrequencyResponseTest(XmlElement *xe,bool &ok, Production
 {
 	ok &= getFloatValue(xe, T("pass_threshold_db"), pass_threshold_db);
 	ok &= getFloatValue(xe, T("output_frequency"), output_frequency);
+    getFloatValue(xe, "Glitch_threshold", glitchThreshold);
 }
 
 
@@ -34,7 +35,7 @@ bool FrequencyResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &ms
 	// calculate maximum delta between samples to look for glitches
 	max_level_linear = pow(10.0f, (pass_threshold_db + 2.0f) * 0.05f);
 	samples_per_cycle = sample_rate / output_frequency;
-    max_delta_level = max_level_linear * sin(float_Pi / samples_per_cycle) * unit->getGlobalGlitchThreshold(); // 2.2f;
+    max_delta_level = max_level_linear * sin(float_Pi / samples_per_cycle) * glitchThreshold;
 
 	for (channel = 0; channel < num_channels; channel++)
 	{
