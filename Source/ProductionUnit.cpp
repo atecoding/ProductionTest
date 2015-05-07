@@ -306,6 +306,7 @@ void ProductionUnit::RunTests(String const serialNumber_)
 	_content->log(String::empty);
 	_content->log(String::empty);
 	_content->log("------------------------------------------------");
+    _content->log("Test built " __DATE__);
 	_content->log(msg);
 	_content->log(Time::getCurrentTime().toString(true,true));
 #if JUCE_MAC
