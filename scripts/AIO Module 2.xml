@@ -177,6 +177,7 @@
       <max_level_db>-11.0</max_level_db>
     </test>
 
+    <ignore>
     <AIO_set_mic_gain input="4" gain="100" />
     <AIO_set_mic_gain input="5" gain="100" />
     <AIO_set_mic_gain input="6" gain="100" />
@@ -212,6 +213,7 @@
       <max_level_db>-11.0</max_level_db>
       <Glitch_threshold>50.0</Glitch_threshold>
     </test>
+    </ignore>
 
     <!-- Audio Quality Tests 5-8 -->
 
