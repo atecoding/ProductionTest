@@ -1486,7 +1486,23 @@ void ProductionUnit::ParseScript()
 			continue;
 		}
 #endif
-
+        
+        //-----------------------------------------------------------------------------
+        //
+        // Delay?
+        //
+        //-----------------------------------------------------------------------------
+      
+        if (_script->hasTagName("Delay_msec"))
+        {
+            Result runDelayTask(XmlElement *element);
+            
+            Result result(runDelayTask(_script));
+            
+            
+            _script = _script->getNextElement();
+            continue;
+        }
 
 		//-----------------------------------------------------------------------------
 		//

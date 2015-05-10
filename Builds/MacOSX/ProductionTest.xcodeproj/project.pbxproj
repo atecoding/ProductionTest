@@ -49,6 +49,8 @@
 		C98FB6311A368959003BE792 /* AIO Full Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C98FB62E1A368959003BE792 /* AIO Full Test.xml */; };
 		C98FB6321A368959003BE792 /* AIO Module 1.xml in Resources */ = {isa = PBXBuildFile; fileRef = C98FB62F1A368959003BE792 /* AIO Module 1.xml */; };
 		C98FB6331A368959003BE792 /* AIO Module 2.xml in Resources */ = {isa = PBXBuildFile; fileRef = C98FB6301A368959003BE792 /* AIO Module 2.xml */; };
+		C9A1C1331AFC25F000937F9A /* AIO-S Module 1 analog.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9A1C1321AFC25F000937F9A /* AIO-S Module 1 analog.xml */; };
+		C9BB2F7B1AFF1004005786C8 /* DelayTask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BB2F7A1AFF1004005786C8 /* DelayTask.cpp */; };
 		C9E30F1C1A379BF50027F9E3 /* osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9E30F1A1A379BF50027F9E3 /* osx.cpp */; };
 		C9FED8CC1A100C5500B574D4 /* TestManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9FED8CA1A100C5500B574D4 /* TestManager.cpp */; };
 		CCAFCFE69CB697A6CF6F0058 /* juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9FA5C625F428490B83F5393B /* juce_events.mm */; };
@@ -737,6 +739,8 @@
 		C98FB62E1A368959003BE792 /* AIO Full Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO Full Test.xml"; path = "../../scripts/AIO Full Test.xml"; sourceTree = "<group>"; };
 		C98FB62F1A368959003BE792 /* AIO Module 1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO Module 1.xml"; path = "../../scripts/AIO Module 1.xml"; sourceTree = "<group>"; };
 		C98FB6301A368959003BE792 /* AIO Module 2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO Module 2.xml"; path = "../../scripts/AIO Module 2.xml"; sourceTree = "<group>"; };
+		C9A1C1321AFC25F000937F9A /* AIO-S Module 1 analog.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Module 1 analog.xml"; path = "../../scripts/AIO-S Module 1 analog.xml"; sourceTree = "<group>"; };
+		C9BB2F7A1AFF1004005786C8 /* DelayTask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DelayTask.cpp; path = ../../Source/DelayTask.cpp; sourceTree = "<group>"; };
 		C9CC188B6EC29494A14EB4A4 /* juce_ChoicePropertyComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ChoicePropertyComponent.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/properties/juce_ChoicePropertyComponent.h; sourceTree = SOURCE_ROOT; };
 		C9E30F1A1A379BF50027F9E3 /* osx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = osx.cpp; path = ../../Source/osx/osx.cpp; sourceTree = "<group>"; };
 		C9E30F1B1A379BF50027F9E3 /* osx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = osx.h; path = ../../Source/osx/osx.h; sourceTree = "<group>"; };
@@ -1294,6 +1298,7 @@
 				C942FF5C1A09388500F612EE /* TEDSTest.cpp */,
 				D9B94D8A26A077F11C86494B /* Test.cpp */,
 				9A5EBEAE26483857426AEB87 /* Test.h */,
+				C9BB2F7A1AFF1004005786C8 /* DelayTask.cpp */,
 				D218ABCF456C886AB5867EB0 /* TestPrompt.cpp */,
 				FB1872A4EC7008AEF2F1E237 /* TestPrompt.h */,
 				2C357906C758CAE751E9D992 /* ThdnTest.cpp */,
@@ -1732,6 +1737,7 @@
 		93C619DBF455E2A537DD75BE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C9A1C1321AFC25F000937F9A /* AIO-S Module 1 analog.xml */,
 				C98FB62E1A368959003BE792 /* AIO Full Test.xml */,
 				C98FB62F1A368959003BE792 /* AIO Module 1.xml */,
 				C98FB6301A368959003BE792 /* AIO Module 2.xml */,
@@ -2504,6 +2510,7 @@
 			files = (
 				C98FB6311A368959003BE792 /* AIO Full Test.xml in Resources */,
 				6E32B1E6B0A50AF4474A55D8 /* RecentFilesMenuTemplate.nib in Resources */,
+				C9A1C1331AFC25F000937F9A /* AIO-S Module 1 analog.xml in Resources */,
 				C984D9A01A10381300288FD6 /* factory.icns in Resources */,
 				C98FB6321A368959003BE792 /* AIO Module 1.xml in Resources */,
 				C98FB6331A368959003BE792 /* AIO Module 2.xml in Resources */,
@@ -2525,6 +2532,7 @@
 				C942FF591A09379D00F612EE /* AIOTestAdapter_osx.cpp in Sources */,
 				1B473FAFC02D1461D65FD086 /* DynRangeTest.cpp in Sources */,
 				EFAAC4844240D6CAA98D6870 /* FilterCoeff.cpp in Sources */,
+				C9BB2F7B1AFF1004005786C8 /* DelayTask.cpp in Sources */,
 				C942FF5F1A093A6500F612EE /* LevelCheckTest.cpp in Sources */,
 				C9FED8CC1A100C5500B574D4 /* TestManager.cpp in Sources */,
 				191A73BAF7183EEF6875C97C /* FrequencyResponseTest.cpp in Sources */,
