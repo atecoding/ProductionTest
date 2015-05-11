@@ -64,7 +64,66 @@
     <!-- Check TEDS read circuits -->
 
     <AIO_TEDS_test input="0" />
+    
+    <!-- Test 100x gain settings for inputs -->
+    <!-- Leave test adapter in mic mode so inputs are disconnected from amp outputs -->
+    
+    <AIO_set_mic_gain input="0" gain="10" />
+    <AIO_set_mic_gain input="1" gain="10" />
+    <AIO_set_mic_gain input="2" gain="10" />
+    <AIO_set_mic_gain input="3" gain="10" />
+    
+    <Delay_msec>2000</Delay_msec>
+    
+    <test>
+        10x Input Level Check 1-2
+        <type>Relative level check</type>
+        <output_amplitude_db>-144.0</output_amplitude_db>
+        <input>0</input>
+        <output>0</output>
+        <num_channels>2</num_channels>
+        <sample_rate>48000</sample_rate>
+    </test>
+    
+    <test>
+        10x Input Level Check 3-4
+        <type>Relative level check</type>
+        <output_amplitude_db>-144.0</output_amplitude_db>
+        <input>2</input>
+        <output>0</output>
+        <num_channels>2</num_channels>
+        <sample_rate>48000</sample_rate>
+    </test>
 
+    <AIO_set_mic_gain input="0" gain="100" />
+    <AIO_set_mic_gain input="1" gain="100" />
+    <AIO_set_mic_gain input="2" gain="100" />
+    <AIO_set_mic_gain input="3" gain="100" />
+    
+    <test>
+        100x Input Level Check 1-2
+        <type>Relative level check</type>
+        <output_amplitude_db>-144.0</output_amplitude_db>
+        <input>0</input>
+        <output>0</output>
+        <num_channels>2</num_channels>
+        <sample_rate>48000</sample_rate>
+        <min_level_db>18.0</min_level_db>
+        <max_level_db>22.0</max_level_db>
+    </test>
+    
+    <test>
+        100x Input Level Check 3-4
+        <type>Relative level check</type>
+        <output_amplitude_db>-144.0</output_amplitude_db>
+        <input>2</input>
+        <output>0</output>
+        <num_channels>2</num_channels>
+        <sample_rate>48000</sample_rate>
+        <min_level_db>18.0</min_level_db>
+        <max_level_db>22.0</max_level_db>
+    </test>
+    
     <!-- Test gain settings for inputs and outputs -->
     
     <AIO_write_test_adapter byte="0x30"/> <!-- set adapter for audio measurements-->
@@ -374,6 +433,7 @@
       <pass_threshold_db>-13.5</pass_threshold_db>
     </test>
 
+    <ignore>
     <prompt>
       Group End Prompt
       <text>Force printing of last result</text>
@@ -387,7 +447,8 @@
       <wait_for_user>0</wait_for_user>
       <stop_group>1</stop_group>
     </prompt>
-
+    </ignore>
+  
   </device>
 
 </root>
