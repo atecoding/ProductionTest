@@ -42,6 +42,8 @@ public:
 	{
 		return _serial_number;
 	}
+    
+    ValueTree tree;
 
 protected:
 	enum

@@ -72,39 +72,44 @@ void Test::Setup
 
 Test *Test::Create(XmlElement *xe, int input, int output, bool &ok, ProductionUnit *unit_)
 {
-	XmlElement *type;
+	XmlElement *typeElement;
 	Test *test = nullptr;
 
-	type = xe->getChildByName("type");
-	if (type)
+	typeElement = xe->getChildByName("type");
+	if (typeElement)
 	{
-		if (String("THD+N") == type->getAllSubText())
+        String typeString(typeElement->getAllSubText());
+        
+		if (typeString == "THD+N")
 			test = new ThdnTest(xe, ok, unit_);
 
-		if (String("Differential THD+N") == type->getAllSubText())
+		if (typeString == "Differential THD+N")
 			test = new DiffThdnTest(xe, ok, unit_);
 
-		if (String("Dynamic range") == type->getAllSubText())
+		if (typeString == "Dynamic range")
 			test = new DynRangeTest(xe, ok, unit_);
 
-		if (String("Differential Dynamic range") == type->getAllSubText())
+		if (typeString == "Differential Dynamic range")
 			test = new DiffDynRangeTest(xe, ok, unit_);
 
-		if (String("Frequency response") == type->getAllSubText())
+		if (typeString == "Frequency response")
 			test = new FrequencyResponseTest(xe, ok, unit_);
 
-		if (String("Level check") == type->getAllSubText())
+		if (typeString == "Level check")
 			test = new LevelCheckTest(xe, ok, unit_);
+        
+        if (typeString == "Relative level check")
+            test = new RelativeLevelTest(xe, ok, unit_);
 
 #if ECHO1394
-		if (String("Guitar hex input crosstalk") == type->getAllSubText())
+		if (typeString == "Guitar hex input crosstalk")
 			test = new HexInputCrosstalkTest(xe,ok);
 
-		if (String("Saturation") == type->getAllSubText())
+		if (typeString == "Saturation")
 			test = new SaturationTest(xe,ok);
 #endif
 
-		if (String("Phase") == type->getAllSubText())
+		if (typeString == "Phase")
 			test = new PhaseTest(xe, ok, unit_);
 	}
 

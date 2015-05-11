@@ -106,6 +106,18 @@ public:
 
 };
 
+class RelativeLevelTest : public Test
+{
+public:
+    RelativeLevelTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
+    ~RelativeLevelTest();
+    
+    bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg);
+    
+    bool autoPass;
+    static const Identifier relativeLevelResults;
+};
+
 
 class HexInputCrosstalkTest : public Test
 {

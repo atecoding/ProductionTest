@@ -29,6 +29,7 @@ _errorBits(0),
 _unit_passed(true),
 _skipped(false),
 _running(false),
+tree("ProductionUnit"),
 _ok(true),
 _dev(dev),
 _devlist(devlist),
@@ -210,6 +211,8 @@ void ProductionUnit::RunTests(String const serialNumber_)
 	_unit_passed = true;
 	_running = true;
 	_errorBits = 0;
+    tree.removeAllChildren(nullptr);
+    tree.removeAllProperties(nullptr);
 
 	//
 	// Load the set of tests from XML
