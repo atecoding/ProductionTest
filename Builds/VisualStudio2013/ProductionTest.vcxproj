@@ -313,6 +313,7 @@
     <ClCompile Include="..\..\Source\AppWindow.cpp" />
     <ClCompile Include="..\..\Source\AudioOutput.cpp" />
     <ClCompile Include="..\..\Source\Content.cpp" />
+    <ClCompile Include="..\..\Source\DelayTask.cpp" />
     <ClCompile Include="..\..\Source\DynRangeTest.cpp" />
     <ClCompile Include="..\..\Source\FilterCoeff.cpp" />
     <ClCompile Include="..\..\Source\FrequencyResponseTest.cpp" />
@@ -323,6 +324,7 @@
     <ClCompile Include="..\..\Source\MidiTest.cpp" />
     <ClCompile Include="..\..\Source\PhaseTest.cpp" />
     <ClCompile Include="..\..\Source\ProductionUnit.cpp" />
+    <ClCompile Include="..\..\Source\RelativeLevelTest.cpp" />
     <ClCompile Include="..\..\Source\SawtoothAudioSource.cpp" />
     <ClCompile Include="..\..\Source\TEDSTest.cpp" />
     <ClCompile Include="..\..\Source\Test.cpp" />

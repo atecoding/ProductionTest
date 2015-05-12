@@ -87,7 +87,7 @@ bool RelativeLevelTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
         }
         else
         {
-            float delta = db - (double)previousResultsTree[channelID];
+            float delta = db - (float)(double)previousResultsTree[channelID];
             
             msg += Decibels::toString(db, 1, minusInfinity);
             msg += " (" + Decibels::toString(delta, 1, minusInfinity) + ")";

@@ -97,7 +97,7 @@ public:
 	int updatepolledstuff();
 	
 	int getFirmwareVersion(uint32 &version);
-
+	String getFirmwareVersionString() const;
 
 	//------------------------------------------------------------------------------
 	// Hardware controls

@@ -187,6 +187,12 @@ int ehw::getFirmwareVersion(uint32 &version)
 	return 0;
 }
 
+
+String ehw::getFirmwareVersionString() const
+{
+	return String::toHexString((int32)props.usbRevisionId);
+}
+
 //******************************************************************************
 //
 // Get vendor ID, box ID, and box revision
