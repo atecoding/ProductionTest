@@ -26,10 +26,7 @@ deviceInterface(deviceInterface_)
     
     _caps.init(productID);
     
-#if JUCE_DEBUG
-    //(*deviceInterface)->GetDeviceReleaseNumber(deviceInterface_,&productID);
-    //DBG("GetDeviceReleaseNumber " << String::toHexString(productID));
-#endif
+    (*deviceInterface_)->GetDeviceReleaseNumber(deviceInterface_,&firmwareVersion);
 }
 
 ehw::~ehw()
@@ -50,6 +47,11 @@ uint64 ehw::GetSerialNumber()
 {
     jassertfalse;
     return 0;
+}
+
+String ehw::getFirmwareVersionString() const
+{
+    return String::toHexString(firmwareVersion);
 }
 
 const static String error("Error ");
@@ -326,6 +328,7 @@ Result ehw::setConstantCurrent(uint8 const input, uint8 const enabled)
 
 Result ehw::readTEDSData(uint8 const input, uint8* data, size_t dataBufferBytes)
 {
+    DBG("readTEDSData " << input);
     IOReturn rc = getRequest(ACOUSTICIO_EXTENSION_UNIT, ACOUSTICIO_TEDS_DATA_CONTROL, input, data, dataBufferBytes);
     if (kIOReturnSuccess == rc)
         return Result::ok();

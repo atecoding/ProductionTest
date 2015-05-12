@@ -145,20 +145,20 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 			msg += String::formatted(T("  level %.1f dB"), max_db);
 		}
 
-		pass &= (max_db >= min_level_db) && (max_db <= max_level_db);
-		if ((max_db <= min_level_db) || (max_db >= max_level_db))	// only write wave files on failure
+        bool channelOK = (max_db >= min_level_db) && (max_db <= max_level_db);
+		pass &= channelOK;
+		if (false == channelOK)	// only write wave files on failure
 		{
 			errorBit |= LEVEL_ERROR_INDEX << (input + channel);
-        }
-
 #if WRITE_WAVE_FILES
-        {
-			String name(title);
-
-			name += String::formatted(" (out%02d-in%02d).wav", output, input + channel);
-			WriteWaveFile(unit, name, sample_rate, buffs[input]);
-        }
+            {
+                String name(title);
+                
+                name += String::formatted(" (out%02d-in%02d).wav", output, input + channel);
+                WriteWaveFile(unit, name, sample_rate, buffs[input]);
+            }
 #endif
+        }
 	}
 
 	return pass;

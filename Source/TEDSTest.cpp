@@ -116,13 +116,25 @@ bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &displaye
 		channel = (uint8)(j + attribute);
 		displayedInput = channel + 1;
 
-        Result status(dev->readTEDSData(channel,data, sizeof(data)));
-        if (status.failed())
+        int retries = 3;
+        while (retries > 0)
         {
-            msg = "Could not read TEDS data for input " + String(displayedInput) + "\n" +
-                status.getErrorMessage();
-			errorBit |= TEDS_ERROR_INDEX << channel;
-            return false;
+            Result status(dev->readTEDSData(channel, data, sizeof(data)));
+            if (status.failed())
+            {
+                msg = "Could not read TEDS data for input " + String(displayedInput) + "\n" +
+                    status.getErrorMessage();
+                errorBit |= TEDS_ERROR_INDEX << channel;
+                return false;
+            }
+            
+            if (0xff != data[0])
+            {
+                break;
+            }
+            
+            DBG("Read 0xff for TEDS channel " << displayedInput);
+            retries--;
         }
 
 		expectedValue = (channel % 4) + 1;

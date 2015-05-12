@@ -115,7 +115,6 @@ bool RelativeLevelTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
         }
 
 #if WRITE_WAVE_FILES
-        
         if (false == channelOK)
         {
             {

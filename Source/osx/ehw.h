@@ -78,6 +78,7 @@ public:
 	int updatepolledstuff();
 	
 	int getFirmwareVersion(uint32 &version);
+    String getFirmwareVersionString() const;
 
 
 	//------------------------------------------------------------------------------
@@ -247,6 +248,7 @@ protected:
 	
 	hwcaps	_caps;
 	String	_uniquename;
+    uint16 firmwareVersion;
 	
     int		_ok;
 	String	_error;

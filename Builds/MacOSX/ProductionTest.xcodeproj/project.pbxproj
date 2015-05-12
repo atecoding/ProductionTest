@@ -37,6 +37,9 @@
 		B7D6C59A744D56E2B14115BF /* Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9B94D8A26A077F11C86494B /* Test.cpp */; };
 		C386254A148D1F3DA4084755 /* ProductionUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51932B8BE722EA8393CBEB8C /* ProductionUnit.cpp */; };
 		C56E0875FF2EF880984F9194 /* TestPrompt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D218ABCF456C886AB5867EB0 /* TestPrompt.cpp */; };
+		C90996E31B015FBA0084D7FE /* AIO-2 Full Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C90996E01B015FBA0084D7FE /* AIO-2 Full Test.xml */; };
+		C90996E41B015FBA0084D7FE /* AIO-2 Module 1.xml in Resources */ = {isa = PBXBuildFile; fileRef = C90996E11B015FBA0084D7FE /* AIO-2 Module 1.xml */; };
+		C90996E51B015FBA0084D7FE /* AIO-2 Module 2.xml in Resources */ = {isa = PBXBuildFile; fileRef = C90996E21B015FBA0084D7FE /* AIO-2 Module 2.xml */; };
 		C91ECB311A084C06002D5313 /* hwcaps.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C91ECB2F1A084C06002D5313 /* hwcaps.cpp */; };
 		C942FF591A09379D00F612EE /* AIOTestAdapter_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C942FF561A09379D00F612EE /* AIOTestAdapter_osx.cpp */; };
 		C942FF5B1A09386D00F612EE /* ConstantCurrentTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C942FF5A1A09386D00F612EE /* ConstantCurrentTest.cpp */; };
@@ -47,9 +50,6 @@
 		C97E4AA81AFFFDD900E97AEB /* RelativeLevelTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C97E4AA71AFFFDD900E97AEB /* RelativeLevelTest.cpp */; };
 		C984D9A01A10381300288FD6 /* factory.icns in Resources */ = {isa = PBXBuildFile; fileRef = C984D99F1A10381300288FD6 /* factory.icns */; };
 		C989102F1A094E3B0073250A /* Description.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C98910261A094E3B0073250A /* Description.cpp */; };
-		C98FB6311A368959003BE792 /* AIO Full Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C98FB62E1A368959003BE792 /* AIO Full Test.xml */; };
-		C98FB6321A368959003BE792 /* AIO Module 1.xml in Resources */ = {isa = PBXBuildFile; fileRef = C98FB62F1A368959003BE792 /* AIO Module 1.xml */; };
-		C98FB6331A368959003BE792 /* AIO Module 2.xml in Resources */ = {isa = PBXBuildFile; fileRef = C98FB6301A368959003BE792 /* AIO Module 2.xml */; };
 		C9A1C1331AFC25F000937F9A /* AIO-S Module 1 analog.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9A1C1321AFC25F000937F9A /* AIO-S Module 1 analog.xml */; };
 		C9BB2F7B1AFF1004005786C8 /* DelayTask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BB2F7A1AFF1004005786C8 /* DelayTask.cpp */; };
 		C9E30F1C1A379BF50027F9E3 /* osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9E30F1A1A379BF50027F9E3 /* osx.cpp */; };
@@ -720,6 +720,9 @@
 		C7DA469913E1E9C3F517E69A /* juce_BufferingAudioSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_BufferingAudioSource.h; path = ../../JuceLibraryCode/modules/juce_audio_basics/sources/juce_BufferingAudioSource.h; sourceTree = SOURCE_ROOT; };
 		C8280C66AC1F920421C72B99 /* juce_BorderSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_BorderSize.h; path = ../../JuceLibraryCode/modules/juce_graphics/geometry/juce_BorderSize.h; sourceTree = SOURCE_ROOT; };
 		C89D009A31D6F0311854919A /* juce_ComponentBoundsConstrainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ComponentBoundsConstrainer.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/layout/juce_ComponentBoundsConstrainer.h; sourceTree = SOURCE_ROOT; };
+		C90996E01B015FBA0084D7FE /* AIO-2 Full Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Full Test.xml"; path = "../../scripts/AIO-2 Full Test.xml"; sourceTree = "<group>"; };
+		C90996E11B015FBA0084D7FE /* AIO-2 Module 1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Module 1.xml"; path = "../../scripts/AIO-2 Module 1.xml"; sourceTree = "<group>"; };
+		C90996E21B015FBA0084D7FE /* AIO-2 Module 2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Module 2.xml"; path = "../../scripts/AIO-2 Module 2.xml"; sourceTree = "<group>"; };
 		C91ECB2D1A084AF9002D5313 /* ehw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ehw.h; path = ../../Source/osx/ehw.h; sourceTree = "<group>"; };
 		C91ECB2E1A084BA4002D5313 /* ehwlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ehwlist.h; path = ../../Source/osx/ehwlist.h; sourceTree = "<group>"; };
 		C91ECB2F1A084C06002D5313 /* hwcaps.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hwcaps.cpp; path = ../../Source/osx/hwcaps.cpp; sourceTree = "<group>"; };
@@ -738,9 +741,6 @@
 		C98910261A094E3B0073250A /* Description.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Description.cpp; path = ../../Source/osx/Description.cpp; sourceTree = "<group>"; };
 		C98910271A094E3B0073250A /* Description.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Description.h; path = ../../Source/osx/Description.h; sourceTree = "<group>"; };
 		C98910301A0950270073250A /* AIOTestAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIOTestAdapter.h; path = ../../Source/AIOTestAdapter.h; sourceTree = "<group>"; };
-		C98FB62E1A368959003BE792 /* AIO Full Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO Full Test.xml"; path = "../../scripts/AIO Full Test.xml"; sourceTree = "<group>"; };
-		C98FB62F1A368959003BE792 /* AIO Module 1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO Module 1.xml"; path = "../../scripts/AIO Module 1.xml"; sourceTree = "<group>"; };
-		C98FB6301A368959003BE792 /* AIO Module 2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO Module 2.xml"; path = "../../scripts/AIO Module 2.xml"; sourceTree = "<group>"; };
 		C9A1C1321AFC25F000937F9A /* AIO-S Module 1 analog.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Module 1 analog.xml"; path = "../../scripts/AIO-S Module 1 analog.xml"; sourceTree = "<group>"; };
 		C9BB2F7A1AFF1004005786C8 /* DelayTask.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DelayTask.cpp; path = ../../Source/DelayTask.cpp; sourceTree = "<group>"; };
 		C9CC188B6EC29494A14EB4A4 /* juce_ChoicePropertyComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ChoicePropertyComponent.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/properties/juce_ChoicePropertyComponent.h; sourceTree = SOURCE_ROOT; };
@@ -1740,10 +1740,10 @@
 		93C619DBF455E2A537DD75BE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C90996E01B015FBA0084D7FE /* AIO-2 Full Test.xml */,
+				C90996E11B015FBA0084D7FE /* AIO-2 Module 1.xml */,
+				C90996E21B015FBA0084D7FE /* AIO-2 Module 2.xml */,
 				C9A1C1321AFC25F000937F9A /* AIO-S Module 1 analog.xml */,
-				C98FB62E1A368959003BE792 /* AIO Full Test.xml */,
-				C98FB62F1A368959003BE792 /* AIO Module 1.xml */,
-				C98FB6301A368959003BE792 /* AIO Module 2.xml */,
 				C984D99F1A10381300288FD6 /* factory.icns */,
 				ECB33092A73D580039E20E87 /* Info.plist */,
 				7DDFE4DA407C0FE8084B8C5D /* RecentFilesMenuTemplate.nib */,
@@ -2511,12 +2511,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C98FB6311A368959003BE792 /* AIO Full Test.xml in Resources */,
 				6E32B1E6B0A50AF4474A55D8 /* RecentFilesMenuTemplate.nib in Resources */,
+				C90996E31B015FBA0084D7FE /* AIO-2 Full Test.xml in Resources */,
+				C90996E41B015FBA0084D7FE /* AIO-2 Module 1.xml in Resources */,
+				C90996E51B015FBA0084D7FE /* AIO-2 Module 2.xml in Resources */,
 				C9A1C1331AFC25F000937F9A /* AIO-S Module 1 analog.xml in Resources */,
 				C984D9A01A10381300288FD6 /* factory.icns in Resources */,
-				C98FB6321A368959003BE792 /* AIO Module 1.xml in Resources */,
-				C98FB6331A368959003BE792 /* AIO Module 2.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

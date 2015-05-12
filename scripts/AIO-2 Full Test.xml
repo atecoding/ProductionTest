@@ -60,8 +60,9 @@
     <AIO_set_constant_current input="1" enabled="0" /> <!-- turn off constant current for input 2 -->
     <AIO_set_constant_current input="2" enabled="0" /> <!-- turn off constant current for input 3 -->
     <AIO_set_constant_current input="3" enabled="0" /> <!-- turn off constant current for input 4 -->
+    <Delay_msec>500</Delay_msec>
 
-    <!-- Check TEDS read circuits -->
+    <!-- Check TEDS read circuits - do this after disabling constant current -->
 
     <AIO_TEDS_test input="0" />
 
@@ -72,7 +73,6 @@
     <AIO_set_mic_gain input="1" gain="10" />
     <AIO_set_mic_gain input="2" gain="10" />
     <AIO_set_mic_gain input="3" gain="10" />
-
     <Delay_msec>2000</Delay_msec>
 
     <test>
@@ -99,6 +99,20 @@
     <AIO_set_mic_gain input="1" gain="100" />
     <AIO_set_mic_gain input="2" gain="100" />
     <AIO_set_mic_gain input="3" gain="100" />
+
+    <prompt>
+        Input and Output Gains 1-4
+        <text>Check levels for gain settings 1-4</text>
+        <output_amplitude_db>-20.0</output_amplitude_db>
+        <input>0</input>
+        <output>0</output>
+        <num_channels>2</num_channels>
+        <sample_rate>48000</sample_rate>
+        <min_input_db>-200.0</min_input_db>
+        <max_input_db>0.0</max_input_db>
+        <wait_for_user>0</wait_for_user>
+        <start_group>0</start_group>
+    </prompt>
 
     <test>
       100x Input Level Check 1-2
@@ -135,20 +149,6 @@
 
     <AIO_set_amp_gain output="0" gain="1" />
     <AIO_set_amp_gain output="1" gain="1" />
-
-    <prompt>
-      Input and Output Gains 1-4
-      <text>Check levels for gain settings 1-4</text>
-      <output_amplitude_db>0.0</output_amplitude_db>
-      <input>2</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <min_input_db>-200.0</min_input_db>
-      <max_input_db>0.0</max_input_db>
-      <wait_for_user>0</wait_for_user>
-      <start_group>0</start_group>
-    </prompt>
 
     <test>
       1x Input - 1x Output Level Check 1-2
@@ -449,12 +449,15 @@
       <maximum>4.4</maximum>
     </AIO_mic_supply_current_test>
 
-    <AIO_TEDS_test input="4" />
-
     <AIO_set_constant_current input="4" enabled="0" /> <!-- turn off constant current for input 5 -->
     <AIO_set_constant_current input="5" enabled="0" /> <!-- turn off constant current for input 6 -->
     <AIO_set_constant_current input="6" enabled="0" /> <!-- turn off constant current for input 7 -->
     <AIO_set_constant_current input="7" enabled="0" /> <!-- turn off constant current for input 8 -->
+    <Delay_msec>500</Delay_msec>
+    
+    <!-- Check TEDS read circuits - do this after disabling constant current -->
+    
+    <AIO_TEDS_test input="4" />
 
     <!-- Test 100x gain settings for inputs -->
     <!-- Leave test adapter in mic mode so inputs are disconnected from amp outputs -->
@@ -463,9 +466,22 @@
     <AIO_set_mic_gain input="5" gain="10" />
     <AIO_set_mic_gain input="6" gain="10" />
     <AIO_set_mic_gain input="7" gain="10" />
-
     <Delay_msec>2000</Delay_msec>
-
+    
+    <prompt>
+        Input and Output Gains 5-8
+        <text>Check levels for gain settings 5-8</text>
+        <output_amplitude_db>-20.0</output_amplitude_db>
+        <input>4</input>
+        <output>2</output>
+        <num_channels>2</num_channels>
+        <sample_rate>48000</sample_rate>
+        <min_input_db>-200.0</min_input_db>
+        <max_input_db>0.0</max_input_db>
+        <wait_for_user>0</wait_for_user>
+        <start_group>1</start_group>
+    </prompt>
+    
     <test>
       10x Input Level Check 5-6
       <type>Relative level check</type>
@@ -518,20 +534,6 @@
     <!-- Test gain settings for inputs and outputs -->
 
     <AIO_write_test_adapter byte="0x30"/> <!-- set adapter for audio measurements-->
-
-    <prompt>
-      Input and Output Gains 5-8
-      <text>Check levels for gain settings 5-8</text>
-      <output_amplitude_db>-20.0</output_amplitude_db>
-      <input>6</input>
-      <output>2</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <min_input_db>-200.0</min_input_db>
-      <max_input_db>0.0</max_input_db>
-      <wait_for_user>0</wait_for_user>
-      <start_group>1</start_group>
-    </prompt>
 
     <AIO_set_mic_gain input="4" gain="1" />
     <AIO_set_mic_gain input="5" gain="1" />
