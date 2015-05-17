@@ -1,4 +1,4 @@
-#if ACOUSTICIO_BUILD
+#if ACOUSTICIO_BUILD & defined(_WIN32)
 extern "C"
 {
 #include <windows.h>
