@@ -4,9 +4,19 @@
 #include "AIOTestAdapter.h"
 #include "errorbits.h"
 
-bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter, uint64 &errorBit)
+class ehw;
+class Content;
+
+bool RunCCVoltageTest(XmlElement const *element,
+                      ehw *dev,
+                      String &msg,
+                      int &displayedInput,
+                      AIOTestAdapter &testAdapter,
+                      Content *content,
+                      uint64 &errorBit)
 {
 	int attribute;
+    int numInputs;
 	uint8 channel;
 	float minimum, maximum, volts;
 	bool ok;
@@ -34,6 +44,8 @@ bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInpu
 	channel = (uint8)attribute;
 	channel &= ~3;
 	displayedInput = channel + 1;
+    
+    numInputs = element->getIntAttribute("num_chanels", AIOTestAdapter::NUM_INPUTS);
 
 	ok = getFloatValue((XmlElement *)element, T("minimum"), minimum);
 	if (!ok)
@@ -66,7 +78,7 @@ bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInpu
 	//
 	// Read values from test adapter
 	//
-	uint16 values[4];
+    uint16 values[AIOTestAdapter::NUM_INPUTS];
 
 	Thread::sleep(10);		// wait for ADCs to convert
 	testAdapter.read(values);
@@ -81,7 +93,7 @@ bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInpu
 	else
 		msg = "Mic Supply on voltage test, channels " + String(displayedInput) + "-" + String(displayedInput + 3) + "\n";
 
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < numInputs; i++)
 	{
 		uint16 value = values[i];
 		volts = 0.6f + (float)value / 1966.0f;
@@ -100,7 +112,13 @@ bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInpu
 	return pass;
 }
 
-bool RunCCCurrentTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter, uint64 &errorBit)
+bool RunCCCurrentTest(XmlElement const *element,
+                      ehw *dev,
+                      String &msg,
+                      int &displayedInput,
+                      AIOTestAdapter &testAdapter,
+                      Content *content,
+                      uint64 &errorBit)
 {
 	int attribute;
 	uint8 channel;
@@ -130,6 +148,8 @@ bool RunCCCurrentTest(XmlElement const *element, String &msg, int &displayedInpu
 	channel = (uint8)attribute;
 	channel &= ~3;
 	displayedInput = channel + 1;
+    
+    int numInputs = element->getIntAttribute("num_chanels", AIOTestAdapter::NUM_INPUTS);
 
 	ok = getFloatValue((XmlElement *)element, T("minimum"), minimum);
 	if (!ok)
@@ -162,7 +182,7 @@ bool RunCCCurrentTest(XmlElement const *element, String &msg, int &displayedInpu
 	//
 	// Read values from test adapter
 	//
-	uint16 values[4];
+	uint16 values[AIOTestAdapter::NUM_INPUTS];
 
 	Thread::sleep(10);		// wait for ADCs to convert
 	testAdapter.read(values);
@@ -173,11 +193,10 @@ bool RunCCCurrentTest(XmlElement const *element, String &msg, int &displayedInpu
 	bool pass = true;
 
 	msg = "Mic Supply current test, channels " + String(displayedInput) + "-" + String(displayedInput + 3) + "\n";
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < numInputs; i++)
 	{
 		uint16 value = values[i];
 		current = (float)value / 3933.0f;
-
 
 		if (current < minimum || current > maximum)
 		{

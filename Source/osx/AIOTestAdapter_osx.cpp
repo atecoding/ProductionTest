@@ -198,7 +198,7 @@ int AIOTestAdapter::write(uint8 byte)
 #endif
 }
 
-int AIOTestAdapter::read(uint16 data[4])
+int AIOTestAdapter::read(uint16 data[AIOTestAdapter::NUM_INPUTS])
 {
 #if 0
 	uint8 temp[9];

@@ -4,6 +4,14 @@
 #include "MIDILoopTest.h"
 #if ACOUSTICIO_BUILD
 #include "AIOTestAdapter.h"
+class Content;
+typedef bool (*AIOTestVector)(XmlElement const *element,
+                                ehw *dev,
+                                String &msg,
+                                int &displayedInput,
+                                AIOTestAdapter &testAdapter,
+                                Content *content,
+                                uint64 &errorBit);
 #endif
 
 class ehw;
@@ -107,5 +115,10 @@ protected:
 
 #if ACOUSTICIO_BUILD
 	AIOTestAdapter aioTestAdapter;
+    
+#if ACOUSTICIO_BUILD
+    void runAIOTest(AIOTestVector function, String const groupName);
+    typedef bool (*AIOTestVector)(XmlElement const *element, ehw *dev, String &msg, int &displayedInput, AIOTestAdapter &testAdapter, Content *content, uint64 &errorBit);
+#endif
 #endif
 };

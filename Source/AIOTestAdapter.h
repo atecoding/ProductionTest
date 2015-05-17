@@ -12,11 +12,16 @@ class AIOTestAdapter
 public:
 	AIOTestAdapter();
 	~AIOTestAdapter();
+    
+    enum
+    {
+        NUM_INPUTS = 4
+    };
 
 	bool open();
 	void close();
 	int write(uint8 byte);
-	int read(uint16 data[4]);
+	int read(uint16 data[NUM_INPUTS]);
 
 protected:
 #ifdef _WIN32

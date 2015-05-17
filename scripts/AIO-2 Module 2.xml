@@ -296,7 +296,7 @@
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
       <pass_threshold_db>-13.5</pass_threshold_db>
-      <Glitch_threshold>8.0</Glitch_threshold>
+      <Glitch_threshold>16.0</Glitch_threshold>
     </test>
     <test>
       <type>Frequency response</type>
@@ -363,7 +363,7 @@
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
       <pass_threshold_db>-13.5</pass_threshold_db>
-      <Glitch_threshold>8.0</Glitch_threshold>
+      <Glitch_threshold>16.0</Glitch_threshold>
     </test>
     <test>
       <type>Frequency response</type>
