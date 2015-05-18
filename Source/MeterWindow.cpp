@@ -148,7 +148,6 @@ void MeterWindowContent::paint(Graphics &g)
 	y += 48;
 	*/
 
-	//if(_prompt._pulsate)
 	{
 		g.drawFittedText(_prompt.text,proportionOfWidth(0.1f),y,proportionOfWidth(0.8f),96,Justification::centred,8);
 

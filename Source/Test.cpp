@@ -10,9 +10,6 @@ Test::Test(XmlElement *xe,bool &ok, ProductionUnit* unit_) :
 	input (-1),
 	output (-1),
 	num_channels(1),
-    _dc_offset(0.0f),
-    _sawtooth(0),
-    _pulsate(0),
     glitchThreshold(4.0f),
 	errorBit(0),
 	unit(unit_)
@@ -38,10 +35,6 @@ Test::Test(XmlElement *xe,bool &ok, ProductionUnit* unit_) :
 	getFloatValue(xe, "min_sample_rate", minSampleRate);
 	getFloatValue(xe, "max_sample_rate", maxSampleRate);
 
-	getFloatValue(xe, T("dc_offset"), _dc_offset);
-	getIntValue(xe,T("sawtooth"),_sawtooth);
-	getIntValue(xe,T("pulsate"),_pulsate);
-
 	output_frequency = 1000.0f;
 }
 
@@ -53,10 +46,7 @@ void Test::Setup
 (
 	int samples_per_block,
 	ToneGeneratorAudioSource &tone,
-	uint32 &active_outputs,
-	float &dc_offset,
-	int &sawtooth,
-	int &pulsate
+	uint32 &active_outputs
 )
 {
 	float amp;
@@ -65,9 +55,6 @@ void Test::Setup
 	tone.setFrequency(output_frequency);
 	amp = pow(10.0f,output_amplitude_db/20.0f);
 	tone.setAmplitude( amp );
-	dc_offset = _dc_offset;
-	sawtooth = _sawtooth;
-	pulsate = _pulsate;
 }
 
 Test *Test::Create(XmlElement *xe, int input, int output, bool &ok, ProductionUnit *unit_)
@@ -111,6 +98,9 @@ Test *Test::Create(XmlElement *xe, int input, int output, bool &ok, ProductionUn
 
 		if (typeString == "Phase")
 			test = new PhaseTest(xe, ok, unit_);
+        
+        if (typeString == "AIOS Reference voltage check")
+            test = new AIOSReferenceVoltageTest(xe, ok, unit_);
 	}
 
 	if (test)
@@ -130,4 +120,13 @@ String Test::MsgSampleRate()
 		return String::formatted(T("%d kHz"),sample_rate/1000);
 
 	return String::formatted(T("%.1f kHz"),sample_rate * 0.001f);
+}
+
+void Test::fillAudioOutputs(AudioSampleBuffer &buffer, ToneGeneratorAudioSource &tone)
+{
+    AudioSourceChannelInfo asci;
+    asci.buffer = &buffer;
+    asci.numSamples = buffer.getNumSamples();
+    asci.startSample = 0;
+    tone.getNextAudioBlock(asci);
 }

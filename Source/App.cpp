@@ -145,7 +145,10 @@ void App::shutdown()
     
     _hwlist = nullptr;
     
-    testManager->save(props);
+    if (props)
+    {
+        testManager->save(props);
+    }
     
     testManager = nullptr;
     _processlock = nullptr;

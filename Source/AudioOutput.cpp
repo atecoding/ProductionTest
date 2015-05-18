@@ -5,10 +5,7 @@
 #include "wavefile.h"
 #include "xml.h"
 
-AudioOutput::AudioOutput(XmlElement *xe,bool &ok) :
-	_dc_offset(0.0f),
-	_sawtooth(0),
-	_pulsate(0)
+AudioOutput::AudioOutput(XmlElement *xe,bool &ok)
 {
 	ok = true;
 
@@ -16,7 +13,6 @@ AudioOutput::AudioOutput(XmlElement *xe,bool &ok) :
 	ok &= getIntValue(xe,T("sample_rate"),sample_rate);
 	ok &= getFloatValue(xe,T("output_amplitude_db"),output_amplitude_db);
 	ok &= getIntValue(xe,T("num_channels"),num_channels);
-	getIntValue(xe,T("pulsate"),_pulsate);
 }
 
 
@@ -29,11 +25,7 @@ void AudioOutput::Setup
 (
 	int samples_per_block,
 	ToneGeneratorAudioSource &tone,
-	uint32 &active_outputs, 
-	float &dc_offset,
-	int &sawtooth,
-	int &pulsate
-)
+	uint32 &active_outputs)
 {
 	float amp;
 
@@ -46,10 +38,6 @@ void AudioOutput::Setup
 	tone.setFrequency( 1000.0 );	
 	amp = pow(10.0f,output_amplitude_db/20.0f);
 	tone.setAmplitude( amp );
-	dc_offset = _dc_offset;
-	sawtooth = _sawtooth;
-	pulsate = _pulsate;
-
 }
 
 

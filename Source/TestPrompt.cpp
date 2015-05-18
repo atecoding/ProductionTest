@@ -9,10 +9,7 @@
 TestPrompt::TestPrompt(XmlElement *xe,int input_,int output_,bool &ok) :
 	input (input_),
 	output (output_),
-    num_channels (1),
-    _dc_offset(0.0f),
-    _sawtooth(0),
-    _pulsate(0)
+    num_channels (1)
 {
 	XmlElement *temp;
 
@@ -39,7 +36,6 @@ TestPrompt::TestPrompt(XmlElement *xe,int input_,int output_,bool &ok) :
 		ok &= getFloatValue(xe,T("output_amplitude_db"),output_amplitude_db);
 		ok &= getFloatValue(xe,T("min_input_db"),min_input_db);
 		ok &= getFloatValue(xe,T("max_input_db"),max_input_db);
-		getFloatValue(xe,T("dc_offset"),_dc_offset);
 		getIntValue(xe, T("wait_for_user"), wait_for_user);
 		getIntValue(xe, T("start_group"), start_group);
 		getIntValue(xe, T("stop_group"), stop_group);
@@ -52,7 +48,7 @@ TestPrompt::~TestPrompt()
 }
 	
 
-void TestPrompt::Setup(int samples_per_block,ToneGeneratorAudioSource &tone,uint32 &active_outputs,float &dc_offset,int &sawtooth,int &pulsate)
+void TestPrompt::Setup(int samples_per_block,ToneGeneratorAudioSource &tone,uint32 &active_outputs)
 {
 	float amp;
 
@@ -66,10 +62,6 @@ void TestPrompt::Setup(int samples_per_block,ToneGeneratorAudioSource &tone,uint
 	tone.setFrequency( 1000.0 );	
 	amp = pow(10.0f,output_amplitude_db/20.0f);
 	tone.setAmplitude( amp );
-	dc_offset = _dc_offset;
-	sawtooth = _sawtooth;
-	pulsate = _pulsate;
-
 }
 
 

@@ -376,7 +376,7 @@ void ProductionUnit::audioDeviceIOCallback
 	int numSamples
 )
 {
-	int in,out,i;
+	int in,i;
 	static int passes = 0;
 
     int64 now = Time::getHighResolutionTicks();
@@ -454,17 +454,17 @@ void ProductionUnit::audioDeviceIOCallback
 	//
 	// Playback
 	//
-	AudioSourceChannelInfo asci;
 	AudioSampleBuffer asb(outputChannelData, numOutputChannels, numSamples);
-	//float dc_offset = _dc_offset;
-	int sawtooth = _sawtooth;
-	int pulsate = _pulsate;
+    if (_test)
+    {
+        _test->fillAudioOutputs(asb,_tone);
+    }
+    else
+    {
+        asb.clear();
+    }
 
-	asci.buffer = &asb;
-	asci.numSamples = numSamples;
-	asci.startSample = 0;
-	_tone.getNextAudioBlock(asci);
-
+#if 0
 	for (out = 0; out < numOutputChannels; out++)
 	{
 		if (active_outputs & (1 << out)) 
@@ -490,6 +490,8 @@ void ProductionUnit::audioDeviceIOCallback
 			memset(outputChannelData[out], 0, numSamples*sizeof(float));
 		}
 	}
+#endif
+    
 	passes++;
 	if(passes >= 100)
 		passes = 0;
@@ -760,7 +762,7 @@ void ProductionUnit::ParseScript()
 			//
 			// show user prompt
 			//
-			tp.Setup(_asio->getCurrentBufferSizeSamples(),_tone,active_outputs,_dc_offset,_sawtooth,_pulsate);
+			tp.Setup(_asio->getCurrentBufferSizeSamples(),_tone,active_outputs);
 
 			if (0 == tp.start_group)
 			{
@@ -825,7 +827,7 @@ void ProductionUnit::ParseScript()
 				_content->log(_test->title);
 			}
 
-			_test->Setup(_asio->getCurrentBufferSizeSamples(),_tone,active_outputs,_dc_offset,_sawtooth,_pulsate);
+			_test->Setup(_asio->getCurrentBufferSizeSamples(),_tone,active_outputs);
 
 			ok = OpenASIO(_test->sample_rate);
 			if (!ok)
@@ -1052,7 +1054,7 @@ void ProductionUnit::ParseScript()
 			if (!ok)
 				return;
 
-			ao.Setup(_asio->getCurrentBufferSizeSamples(),_tone,active_outputs,_dc_offset,_sawtooth,_pulsate);
+			ao.Setup(_asio->getCurrentBufferSizeSamples(),_tone,active_outputs);
 
 			//
 			// Start the audio driver
@@ -1355,6 +1357,20 @@ void ProductionUnit::ParseScript()
 			_script = _script->getNextElement();
 			continue;
 		}
+        
+        if (_script->hasTagName("AIOS_set_reference_voltage"))
+        {
+            Result result(_dev->setAIOSReferenceVoltage(_script));
+            
+            if (result.failed())
+            {
+                _content->log(String::empty);
+                _content->log(result.getErrorMessage());
+            }
+            
+            _script = _script->getNextElement();
+            continue;
+        }
 
 		if (_script->hasTagName("AIO_TEDS_test"))
 		{

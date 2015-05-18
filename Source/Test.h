@@ -14,10 +14,8 @@ public:
 
 	void Setup( int samples_per_block,
 				ToneGeneratorAudioSource &tone,
-				uint32 &active_outputs,
-				float &dc_offset,
-				int &sawtooth,
-				int &pulsate);
+				uint32 &active_outputs);
+    virtual void fillAudioOutputs(AudioSampleBuffer &buffer, ToneGeneratorAudioSource &tone);
 	virtual bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg) = 0;
 	
 	String title;
@@ -30,9 +28,6 @@ public:
 	float pass_threshold_db;
 	float min_level_db;
 	float max_level_db;
-	float _dc_offset;
-	int _sawtooth;
-	int _pulsate;
 	float minSampleRate;
 	float maxSampleRate;
     float glitchThreshold;
@@ -144,6 +139,67 @@ public:
 	PhaseTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
 	~PhaseTest();
 
-	bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg);
+    bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg);
+};
 
+class AIOSReferenceVoltageTest : public Test
+{
+public:
+    AIOSReferenceVoltageTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
+    
+    virtual void fillAudioOutputs(AudioSampleBuffer &buffer, ToneGeneratorAudioSource &tone) override;
+    virtual bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg) override;
+    
+protected:
+    float squareWaveMinAmplitude;
+    float squareWaveMaxAmplitude;
+    float squareWaveFrequency;
+    int squareWavePeriodSamples;
+    int squareWavePosition;
+    
+    struct SquareWaveAnalysisResult
+    {
+        SquareWaveAnalysisResult()
+        {
+            clear(0.0f);
+        }
+        
+        void add(float sample)
+        {
+            average += sample;
+            min = jmin(min, sample);
+            max = jmax(max, sample);
+        }
+        
+        void clear(float const sign)
+        {
+            if (sign < 0.0f)
+            {
+                min = 0.0f;
+                max = -FLT_MAX;
+                average = 0.0f;
+            }
+            else
+            {
+                min = FLT_MAX;
+                max = 0.0f;
+                average = 0.0f;
+            }
+        }
+        
+        
+        float min;
+        float max;
+        float average;
+    };
+    
+    
+    void findZeroCrossing(const float * data, int numSamples, int startIndex, int &zeroCrossingIndex);
+    Result analyze(
+                   String const name,
+                   const float *data,
+                   int numSamples,
+                   float &totalResult,
+                   Range<float> const range
+                   );
 };

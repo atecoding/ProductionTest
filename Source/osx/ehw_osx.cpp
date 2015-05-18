@@ -326,6 +326,38 @@ Result ehw::setConstantCurrent(uint8 const input, uint8 const enabled)
     return Result::fail(error);
 }
 
+Result ehw::setAIOSReferenceVoltage(XmlElement const *element)
+{
+    if (false == element->hasAttribute("enabled"))
+    {
+        Result error(Result::fail("AIOS_set_reference_voltage missing 'enabled' setting"));
+        
+        AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
+                                         error.getErrorMessage(), false);
+        return error;
+    }
+    
+    bool enabled = element->getIntAttribute("enabled", 0) != 0;
+    return setAIOSReferenceVoltage(enabled);
+}
+
+Result ehw::setAIOSReferenceVoltage(bool const enabled)
+{
+    uint8 const module = 0; // assume AIO center module for now
+    IOReturn rc = setRequest(ACOUSTICIO_EXTENSION_UNIT, ACOUSTICIO_CALIBRATION_VOLTAGE_CONTROL, module, (uint8 *)&enabled, 1);
+    
+    if (kIOReturnSuccess == rc)
+    {
+        return Result::ok();
+    }
+    
+    String error("Failed to set reference voltage");
+    error += " - error " + String::toHexString(rc);
+    return Result::fail(error);
+}
+
+
+
 Result ehw::readTEDSData(uint8 const input, uint8* data, size_t dataBufferBytes)
 {
     DBG("readTEDSData " << input);

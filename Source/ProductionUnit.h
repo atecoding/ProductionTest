@@ -72,9 +72,6 @@ protected:
 	Content *_content;
 	ScopedPointer<AudioIODevice> _asio;
 	ToneGeneratorAudioSource _tone;
-	float _dc_offset;
-	int _sawtooth;
-	int _pulsate;
 	
 	uint32 active_outputs;
 	Atomic<int32> blocks_recorded;
