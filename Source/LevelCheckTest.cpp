@@ -3,7 +3,6 @@
 #include "Analysis.h"
 #include "wavefile.h"
 #include "xml.h"
-#include "errorbits.h"
 #include "ProductionUnit.h"
 
 LevelCheckTest::LevelCheckTest(XmlElement *xe,bool &ok, ProductionUnit *unit_) :
@@ -21,7 +20,7 @@ LevelCheckTest::~LevelCheckTest()
 }
 
 
-bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
+bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorCodes &errorCodes)
 {
 	int channel;
     int idx, num_samples;
@@ -149,7 +148,8 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
 		pass &= channelOK;
 		if (false == channelOK)	// only write wave files on failure
 		{
-			errorBit |= LEVEL_ERROR_INDEX << (input + channel);
+            errorCodes.add(ErrorCodes::LEVEL, input + channel + 1);
+            
 #if WRITE_WAVE_FILES
             {
                 String name(title);

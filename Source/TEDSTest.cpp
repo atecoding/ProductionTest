@@ -3,10 +3,8 @@
 #include "AcousticIO.h"
 #include "ehw.h"
 #include "content.h"
-#include "errorbits.h"
 #include "AIOTestAdapter.h"
-
-#define CUR 1
+#include "ErrorCodes.h"
 
 bool RunTEDSTest(XmlElement const *element,
                  ehw *dev,
@@ -14,15 +12,13 @@ bool RunTEDSTest(XmlElement const *element,
                  int &displayedInput,
                  AIOTestAdapter &testAdapter,
                  Content *content,
-                 uint64 &errorBit)
+                 ErrorCodes &errorCodes)
 {
 	int attribute;
 	uint8 channel;
 	uint8 data[ACOUSTICIO_TEDS_DATA_BYTES];
 	uint8 expectedValue;
 	bool ok = true;
-
-	errorBit = 0;
 
 	displayedInput = -1;
 
@@ -57,7 +53,8 @@ bool RunTEDSTest(XmlElement const *element,
             {
                 msg = "Could not read TEDS data for input " + String(displayedInput) + "\n" +
                     status.getErrorMessage();
-                errorBit |= TEDS_ERROR_INDEX << channel;
+                errorCodes.add(ErrorCodes::TEDS, displayedInput);
+                
                 return false;
             }
             
@@ -79,7 +76,9 @@ bool RunTEDSTest(XmlElement const *element,
 			{
 				msg = "*** Read unexpected TEDS data for input " + String(displayedInput) + " (value of 0x" + String::toHexString(data[i]) + " at offset " + String(i) + ")";
 				ok = false;
-				errorBit |= TEDS_ERROR_INDEX << channel;
+                errorCodes.add(ErrorCodes::TEDS, displayedInput);
+                ok = false;
+                
 				break;
 			}
 		}
@@ -90,7 +89,6 @@ bool RunTEDSTest(XmlElement const *element,
 			content->log(msg);
 	}
     
-    ok = errorBit == 0;
 	if (!ok)
 		Thread::sleep(50);		// delay so things don't get hosed
 	return ok;

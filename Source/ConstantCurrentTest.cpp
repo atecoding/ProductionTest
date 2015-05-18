@@ -2,7 +2,7 @@
 #include "base.h"
 #include "xml.h"
 #include "AIOTestAdapter.h"
-#include "errorbits.h"
+#include "ErrorCodes.h"
 
 class ehw;
 class Content;
@@ -13,15 +13,13 @@ bool RunCCVoltageTest(XmlElement const *element,
                       int &displayedInput,
                       AIOTestAdapter &testAdapter,
                       Content *content,
-                      uint64 &errorBit)
+                      ErrorCodes &errorCodes)
 {
 	int attribute;
     int numInputs;
 	uint8 channel;
 	float minimum, maximum, volts;
 	bool ok;
-	
-	errorBit = 0;
 
 	//
 	// Read XML parameters
@@ -101,7 +99,8 @@ bool RunCCVoltageTest(XmlElement const *element,
 		{
 			msg += "    Channel " + String(i + displayedInput) + ": " + String(volts,1) + "V out of range\n";
 			pass = false;
-			errorBit |= TEDS_ERROR_INDEX << (channel + i);
+            
+            errorCodes.add( ErrorCodes::MIC_SUPPLY_VOLTAGE, displayedInput + i);
 		}
 		else
 		{
@@ -118,14 +117,12 @@ bool RunCCCurrentTest(XmlElement const *element,
                       int &displayedInput,
                       AIOTestAdapter &testAdapter,
                       Content *content,
-                      uint64 &errorBit)
+                      ErrorCodes &errorCodes)
 {
 	int attribute;
 	uint8 channel;
 	float minimum, maximum, current;
 	bool ok;
-
-	errorBit = 0;
 
 	//
 	// Read XML parameters
@@ -202,7 +199,7 @@ bool RunCCCurrentTest(XmlElement const *element,
 		{
 			msg += "    Channel " + String(i + displayedInput) + ": " + String(current,1) + "ma out of range\n";
 			pass = false;
-			errorBit |= TEDS_ERROR_INDEX << (channel + i);
+			errorCodes.add( ErrorCodes::MIC_SUPPLY_CURRENT, displayedInput + i);
 		}
 		else
 		{

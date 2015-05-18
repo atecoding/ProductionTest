@@ -77,7 +77,7 @@ public:
 	//}
 	int updatepolledstuff();
 	
-	int getFirmwareVersion(uint32 &version);
+	uint32 getFirmwareVersion() const;
     String getFirmwareVersionString() const;
 
 
@@ -217,6 +217,8 @@ public:
     Result readTEDSData(uint8 const input, uint8* data, size_t dataBufferBytes);
     Result setAIOSReferenceVoltage(XmlElement const *element);
     Result setAIOSReferenceVoltage(bool const enabled);
+    Result readFlashBlock(uint8 const block, uint8 * const buffer, size_t const bufferBytes);
+    Result writeFlashBlock(uint8 const block, uint8 const * const buffer, size_t const bufferBytes);
     
 #endif
 

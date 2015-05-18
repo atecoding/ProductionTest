@@ -2,7 +2,6 @@
 #include "Test.h"
 #include "wavefile.h"
 #include "xml.h"
-#include "errorbits.h"
 #include "ProductionUnit.h"
 #include "AcousticIO.h"
 
@@ -54,7 +53,7 @@ void AIOSReferenceVoltageTest::fillAudioOutputs(AudioSampleBuffer &buffer, ToneG
 }
 
 
-bool AIOSReferenceVoltageTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
+bool AIOSReferenceVoltageTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorCodes &errorCodes)
 {
     int channel = 0; // this is AIOS_VOLTAGE_INPUT_CHANNEL
     int physicalInput = input + channel;
@@ -68,7 +67,7 @@ bool AIOSReferenceVoltageTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String 
             sourceBuffer->getNumSamples(),
             totalResult,allowed));
 
-    msg = "    ";
+    msg = "     ";
     msg += String(totalResult * voltageInputPeakVolts, 2) + " V";
     if (rangeResult.failed())
     {
@@ -77,6 +76,8 @@ bool AIOSReferenceVoltageTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String 
         String filename(title);
         filename += String::formatted(" (out%02d-in%02d).wav", output, physicalInput);
         WriteWaveFile(unit, filename, sample_rate, sourceBuffer);
+        
+        errorCodes.add(ErrorCodes::AIOS_REFERENCE_VOLTAGE);
     }
     else
     {

@@ -3,8 +3,6 @@
 #include "Analysis.h"
 #include "wavefile.h"
 #include "xml.h"
-#include "errorbits.h"
-
 
 DynRangeTest::DynRangeTest(XmlElement *xe,bool &ok, ProductionUnit *unit_) :
 	Test(xe,ok,unit_)
@@ -18,7 +16,7 @@ DynRangeTest::~DynRangeTest()
 }
 
 
-bool DynRangeTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
+bool DynRangeTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorCodes &errorCodes)
 {
 	int channel;
 	double result;
@@ -64,7 +62,7 @@ DiffDynRangeTest::~DiffDynRangeTest()
 }
 
 
-bool DiffDynRangeTest::calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg)
+bool DiffDynRangeTest::calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg, ErrorCodes &errorCodes)
 {
 	double result;
 
@@ -89,9 +87,8 @@ bool DiffDynRangeTest::calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg)
 
 	if (result < pass_threshold_db)
 	{
-		errorBit |= DNR_ERROR_INDEX << input;
-		errorBit |= DNR_ERROR_INDEX << (input + 1);
-
+        errorCodes.add(ErrorCodes::DNR, input + 1);
+        errorCodes.add(ErrorCodes::DNR, input + 2);
 	}
 
 	return result >= pass_threshold_db;

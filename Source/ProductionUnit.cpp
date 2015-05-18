@@ -16,7 +16,6 @@
 #include "OldMessage.h"
 #include "App.h"
 #include "TestManager.h"
-#include "errorbits.h"
 #if JUCE_MAC
 #include "osx/osx.h"
 #endif
@@ -28,28 +27,41 @@ bool RunTEDSTest(XmlElement const *element,
                  int &displayedInput,
                  AIOTestAdapter &testAdapter,
                  Content *content,
-                 uint64 &errorBit);
+                 ErrorCodes &errorCodes);
 bool RunCCVoltageTest(XmlElement const *element,
                       ehw *dev,
                       String &msg,
                       int &displayedInput,
                       AIOTestAdapter &testAdapter,
                       Content *content,
-                      uint64 &errorBit);
+                      ErrorCodes &errorCodes);
 bool RunCCCurrentTest(XmlElement const *element,
                       ehw *dev,
                       String &msg,
                       int &displayedInput,
                       AIOTestAdapter &testAdapter,
                       Content *content,
-                      uint64 &errorBit);
+                      ErrorCodes &errorCodes);
+bool RunUSBFirmwareVersionTest(XmlElement const *element,
+                      ehw *dev,
+                      String &msg,
+                      int &displayedInput,
+                      AIOTestAdapter &testAdapter,
+                      Content *content,
+                      ErrorCodes &errorCodes);
+bool RunFlashMemoryTest(XmlElement const *element,
+                        ehw *dev,
+                        String &msg,
+                        int &displayedInput,
+                        AIOTestAdapter &testAdapter,
+                        Content *content,
+                        ErrorCodes &errorCodes);
 #endif
 
 //extern String ProductionTestsXmlFileName;
 
 ProductionUnit::ProductionUnit(ehw *dev, ehwlist *devlist, Content *content) :
 _num_tests(0),
-_errorBits(0),
 _unit_passed(true),
 _skipped(false),
 _running(false),
@@ -234,7 +246,7 @@ void ProductionUnit::RunTests(String const serialNumber_)
 	_skipped = false;
 	_unit_passed = true;
 	_running = true;
-	_errorBits = 0;
+    errorCodes.reset();
     tree.removeAllChildren(nullptr);
     tree.removeAllProperties(nullptr);
 
@@ -521,10 +533,10 @@ void ProductionUnit::handleMessage(const Message &message)
 
 			Result sampleRateResult(CheckSampleRate());
 
-			result = _test->calc(_inbuffs,msg);
+			result = _test->calc(_inbuffs,msg, errorCodes);
 			result &= sampleRateResult.wasOk();
 			_unit_passed &= result;
-			_errorBits |= _test->errorBit;
+            
 			_channel_group_passed &= (int)result;
 
 		#if 0
@@ -666,7 +678,8 @@ void ProductionUnit::ParseScript()
 					{
 						msg = "*** ";
 						msg += log_text->getFirstChildElement()->getText();
-						_errorBits |= LED_ERROR_INDEX;
+                        
+                        errorCodes.add(ErrorCodes::LED);
 					}
 					msg += ": ";
 					msg += ok ? "ok" : "failed";
@@ -1377,7 +1390,7 @@ void ProductionUnit::ParseScript()
             runAIOTest(RunTEDSTest, "TEDS");
            
 #if 0
-			bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &input, Content *content, uint64 &errorBit);
+			bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &input, Content *content, uint32 &errorBit);
 
 			String msg;
 			int input;
@@ -1488,6 +1501,18 @@ void ProductionUnit::ParseScript()
             runAIOTest(RunCCCurrentTest, "Mic Supply current");
 			continue;
 		}
+        
+        if (_script->hasTagName("AIO_firmware_version_test"))
+        {
+            runAIOTest(RunUSBFirmwareVersionTest, "Firmware version");
+            continue;
+        }
+        
+        if (_script->hasTagName("AIO_flash_memory_test"))
+        {
+            runAIOTest(RunFlashMemoryTest, "Flash memory");
+            continue;
+        }
 #endif
         
         //-----------------------------------------------------------------------------
@@ -1537,44 +1562,7 @@ void ProductionUnit::ParseScript()
 	//
 
 	if (_num_tests)
-	{
-#ifdef ACOUSTICIO_BUILD
-		String errorCodes[33] = {
-			"00 ",		// LED ERROR INDEX
-			"10 ",		// LEVEL ERROR INDEX
-			"20 ",
-			"30 ",
-			"40 ",
-			"50 ",
-			"60 ",
-			"70 ",
-			"80 ",
-			"11 ",		// THDN ERROR INDEX
-			"21 ",
-			"31 ",
-			"41 ",
-			"51 ",
-			"61 ",
-			"71 ",
-			"81 ",
-			"12 ",		// DNR ERROR INDEX
-			"22 ",
-			"32 ",
-			"42 ",
-			"52 ",
-			"62 ",
-			"72 ",
-			"82 ",
-			"14 ",		// TEDS ERROR INDEX
-			"24 ",
-			"34 ",
-			"44 ",
-			"54 ",
-			"64 ",
-			"74 ",
-			"84 "
-		};
-#endif
+    {
 		String msg;
 		String finalResult;
 		Colour finalResultColor;
@@ -1604,18 +1592,21 @@ void ProductionUnit::ParseScript()
 			msg = "*** " + _serial_number + " FAILED: ";
 			finalResult = "UNIT FAILED";
 			finalResultColor = Colours::red;
-			if (_errorBits != 0)
-			{
-				finalResult += "\n"; 
-				for (i = 0; i < 33; i++)
-				{
-					if ((_errorBits & (1LL << i)))
-					{
-						msg += errorCodes[i];
-						finalResult += errorCodes[i];
-					}
-				}
-			}
+            
+            int errorCodeCount = errorCodes.getCount();
+            if (errorCodeCount != 0)
+            {
+                finalResult += "\n";
+                
+                for (i = 0; i < errorCodeCount; i++)
+                {
+                    String errorCode(String::toHexString((int32)errorCodes.getCode(i)));
+                    
+                    errorCode += " ";
+                    msg += errorCode;
+                    finalResult += errorCode;
+                }
+            }
 		}
 		_content->log(msg);
 		_content->setFinalResult(finalResult,finalResultColor);
@@ -1815,19 +1806,17 @@ void ProductionUnit::runAIOTest(AIOTestVector function, String const groupName)
 {
     String msg;
     int displayedInput;
-    uint64 errorBit;
     bool ok = function(_script,
                        _dev,
                        msg,
                        displayedInput,
                        aioTestAdapter,
                        _content,
-                       errorBit) == TestPrompt::ok;
+                       errorCodes) == TestPrompt::ok;
     
     _content->log(msg);
     
     _unit_passed &= ok;
-    _errorBits |= errorBit;
     
     _num_tests++;
     

@@ -49,6 +49,11 @@ uint64 ehw::GetSerialNumber()
     return 0;
 }
 
+uint32 ehw::getFirmwareVersion() const
+{
+    return firmwareVersion;
+}
+
 String ehw::getFirmwareVersionString() const
 {
     return String::toHexString(firmwareVersion);
@@ -357,15 +362,36 @@ Result ehw::setAIOSReferenceVoltage(bool const enabled)
 }
 
 
-
 Result ehw::readTEDSData(uint8 const input, uint8* data, size_t dataBufferBytes)
 {
-    DBG("readTEDSData " << input);
     IOReturn rc = getRequest(ACOUSTICIO_EXTENSION_UNIT, ACOUSTICIO_TEDS_DATA_CONTROL, input, data, dataBufferBytes);
     if (kIOReturnSuccess == rc)
         return Result::ok();
     
     String error("Failed to read TEDS for input " + String((int)input));
+    error += " - error " + String::toHexString(rc);
+    return Result::fail(error);
+}
+
+Result ehw::readFlashBlock(uint8 const block, uint8 * const buffer, size_t const bufferBytes)
+{
+    IOReturn rc = getRequest(ACOUSTICIO_EXTENSION_UNIT, ACOUSTICIO_FLASH_BLOCK_CONTROL, block, (uint8*)buffer, bufferBytes);
+    if (kIOReturnSuccess == rc)
+        return Result::ok();
+    
+    String error("Failed to read flash for block " + String((int)block));
+    error += " - error " + String::toHexString(rc);
+    return Result::fail(error);
+}
+
+Result ehw::writeFlashBlock(uint8 const block, uint8 const * const buffer, size_t const bufferBytes)
+{
+    
+    IOReturn rc = setRequest(ACOUSTICIO_EXTENSION_UNIT, ACOUSTICIO_FLASH_BLOCK_CONTROL, block, (uint8*)buffer, bufferBytes);
+    if (kIOReturnSuccess == rc)
+        return Result::ok();
+    
+    String error("Failed to write flash for block " + String((int)block));
     error += " - error " + String::toHexString(rc);
     return Result::fail(error);
 }

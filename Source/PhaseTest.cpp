@@ -15,7 +15,7 @@ PhaseTest::~PhaseTest()
 {
 }
 
-bool PhaseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
+bool PhaseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorCodes &errorCodes)
 {
 	int i,num_samples;
 	float last,peak,jump;

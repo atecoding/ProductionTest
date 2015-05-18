@@ -11,7 +11,6 @@ Test::Test(XmlElement *xe,bool &ok, ProductionUnit* unit_) :
 	output (-1),
 	num_channels(1),
     glitchThreshold(4.0f),
-	errorBit(0),
 	unit(unit_)
 {
 	XmlElement *temp;

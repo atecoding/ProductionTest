@@ -3,7 +3,6 @@
 #include "Analysis.h"
 #include "wavefile.h"
 #include "xml.h"
-#include "errorbits.h"
 #include "ProductionUnit.h"
 
 const Identifier RelativeLevelTest::relativeLevelResults("relativeLevelResults");
@@ -32,13 +31,14 @@ RelativeLevelTest::~RelativeLevelTest()
 }
 
 
-bool RelativeLevelTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
+bool RelativeLevelTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorCodes &errorCodes)
 {
     AudioSampleBuffer highPassOutput;
     IIRCoefficients highPassCoefficients(IIRCoefficients::makeHighPass(sample_rate, 500.0));
     IIRFilter highPassFilter;
 	bool pass = true;
-    ValueTree previousResultsTree(unit->tree.getOrCreateChildWithName(relativeLevelResults, nullptr));
+    ValueTree unitTree(unit->tree);
+    ValueTree previousResultsTree(unitTree.getOrCreateChildWithName(relativeLevelResults, nullptr));
     
     msg = String::empty;
     
@@ -102,7 +102,8 @@ bool RelativeLevelTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
             else
             {
                 msg += " FAIL";
-                errorBit |= LEVEL_ERROR_INDEX << (physicalInput);
+                
+                errorCodes.add(ErrorCodes::LEVEL, physicalInput + 1);
             }
             pass &= channelOK;
         }

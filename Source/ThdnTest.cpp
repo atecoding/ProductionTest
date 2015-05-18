@@ -3,7 +3,6 @@
 #include "Analysis.h"
 #include "wavefile.h"
 #include "xml.h"
-#include "errorbits.h"
 
 
 ThdnTest::ThdnTest(XmlElement *xe,bool &ok, ProductionUnit *unit_) :
@@ -18,7 +17,7 @@ ThdnTest::~ThdnTest()
 }
 
 
-bool ThdnTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg)
+bool ThdnTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorCodes &errorCodes)
 {
 	int channel;
 	double result;
@@ -62,7 +61,7 @@ DiffThdnTest::~DiffThdnTest()
 }
 
 
-bool DiffThdnTest::calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg)
+bool DiffThdnTest::calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg, ErrorCodes &errorCodes)
 {
 	double result;
 	//bool pass = true;
@@ -87,9 +86,8 @@ bool DiffThdnTest::calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg)
 
 	if (result > pass_threshold_db)
 	{
-		errorBit |= THDN_ERROR_INDEX << input;
-		errorBit |= THDN_ERROR_INDEX << (input + 1);
-
+        errorCodes.add(ErrorCodes::THDN, input + 1);
+        errorCodes.add(ErrorCodes::THDN, input + 2);
 	}
 
 	return result <= pass_threshold_db;

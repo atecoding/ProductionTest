@@ -2,16 +2,12 @@
 
 #include "Test.h"
 #include "MIDILoopTest.h"
+#include "ErrorCodes.h"
+
 #if ACOUSTICIO_BUILD
 #include "AIOTestAdapter.h"
 class Content;
-typedef bool (*AIOTestVector)(XmlElement const *element,
-                                ehw *dev,
-                                String &msg,
-                                int &displayedInput,
-                                AIOTestAdapter &testAdapter,
-                                Content *content,
-                                uint64 &errorBit);
+typedef bool (*AIOTestVector)(XmlElement const *element, ehw *dev, String &msg, int &displayedInput, AIOTestAdapter &testAdapter, Content *content, ErrorCodes &errorCodes);
 #endif
 
 class ehw;
@@ -34,7 +30,7 @@ public:
 	void handleMessage(const Message &message);
 
 	int	_num_tests;
-	uint64 _errorBits;
+    ErrorCodes errorCodes;
 	bool _unit_passed;
 	bool _skipped;
 	bool _running;
@@ -112,10 +108,6 @@ protected:
 
 #if ACOUSTICIO_BUILD
 	AIOTestAdapter aioTestAdapter;
-    
-#if ACOUSTICIO_BUILD
     void runAIOTest(AIOTestVector function, String const groupName);
-    typedef bool (*AIOTestVector)(XmlElement const *element, ehw *dev, String &msg, int &displayedInput, AIOTestAdapter &testAdapter, Content *content, uint64 &errorBit);
-#endif
 #endif
 };

@@ -3,6 +3,8 @@
 class ehw;
 class ProductionUnit;
 
+#include "ErrorCodes.h"
+
 class Test
 {
 protected:
@@ -16,7 +18,7 @@ public:
 				ToneGeneratorAudioSource &tone,
 				uint32 &active_outputs);
     virtual void fillAudioOutputs(AudioSampleBuffer &buffer, ToneGeneratorAudioSource &tone);
-	virtual bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg) = 0;
+	virtual bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorCodes &errorCodes) = 0;
 	
 	String title;
 	int input;
@@ -31,7 +33,6 @@ public:
 	float minSampleRate;
 	float maxSampleRate;
     float glitchThreshold;
-	uint64 errorBit;
 	ProductionUnit* unit;
 
 protected:
@@ -46,7 +47,7 @@ public:
 	ThdnTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
 	~ThdnTest();
 
-	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg);
+	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg, ErrorCodes &errorCodes);
 };
 
 
@@ -56,7 +57,7 @@ public:
 	DiffThdnTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
 	~DiffThdnTest();
 
-	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg);
+	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg, ErrorCodes &errorCodes);
 };
 
 
@@ -66,7 +67,7 @@ public:
 	DynRangeTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
 	~DynRangeTest();
 
-	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg);
+	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg, ErrorCodes &errorCodes);
 };
 
 
@@ -76,7 +77,7 @@ public:
 	DiffDynRangeTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
 	~DiffDynRangeTest();
 
-	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg);
+	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg, ErrorCodes &errorCodes);
 };
 
 
@@ -86,7 +87,7 @@ public:
 	FrequencyResponseTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
 	~FrequencyResponseTest();
 
-	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg);
+	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg, ErrorCodes &errorCodes);
 
 };
 
@@ -97,7 +98,7 @@ public:
 	LevelCheckTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
 	~LevelCheckTest();
 
-	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg);
+	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg, ErrorCodes &errorCodes);
 
 };
 
@@ -107,7 +108,7 @@ public:
     RelativeLevelTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
     ~RelativeLevelTest();
     
-    bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg);
+    bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg, ErrorCodes &errorCodes);
     
     bool autoPass;
     static const Identifier relativeLevelResults;
@@ -120,7 +121,7 @@ public:
 	HexInputCrosstalkTest(XmlElement *xe,bool &ok, ProductionUnit *unit_);
 	~HexInputCrosstalkTest();
 
-	bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg);
+	bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorCodes &errorCodes);
 };
 
 class SaturationTest : public Test
@@ -129,7 +130,7 @@ public:
 	SaturationTest(XmlElement *xe,bool &ok, ProductionUnit *unit_);
 	~SaturationTest();
 
-	bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg);
+	bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorCodes &errorCodes);
 
 };
 
@@ -139,7 +140,7 @@ public:
 	PhaseTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
 	~PhaseTest();
 
-    bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg);
+    bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorCodes &errorCodes);
 };
 
 class AIOSReferenceVoltageTest : public Test
@@ -148,7 +149,7 @@ public:
     AIOSReferenceVoltageTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
     
     virtual void fillAudioOutputs(AudioSampleBuffer &buffer, ToneGeneratorAudioSource &tone) override;
-    virtual bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg) override;
+    virtual bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorCodes &errorCodes) override;
     
 protected:
     float squareWaveMinAmplitude;
