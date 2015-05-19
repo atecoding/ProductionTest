@@ -150,7 +150,7 @@
       <ProgramDataBaseFileName>$(IntDir)\</ProgramDataBaseFileName>
       <WarningLevel>Level4</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <MinimalRebuild>true</MinimalRebuild>
     </ClCompile>
     <ResourceCompile>
@@ -307,6 +307,7 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\AIOSReferenceVoltageTest.cpp" />
     <ClCompile Include="..\..\Source\ConstantCurrentTest.cpp" />
     <ClCompile Include="..\..\Source\Analysis.cpp" />
     <ClCompile Include="..\..\Source\App.cpp" />
@@ -315,7 +316,9 @@
     <ClCompile Include="..\..\Source\Content.cpp" />
     <ClCompile Include="..\..\Source\DelayTask.cpp" />
     <ClCompile Include="..\..\Source\DynRangeTest.cpp" />
+    <ClCompile Include="..\..\Source\ErrorCodes.cpp" />
     <ClCompile Include="..\..\Source\FilterCoeff.cpp" />
+    <ClCompile Include="..\..\Source\FlashMemoryTest.cpp" />
     <ClCompile Include="..\..\Source\FrequencyResponseTest.cpp" />
     <ClCompile Include="..\..\Source\Images.cpp" />
     <ClCompile Include="..\..\Source\LevelCheckTest.cpp" />
@@ -331,6 +334,7 @@
     <ClCompile Include="..\..\Source\TestManager.cpp" />
     <ClCompile Include="..\..\Source\TestPrompt.cpp" />
     <ClCompile Include="..\..\Source\ThdnTest.cpp" />
+    <ClCompile Include="..\..\Source\USBFirmwareVersionTest.cpp" />
     <ClCompile Include="..\..\Source\wavefile.cpp" />
     <ClCompile Include="..\..\Source\win32\AIODevices_win.cpp" />
     <ClCompile Include="..\..\Source\win32\AIODevice_win.cpp" />
@@ -1360,7 +1364,7 @@
     <ClInclude Include="..\..\Source\AudioOutput.h" />
     <ClInclude Include="..\..\Source\base.h" />
     <ClInclude Include="..\..\Source\Content.h" />
-    <ClInclude Include="..\..\Source\errorbits.h" />
+    <ClInclude Include="..\..\Source\ErrorCodes.h" />
     <ClInclude Include="..\..\Source\FilterCoeff.h" />
     <ClInclude Include="..\..\Source\iasiodrv.h" />
     <ClInclude Include="..\..\Source\Images.h" />

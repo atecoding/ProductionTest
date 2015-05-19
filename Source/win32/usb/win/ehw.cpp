@@ -181,10 +181,9 @@ uint32 ehw::GetDriverVersion()
 	return version;
 }
 
-int ehw::getFirmwareVersion(uint32 &version)
+uint32 ehw::getFirmwareVersion() const
 {
-	version = props.usbRevisionId;
-	return 0;
+	return props.usbRevisionId;
 }
 
 
@@ -1295,7 +1294,7 @@ int ehw::SendTestBuffer (uint8 const *buffer,size_t buffer_size)
          ( void * )buffer,
          buffer_size,
          NULL,
-         1000 );
+         COMMAND_TIMEOUT_MSEC );
 
 	return TSTATUS_SUCCESS != status;
 }
@@ -1312,14 +1311,14 @@ int ehw::ReceiveTestBuffer (uint8 *buffer,size_t buffer_size,size_t &bytes_recei
 										buffer,
 										buffer_size,
 										&bytes_received,
-										1000);
+										COMMAND_TIMEOUT_MSEC);
 	return TSTATUS_SUCCESS != status;
 }
 #endif
 
 #if ACOUSTICIO_BUILD
 
-#include "AcousticIO.h"
+#include "../AcousticIO.h"
 
 Result ehw::setMicGain(XmlElement const *element)
 {
@@ -1379,7 +1378,7 @@ Result ehw::setMicGain(XmlElement const *element)
 		(void *)&gain,
 		1,
 		NULL,
-		1000);
+		COMMAND_TIMEOUT_MSEC);
 	if (TSTATUS_SUCCESS == status)
 	{
 		uint8 temp;
@@ -1392,7 +1391,7 @@ Result ehw::setMicGain(XmlElement const *element)
 			(void *)&temp,
 			1,
 			NULL,
-			1000);
+			COMMAND_TIMEOUT_MSEC);
 		if (TSTATUS_SUCCESS == status)
 		{
 			if (temp == gain)
@@ -1479,7 +1478,7 @@ Result ehw::setAmpGain(XmlElement const *element)
 		(void *)&gain,
 		1,
 		NULL,
-		1000);
+		COMMAND_TIMEOUT_MSEC);
 	if (TSTATUS_SUCCESS == status)
 	{
 		uint8 temp;
@@ -1491,7 +1490,7 @@ Result ehw::setAmpGain(XmlElement const *element)
 			(void *)&temp,
 			1,
 			NULL,
-			1000);
+			COMMAND_TIMEOUT_MSEC);
 		if (TSTATUS_SUCCESS == status)
 		{
 			if (temp == gain)
@@ -1570,7 +1569,7 @@ Result ehw::setConstantCurrent(uint8 const input, uint8 const enabled)
 		(void *)&enabled,
 		1,
 		NULL,
-		1000);
+		COMMAND_TIMEOUT_MSEC);
 	if (TSTATUS_SUCCESS == status)
 	{
 		uint8 temp;
@@ -1582,7 +1581,7 @@ Result ehw::setConstantCurrent(uint8 const input, uint8 const enabled)
 			(void *)&temp,
 			1,
 			NULL,
-			1000);
+			COMMAND_TIMEOUT_MSEC);
 		if (TSTATUS_SUCCESS == status)
 		{
 			if (temp == enabled)
@@ -1621,12 +1620,90 @@ Result ehw::readTEDSData(uint8 const input, uint8* data, size_t dataBufferBytes)
 		data,
 		dataBufferBytes,
 		NULL,
-		1000);
+		COMMAND_TIMEOUT_MSEC);
 	if (TSTATUS_SUCCESS == status)
 		return Result::ok();
 
 	String error("Failed to read TEDS for input " + String((int)input));
 	error += " - error " + String::toHexString((int)status);
+	return Result::fail(error);
+}
+
+Result ehw::setAIOSReferenceVoltage(XmlElement const *element)
+{
+	if (false == element->hasAttribute("enabled"))
+	{
+		Result error(Result::fail("AIOS_set_reference_voltage missing 'enabled' setting"));
+
+		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
+			error.getErrorMessage(), false);
+		return error;
+	}
+
+	bool enabled = element->getIntAttribute("enabled", 0) != 0;
+	return setAIOSReferenceVoltage(enabled);
+}
+
+Result ehw::setAIOSReferenceVoltage(bool const enabled)
+{
+	uint8 const module = 0; // assume AIO center module for now
+	TUsbAudioStatus status;
+
+	status = TUSBAUDIO_AudioControlRequestSet(handle,
+		ACOUSTICIO_EXTENSION_UNIT,	// unit ID
+		CUR,
+		ACOUSTICIO_CALIBRATION_VOLTAGE_CONTROL,
+		module,
+		(void *)&enabled,
+		1,
+		NULL,
+		COMMAND_TIMEOUT_MSEC);
+	if (TSTATUS_SUCCESS == status)
+		return Result::ok();
+
+	String error("Failed to set reference voltage");
+	error += " - error " + String::toHexString((int32)status);
+	return Result::fail(error);
+}
+
+Result ehw::readFlashBlock(uint8 const block, uint8 * const buffer, size_t const bufferBytes)
+{
+	TUsbAudioStatus status;
+	uint32 bytesTransferred = 0;
+	status = TUSBAUDIO_AudioControlRequestGet(handle,
+		ACOUSTICIO_EXTENSION_UNIT,	// unit ID
+		CUR,
+		ACOUSTICIO_FLASH_BLOCK_CONTROL,
+		block,
+		(void *)buffer,
+		ACOUSTICIO_FLASH_BLOCK_BYTES,
+		&bytesTransferred,
+		COMMAND_TIMEOUT_MSEC);
+	if (TSTATUS_SUCCESS == status)
+		return Result::ok();
+
+	String error("Failed to read flash for block " + String((int)block));
+	error += " - error " + String::toHexString((int32)status);
+	return Result::fail(error);
+}
+
+Result ehw::writeFlashBlock(uint8 const block, uint8 const * const buffer, size_t const bufferBytes)
+{
+	TUsbAudioStatus status;
+	status = TUSBAUDIO_AudioControlRequestSet(handle,
+		ACOUSTICIO_EXTENSION_UNIT,	// unit ID
+		CUR,
+		ACOUSTICIO_FLASH_BLOCK_CONTROL,
+		block,
+		(void *)buffer,
+		ACOUSTICIO_FLASH_BLOCK_BYTES,
+		NULL,
+		COMMAND_TIMEOUT_MSEC);
+	if (TSTATUS_SUCCESS == status)
+		return Result::ok();
+
+	String error("Failed to write flash for block " + String((int)block));
+	error += " - error " + String::toHexString((int32)status);
 	return Result::fail(error);
 }
 
