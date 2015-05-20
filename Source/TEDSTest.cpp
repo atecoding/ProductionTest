@@ -94,7 +94,7 @@ bool RunTEDSTest(XmlElement const *element,
 	if (numInputs == 2)
 		displayedInput = -255;
 	else
-		displayedInput -= 4;
+		displayedInput -= 3;
 
 	if (!ok)
 		Thread::sleep(50);		// delay so things don't get hosed

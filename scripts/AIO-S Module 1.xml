@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <root>
   
-    <!-- **************************************************** -->
+  <!-- **************************************************** -->
 	<!-- Echo Acoustic AIO-S                                  -->
 	<!-- **************************************************** -->
     
@@ -11,6 +11,8 @@
     <ASIO_driver>ASIO Echo Acoustic AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO</CoreAudio_driver>
 
+    <AIOS_clear_RAM_calibration />
+
     <message_box>
       Is the blue LED lit?
       <show_yes_no>1</show_yes_no>
@@ -18,7 +20,7 @@
     </message_box>
 
     <AIO_firmware_version_test min_version="0x71" />
-    
+
     <AIO_flash_memory_test />
     
     <message_box>Connect the Test Adapter to Inputs 1-2 and AMP1 and insert the Reference Resistor Adapter.</message_box>
@@ -185,10 +187,13 @@
     <!-- Test gain settings for inputs and outputs -->
     
     <AIO_write_test_adapter byte="0x30"/> <!-- set adapter for audio measurements-->
-    
+
     <AIO_set_mic_gain input="0" gain="1" />
     <AIO_set_mic_gain input="1" gain="1" />
+    <AIO_set_mic_gain input="2" gain="1" />
+    <AIO_set_mic_gain input="3" gain="1" />
     <AIO_set_amp_gain output="0" gain="1" />
+    <AIO_set_amp_gain output="1" gain="1" />
 
     <test>
       1x Input - 1x Output Level Check 1-2
@@ -203,15 +208,27 @@
     </test>
 
     <test>
-      1x Input - 1x Output Level Check 3-4
+      1x Input - 1x Output Level Check 3
       <type>Level check</type>
-      <output_amplitude_db>0.0</output_amplitude_db>
+      <output_amplitude_db>-0.0</output_amplitude_db>
       <input>2</input>
       <output>0</output>
-      <num_channels>2</num_channels>
+      <num_channels>1</num_channels>
       <sample_rate>48000</sample_rate>
       <min_level_db>-25.0</min_level_db>
       <max_level_db>-20.0</max_level_db>
+    </test>
+
+    <test>
+      1x Input - 1x Output Level Check 4
+      <type>Level check</type>
+      <output_amplitude_db>-0.0</output_amplitude_db>
+      <input>3</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_level_db>-39.0</min_level_db>
+      <max_level_db>-34.0</max_level_db>
     </test>
 
     <AIO_set_mic_gain input="0" gain="1" />
@@ -235,15 +252,27 @@
     </test>
 
     <test>
-      1x Input - 10x Output Level Check 3-4
+      1x Input - 10x Output Level Check 3
       <type>Level check</type>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <input>2</input>
       <output>0</output>
-      <num_channels>2</num_channels>
+      <num_channels>1</num_channels>
       <sample_rate>48000</sample_rate>
       <min_level_db>-15.0</min_level_db>
       <max_level_db>-11.0</max_level_db>
+    </test>
+
+    <test>
+      1x Input - 10x Output Level Check 4
+      <type>Level check</type>
+      <output_amplitude_db>-10.0</output_amplitude_db>
+      <input>3</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_level_db>-29.0</min_level_db>
+      <max_level_db>-25.0</max_level_db>
     </test>
 
     <AIO_set_mic_gain input="0" gain="10" />
@@ -267,15 +296,27 @@
     </test>
 
     <test>
-      10x Input - 10x Output Level Check 3-4
+      10x Input - 10x Output Level Check 3
       <type>Level check</type>
       <output_amplitude_db>-30.0</output_amplitude_db>
       <input>2</input>
       <output>0</output>
-      <num_channels>2</num_channels>
+      <num_channels>1</num_channels>
       <sample_rate>48000</sample_rate>
       <min_level_db>-15.0</min_level_db>
       <max_level_db>-11.0</max_level_db>
+    </test>
+
+    <test>
+      10x Input - 10x Output Level Check 4
+      <type>Level check</type>
+      <output_amplitude_db>-30.0</output_amplitude_db>
+      <input>3</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_level_db>-29.0</min_level_db>
+      <max_level_db>-25.0</max_level_db>
     </test>
 
     <!-- Audio Quality Tests 1-4 -->
@@ -388,7 +429,7 @@
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
       <output_amplitude_db>-60.0</output_amplitude_db>
-      <pass_threshold_db>100.0</pass_threshold_db>
+      <pass_threshold_db>90.0</pass_threshold_db>
     </test>
 
     <!-- Frequency response tests for 3-4 -->
@@ -397,7 +438,7 @@
       <type>Frequency response</type>
       <input>2</input>
       <output>0</output>
-      <num_channels>2</num_channels>
+      <num_channels>1</num_channels>
       <sample_rate>48000</sample_rate>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
@@ -406,9 +447,20 @@
     </test>
     <test>
       <type>Frequency response</type>
+      <input>3</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-10.0</output_amplitude_db>
+      <output_frequency>20.0</output_frequency>
+      <pass_threshold_db>-27.5</pass_threshold_db>
+      <Glitch_threshold>16.0</Glitch_threshold>
+    </test>
+    <test>
+      <type>Frequency response</type>
       <input>2</input>
       <output>0</output>
-      <num_channels>2</num_channels>
+      <num_channels>1</num_channels>
       <sample_rate>48000</sample_rate>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>1000.0</output_frequency>
@@ -416,9 +468,19 @@
     </test>
     <test>
       <type>Frequency response</type>
+      <input>3</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-10.0</output_amplitude_db>
+      <output_frequency>1000.0</output_frequency>
+      <pass_threshold_db>-27.5</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
       <input>2</input>
       <output>0</output>
-      <num_channels>2</num_channels>
+      <num_channels>1</num_channels>
       <sample_rate>48000</sample_rate>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>10000.0</output_frequency>
@@ -426,13 +488,33 @@
     </test>
     <test>
       <type>Frequency response</type>
+      <input>3</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-10.0</output_amplitude_db>
+      <output_frequency>10000.0</output_frequency>
+      <pass_threshold_db>-27.5</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
       <input>2</input>
       <output>0</output>
-      <num_channels>2</num_channels>
+      <num_channels>1</num_channels>
       <sample_rate>48000</sample_rate>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20000.0</output_frequency>
       <pass_threshold_db>-13.5</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>3</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-10.0</output_amplitude_db>
+      <output_frequency>20000.0</output_frequency>
+      <pass_threshold_db>-27.5</pass_threshold_db>
     </test>
 
     <ignore>

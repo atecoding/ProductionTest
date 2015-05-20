@@ -13,6 +13,7 @@
 #include "ehwlist.h"
 #include "hwcaps.h"
 #include "NotificationWindow.h"
+#include "../CalibrationData.h"
 
 #ifdef ECHO2_BUILD
 #include "/proj/xmos/common/Echo2.h"
@@ -1703,6 +1704,28 @@ Result ehw::writeFlashBlock(uint8 const block, uint8 const * const buffer, size_
 		return Result::ok();
 
 	String error("Failed to write flash for block " + String((int)block));
+	error += " - error " + String::toHexString((int32)status);
+	return Result::fail(error);
+}
+
+Result ehw::clearRAMCalibrationData()
+{
+	AIOSCalibrationData data;
+
+	TUsbAudioStatus status;
+	status = TUSBAUDIO_AudioControlRequestSet(handle,
+		ACOUSTICIO_EXTENSION_UNIT,	// unit ID
+		CUR,
+		ACOUSTICIO_CALIBRATION_DATA_CONTROL,
+		0,
+		(void *)&(data.data),
+		sizeof(AcousticIOCalibrationData),
+		NULL,
+		COMMAND_TIMEOUT_MSEC);
+	if (TSTATUS_SUCCESS == status)
+		return Result::ok();
+
+	String error("Failed to clear RAM calibration data ");
 	error += " - error " + String::toHexString((int32)status);
 	return Result::fail(error);
 }

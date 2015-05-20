@@ -242,6 +242,7 @@ public:
 	Result setAIOSReferenceVoltage(bool const enabled);
 	Result readFlashBlock(uint8 const block, uint8 * const buffer, size_t const bufferBytes);
 	Result writeFlashBlock(uint8 const block, uint8 const * const buffer, size_t const bufferBytes);
+	Result clearRAMCalibrationData();
 
 #endif
 

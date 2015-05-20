@@ -308,12 +308,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\AIOSReferenceVoltageTest.cpp" />
+    <ClCompile Include="..\..\Source\CalibrationData.cpp" />
     <ClCompile Include="..\..\Source\ConstantCurrentTest.cpp" />
     <ClCompile Include="..\..\Source\Analysis.cpp" />
     <ClCompile Include="..\..\Source\App.cpp" />
     <ClCompile Include="..\..\Source\AppWindow.cpp" />
     <ClCompile Include="..\..\Source\AudioOutput.cpp" />
     <ClCompile Include="..\..\Source\Content.cpp" />
+    <ClCompile Include="..\..\Source\crc32.cpp" />
     <ClCompile Include="..\..\Source\DelayTask.cpp" />
     <ClCompile Include="..\..\Source\DynRangeTest.cpp" />
     <ClCompile Include="..\..\Source\ErrorCodes.cpp" />
@@ -1346,6 +1348,8 @@
     <ClInclude Include="..\..\Source\AIODevice.h" />
     <ClInclude Include="..\..\Source\AIODevices.h" />
     <ClInclude Include="..\..\Source\AIOTestAdapter.h" />
+    <ClInclude Include="..\..\Source\CalibrationData.h" />
+    <ClInclude Include="..\..\Source\crc32.h" />
     <ClInclude Include="..\..\Source\ehw\win\NotificationWindow.h" />
     <ClInclude Include="..\..\Source\ehw\win\CDevChange.h" />
     <ClInclude Include="..\..\Source\ehw\win\ehwlist.h" />
@@ -1786,7 +1790,9 @@
     <Xml Include="..\..\scripts\AIO-2 Full Test.xml" />
     <Xml Include="..\..\scripts\AIO-2 Module 1.xml" />
     <Xml Include="..\..\scripts\AIO-2 Module 2.xml" />
-    <Xml Include="..\..\scripts\AIO-S SPKR Module.xml" />
+    <Xml Include="..\..\scripts\AIO-S Full Test.xml" />
+    <Xml Include="..\..\scripts\AIO-S Module 1.xml" />
+    <Xml Include="..\..\scripts\AIO-S Module 2.xml" />
     <Xml Include="..\..\scripts\Test adapter loopback mode.xml" />
     <Xml Include="AIOProductionTests.xml">
       <SubType>Designer</SubType>

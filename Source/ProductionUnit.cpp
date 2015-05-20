@@ -1385,6 +1385,20 @@ void ProductionUnit::ParseScript()
             continue;
         }
 
+		if (_script->hasTagName("AIOS_clear_RAM_calibration"))
+		{
+			Result result(_dev->clearRAMCalibrationData());
+
+			if (result.failed())
+			{
+				_content->log(String::empty);
+				_content->log(result.getErrorMessage());
+			}
+
+			_script = _script->getNextElement();
+			continue;
+		}
+
 		if (_script->hasTagName("AIO_TEDS_test"))
 		{
             runAIOTest(RunTEDSTest, "TEDS");
