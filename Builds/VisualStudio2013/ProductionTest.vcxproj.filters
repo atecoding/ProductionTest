@@ -2699,13 +2699,19 @@
     <Xml Include="AIOProductionTests.xml">
       <Filter>ProductionTest</Filter>
     </Xml>
-    <Xml Include="..\..\scripts\AIO Full Test.xml">
+    <Xml Include="..\..\scripts\AIO-S SPKR Module.xml">
       <Filter>Scripts</Filter>
     </Xml>
-    <Xml Include="..\..\scripts\AIO Module 1.xml">
+    <Xml Include="..\..\scripts\Test adapter loopback mode.xml">
       <Filter>Scripts</Filter>
     </Xml>
-    <Xml Include="..\..\scripts\AIO Module 2.xml">
+    <Xml Include="..\..\scripts\AIO-2 Full Test.xml">
+      <Filter>Scripts</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO-2 Module 1.xml">
+      <Filter>Scripts</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO-2 Module 2.xml">
       <Filter>Scripts</Filter>
     </Xml>
   </ItemGroup>

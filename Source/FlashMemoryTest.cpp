@@ -44,55 +44,42 @@ protected:
     
     void flashTestRepeatedByte(uint8 byte)
     {
-        uint8 writeBuffer[ACOUSTICIO_FLASH_BLOCK_BYTES];
+		uint8 saveBuffer[ACOUSTICIO_FLASH_BLOCK_BYTES]; 
+		uint8 writeBuffer[ACOUSTICIO_FLASH_BLOCK_BYTES];
         uint8 readBuffer[ACOUSTICIO_FLASH_BLOCK_BYTES];
         
-        memset(writeBuffer, byte, sizeof(writeBuffer));
+		result = dev->readFlashBlock(0, saveBuffer, sizeof(saveBuffer));
+		if (result.failed())
+			return;
+
+		memset(writeBuffer, byte, sizeof(writeBuffer));
         
         setStatusMessage("Writing repeated " + String::toHexString(byte));
         
-        for (uint8 block = 0; block < ACOUSTICIO_NUM_FLASH_BLOCKS; ++block)
-        {
-            if (threadShouldExit())
-            {
-                result = Result::fail("User cancel");
-                return;
-            }
+        result = dev->writeFlashBlock(0, writeBuffer, sizeof(writeBuffer));
+        if (result.failed())
+            return;
             
-            result = dev->writeFlashBlock(block, writeBuffer, sizeof(writeBuffer));
-            if (result.failed())
-                return;
-            
-            setProgress( double(block) / double(ACOUSTICIO_NUM_FLASH_BLOCKS));
-        }
-        
         zerostruct(readBuffer);
         
         setStatusMessage("Verifying repeated " + String::toHexString(byte));
         
-        for (uint8 block = 0; block < ACOUSTICIO_NUM_FLASH_BLOCKS; ++block)
-        {
-            if (threadShouldExit())
-            {
-                result = Result::fail("User cancel");
-                return;
-            }
+        result = dev->readFlashBlock(0, readBuffer, sizeof(readBuffer));
+        if (result.failed())
+            return;
             
-            result = dev->readFlashBlock(block, readBuffer, sizeof(readBuffer));
-            if (result.failed())
-                return;
-            
-            for (size_t index = 0; index < sizeof(readBuffer); ++index)
-            {
-                if (readBuffer[index] != byte)
-                {
-                    result = Result::fail("Error verifying flash block");
-                    return;
-                }
-            }
-            
-            setProgress( double(block) / double(ACOUSTICIO_NUM_FLASH_BLOCKS));
-        }
+       for (size_t index = 0; index < sizeof(readBuffer); ++index)
+       {
+           if (readBuffer[index] != byte)
+           {
+               result = Result::fail("Error verifying flash block");
+               return;
+           }
+       }
+
+	   result = dev->writeFlashBlock(0, saveBuffer, sizeof(saveBuffer));
+	   if (result.failed())
+		   return;
     }
 };
 
@@ -109,8 +96,11 @@ bool RunFlashMemoryTest(XmlElement const *element,
     displayedInput = -1;
     
     FlashMemoryTask task(dev);
-    if (task.runThread())
-        return true;
+	if (task.runThread())
+	{
+		msg += " PASS";
+		return true;
+	}
         
     errorCodes.add(ErrorCodes::FLASH);
     msg += " FAIL";

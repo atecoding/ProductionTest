@@ -1388,37 +1388,6 @@ void ProductionUnit::ParseScript()
 		if (_script->hasTagName("AIO_TEDS_test"))
 		{
             runAIOTest(RunTEDSTest, "TEDS");
-           
-#if 0
-			bool RunTEDSTest(XmlElement const *element, ehw *dev, String &msg, int &input, Content *content, uint32 &errorBit);
-
-			String msg;
-			int input;
-			uint64 errorBit;
-			bool ok = RunTEDSTest(_script, _dev, msg, input, _content, errorBit) == TestPrompt::ok;
-
-			_content->log(msg);
-
-			_unit_passed &= ok;
-			_errorBits |= errorBit;
-
-			_num_tests++;
-
-			_channel_group_name = "TEDS";
-			if (input == 4)
-			{
-				_channel_group_name += " 1-4";
-			}
-			if (input == 8)
-			{
-				_channel_group_name += " 5-8";
-			}
-			_channel_group_passed = ok;
-
-			FinishGroup();
-
-			_script = _script->getNextElement();
-#endif
 			continue;
 		}
 
@@ -1435,64 +1404,12 @@ void ProductionUnit::ParseScript()
 		if (_script->hasTagName("AIO_mic_supply_off_voltage_test"))
 		{
             runAIOTest(RunCCVoltageTest, "Mic Supply off voltage");
-#if 0
-			bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter, uint64 &errorBit);
-
-			String msg;
-			int input;
-			uint64 errorBit;
-			bool ok = RunCCVoltageTest(_script, msg, input, aioTestAdapter, errorBit) == TestPrompt::ok;
-
-			_content->log(msg);
-
-			_unit_passed &= ok;
-			_errorBits |= errorBit;
-
-			_num_tests++;
-
-			_channel_group_name = "Mic Supply off voltage";
-			if (input >= 0)
-			{
-				_channel_group_name += " " + String(input) + "-" + String(input + 3);
-			}
-			_channel_group_passed = ok;
-
-			FinishGroup();
-
-			_script = _script->getNextElement();
-#endif
 			continue;
 		}
 
 		if (_script->hasTagName("AIO_mic_supply_on_voltage_test"))
 		{
             runAIOTest(RunCCVoltageTest, "Mic Supply on voltage");
-#if 0
-			bool RunCCVoltageTest(XmlElement const *element, String &msg, int &displayedInput, AIOTestAdapter &testAdapter, uint64 &errorBit);
-
-			String msg;
-			int input;
-			uint64 errorBit;
-			bool ok = RunCCVoltageTest(_script, msg, input, aioTestAdapter, errorBit) == TestPrompt::ok;
-
-			_content->log(msg);
-
-			_unit_passed &= ok;
-			_errorBits |= errorBit;
-
-			_num_tests++;
-
-			_channel_group_name = "Mic Supply on voltage";
-			if (input >= 0)
-			{
-				_channel_group_name += " " + String(input) + "-" + String(input + 3);
-			}
-			_channel_group_passed = ok;
-
-			FinishGroup();
-
-			_script = _script->getNextElement();
-#endif
 			continue;
 		}
 
@@ -1825,7 +1742,11 @@ void ProductionUnit::runAIOTest(AIOTestVector function, String const groupName)
     {
         _channel_group_name += " " + String(displayedInput) + "-" + String(displayedInput + 3);
     }
-    _channel_group_passed = ok;
+	if (displayedInput == -255)
+	{
+		_channel_group_name += " 1-2";
+	}
+	_channel_group_passed = ok;
     
     FinishGroup();
     

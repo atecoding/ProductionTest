@@ -38,7 +38,9 @@ bool RunTEDSTest(XmlElement const *element,
 	}
     
     int numInputs = element->getIntAttribute("num_chanels", AIOTestAdapter::NUM_INPUTS);
-    
+	if (true == element->hasAttribute("short"))
+		numInputs = 2;
+
 	for (int j = 0; j < numInputs; j++)
 	{
 		ok = true;
@@ -85,10 +87,15 @@ bool RunTEDSTest(XmlElement const *element,
 
 		if (ok)
 			msg = "Read expected TEDS data for input " + String(displayedInput);
-		if (j < 3)
+		if (((numInputs == 2) && (j < 1)) || ((numInputs == 4) && (j < 3)))
 			content->log(msg);
 	}
     
+	if (numInputs == 2)
+		displayedInput = -255;
+	else
+		displayedInput -= 4;
+
 	if (!ok)
 		Thread::sleep(50);		// delay so things don't get hosed
 	return ok;
