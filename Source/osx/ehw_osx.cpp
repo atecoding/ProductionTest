@@ -2,6 +2,7 @@
 #include "ehw.h"
 #include "ehwlist.h"
 #include "AcousticIO.h"
+#include "../CalibrationData.h"
 
 ehw::ehw(IOUSBDeviceInterface** deviceInterface_) :
 deviceInterface(deviceInterface_)
@@ -386,7 +387,6 @@ Result ehw::readFlashBlock(uint8 const block, uint8 * const buffer, size_t const
 
 Result ehw::writeFlashBlock(uint8 const block, uint8 const * const buffer, size_t const bufferBytes)
 {
-    
     IOReturn rc = setRequest(ACOUSTICIO_EXTENSION_UNIT, ACOUSTICIO_FLASH_BLOCK_CONTROL, block, (uint8*)buffer, bufferBytes);
     if (kIOReturnSuccess == rc)
         return Result::ok();
@@ -396,3 +396,16 @@ Result ehw::writeFlashBlock(uint8 const block, uint8 const * const buffer, size_
     return Result::fail(error);
 }
 
+Result ehw::clearRAMCalibrationData()
+{
+    AIOSCalibrationData data;
+    
+    IOReturn rc = setRequest(ACOUSTICIO_EXTENSION_UNIT, ACOUSTICIO_CALIBRATION_DATA_CONTROL,
+                             0, (uint8*)&(data.data), sizeof(AcousticIOCalibrationData));
+    if (kIOReturnSuccess == rc)
+        return Result::ok();
+    
+    String error("Failed to clear RAM calibration data ");
+    error += " - error " + String::toHexString((int32)rc);
+    return Result::fail(error);
+}
