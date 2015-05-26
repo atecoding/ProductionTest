@@ -18,7 +18,7 @@ bool RunTEDSTest(XmlElement const *element,
 	uint8 channel;
 	uint8 data[ACOUSTICIO_TEDS_DATA_BYTES];
 	uint8 expectedValue;
-	bool ok = true;
+	bool ok = true, chan_ok;
 
 	displayedInput = -1;
 
@@ -43,7 +43,7 @@ bool RunTEDSTest(XmlElement const *element,
 
 	for (int j = 0; j < numInputs; j++)
 	{
-		ok = true;
+		chan_ok = true;
 		channel = (uint8)(j + attribute);
 		displayedInput = channel + 1;
 
@@ -79,13 +79,13 @@ bool RunTEDSTest(XmlElement const *element,
 				msg = "*** Read unexpected TEDS data for input " + String(displayedInput) + " (value of 0x" + String::toHexString(data[i]) + " at offset " + String(i) + ")";
 				ok = false;
                 errorCodes.add(ErrorCodes::TEDS, displayedInput);
-                ok = false;
+                chan_ok = false;
                 
 				break;
 			}
 		}
 
-		if (ok)
+		if (chan_ok)
 			msg = "Read expected TEDS data for input " + String(displayedInput);
 		if (((numInputs == 2) && (j < 1)) || ((numInputs == 4) && (j < 3)))
 			content->log(msg);
