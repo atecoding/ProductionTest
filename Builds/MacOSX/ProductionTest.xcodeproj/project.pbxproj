@@ -53,6 +53,7 @@
 		C56E0875FF2EF880984F9194 /* TestPrompt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D218ABCF456C886AB5867EB0 /* TestPrompt.cpp */; };
 		C631329AE2D0578BC6027732 /* ConstantCurrentTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5DF22E869AFB1C87D3E5AED2 /* ConstantCurrentTest.cpp */; };
 		C90ED0311B09337F000D0950 /* AIOSReferenceVoltageTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C90ED0301B09337F000D0950 /* AIOSReferenceVoltageTest.cpp */; };
+		C92197B71B18FAB700D4AD6B /* FrequencySweepAudioSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92197B51B18FAB700D4AD6B /* FrequencySweepAudioSource.cpp */; };
 		C95C66301B0A765000DA394D /* AIO-2 Full Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C95C662C1B0A765000DA394D /* AIO-2 Full Test.xml */; };
 		C95C66311B0A765000DA394D /* AIO-2 Module 1.xml in Resources */ = {isa = PBXBuildFile; fileRef = C95C662D1B0A765000DA394D /* AIO-2 Module 1.xml */; };
 		C95C66321B0A765000DA394D /* AIO-2 Module 2.xml in Resources */ = {isa = PBXBuildFile; fileRef = C95C662E1B0A765000DA394D /* AIO-2 Module 2.xml */; };
@@ -761,6 +762,8 @@
 		C8280C66AC1F920421C72B99 /* juce_BorderSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_BorderSize.h; path = ../../JuceLibraryCode/modules/juce_graphics/geometry/juce_BorderSize.h; sourceTree = SOURCE_ROOT; };
 		C89D009A31D6F0311854919A /* juce_ComponentBoundsConstrainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ComponentBoundsConstrainer.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/layout/juce_ComponentBoundsConstrainer.h; sourceTree = SOURCE_ROOT; };
 		C90ED0301B09337F000D0950 /* AIOSReferenceVoltageTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIOSReferenceVoltageTest.cpp; path = ../../Source/AIOSReferenceVoltageTest.cpp; sourceTree = "<group>"; };
+		C92197B51B18FAB700D4AD6B /* FrequencySweepAudioSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FrequencySweepAudioSource.cpp; path = ../../Source/FrequencySweepAudioSource.cpp; sourceTree = "<group>"; };
+		C92197B61B18FAB700D4AD6B /* FrequencySweepAudioSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FrequencySweepAudioSource.h; path = ../../Source/FrequencySweepAudioSource.h; sourceTree = "<group>"; };
 		C95C662C1B0A765000DA394D /* AIO-2 Full Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Full Test.xml"; path = "../../scripts/AIO-2 Full Test.xml"; sourceTree = "<group>"; };
 		C95C662D1B0A765000DA394D /* AIO-2 Module 1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Module 1.xml"; path = "../../scripts/AIO-2 Module 1.xml"; sourceTree = "<group>"; };
 		C95C662E1B0A765000DA394D /* AIO-2 Module 2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Module 2.xml"; path = "../../scripts/AIO-2 Module 2.xml"; sourceTree = "<group>"; };
@@ -1359,6 +1362,8 @@
 				FB1872A4EC7008AEF2F1E237 /* TestPrompt.h */,
 				021E3310204BE0747376AB8E /* wavefile.h */,
 				B043F4EE1B876DBAFD7DAE0D /* xml.h */,
+				C92197B51B18FAB700D4AD6B /* FrequencySweepAudioSource.cpp */,
+				C92197B61B18FAB700D4AD6B /* FrequencySweepAudioSource.h */,
 				84A59D38186369A5A2401E4B /* osx */,
 				BC7A4B13B072DB1B88BD596B /* win32 */,
 			);
@@ -2638,6 +2643,7 @@
 				FC26D5067E3C105E655889CB /* xml.cpp in Sources */,
 				C95C663D1B0A94CC00DA394D /* ErrorCodes.cpp in Sources */,
 				EEBEAF6E4EAC455D4E392244 /* juce_audio_basics.mm in Sources */,
+				C92197B71B18FAB700D4AD6B /* FrequencySweepAudioSource.cpp in Sources */,
 				00D74F3F0EA9EB3AFE475B88 /* juce_audio_devices.mm in Sources */,
 				C9679FD31B0D58A1001DDDB7 /* crc32.cpp in Sources */,
 				13CC2FD6F41783BEF4701829 /* juce_audio_formats.mm in Sources */,
