@@ -61,11 +61,13 @@
 		C95C66381B0A85E800DA394D /* USBFirmwareVersionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C66371B0A85E800DA394D /* USBFirmwareVersionTest.cpp */; };
 		C95C663D1B0A94CC00DA394D /* ErrorCodes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C663B1B0A94CC00DA394D /* ErrorCodes.cpp */; };
 		C95C663F1B0AA26E00DA394D /* FlashMemoryTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C663E1B0AA26E00DA394D /* FlashMemoryTest.cpp */; };
+		C9650CE61B1D088E00B6E6B2 /* AIO-2 Module 1 sweep.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9650CE51B1D088E00B6E6B2 /* AIO-2 Module 1 sweep.xml */; };
 		C9679FCA1B0D57E4001DDDB7 /* AIO-S Full Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9679FC71B0D57E4001DDDB7 /* AIO-S Full Test.xml */; };
 		C9679FCB1B0D57E4001DDDB7 /* AIO-S Module 1.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9679FC81B0D57E4001DDDB7 /* AIO-S Module 1.xml */; };
 		C9679FCC1B0D57E4001DDDB7 /* AIO-S Module 2.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9679FC91B0D57E4001DDDB7 /* AIO-S Module 2.xml */; };
 		C9679FD21B0D58A1001DDDB7 /* CalibrationData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9679FCE1B0D58A1001DDDB7 /* CalibrationData.cpp */; };
 		C9679FD31B0D58A1001DDDB7 /* crc32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9679FD01B0D58A1001DDDB7 /* crc32.cpp */; };
+		C9F48E9E1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F48E9D1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp */; };
 		CCAFCFE69CB697A6CF6F0058 /* juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9FA5C625F428490B83F5393B /* juce_events.mm */; };
 		CE54B4FA36345C53CCB60912 /* MIDILoopTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 873A2AA908695E9CBC5508FC /* MIDILoopTest.cpp */; };
 		DCA7298221B248B21872D763 /* wavefile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAABABBE36DBD2C8C7E97D17 /* wavefile.cpp */; };
@@ -772,6 +774,7 @@
 		C95C663B1B0A94CC00DA394D /* ErrorCodes.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ErrorCodes.cpp; path = ../../Source/ErrorCodes.cpp; sourceTree = "<group>"; };
 		C95C663C1B0A94CC00DA394D /* ErrorCodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ErrorCodes.h; path = ../../Source/ErrorCodes.h; sourceTree = "<group>"; };
 		C95C663E1B0AA26E00DA394D /* FlashMemoryTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FlashMemoryTest.cpp; path = ../../Source/FlashMemoryTest.cpp; sourceTree = "<group>"; };
+		C9650CE51B1D088E00B6E6B2 /* AIO-2 Module 1 sweep.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Module 1 sweep.xml"; path = "../../scripts/AIO-2 Module 1 sweep.xml"; sourceTree = "<group>"; };
 		C9679FC71B0D57E4001DDDB7 /* AIO-S Full Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Full Test.xml"; path = "../../scripts/AIO-S Full Test.xml"; sourceTree = "<group>"; };
 		C9679FC81B0D57E4001DDDB7 /* AIO-S Module 1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Module 1.xml"; path = "../../scripts/AIO-S Module 1.xml"; sourceTree = "<group>"; };
 		C9679FC91B0D57E4001DDDB7 /* AIO-S Module 2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Module 2.xml"; path = "../../scripts/AIO-S Module 2.xml"; sourceTree = "<group>"; };
@@ -781,6 +784,7 @@
 		C9679FD01B0D58A1001DDDB7 /* crc32.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = crc32.cpp; path = ../../Source/crc32.cpp; sourceTree = "<group>"; };
 		C9679FD11B0D58A1001DDDB7 /* crc32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = crc32.h; path = ../../Source/crc32.h; sourceTree = "<group>"; };
 		C9CC188B6EC29494A14EB4A4 /* juce_ChoicePropertyComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ChoicePropertyComponent.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/properties/juce_ChoicePropertyComponent.h; sourceTree = SOURCE_ROOT; };
+		C9F48E9D1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FrequencySweepResponseTest.cpp; path = ../../Source/FrequencySweepResponseTest.cpp; sourceTree = "<group>"; };
 		CA53AFFB17039691A4668A6C /* juce_android_GraphicsContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_android_GraphicsContext.cpp; path = ../../JuceLibraryCode/modules/juce_graphics/native/juce_android_GraphicsContext.cpp; sourceTree = SOURCE_ROOT; };
 		CA8D1ABF1507CEBD321ABD1D /* Content.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Content.cpp; path = ../../Source/Content.cpp; sourceTree = SOURCE_ROOT; };
 		CB2BE5219155DD7686BB9BAF /* juce_SubregionStream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_SubregionStream.cpp; path = ../../JuceLibraryCode/modules/juce_core/streams/juce_SubregionStream.cpp; sourceTree = SOURCE_ROOT; };
@@ -1322,6 +1326,7 @@
 				35C9A04904D8DEC1FD542AA1 /* FilterCoeff.cpp */,
 				C95C663E1B0AA26E00DA394D /* FlashMemoryTest.cpp */,
 				4638F066B539886F6C07C35F /* FrequencyResponseTest.cpp */,
+				C9F48E9D1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp */,
 				EF06525877011F9E0F3BF63E /* Images.cpp */,
 				DD6ADE3B2A3EACD856348D6D /* LevelCheckTest.cpp */,
 				EED30B6667A5C9A7320CDD46 /* MeterWindow.cpp */,
@@ -1825,6 +1830,7 @@
 				C95C66341B0A787300DA394D /* factory.icns */,
 				C95C662C1B0A765000DA394D /* AIO-2 Full Test.xml */,
 				C95C662D1B0A765000DA394D /* AIO-2 Module 1.xml */,
+				C9650CE51B1D088E00B6E6B2 /* AIO-2 Module 1 sweep.xml */,
 				C95C662E1B0A765000DA394D /* AIO-2 Module 2.xml */,
 				ECB33092A73D580039E20E87 /* Info.plist */,
 				7DDFE4DA407C0FE8084B8C5D /* RecentFilesMenuTemplate.nib */,
@@ -2589,6 +2595,7 @@
 				C95C66321B0A765000DA394D /* AIO-2 Module 2.xml in Resources */,
 				C9679FCB1B0D57E4001DDDB7 /* AIO-S Module 1.xml in Resources */,
 				C95C66311B0A765000DA394D /* AIO-2 Module 1.xml in Resources */,
+				C9650CE61B1D088E00B6E6B2 /* AIO-2 Module 1 sweep.xml in Resources */,
 				C9679FCA1B0D57E4001DDDB7 /* AIO-S Full Test.xml in Resources */,
 				C95C66301B0A765000DA394D /* AIO-2 Full Test.xml in Resources */,
 			);
@@ -2601,6 +2608,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9F48E9E1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp in Sources */,
 				C9679FD21B0D58A1001DDDB7 /* CalibrationData.cpp in Sources */,
 				6AD16A68E10792F0F6641691 /* AIODevice_osx.cpp in Sources */,
 				2AF689AFB187BCB6AEA201A4 /* AIODevices_osx.cpp in Sources */,

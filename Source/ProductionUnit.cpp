@@ -202,7 +202,7 @@ _script(NULL)
 
 	for (in = 0; in < dev->getcaps()->numrecchan(); in++)
 	{
-		AudioSampleBuffer *buffer = new AudioSampleBuffer(1,THDN_SAMPLES_REQUIRED);
+		AudioSampleBuffer *buffer = new AudioSampleBuffer(1,MAX_RECORD_BUFFER_SAMPLES);
         buffer->clear();
 		_inbuffs.add(buffer);
 	}
@@ -390,6 +390,7 @@ void ProductionUnit::audioDeviceIOCallback
 {
 	int in,i;
 	static int passes = 0;
+    Test* test = _test;
 
     int64 now = Time::getHighResolutionTicks();
 	
@@ -435,41 +436,45 @@ void ProductionUnit::audioDeviceIOCallback
 	//
 	// Record
 	//
-	if (callback_samples >= callback_skip_samples)
-	{
-		int count,temp;
+    if (test)
+    {
+        if (callback_samples >= callback_skip_samples)
+        {
+            int count,temp;
+            int const recordSamplesRequired = test->getSamplesRequired();
 
-		temp = ++blocks_recorded;
-		if (temp <= (THDN_SAMPLES_REQUIRED/numSamples))
-		{
-			temp = (temp-1)*numSamples;
-			count = jmin(numSamples,THDN_SAMPLES_REQUIRED - temp);
-			if (count)
-			{
-				for (in = 0; in < numInputChannels; in++)
-				{
-					_inbuffs[in]->copyFrom(0,temp,inputChannelData[in],count);
-				}
-			}
-		}
-		else
-		{
-			if (false == record_done)
-			{
-				postMessage(new OldMessage(MESSAGE_AUDIO_TEST_DONE,0,0,nullptr));
-				record_done = true;
-			}
-			--blocks_recorded;
-		}
-	}
+            temp = ++blocks_recorded;
+            if (temp <= (recordSamplesRequired/numSamples))
+            {
+                temp = (temp-1)*numSamples;
+                count = jmin(numSamples,recordSamplesRequired - temp);
+                if (count)
+                {
+                    for (in = 0; in < numInputChannels; in++)
+                    {
+                        _inbuffs[in]->copyFrom(0,temp,inputChannelData[in],count);
+                    }
+                }
+            }
+            else
+            {
+                if (false == record_done)
+                {
+                    postMessage(new OldMessage(MESSAGE_AUDIO_TEST_DONE,0,0,nullptr));
+                    record_done = true;
+                }
+                --blocks_recorded;
+            }
+        }
+    }
 
 	//
 	// Playback
 	//
 	AudioSampleBuffer asb(outputChannelData, numOutputChannels, numSamples);
-    if (_test)
+    if (test)
     {
-        _test->fillAudioOutputs(asb,_tone);
+        test->fillAudioOutputs(asb,_tone);
     }
     else
     {

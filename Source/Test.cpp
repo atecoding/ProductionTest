@@ -41,6 +41,11 @@ Test::~Test()
 {
 }
 
+int Test::getSamplesRequired()
+{
+    return THDN_SAMPLES_REQUIRED;
+}
+
 void Test::Setup
 (
 	int samples_per_block,
@@ -80,6 +85,9 @@ Test *Test::Create(XmlElement *xe, int input, int output, bool &ok, ProductionUn
 
 		if (typeString == "Frequency response")
 			test = new FrequencyResponseTest(xe, ok, unit_);
+    
+        if (typeString == "Frequency sweep response")
+            test = new FrequencySweepResponseTest(xe, ok, unit_);
 
 		if (typeString == "Level check")
 			test = new LevelCheckTest(xe, ok, unit_);

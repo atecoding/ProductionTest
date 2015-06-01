@@ -122,14 +122,14 @@ bool RelativeLevelTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, E
                 String name(title);
 
                 name += String::formatted(" (out%02d-in%02d).wav", output, physicalInput);
-                WriteWaveFile(unit, name, sample_rate, sourceBuffer);
+                WriteWaveFile(unit, name, sample_rate, sourceBuffer, getSamplesRequired());
             }
             
             {
                 String name(title);
                 
                 name += String::formatted(" highpass (out%02d-in%02d).wav", output, physicalInput);
-                WriteWaveFile(unit, name, sample_rate, &highPassOutput);
+                WriteWaveFile(unit, name, sample_rate, &highPassOutput, getSamplesRequired());
             }
         }
 #endif

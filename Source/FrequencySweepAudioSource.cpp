@@ -18,6 +18,12 @@ FrequencySweepAudioSource::~FrequencySweepAudioSource()
 {
 }
 
+void FrequencySweepAudioSource::setSweepTime(double initialDelaySeconds_, double sweepLengthSeconds_)
+{
+    initialDelaySeconds = initialDelaySeconds_;
+    sweepLengthSeconds = sweepLengthSeconds_;
+}
+
 void FrequencySweepAudioSource::setAmplitude (const float newAmplitude)
 {
     amplitude = newAmplitude;
@@ -29,7 +35,7 @@ void FrequencySweepAudioSource::prepareToPlay (int /*samplesPerBlockExpected*/, 
     sampleRate = rate;
     
     double startPhasePerSample = double_Pi * 2.0 / (sampleRate / startFrequency);
-    double finalPhasePerSample = double_Pi * 2.0 / (sampleRate / finalFrequency);
+    finalPhasePerSample = double_Pi * 2.0 / (sampleRate / finalFrequency);
     double totalSamples = sweepLengthSeconds * sampleRate;
     double ratio = finalPhasePerSample / startPhasePerSample;
     
@@ -38,6 +44,8 @@ void FrequencySweepAudioSource::prepareToPlay (int /*samplesPerBlockExpected*/, 
     DBG(startPhasePerSample << " " << finalPhasePerSample << " " << totalSamples << " " << phasePerSampleStep);
     
     phasePerSample = startPhasePerSample;
+    
+    initialDelaySamples = roundDoubleToInt(initialDelaySeconds * sampleRate);
 }
 
 void FrequencySweepAudioSource::releaseResources()
@@ -48,9 +56,19 @@ void FrequencySweepAudioSource::getNextAudioBlock (const AudioSourceChannelInfo&
 {
     for (int i = 0; i < info.numSamples; ++i)
     {
-        const float sample = amplitude * (float) std::sin (currentPhase);
-        currentPhase += phasePerSample;
-        phasePerSample *= phasePerSampleStep;
+        float sample = 0.0f;
+        
+        if (initialDelaySamples > 0)
+        {
+            initialDelaySamples--;
+        }
+        
+        if (phasePerSample <= finalPhasePerSample && 0 == initialDelaySamples)
+        {
+            sample = amplitude * (float) std::sin (currentPhase);
+            currentPhase += phasePerSample;
+            phasePerSample *= phasePerSampleStep;
+        }
         
         for (int j = info.buffer->getNumChannels(); --j >= 0;)
             info.buffer->setSample (j, info.startSample + i, sample);
@@ -67,6 +85,6 @@ void FrequencySweepAudioSource::test()
     source.getNextAudioBlock(asi);
     source.releaseResources();
     
-    WriteWaveFile("sweep.wav", 48000.0, &buffer);
+    WriteWaveFile("sweep.wav", 48000.0, &buffer, buffer.getNumSamples());
 }
 

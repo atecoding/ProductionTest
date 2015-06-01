@@ -40,7 +40,7 @@ bool DynRangeTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorC
 			name = String::formatted("Dynamic range  out%02d-in%02d ",output + channel,input + channel);
 			name += MsgSampleRate();
 			name += ".wav";		
-			WriteWaveFile(unit, name, sample_rate, buffs[input + channel]);
+			WriteWaveFile(unit, name, sample_rate, buffs[input + channel], getSamplesRequired());
 		}
 	#endif
 
@@ -81,7 +81,7 @@ bool DiffDynRangeTest::calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg, E
 		name = String::formatted("Differential dynamic range out%d-in%d-in%d ", output, input, input + 1);
 		name += MsgSampleRate();
 		name += ".wav";
-		WriteWaveFile(unit, name, sample_rate, buffs[input]);
+		WriteWaveFile(unit, name, sample_rate, buffs[input], getSamplesRequired());
 	}
 #endif
 

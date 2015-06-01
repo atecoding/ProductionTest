@@ -4,6 +4,7 @@ class ehw;
 class ProductionUnit;
 
 #include "ErrorCodes.h"
+#include "FrequencySweepAudioSource.h"
 
 class Test
 {
@@ -13,8 +14,10 @@ protected:
 public:
 	static Test *Create(XmlElement *xe, int input, int output, bool &ok, ProductionUnit *unit_);
 	virtual ~Test();
+    
+    virtual int getSamplesRequired();
 
-	void Setup( int samples_per_block,
+	virtual void Setup( int samples_per_block,
 				ToneGeneratorAudioSource &tone,
 				uint32 &active_outputs);
     virtual void fillAudioOutputs(AudioSampleBuffer &buffer, ToneGeneratorAudioSource &tone);
@@ -89,6 +92,26 @@ public:
 
 	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg, ErrorCodes &errorCodes);
 
+};
+
+class FrequencySweepResponseTest : public Test
+{
+public:
+    FrequencySweepResponseTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
+    ~FrequencySweepResponseTest();
+    
+    virtual int getSamplesRequired();
+    virtual void Setup( int samples_per_block,
+                       ToneGeneratorAudioSource &tone,
+                       uint32 &active_outputs);
+    virtual void fillAudioOutputs(AudioSampleBuffer &buffer, ToneGeneratorAudioSource &tone);
+    bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg, ErrorCodes &errorCodes);
+    
+protected:
+    FrequencySweepAudioSource sweepGenerator;
+    float sweep_time_seconds;
+    float sweep_delay_seconds;
+    float sweep_record_seconds;
 };
 
 

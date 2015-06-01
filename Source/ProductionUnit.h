@@ -53,9 +53,10 @@ protected:
 	enum
 	{
 		callback_skip_samples = 32000,
+        MAX_RECORD_BUFFER_SAMPLES = 4 * 48000,
 
 		max_inputs = 64,
-		MAX_TIMESTAMPS = 256,
+		MAX_TIMESTAMPS = 1024,
 
 		timer_msec = 100
 	};

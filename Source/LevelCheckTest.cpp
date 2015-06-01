@@ -155,7 +155,7 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, Erro
                 String name(title);
                 
                 name += String::formatted(" (out%02d-in%02d).wav", output, input + channel);
-                WriteWaveFile(unit, name, sample_rate, buffs[input]);
+                WriteWaveFile(unit, name, sample_rate, buffs[input], getSamplesRequired());
             }
 #endif
         }

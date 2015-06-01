@@ -3,7 +3,7 @@
 
 #if WRITE_WAVE_FILES
 
-void WriteWaveFile(ProductionUnit* unit, String filename, int rate, AudioSampleBuffer *asb)
+void WriteWaveFile(ProductionUnit* unit, String filename, int rate, AudioSampleBuffer *asb, int samples)
 {
 	File folder(unit->getOutputFolder());
 	File f;
@@ -21,7 +21,7 @@ void WriteWaveFile(ProductionUnit* unit, String filename, int rate, AudioSampleB
 	writer = waf.createWriterFor(stream,rate,1,32,meta,0);
 	if (writer)
 	{
-		writer->writeFromAudioSampleBuffer(*asb, 0, asb->getNumSamples());
+		writer->writeFromAudioSampleBuffer(*asb, 0, samples);
 		delete writer;
 	}
 	else
@@ -39,10 +39,10 @@ void WriteWaveFile(ProductionUnit* unit, String filename, int rate, double *data
 	for (i = 0; i < samples; i++)
 		dest[i] = (float) data[i];
 
-	WriteWaveFile(unit, filename,rate,&asb);
+	WriteWaveFile(unit, filename,rate, &asb, samples);
 }
 
-void WriteWaveFile(String filename, int rate, AudioSampleBuffer *asb)
+void WriteWaveFile(String filename, int rate, AudioSampleBuffer *asb, int samples)
 {
     File folder(File::getCurrentWorkingDirectory());
     File f;
@@ -58,7 +58,7 @@ void WriteWaveFile(String filename, int rate, AudioSampleBuffer *asb)
     writer = waf.createWriterFor(stream,rate,1,32,meta,0);
     if (writer)
     {
-        writer->writeFromAudioSampleBuffer(*asb, 0, asb->getNumSamples());
+        writer->writeFromAudioSampleBuffer(*asb, 0, samples);
         delete writer;
     }
     else

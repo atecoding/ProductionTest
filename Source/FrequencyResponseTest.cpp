@@ -157,7 +157,7 @@ bool FrequencyResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &ms
 		String name;
 
 		name = String::formatted(T("Frequency response out%02d-in%02d at %.0f Hz.wav"), output, input, output_frequency);
-		WriteWaveFile(unit, name, sample_rate, buffs[input]);
+		WriteWaveFile(unit, name, sample_rate, buffs[input], getSamplesRequired());
 	}
 #endif
 

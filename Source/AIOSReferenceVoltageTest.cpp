@@ -75,7 +75,7 @@ bool AIOSReferenceVoltageTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String 
         
         String filename(title);
         filename += String::formatted(" (out%02d-in%02d).wav", output, physicalInput);
-        WriteWaveFile(unit, filename, sample_rate, sourceBuffer);
+        WriteWaveFile(unit, filename, sample_rate, sourceBuffer, getSamplesRequired());
         
         errorCodes.add(ErrorCodes::AIOS_REFERENCE_VOLTAGE);
     }

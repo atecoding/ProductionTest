@@ -56,7 +56,7 @@ bool PhaseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorCode
 	String name;
 
 	name = String::formatted(T("Phase out%02d-in%02d.wav"),output,input);
-	WriteWaveFile(unit, name, sample_rate, buffs[input]);
+	WriteWaveFile(unit, name, sample_rate, buffs[input], getSamplesRequired());
 #endif
 
 	if(pass_threshold_db > 0.0f)
