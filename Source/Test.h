@@ -111,6 +111,8 @@ protected:
     FrequencySweepAudioSource sweepGenerator;
     float sweep_time_seconds;
     float sweep_delay_seconds;
+	float sweep_fadein_seconds;
+	float sweep_fadeout_seconds;
     float sweep_record_seconds;
 };
 

@@ -8,15 +8,19 @@
 FrequencySweepResponseTest::FrequencySweepResponseTest(XmlElement *xe,bool &ok, ProductionUnit *unit_) :
 Test(xe,ok,unit_),
 sweep_time_seconds(2.0f),
-sweep_delay_seconds(0.2f),
-sweep_record_seconds(2.5f)
+sweep_delay_seconds(0.5f),
+sweep_fadein_seconds(0.3f),
+sweep_record_seconds(2.9f),
+sweep_fadeout_seconds(0.1f)
 {
 	ok &= getFloatValue(xe, "pass_threshold_db", pass_threshold_db);
 	ok &= getFloatValue(xe, "output_frequency"
                         , output_frequency);
     ok &= getFloatValue(xe, "sweep_time_seconds", sweep_time_seconds);
     ok &= getFloatValue(xe, "sweep_delay_seconds", sweep_delay_seconds);
-    ok &= getFloatValue(xe, "sweep_record_seconds", sweep_record_seconds);
+	ok &= getFloatValue(xe, "sweep_fadein_seconds", sweep_fadein_seconds);
+	ok &= getFloatValue(xe, "sweep_record_seconds", sweep_record_seconds);
+	ok &= getFloatValue(xe, "sweep_fadeout_seconds", sweep_fadeout_seconds);
 }
 
 
@@ -27,7 +31,7 @@ FrequencySweepResponseTest::~FrequencySweepResponseTest()
 
 int FrequencySweepResponseTest::getSamplesRequired()
 {
-    return roundFloatToInt(sample_rate * sweep_record_seconds);
+    return roundFloatToInt(sample_rate * (sweep_delay_seconds + sweep_fadein_seconds + sweep_time_seconds + sweep_fadeout_seconds));
 }
                                  
 void FrequencySweepResponseTest::Setup(int samples_per_block,                                          ToneGeneratorAudioSource &tone,
@@ -35,7 +39,7 @@ void FrequencySweepResponseTest::Setup(int samples_per_block,                   
 {
     Test::Setup(samples_per_block, tone, active_outputs);
     
-    sweepGenerator.setSweepTime(sweep_delay_seconds, sweep_time_seconds);
+    sweepGenerator.setSweepTime(sweep_delay_seconds, sweep_fadein_seconds, sweep_fadeout_seconds, sweep_time_seconds);
     sweepGenerator.prepareToPlay( samples_per_block, sample_rate);
 }
 

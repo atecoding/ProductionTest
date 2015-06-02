@@ -18,10 +18,12 @@ FrequencySweepAudioSource::~FrequencySweepAudioSource()
 {
 }
 
-void FrequencySweepAudioSource::setSweepTime(double initialDelaySeconds_, double sweepLengthSeconds_)
+void FrequencySweepAudioSource::setSweepTime(double initialDelaySeconds_, double fadeInSeconds_, double fadeOutSeconds_, double sweepLengthSeconds_ )
 {
-    initialDelaySeconds = initialDelaySeconds_;
-    sweepLengthSeconds = sweepLengthSeconds_;
+	initialDelaySeconds = initialDelaySeconds_;
+	fadeInSeconds = fadeInSeconds_;
+	fadeOutSeconds = fadeOutSeconds_;
+	sweepLengthSeconds = sweepLengthSeconds_;
 }
 
 void FrequencySweepAudioSource::setAmplitude (const float newAmplitude)
@@ -45,7 +47,10 @@ void FrequencySweepAudioSource::prepareToPlay (int /*samplesPerBlockExpected*/, 
     
     phasePerSample = startPhasePerSample;
     
-    initialDelaySamples = roundDoubleToInt(initialDelaySeconds * sampleRate);
+	initialDelaySamples = roundDoubleToInt(initialDelaySeconds * sampleRate);
+	fadeInSamples = fadeInCount = roundDoubleToInt(fadeInSeconds * sampleRate);
+	fadeOutSamples = fadeOutCount = roundDoubleToInt(fadeOutSeconds * sampleRate);
+	
 }
 
 void FrequencySweepAudioSource::releaseResources()
@@ -63,14 +68,32 @@ void FrequencySweepAudioSource::getNextAudioBlock (const AudioSourceChannelInfo&
             initialDelaySamples--;
         }
         
-        if (phasePerSample <= finalPhasePerSample && 0 == initialDelaySamples)
-        {
-            sample = amplitude * (float) std::sin (currentPhase);
-            currentPhase += phasePerSample;
-            phasePerSample *= phasePerSampleStep;
-        }
-        
-        for (int j = info.buffer->getNumChannels(); --j >= 0;)
+		if (fadeInCount > 0 && 0 == initialDelaySamples)
+		{
+			fadeInCount--;
+			fadeGain = 1.0f - (float)fadeInCount / (float)fadeInSamples;
+			fadeGain *= fadeGain;
+			sample = amplitude * (float)std::sin(currentPhase) * fadeGain;
+			currentPhase += phasePerSample;
+		}
+		
+		if (phasePerSample <= finalPhasePerSample && 0 == fadeInCount)
+		{
+			sample = amplitude * (float)std::sin(currentPhase);
+			currentPhase += phasePerSample;
+			phasePerSample *= phasePerSampleStep;
+		}
+
+		if (fadeOutCount > 0 && phasePerSample > finalPhasePerSample)
+		{
+			fadeOutCount--;
+			fadeGain = (float)fadeOutCount / (float)fadeInSamples;
+			fadeGain *= fadeGain;
+			sample = amplitude * (float)std::sin(currentPhase) * fadeGain;
+			currentPhase += phasePerSample;
+		}
+
+		for (int j = info.buffer->getNumChannels(); --j >= 0;)
             info.buffer->setSample (j, info.startSample + i, sample);
     }
 }
@@ -85,6 +108,6 @@ void FrequencySweepAudioSource::test()
     source.getNextAudioBlock(asi);
     source.releaseResources();
     
-    WriteWaveFile("sweep.wav", 48000.0, &buffer, buffer.getNumSamples());
+    WriteWaveFile("sweep.wav", 48000, &buffer, buffer.getNumSamples());
 }
 

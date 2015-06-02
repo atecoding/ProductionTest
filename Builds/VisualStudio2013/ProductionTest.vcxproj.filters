@@ -1392,6 +1392,12 @@
     <ClCompile Include="..\..\Source\crc32.cpp">
       <Filter>ProductionTest\Source\AIO</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\FrequencySweepAudioSource.cpp">
+      <Filter>ProductionTest\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\FrequencySweepResponseTest.cpp">
+      <Filter>ProductionTest\Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\ehw\win\NotificationWindow.h">
@@ -2672,6 +2678,9 @@
     <ClInclude Include="..\..\Source\crc32.h">
       <Filter>ProductionTest\Source\AIO</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\FrequencySweepAudioSource.h">
+      <Filter>ProductionTest\Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\..\JUCE\modules\juce_audio_basics\juce_module_info">
@@ -2730,6 +2739,9 @@
       <Filter>Scripts</Filter>
     </Xml>
     <Xml Include="..\..\scripts\AIO-S Module 2.xml">
+      <Filter>Scripts</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO-2 Module 1 sweep.xml">
       <Filter>Scripts</Filter>
     </Xml>
   </ItemGroup>

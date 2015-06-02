@@ -322,6 +322,8 @@
     <ClCompile Include="..\..\Source\FilterCoeff.cpp" />
     <ClCompile Include="..\..\Source\FlashMemoryTest.cpp" />
     <ClCompile Include="..\..\Source\FrequencyResponseTest.cpp" />
+    <ClCompile Include="..\..\Source\FrequencySweepAudioSource.cpp" />
+    <ClCompile Include="..\..\Source\FrequencySweepResponseTest.cpp" />
     <ClCompile Include="..\..\Source\Images.cpp" />
     <ClCompile Include="..\..\Source\LevelCheckTest.cpp" />
     <ClCompile Include="..\..\Source\MeterWindow.cpp" />
@@ -1370,6 +1372,7 @@
     <ClInclude Include="..\..\Source\Content.h" />
     <ClInclude Include="..\..\Source\ErrorCodes.h" />
     <ClInclude Include="..\..\Source\FilterCoeff.h" />
+    <ClInclude Include="..\..\Source\FrequencySweepAudioSource.h" />
     <ClInclude Include="..\..\Source\iasiodrv.h" />
     <ClInclude Include="..\..\Source\Images.h" />
     <ClInclude Include="..\..\Source\MeterWindow.h" />
@@ -1788,6 +1791,7 @@
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\..\scripts\AIO-2 Full Test.xml" />
+    <Xml Include="..\..\scripts\AIO-2 Module 1 sweep.xml" />
     <Xml Include="..\..\scripts\AIO-2 Module 1.xml" />
     <Xml Include="..\..\scripts\AIO-2 Module 2.xml" />
     <Xml Include="..\..\scripts\AIO-S Full Test.xml" />
