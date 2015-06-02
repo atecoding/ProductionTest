@@ -67,6 +67,8 @@
 		C9679FCC1B0D57E4001DDDB7 /* AIO-S Module 2.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9679FC91B0D57E4001DDDB7 /* AIO-S Module 2.xml */; };
 		C9679FD21B0D58A1001DDDB7 /* CalibrationData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9679FCE1B0D58A1001DDDB7 /* CalibrationData.cpp */; };
 		C9679FD31B0D58A1001DDDB7 /* crc32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9679FD01B0D58A1001DDDB7 /* crc32.cpp */; };
+		C9BC4A451B1E4E7C009736B7 /* Upsampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BC4A431B1E4E7C009736B7 /* Upsampler.cpp */; };
+		C9BC4A521B1E566E009736B7 /* r8bbase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BC4A511B1E566E009736B7 /* r8bbase.cpp */; };
 		C9F48E9E1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F48E9D1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp */; };
 		CCAFCFE69CB697A6CF6F0058 /* juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9FA5C625F428490B83F5393B /* juce_events.mm */; };
 		CE54B4FA36345C53CCB60912 /* MIDILoopTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 873A2AA908695E9CBC5508FC /* MIDILoopTest.cpp */; };
@@ -783,6 +785,19 @@
 		C9679FCF1B0D58A1001DDDB7 /* CalibrationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalibrationData.h; path = ../../Source/CalibrationData.h; sourceTree = "<group>"; };
 		C9679FD01B0D58A1001DDDB7 /* crc32.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = crc32.cpp; path = ../../Source/crc32.cpp; sourceTree = "<group>"; };
 		C9679FD11B0D58A1001DDDB7 /* crc32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = crc32.h; path = ../../Source/crc32.h; sourceTree = "<group>"; };
+		C9BC4A431B1E4E7C009736B7 /* Upsampler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Upsampler.cpp; path = ../../Source/Upsampler.cpp; sourceTree = "<group>"; };
+		C9BC4A441B1E4E7C009736B7 /* Upsampler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Upsampler.h; path = ../../Source/Upsampler.h; sourceTree = "<group>"; };
+		C9BC4A471B1E506A009736B7 /* CDSPBlockConvolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDSPBlockConvolver.h; path = ../../Source/r8brain/CDSPBlockConvolver.h; sourceTree = "<group>"; };
+		C9BC4A481B1E506A009736B7 /* CDSPFIRFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDSPFIRFilter.h; path = ../../Source/r8brain/CDSPFIRFilter.h; sourceTree = "<group>"; };
+		C9BC4A491B1E506A009736B7 /* CDSPFracInterpolator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDSPFracInterpolator.h; path = ../../Source/r8brain/CDSPFracInterpolator.h; sourceTree = "<group>"; };
+		C9BC4A4A1B1E506A009736B7 /* CDSPProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDSPProcessor.h; path = ../../Source/r8brain/CDSPProcessor.h; sourceTree = "<group>"; };
+		C9BC4A4B1B1E506A009736B7 /* CDSPRealFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDSPRealFFT.h; path = ../../Source/r8brain/CDSPRealFFT.h; sourceTree = "<group>"; };
+		C9BC4A4C1B1E506A009736B7 /* CDSPResampler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDSPResampler.h; path = ../../Source/r8brain/CDSPResampler.h; sourceTree = "<group>"; };
+		C9BC4A4D1B1E506A009736B7 /* CDSPSincFilterGen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDSPSincFilterGen.h; path = ../../Source/r8brain/CDSPSincFilterGen.h; sourceTree = "<group>"; };
+		C9BC4A4E1B1E506A009736B7 /* fft4g.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fft4g.h; path = ../../Source/r8brain/fft4g.h; sourceTree = "<group>"; };
+		C9BC4A4F1B1E506A009736B7 /* r8bbase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = r8bbase.h; path = ../../Source/r8brain/r8bbase.h; sourceTree = "<group>"; };
+		C9BC4A501B1E506A009736B7 /* r8bconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = r8bconf.h; path = ../../Source/r8brain/r8bconf.h; sourceTree = "<group>"; };
+		C9BC4A511B1E566E009736B7 /* r8bbase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = r8bbase.cpp; path = ../../Source/r8brain/r8bbase.cpp; sourceTree = "<group>"; };
 		C9CC188B6EC29494A14EB4A4 /* juce_ChoicePropertyComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ChoicePropertyComponent.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/properties/juce_ChoicePropertyComponent.h; sourceTree = SOURCE_ROOT; };
 		C9F48E9D1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FrequencySweepResponseTest.cpp; path = ../../Source/FrequencySweepResponseTest.cpp; sourceTree = "<group>"; };
 		CA53AFFB17039691A4668A6C /* juce_android_GraphicsContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_android_GraphicsContext.cpp; path = ../../JuceLibraryCode/modules/juce_graphics/native/juce_android_GraphicsContext.cpp; sourceTree = SOURCE_ROOT; };
@@ -1308,6 +1323,7 @@
 		36EE07E9B35589CE09BF7113 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				C9BC4A461B1E505C009736B7 /* r8brain */,
 				C9679FCD1B0D58A1001DDDB7 /* AIOTestAdapter.h */,
 				C9679FCE1B0D58A1001DDDB7 /* CalibrationData.cpp */,
 				C9679FCF1B0D58A1001DDDB7 /* CalibrationData.h */,
@@ -1371,6 +1387,8 @@
 				C92197B61B18FAB700D4AD6B /* FrequencySweepAudioSource.h */,
 				84A59D38186369A5A2401E4B /* osx */,
 				BC7A4B13B072DB1B88BD596B /* win32 */,
+				C9BC4A431B1E4E7C009736B7 /* Upsampler.cpp */,
+				C9BC4A441B1E4E7C009736B7 /* Upsampler.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -2210,6 +2228,24 @@
 			name = properties;
 			sourceTree = "<group>";
 		};
+		C9BC4A461B1E505C009736B7 /* r8brain */ = {
+			isa = PBXGroup;
+			children = (
+				C9BC4A511B1E566E009736B7 /* r8bbase.cpp */,
+				C9BC4A471B1E506A009736B7 /* CDSPBlockConvolver.h */,
+				C9BC4A481B1E506A009736B7 /* CDSPFIRFilter.h */,
+				C9BC4A491B1E506A009736B7 /* CDSPFracInterpolator.h */,
+				C9BC4A4A1B1E506A009736B7 /* CDSPProcessor.h */,
+				C9BC4A4B1B1E506A009736B7 /* CDSPRealFFT.h */,
+				C9BC4A4C1B1E506A009736B7 /* CDSPResampler.h */,
+				C9BC4A4D1B1E506A009736B7 /* CDSPSincFilterGen.h */,
+				C9BC4A4E1B1E506A009736B7 /* fft4g.h */,
+				C9BC4A4F1B1E506A009736B7 /* r8bbase.h */,
+				C9BC4A501B1E506A009736B7 /* r8bconf.h */,
+			);
+			name = r8brain;
+			sourceTree = "<group>";
+		};
 		CBEB805E4DAFBA067DBE9F9E /* drawables */ = {
 			isa = PBXGroup;
 			children = (
@@ -2624,8 +2660,10 @@
 				83C40D4365D9E1E3BC1B2C9E /* Analysis.cpp in Sources */,
 				C90ED0311B09337F000D0950 /* AIOSReferenceVoltageTest.cpp in Sources */,
 				AC48DC3904F5F2901024E938 /* App.cpp in Sources */,
+				C9BC4A451B1E4E7C009736B7 /* Upsampler.cpp in Sources */,
 				5A0EDE2FC4B914EFB4EAFC75 /* AppWindow.cpp in Sources */,
 				8612F9F3C5508BCD36C7F774 /* AudioOutput.cpp in Sources */,
+				C9BC4A521B1E566E009736B7 /* r8bbase.cpp in Sources */,
 				C631329AE2D0578BC6027732 /* ConstantCurrentTest.cpp in Sources */,
 				5F530F66334AD6EC4DFBF622 /* Content.cpp in Sources */,
 				0A1078F756985A619A276B48 /* DelayTask.cpp in Sources */,
