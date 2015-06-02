@@ -8,15 +8,24 @@ namespace r8b
 class Upsampler
 {
 public:
-    Upsampler(double inputSampleRate_, double outputSampleRate_);
+	Upsampler(double inputSampleRate_, double outputSampleRate_);
+	~Upsampler();
     
-    int upsample(double* inputBuffer, double* outputBuffer, int inputSampleCount, int maxOutputSampleCount);
+	void upsample(AudioSampleBuffer *inputBuffer);
+	void setOutputBufferSize(double seconds);
+
+	HeapBlock<double> outputBuffer;
+	int outputSampleCount;
     
     static void test();
     
 protected:
+	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Upsampler)
+
     double inputSampleRate, outputSampleRate;
-    ScopedPointer<r8b::CDSPResampler24> resampler;
+	HeapBlock<double> inputBlockBuffer;
+	int maxOutputSampleCount;
+	r8b::CDSPResampler24* resampler;
     
     enum
     {

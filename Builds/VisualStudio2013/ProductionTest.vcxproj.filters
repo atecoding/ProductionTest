@@ -256,6 +256,9 @@
     <Filter Include="Scripts">
       <UniqueIdentifier>{e3f4a032-6232-45ba-9e41-4ed57ffd768b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ProductionTest\Source\r8brain">
+      <UniqueIdentifier>{7728f6e8-4c9d-4eee-91ff-3f8175a71b37}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\Analysis.cpp">
@@ -1396,6 +1399,12 @@
       <Filter>ProductionTest\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\FrequencySweepResponseTest.cpp">
+      <Filter>ProductionTest\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\r8brain\r8bbase.cpp">
+      <Filter>ProductionTest\Source\r8brain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Upsampler.cpp">
       <Filter>ProductionTest\Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -2679,6 +2688,39 @@
       <Filter>ProductionTest\Source\AIO</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\FrequencySweepAudioSource.h">
+      <Filter>ProductionTest\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\r8brain\CDSPBlockConvolver.h">
+      <Filter>ProductionTest\Source\r8brain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\r8brain\CDSPFIRFilter.h">
+      <Filter>ProductionTest\Source\r8brain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\r8brain\CDSPFracInterpolator.h">
+      <Filter>ProductionTest\Source\r8brain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\r8brain\CDSPProcessor.h">
+      <Filter>ProductionTest\Source\r8brain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\r8brain\CDSPRealFFT.h">
+      <Filter>ProductionTest\Source\r8brain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\r8brain\CDSPResampler.h">
+      <Filter>ProductionTest\Source\r8brain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\r8brain\CDSPSincFilterGen.h">
+      <Filter>ProductionTest\Source\r8brain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\r8brain\fft4g.h">
+      <Filter>ProductionTest\Source\r8brain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\r8brain\r8bbase.h">
+      <Filter>ProductionTest\Source\r8brain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\r8brain\r8bconf.h">
+      <Filter>ProductionTest\Source\r8brain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Upsampler.h">
       <Filter>ProductionTest\Source</Filter>
     </ClInclude>
   </ItemGroup>

@@ -5,6 +5,7 @@ class ProductionUnit;
 
 #include "ErrorCodes.h"
 #include "FrequencySweepAudioSource.h"
+#include "Upsampler.h"
 
 class Test
 {
@@ -114,6 +115,7 @@ protected:
 	float sweep_fadein_seconds;
 	float sweep_fadeout_seconds;
     float sweep_record_seconds;
+	Upsampler upsampler;
 };
 
 

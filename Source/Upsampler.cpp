@@ -4,8 +4,11 @@
 #include "wavefile.h"
 
 #undef T        // fix conflict with legacy JUCE macro
+#pragma warning(disable:4201)
+#pragma warning(disable:4127)
 #include "r8brain/CDSPResampler.h"
 
+#if 0
 void Upsampler::test()
 {
     //
@@ -24,7 +27,7 @@ void Upsampler::test()
     // Create the upsampler
     //
     int const upsampleFactor = 4;
-    Upsampler upsampler(sampleRate, sampleRate * upsampleFactor);
+    Upsampler upsampler(sampleRate, sampleRate * upsampleFactor, 2.0);
     HeapBlock<double> upsamplerInputBuffer, upsamplerOutputBuffer;
     int upsamplerOutputBufferSamples = sourceBuffer.getNumSamples() * upsampleFactor * 2;
     
@@ -56,11 +59,12 @@ void Upsampler::test()
     float *destination = finalBuffer.getWritePointer(0);
     for (int i = 0; i < upsampledCount; ++i)
     {
-        destination[i] = upsamplerOutputBuffer[i];
+        destination[i] = (float)upsamplerOutputBuffer[i];
     }
     
     WriteWaveFile("upsample.wav", sampleRate * upsampleFactor, &finalBuffer, upsamplerOutputBufferSamples);
 }
+#endif
 
 
 Upsampler::Upsampler(double inputSampleRate_, double outputSampleRate_) :
@@ -68,41 +72,66 @@ inputSampleRate(inputSampleRate_),
 outputSampleRate(outputSampleRate_)
 {
     resampler = new r8b::CDSPResampler24( inputSampleRate_, outputSampleRate_, MAX_RESAMPLER_INPUT_SAMPLES);
+
+	inputBlockBuffer.allocate(MAX_RESAMPLER_INPUT_SAMPLES,true);
 }
 
-int Upsampler::upsample(double* inputBuffer, double* outputBuffer, int inputSampleCount, int maxOutputSampleCount)
+Upsampler::~Upsampler()
 {
-    int outputSampleCount = 0;
+	delete resampler;
+}
+
+void Upsampler::upsample(AudioSampleBuffer *inputBuffer)
+{
+    outputSampleCount = 0;
     
     //DBG("upsample inputSampleCount:" << inputSampleCount);
     
     if (nullptr == resampler)
-        return 0;
+        return;
+
+	resampler->clear();
     
+	int inputSampleCount = inputBuffer->getNumSamples();
+	int inputBufferIndex = 0;
+	int outputBufferIndex = 0;
     while (inputSampleCount > 0)
     {
+		//
+		// Convert float to double
+		//
+		const float *inputBufferReadPtr = inputBuffer->getReadPointer(0, inputBufferIndex);
+		int inputConvertCount = jmin(inputSampleCount, (int)MAX_RESAMPLER_INPUT_SAMPLES);
+		for (int i = 0; i < inputConvertCount; ++i)
+		{
+			inputBlockBuffer[i] = inputBufferReadPtr[i];
+		}
+		inputBufferIndex += inputConvertCount;
+		inputSampleCount -= inputConvertCount;
+
+		//
+		// Run the SRC
+		//
         double* outputBlock = nullptr;
         
-        int inputBlockSampleCount = jmin( inputSampleCount, (int)MAX_RESAMPLER_INPUT_SAMPLES);
-        int outputBlockSampleCount = resampler->process(inputBuffer, inputBlockSampleCount, outputBlock);
-        
+		int outputBlockSampleCount = resampler->process(inputBlockBuffer, inputConvertCount, outputBlock);
         int outputSpaceRemaining = maxOutputSampleCount - outputSampleCount;
         int outputCopyCount = jmin( outputSpaceRemaining, outputBlockSampleCount);
         
         for (int i = 0; i < outputCopyCount; ++i)
         {
-            outputBuffer[i] = outputBlock[i];
+			outputBuffer[outputBufferIndex] = outputBlock[i];
+			outputBufferIndex++;
         }
         
-        inputSampleCount -= inputBlockSampleCount;
-        inputBuffer += inputBlockSampleCount;
         outputSampleCount += outputCopyCount;
-        outputBuffer += outputCopyCount;
     }
     
     //DBG("   outputSampleCount:" << outputSampleCount);
-    
-    return outputSampleCount;
 }
 
-
+void Upsampler::setOutputBufferSize(double seconds)
+{
+	maxOutputSampleCount = roundDoubleToInt(seconds * outputSampleRate);
+	outputBuffer.allocate(maxOutputSampleCount, true);
+}

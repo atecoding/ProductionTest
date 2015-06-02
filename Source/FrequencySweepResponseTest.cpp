@@ -5,13 +5,16 @@
 #include "xml.h"
 #include "ProductionUnit.h"
 
+#define UPSAMPLE_FACTOR 4
+
 FrequencySweepResponseTest::FrequencySweepResponseTest(XmlElement *xe,bool &ok, ProductionUnit *unit_) :
 Test(xe,ok,unit_),
 sweep_time_seconds(2.0f),
 sweep_delay_seconds(0.5f),
 sweep_fadein_seconds(0.3f),
 sweep_record_seconds(2.9f),
-sweep_fadeout_seconds(0.1f)
+sweep_fadeout_seconds(0.1f),
+upsampler(sample_rate, sample_rate * 4)
 {
 	ok &= getFloatValue(xe, "pass_threshold_db", pass_threshold_db);
 	ok &= getFloatValue(xe, "output_frequency"
@@ -21,6 +24,8 @@ sweep_fadeout_seconds(0.1f)
 	ok &= getFloatValue(xe, "sweep_fadein_seconds", sweep_fadein_seconds);
 	ok &= getFloatValue(xe, "sweep_record_seconds", sweep_record_seconds);
 	ok &= getFloatValue(xe, "sweep_fadeout_seconds", sweep_fadeout_seconds);
+
+	upsampler.setOutputBufferSize(sweep_record_seconds);
 }
 
 
@@ -63,13 +68,27 @@ bool FrequencySweepResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,Strin
         int physicalInput = input + channel;
         
         msg += "Input " + String(physicalInput + 1) + newLine;
+
+		upsampler.upsample(buffs[physicalInput]);
+
+		double peak = 0.0;
+		for (int i = 0; i < upsampler.outputSampleCount; ++i)
+		{
+			double sample = abs( upsampler.outputBuffer[i] );
+			if (sample > peak)
+				peak = sample;
+		}
         
 #if WRITE_WAVE_FILES
         {
             String name;
             
-            name = String::formatted(T("Frequency sweep out%02d-in%02d at %d Hz.wav"), output, physicalInput, sample_rate);
+            name = String::formatted("Frequency sweep out%02d-in%02d at %d Hz.wav", output, physicalInput, sample_rate);
             WriteWaveFile(unit, name, sample_rate, buffs[physicalInput], getSamplesRequired());
+
+			name = String::formatted("Upsampled out%02d-in%02d at %d Hz.wav", output, physicalInput, sample_rate * UPSAMPLE_FACTOR);
+			int upsampleWaveFileCount = jmin(upsampler.outputSampleCount, getSamplesRequired() * UPSAMPLE_FACTOR);
+			WriteWaveFile(unit, name, sample_rate * UPSAMPLE_FACTOR, upsampler.outputBuffer, upsampleWaveFileCount);
         }
 #endif
     }

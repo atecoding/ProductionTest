@@ -67,4 +67,17 @@ void WriteWaveFile(String filename, int rate, AudioSampleBuffer *asb, int sample
     }
 }
 
+void WriteWaveFile(String filename, int rate, double* buffer, int samples)
+{
+	AudioSampleBuffer asb(1, samples);
+
+	float *write = asb.getWritePointer(0);
+	for (int i = 0; i < samples; ++i)
+	{
+		write[i] = (float)buffer[i];
+	}
+
+	WriteWaveFile(filename, rate, &asb, samples);
+}
+
 #endif

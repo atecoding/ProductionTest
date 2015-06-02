@@ -331,6 +331,7 @@
     <ClCompile Include="..\..\Source\MidiTest.cpp" />
     <ClCompile Include="..\..\Source\PhaseTest.cpp" />
     <ClCompile Include="..\..\Source\ProductionUnit.cpp" />
+    <ClCompile Include="..\..\Source\r8brain\r8bbase.cpp" />
     <ClCompile Include="..\..\Source\RelativeLevelTest.cpp" />
     <ClCompile Include="..\..\Source\SawtoothAudioSource.cpp" />
     <ClCompile Include="..\..\Source\TEDSTest.cpp" />
@@ -338,6 +339,7 @@
     <ClCompile Include="..\..\Source\TestManager.cpp" />
     <ClCompile Include="..\..\Source\TestPrompt.cpp" />
     <ClCompile Include="..\..\Source\ThdnTest.cpp" />
+    <ClCompile Include="..\..\Source\Upsampler.cpp" />
     <ClCompile Include="..\..\Source\USBFirmwareVersionTest.cpp" />
     <ClCompile Include="..\..\Source\wavefile.cpp" />
     <ClCompile Include="..\..\Source\win32\AIODevices_win.cpp" />
@@ -1379,10 +1381,21 @@
     <ClInclude Include="..\..\Source\MIDILoopTest.h" />
     <ClInclude Include="..\..\Source\OldMessage.h" />
     <ClInclude Include="..\..\Source\ProductionUnit.h" />
+    <ClInclude Include="..\..\Source\r8brain\CDSPBlockConvolver.h" />
+    <ClInclude Include="..\..\Source\r8brain\CDSPFIRFilter.h" />
+    <ClInclude Include="..\..\Source\r8brain\CDSPFracInterpolator.h" />
+    <ClInclude Include="..\..\Source\r8brain\CDSPProcessor.h" />
+    <ClInclude Include="..\..\Source\r8brain\CDSPRealFFT.h" />
+    <ClInclude Include="..\..\Source\r8brain\CDSPResampler.h" />
+    <ClInclude Include="..\..\Source\r8brain\CDSPSincFilterGen.h" />
+    <ClInclude Include="..\..\Source\r8brain\fft4g.h" />
+    <ClInclude Include="..\..\Source\r8brain\r8bbase.h" />
+    <ClInclude Include="..\..\Source\r8brain\r8bconf.h" />
     <ClInclude Include="..\..\Source\SawtoothAudioSource.h" />
     <ClInclude Include="..\..\Source\Test.h" />
     <ClInclude Include="..\..\Source\TestManager.h" />
     <ClInclude Include="..\..\Source\TestPrompt.h" />
+    <ClInclude Include="..\..\Source\Upsampler.h" />
     <ClInclude Include="..\..\Source\UsbHidApi.h" />
     <ClInclude Include="..\..\Source\wavefile.h" />
     <ClInclude Include="..\..\Source\win32\usb\win\AcousticIO.h" />
