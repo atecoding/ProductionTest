@@ -88,7 +88,7 @@ bool FrequencySweepResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,Strin
 
 			name = String::formatted("Upsampled out%02d-in%02d at %d Hz.wav", output, physicalInput, sample_rate * UPSAMPLE_FACTOR);
 			int upsampleWaveFileCount = jmin(upsampler.outputSampleCount, getSamplesRequired() * UPSAMPLE_FACTOR);
-			WriteWaveFile(unit, name, sample_rate * UPSAMPLE_FACTOR, upsampler.outputBuffer, upsampleWaveFileCount);
+			WriteWaveFile(unit, name, sample_rate, upsampler.outputBuffer, upsampleWaveFileCount);
         }
 #endif
     }

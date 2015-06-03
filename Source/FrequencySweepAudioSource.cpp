@@ -4,13 +4,14 @@
 
 FrequencySweepAudioSource::FrequencySweepAudioSource() :
 sampleRate (48000.0),
-startFrequency (20.0),
-finalFrequency(20000.0),
+startFrequency (18.0),
+finalFrequency(22000.0),
 sweepLengthSeconds(2.0),
 currentPhase (0.0),
 phasePerSample (0.0),
 phasePerSampleStep(0.0),
-amplitude (0.5f)
+amplitude (0.5f),
+state(START)
 {
 }
 
@@ -50,7 +51,8 @@ void FrequencySweepAudioSource::prepareToPlay (int /*samplesPerBlockExpected*/, 
 	initialDelaySamples = roundDoubleToInt(initialDelaySeconds * sampleRate);
 	fadeInSamples = fadeInCount = roundDoubleToInt(fadeInSeconds * sampleRate);
 	fadeOutSamples = fadeOutCount = roundDoubleToInt(fadeOutSeconds * sampleRate);
-	
+
+	state = START;
 }
 
 void FrequencySweepAudioSource::releaseResources()
@@ -59,38 +61,73 @@ void FrequencySweepAudioSource::releaseResources()
 
 void FrequencySweepAudioSource::getNextAudioBlock (const AudioSourceChannelInfo& info)
 {
-    for (int i = 0; i < info.numSamples; ++i)
+	for (int i = 0; i < info.numSamples; ++i)
     {
-        float sample = 0.0f;
-        
-        if (initialDelaySamples > 0)
-        {
-            initialDelaySamples--;
-        }
-        
-		if (fadeInCount > 0 && 0 == initialDelaySamples)
-		{
-			fadeInCount--;
-			fadeGain = 1.0f - (float)fadeInCount / (float)fadeInSamples;
-			fadeGain *= fadeGain;
-			sample = amplitude * (float)std::sin(currentPhase) * fadeGain;
-			currentPhase += phasePerSample;
-		}
-		
-		if (phasePerSample <= finalPhasePerSample && 0 == fadeInCount)
-		{
-			sample = amplitude * (float)std::sin(currentPhase);
-			currentPhase += phasePerSample;
-			phasePerSample *= phasePerSampleStep;
-		}
+        float sample = 0.0f, fadeGain = 1.0f;
 
-		if (fadeOutCount > 0 && phasePerSample > finalPhasePerSample)
+		switch (state)
 		{
-			fadeOutCount--;
-			fadeGain = (float)fadeOutCount / (float)fadeInSamples;
-			fadeGain *= fadeGain;
-			sample = amplitude * (float)std::sin(currentPhase) * fadeGain;
-			currentPhase += phasePerSample;
+		case START:
+			{
+				sample = 0.0f;
+
+				initialDelaySamples--;
+				if (initialDelaySamples <= 0)
+				{
+					state = FADE_IN;
+				}
+			}
+			break;
+
+		case FADE_IN:
+			{
+				fadeGain = 1.0f - (float)fadeInCount / (float)fadeInSamples;
+				fadeGain *= fadeGain;
+				sample = amplitude * fadeGain * (float)std::sin(currentPhase);
+				currentPhase += phasePerSample;
+
+				fadeInCount--;
+				if (fadeInCount <= 0)
+				{
+					state = SWEEP;
+				}
+			}
+			break;
+
+		case SWEEP:
+			{
+				sample = amplitude * (float)std::sin(currentPhase);
+				currentPhase += phasePerSample;
+				phasePerSample *= phasePerSampleStep;
+
+				if (phasePerSample >= finalPhasePerSample)
+				{
+					state = FADE_OUT;
+				}
+			}
+			break;
+
+		case FADE_OUT:
+			{
+				fadeGain = (float)fadeOutCount / (float)fadeOutSamples;
+				fadeOutCount--;
+				fadeGain *= fadeGain;
+				sample = amplitude * fadeGain * (float)std::sin(currentPhase);
+				currentPhase += phasePerSample;
+
+				fadeOutCount--;
+				if (fadeOutCount <= 0)
+				{
+					state = FINISH;
+				}
+			}
+			break;
+
+		case FINISH:
+			{
+				sample = 0.0f;
+			}
+			break;
 		}
 
 		for (int j = info.buffer->getNumChannels(); --j >= 0;)

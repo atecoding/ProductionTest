@@ -19,8 +19,18 @@ private:
     double initialDelaySeconds, fadeInSeconds, fadeOutSeconds;
     double sampleRate, startFrequency, finalFrequency, sweepLengthSeconds;
     double currentPhase, phasePerSample, phasePerSampleStep, finalPhasePerSample;
-    float amplitude, fadeGain;
+    float amplitude;
     int initialDelaySamples, fadeInSamples, fadeOutSamples, fadeInCount, fadeOutCount;
-    
+
+	typedef enum
+	{
+		START,
+		FADE_IN,
+		SWEEP,
+		FADE_OUT,
+		FINISH
+	} State;
+	State state;
+
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (FrequencySweepAudioSource)
 };
