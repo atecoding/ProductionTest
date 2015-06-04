@@ -49,23 +49,23 @@ bool RelativeLevelTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, E
         int physicalInput = input + channel;
         Identifier channelID(getChannelID(physicalInput));
         AudioSampleBuffer *sourceBuffer = buffs[physicalInput];
-		int num_samples = sourceBuffer->getNumSamples();
+		int num_samples = getSamplesRequired();
         bool channelOK = false;
          
-        highPassOutput.setSize(1, num_samples);
+		highPassOutput.setSize(1, num_samples);
         highPassOutput.copyFrom(0, 0, *sourceBuffer, 0, 0, num_samples);
         float *data = highPassOutput.getWritePointer(0);
         
         highPassFilter.processSamples(data, num_samples);
         
         float accum = 0.0f;
-        while (num_samples > 0)
+		for (int i = num_samples / 16; i < 15 * num_samples / 16; i++)
         {
             float sample = fabs(*data);
             
             accum += sample;
             
-            num_samples--;
+            i++;
             data++;
         }
         

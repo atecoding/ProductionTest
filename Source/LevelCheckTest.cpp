@@ -39,7 +39,7 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, Erro
 
 	for (channel = 0; channel < num_channels; channel++)
 	{
-		num_samples = buffs[input]->getNumSamples();
+		num_samples = getSamplesRequired();
 		float const *data = buffs[input + channel]->getReadPointer(0);
 
 		peak = 0.0f;
@@ -49,7 +49,9 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, Erro
 			float sample = fabs(data[idx]);
 			peak = jmax(peak, sample);
 			float delta = fabs(data[idx] - data[idx-1]);
-            max_delta = jmax(max_delta, delta);
+			if (delta > max_delta)
+				max_delta = delta;
+//            max_delta = jmax(max_delta, delta);
 		}
 
 		max_db = 20.0f * log10(peak);

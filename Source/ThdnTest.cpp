@@ -67,10 +67,17 @@ bool DiffThdnTest::calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg, Error
 	//bool pass = true;
 
 	msg = "Differential THD+N at ";
-	msg += MsgSampleRate();
+	msg += String::formatted("%1.1f kHz", output_frequency/1000.0);
 	msg += ": ";
 	result = computeDiffTHDN(buffs[input]->getReadPointer(0), buffs[input+1]->getReadPointer(0), sample_rate);
-	msg += String::formatted(T("  %.1f dB"), result);
+	msg += String::formatted(T("  %.02f%%"), 100*pow(10,result/20));
+	if (result > pass_threshold_db)
+	{
+		if (0 == input || 4 == input)
+			msg += " (L201/L202)";
+		else
+			msg += " (L203/L204)";
+	}
 
 #if WRITE_WAVE_FILES
 	if (result > pass_threshold_db)	// only write wave file on failure

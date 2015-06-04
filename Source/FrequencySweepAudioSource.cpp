@@ -4,8 +4,8 @@
 
 FrequencySweepAudioSource::FrequencySweepAudioSource() :
 sampleRate (48000.0),
-startFrequency (18.0),
-finalFrequency(22000.0),
+startFrequency (15.0),
+finalFrequency(21000.0),
 sweepLengthSeconds(2.0),
 currentPhase (0.0),
 phasePerSample (0.0),

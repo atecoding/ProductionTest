@@ -7,6 +7,8 @@
 
 #define UPSAMPLE_FACTOR 4
 
+static const double minusInfinity = -144.0f;
+
 FrequencySweepResponseTest::FrequencySweepResponseTest(XmlElement *xe,bool &ok, ProductionUnit *unit_) :
 Test(xe,ok,unit_),
 sweep_time_seconds(2.0f),
@@ -14,7 +16,7 @@ sweep_delay_seconds(0.5f),
 sweep_fadein_seconds(0.3f),
 sweep_record_seconds(2.9f),
 sweep_fadeout_seconds(0.1f),
-upsampler(sample_rate, sample_rate * 4)
+upsampler(sample_rate, sample_rate * UPSAMPLE_FACTOR)
 {
 	ok &= getFloatValue(xe, "pass_threshold_db", pass_threshold_db);
 	ok &= getFloatValue(xe, "output_frequency"
@@ -59,40 +61,210 @@ void FrequencySweepResponseTest::fillAudioOutputs(AudioSampleBuffer &buffer, Ton
 
 bool FrequencySweepResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorCodes &errorCodes)
 {
-    msg = "Frequency sweep at ";
-    msg += String(sample_rate);
-    msg += ": " + newLine;
-    
-    for (int channel = 0; channel < num_channels; channel++)
+	bool pass[4] = { TRUE, TRUE, TRUE, TRUE };
+
+	msg = "Frequency Response (20Hz-20kHz):" + newLine;
+   
+	for (int channel = 0; channel < num_channels; channel++)
     {
         int physicalInput = input + channel;
-        
-        msg += "Input " + String(physicalInput + 1) + newLine;
+
 
 		upsampler.upsample(buffs[physicalInput]);
 
-		double peak = 0.0;
-		for (int i = 0; i < upsampler.outputSampleCount; ++i)
+		bool result;
+		int period = sample_rate * UPSAMPLE_FACTOR / 18;
+		double amplitude = 0.0;
+		double max_db, min_db;
+		int period_start = 0;
+		int periods = 0;
+
+		struct frequency
 		{
-			double sample = abs( upsampler.outputBuffer[i] );
-			if (sample > peak)
-				peak = sample;
+			int		location;
+			int		period;
+			double	amplitude;
+		};
+
+		frequency reference, max, min;
+
+		// Scan output buffer to find start of waveform
+
+		result = getFreq(period_start, period, amplitude);
+		if (FALSE == result)
+		{
+			pass[channel] = FALSE;
+			msg += "    *** Input " + String(physicalInput + 1) + ":";
+			msg += "Invalid Waveform!" + newLine;
 		}
+		period_start += period;
+
+		period = 20000;
+		
+		// Scan output buffer to find 20Hz frequency
+
+		while (period > sample_rate * UPSAMPLE_FACTOR / 20)
+		{
+			result = getFreq(period_start, period, amplitude);
+			if (FALSE == result)
+			{
+				pass[channel] = FALSE;
+				msg += "    *** Input " + String(physicalInput + 1) + ":";
+				msg += "Invalid Waveform!" + newLine;
+				break;
+			}
+			period_start += period;
+		}
+
+		max.period = period;
+		max.amplitude = amplitude;
+		max.location = period_start-period;
+		min.period = period;
+		min.amplitude = amplitude;
+		min.location = period_start - period;
+
+		// Scan output buffer up to 1kHz
+
+		while (pass[channel] == TRUE && period > sample_rate * UPSAMPLE_FACTOR / 1000)
+		{
+			result = getFreq(period_start, period, amplitude);
+			if (FALSE == result)
+			{
+				pass[channel] = FALSE;
+				msg += "    *** Input " + String(physicalInput + 1) + ":";
+				msg += "Invalid Waveform!" + newLine;
+				break;
+			}
+			if (amplitude > max.amplitude)
+			{
+				max.amplitude = amplitude;
+				max.period = period;
+				max.location = period_start;
+			}
+			if (amplitude < min.amplitude)
+			{
+				min.amplitude = amplitude;
+				min.period = period;
+				min.location = period_start;
+			}
+			period_start += period;
+			periods++;
+		}
+		reference.amplitude = amplitude;
+		reference.period = period;
+		reference.location = period_start - period;
+
+		// Scan output buffer up to 20kHz
+
+		while (pass[channel] == TRUE && period > sample_rate * UPSAMPLE_FACTOR / 20000)
+		{
+			result = getFreq(period_start, period, amplitude);
+			if (FALSE == result)
+			{
+				pass[channel] = FALSE;
+				msg += "    *** Input " + String(physicalInput + 1) + ":";
+				msg += "Invalid Waveform!" + newLine;
+				break;
+			}
+			if (amplitude > max.amplitude)
+			{
+				max.amplitude = amplitude;
+				max.period = period;
+				max.location = period_start;
+			}
+			if (amplitude < min.amplitude)
+			{
+				min.amplitude = amplitude;
+				min.period = period;
+				min.location = period_start;
+			}
+			period_start += period;
+			periods++;
+		}
+
+		if (pass[channel] == TRUE)
+		{
+			if (reference.amplitude > 0.02)
+			{
+				max_db = Decibels::gainToDecibels(max.amplitude / reference.amplitude, minusInfinity);
+				min_db = Decibels::gainToDecibels(min.amplitude / reference.amplitude, minusInfinity);
+				if (max_db > pass_threshold_db || -1.0 * min_db > pass_threshold_db)
+				{
+					msg += "    *** Input " + String(physicalInput + 1) + ":";
+					pass[channel] = FALSE;
+				}
+				else
+					msg += "    Input " + String(physicalInput + 1) + ":";
+				msg += String::formatted(" max: ", output, physicalInput);
+				msg += Decibels::toString(max_db, 2, minusInfinity);
+				msg += " min: ";
+				msg += Decibels::toString(min_db, 2, minusInfinity) + newLine;
+//				msg += String::formatted("    1kHz: %d, %d, Min: %d, %d, Max: %d, %d", 
+//					reference.location, 384000 / reference.period, min.location, 384000 / min.period, max.location, 384000 / max.period) + newLine;
+			}
+			else
+			{
+				pass[channel] = FALSE;
+				msg += "    *** Input " + String(physicalInput + 1) + ":";
+				msg += " Invalid Waveform!" + newLine;
+			}
+		}
+
         
 #if WRITE_WAVE_FILES
         {
-            String name;
-            
-            name = String::formatted("Frequency sweep out%02d-in%02d at %d Hz.wav", output, physicalInput, sample_rate);
-            WriteWaveFile(unit, name, sample_rate, buffs[physicalInput], getSamplesRequired());
+			if (FALSE == pass[channel])
+			{
+				String name;
 
-			name = String::formatted("Upsampled out%02d-in%02d at %d Hz.wav", output, physicalInput, sample_rate * UPSAMPLE_FACTOR);
-			int upsampleWaveFileCount = jmin(upsampler.outputSampleCount, getSamplesRequired() * UPSAMPLE_FACTOR);
-			WriteWaveFile(unit, name, sample_rate, upsampler.outputBuffer, upsampleWaveFileCount);
+				name = String::formatted("Frequency sweep out%02d-in%02d at %d Hz.wav", output, physicalInput, sample_rate);
+				WriteWaveFile(unit, name, sample_rate, buffs[physicalInput], getSamplesRequired());
+
+				name = String::formatted("Upsampled out%02d-in%02d at %d Hz.wav", output, physicalInput, sample_rate * UPSAMPLE_FACTOR);
+				int upsampleWaveFileCount = jmin(upsampler.outputSampleCount, getSamplesRequired() * UPSAMPLE_FACTOR);
+				WriteWaveFile(unit, name, sample_rate, upsampler.outputBuffer, upsampleWaveFileCount);
+			}
         }
 #endif
     }
     
-    return true;
+	return pass[0] && pass[1] && pass[2] && pass[3];
 }
 
+
+bool FrequencySweepResponseTest::getFreq(int &period_start,int &period,double &amplitude)
+{
+	int i;
+	double max = 0.0;
+	double min = 0.0;
+
+	if (period_start == 0)  // find start of waveform
+	{
+		for (i = 0; i < upsampler.outputSampleCount / 2; i++)
+		{
+			if (upsampler.outputBuffer[i] > max)
+				max = upsampler.outputBuffer[i];
+		}
+		while (fabs(upsampler.outputBuffer[period_start]) < max * 0.5)
+		{
+			period_start++;
+			if (period_start > upsampler.outputSampleCount/4)
+				return FALSE;
+		}
+		max = 0.0;
+	}
+	for (i = period_start + period/4; i < upsampler.outputSampleCount - 2; i++)
+	{
+		if (upsampler.outputBuffer[i] > max)
+			max = upsampler.outputBuffer[i];
+		if (upsampler.outputBuffer[i] < min)
+			min = upsampler.outputBuffer[i];
+		if ((upsampler.outputBuffer[i] < 0.0) && (upsampler.outputBuffer[i + 1] > 0.0) && (upsampler.outputBuffer[i - period/8] < 0.0) && (upsampler.outputBuffer[i + period/8] > 0.0))
+			break;
+	}
+	period = i - period_start;
+	amplitude = max - min;
+	if (amplitude == 0.0)
+		return FALSE;
+	return TRUE;
+}

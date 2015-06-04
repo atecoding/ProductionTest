@@ -509,10 +509,15 @@ void Content::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 
 Result Content::GetSerialNumber(String &serialNumber_)
 {
+	Time currentTime = Time::getCurrentTime();
+	int dayOfYear = currentTime.getDayOfYear();
+	int hour = currentTime.getHours();
+	int minute = currentTime.getMinutes();
 #if ACOUSTICIO_BUILD
 	String const deviceName("AIO");
 #endif
 	bool ok;
+#if (0)
 	String text("Please enter the serial number for this " + deviceName);// String(_dev->getcaps()->BoxTypeName()));
 
 	do
@@ -554,7 +559,8 @@ Result Content::GetSerialNumber(String &serialNumber_)
 			serialNumber_ = temp;
 		}
 	} while (false == ok);
-
+#endif
+	serialNumber_ = String::formatted("AIO%03d%02d%02d", dayOfYear, hour, minute);
 	return Result::ok();
 }
 

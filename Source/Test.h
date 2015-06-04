@@ -109,6 +109,10 @@ public:
     bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg, ErrorCodes &errorCodes);
     
 protected:
+	bool getFreq(int &period_start,
+		int &period,
+		double &amplitude);
+
     FrequencySweepAudioSource sweepGenerator;
     float sweep_time_seconds;
     float sweep_delay_seconds;
