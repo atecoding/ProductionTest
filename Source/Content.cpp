@@ -516,9 +516,11 @@ Result Content::GetSerialNumber(String &serialNumber_)
 #if ACOUSTICIO_BUILD
 	String const deviceName("AIO");
 #endif
-	bool ok;
+
 #if (0)
-	String text("Please enter the serial number for this " + deviceName);// String(_dev->getcaps()->BoxTypeName()));
+    bool ok;
+
+    String text("Please enter the serial number for this " + deviceName);// String(_dev->getcaps()->BoxTypeName()));
 
 	do
 	{

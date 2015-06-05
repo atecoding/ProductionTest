@@ -14,8 +14,8 @@ Test(xe,ok,unit_),
 sweep_time_seconds(2.0f),
 sweep_delay_seconds(0.5f),
 sweep_fadein_seconds(0.3f),
-sweep_record_seconds(2.9f),
 sweep_fadeout_seconds(0.1f),
+sweep_record_seconds(2.9f),
 upsampler(sample_rate, sample_rate * UPSAMPLE_FACTOR)
 {
 	ok &= getFloatValue(xe, "pass_threshold_db", pass_threshold_db);
