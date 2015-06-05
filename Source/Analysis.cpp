@@ -20,10 +20,11 @@ double noise[1024];
 
 double bandRejectResults[2048];
 
-void RunFIRFilter(float const *audio,int num_samples,double *taps,int num_taps,double *dest)
+void RunFIRFilter(float const *audio,int num_samples,double const *taps,int num_taps,double *dest)
 {
 	int i,j;
-	double mac,*tap;
+	double mac;
+	double const *tap;
     
 	for (i = 0; i < num_samples; i++)
 	{
@@ -42,10 +43,11 @@ void RunFIRFilter(float const *audio,int num_samples,double *taps,int num_taps,d
 	}
 }
 
-void RunFIRFilter(double const *audio,int num_samples,double *taps,int num_taps,double *dest)
+void RunFIRFilter(double const *audio,int num_samples,double const *taps,int num_taps,double *dest)
 {
 	int i,j;
-	double mac,*tap;
+	double mac;
+	double const *tap;
 
 	for (i = 0; i < num_samples; i++)
 	{
@@ -71,7 +73,7 @@ double computeTHDN(float const *input,int rate)
 {
     int filterIndex,i;
     double rmsSignal,rmsNoise,thdn;
-    double *aWeight,*bandPass,*bandReject;
+    double const *aWeight,*bandPass,*bandReject;
 
     // determine the filter index
     switch (rate)
@@ -95,8 +97,8 @@ double computeTHDN(float const *input,int rate)
 
     // save the A-weighting, bandpass, and bandreject filters
     aWeight = A_Weight[filterIndex];
-    bandPass = Bandpass[filterIndex];
-    bandReject = BandRjct[filterIndex];
+    bandPass = Bandpass_1kHz[filterIndex];
+	bandReject = BandRjct_1kHz[filterIndex];
 
     // filter the data to create A-weighted signal
 	RunFIRFilter(input,2048,aWeight,512,aweightedData);
@@ -165,11 +167,11 @@ double computeTHDN(float const *input,int rate)
 // computeTHDN of Differential Input to two channels
 // Compute the THD+N of the given audio data
 // The filters require that at least 2,560 samples are provided.
-double computeDiffTHDN(float const *input1, float const *input2, int rate)
+double computeDiffTHDN(float const *input1, float const *input2, int rate, float const toneFrequency)
 {
 	int filterIndex,i;
 	double rmsSignal,rmsNoise,thdn;
-	double *aWeight,*bandPass,*bandReject;
+	double const *aWeight,*bandPass,*bandReject;
 
 	// determine the filter index
 	switch (rate)
@@ -193,8 +195,28 @@ double computeDiffTHDN(float const *input1, float const *input2, int rate)
 
 	// save the A-weighting, bandpass, and bandreject filters
 	aWeight = A_Weight[filterIndex];
-	bandPass = Bandpass[filterIndex];
-	bandReject = BandRjct[filterIndex];
+
+	if (1000.0 == toneFrequency)
+	{
+		bandPass = Bandpass_1kHz[filterIndex];
+		bandReject = BandRjct_1kHz[filterIndex];
+	}
+	else if (7500.0 == toneFrequency)
+	{
+		bandPass = Bandpass_7500Hz;
+		bandReject = BandRjct_7500Hz;
+	}
+	else if (7200.0 == toneFrequency)
+	{
+		bandPass = Bandpass_7200Hz;
+		bandReject = BandRjct_7200Hz;
+	}
+	else
+	{
+		DBG("Really?");
+		jassertfalse;
+		return 0.0;
+	}
 
 	// Create a single differential signal from both inputs
     float differentialSignal[THDN_SAMPLES_REQUIRED];
@@ -208,11 +230,17 @@ double computeDiffTHDN(float const *input1, float const *input2, int rate)
 	//WriteWaveFile("aweight.wav",rate,aweightedData,2048);
 
 	// filter the data to create signal
-	RunFIRFilter(aweightedData, 1024, bandPass, 512, signalBuffer);
+	if (1000.0 == toneFrequency)
+		RunFIRFilter(aweightedData, 1024, bandPass, 512, signalBuffer);
+	else
+		RunFIRFilter(differentialSignal, 1024, bandPass, 512, signalBuffer);
 	//WriteWaveFile("bandpass.wav",rate,signal,1024);
 
 	// filter the data to create noise, first pass
-	RunFIRFilter(aweightedData, 2048 - 512, bandReject, 512, bandRejectResults);
+	if (1000.0 == toneFrequency)
+		RunFIRFilter(aweightedData, 2048 - 512, bandReject, 512, bandRejectResults);
+	else
+		RunFIRFilter(differentialSignal, 2048 - 512, bandReject, 512, bandRejectResults);
 	//WriteWaveFile("reject1.wav",rate,bandRejectResults,2048-512);
 
 	// filter the data to create noise, second pass

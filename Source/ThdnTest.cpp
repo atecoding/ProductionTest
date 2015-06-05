@@ -8,7 +8,7 @@
 ThdnTest::ThdnTest(XmlElement *xe,bool &ok, ProductionUnit *unit_) :
 	Test(xe,ok,unit_)
 {
-	ok &= getFloatValue(xe, T("pass_threshold_db"), pass_threshold_db);
+	ok &= getFloatValue(xe, "pass_threshold_db", pass_threshold_db);
 }
 
 
@@ -53,6 +53,7 @@ DiffThdnTest::DiffThdnTest(XmlElement *xe, bool &ok, ProductionUnit* unit_) :
 Test(xe, ok, unit_)
 {
 	ok &= getFloatValue(xe, T("pass_threshold_db"), pass_threshold_db);
+	ok &= getFloatValue(xe, T("output_frequency"), output_frequency);
 }
 
 
@@ -69,7 +70,7 @@ bool DiffThdnTest::calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg, Error
 	msg = "Differential THD+N at ";
 	msg += String::formatted("%1.1f kHz", output_frequency/1000.0);
 	msg += ": ";
-	result = computeDiffTHDN(buffs[input]->getReadPointer(0), buffs[input+1]->getReadPointer(0), sample_rate);
+	result = computeDiffTHDN(buffs[input]->getReadPointer(0), buffs[input+1]->getReadPointer(0), sample_rate, output_frequency);
 	msg += String::formatted(T("  %.02f%%"), 100*pow(10,result/20));
 	if (result > pass_threshold_db)
 	{

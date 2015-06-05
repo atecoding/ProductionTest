@@ -270,8 +270,20 @@
       <output>2</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
+      <output_frequency>1000.0</output_frequency>
       <output_amplitude_db>-2.0</output_amplitude_db>
-      <pass_threshold_db>-73.0</pass_threshold_db>
+      <pass_threshold_db>-62.0</pass_threshold_db>
+    </test>
+
+    <test>
+      <type>Differential THD+N</type>
+      <input>4</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_frequency>7200.0</output_frequency>
+      <output_amplitude_db>-2.0</output_amplitude_db>
+      <pass_threshold_db>-46.0</pass_threshold_db>
     </test>
 
     <test>
@@ -310,8 +322,20 @@
       <output>2</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
+      <output_frequency>1000.0</output_frequency>
       <output_amplitude_db>-2.0</output_amplitude_db>
-      <pass_threshold_db>-73.0</pass_threshold_db>
+      <pass_threshold_db>-62.0</pass_threshold_db>
+    </test>
+
+    <test>
+      <type>Differential THD+N</type>
+      <input>6</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_frequency>7200.0</output_frequency>
+      <output_amplitude_db>-2.0</output_amplitude_db>
+      <pass_threshold_db>-46.0</pass_threshold_db>
     </test>
 
     <test>

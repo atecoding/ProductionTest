@@ -30,7 +30,8 @@
     <AIO_set_constant_current input="7" enabled="1" /> <!-- turn on constant current for input 8 -->
     <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
     <AIO_mic_supply_off_voltage_test input="0">
-      <minimum>0.0</minimum> <!-- minimum and maximum are in volts -->
+      <minimum>0.0</minimum>
+      <!-- minimum and maximum are in volts -->
       <maximum>1.0</maximum>
     </AIO_mic_supply_off_voltage_test>
 
@@ -45,14 +46,16 @@
     <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
     <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
     <AIO_mic_supply_on_voltage_test input="0">
-      <minimum>19.0</minimum> <!-- minimum and maximum are in volts -->
+      <minimum>19.0</minimum>
+      <!-- minimum and maximum are in volts -->
       <maximum>21.0</maximum>
     </AIO_mic_supply_on_voltage_test>
 
     <AIO_write_test_adapter byte="0x0f"/> <!-- set adapter for Mic Supply current measurement and read ADCs-->
     <AIO_write_test_adapter byte="0x0f"/> <!-- second time to allow capacitor discharge-->
     <AIO_mic_supply_current_test input="0">
-      <minimum>4.0</minimum> <!-- minimum and maximum are in volts -->
+      <minimum>4.0</minimum>
+      <!-- minimum and maximum are in volts -->
       <maximum>4.4</maximum>
     </AIO_mic_supply_current_test>
 
@@ -100,20 +103,6 @@
     <AIO_set_mic_gain input="2" gain="100" />
     <AIO_set_mic_gain input="3" gain="100" />
 
-    <prompt>
-        Input and Output Gains 1-4
-        <text>Check levels for gain settings 1-4</text>
-        <output_amplitude_db>-20.0</output_amplitude_db>
-        <input>0</input>
-        <output>0</output>
-        <num_channels>2</num_channels>
-        <sample_rate>48000</sample_rate>
-        <min_input_db>-200.0</min_input_db>
-        <max_input_db>0.0</max_input_db>
-        <wait_for_user>0</wait_for_user>
-        <start_group>0</start_group>
-    </prompt>
-
     <test>
       100x Input Level Check 1-2
       <type>Relative level check</type>
@@ -139,14 +128,13 @@
     </test>
 
     <!-- Test gain settings for inputs and outputs -->
-    
+
     <AIO_write_test_adapter byte="0x30"/> <!-- set adapter for audio measurements-->
-    
+
     <AIO_set_mic_gain input="0" gain="1" />
     <AIO_set_mic_gain input="1" gain="1" />
     <AIO_set_mic_gain input="2" gain="1" />
     <AIO_set_mic_gain input="3" gain="1" />
-
     <AIO_set_amp_gain output="0" gain="1" />
     <AIO_set_amp_gain output="1" gain="1" />
 
@@ -165,7 +153,7 @@
     <test>
       1x Input - 1x Output Level Check 3-4
       <type>Level check</type>
-      <output_amplitude_db>0.0</output_amplitude_db>
+      <output_amplitude_db>-0.0</output_amplitude_db>
       <input>2</input>
       <output>0</output>
       <num_channels>2</num_channels>
@@ -270,8 +258,20 @@
       <output>0</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-10.0</output_amplitude_db>
-      <pass_threshold_db>-69.0</pass_threshold_db>
+      <output_frequency>1000.0</output_frequency>
+      <output_amplitude_db>-2.0</output_amplitude_db>
+      <pass_threshold_db>-62.0</pass_threshold_db>
+    </test>
+
+    <test>
+      <type>Differential THD+N</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_frequency>7200.0</output_frequency>
+      <output_amplitude_db>-2.0</output_amplitude_db>
+      <pass_threshold_db>-46.0</pass_threshold_db>
     </test>
 
     <test>
@@ -311,8 +311,20 @@
       <output>0</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-10.0</output_amplitude_db>
-      <pass_threshold_db>-69.0</pass_threshold_db>
+      <output_frequency>1000.0</output_frequency>
+      <output_amplitude_db>-2.0</output_amplitude_db>
+      <pass_threshold_db>-62.0</pass_threshold_db>
+    </test>
+
+    <test>
+      <type>Differential THD+N</type>
+      <input>2</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_frequency>7200.0</output_frequency>
+      <output_amplitude_db>-2.0</output_amplitude_db>
+      <pass_threshold_db>-46.0</pass_threshold_db>
     </test>
 
     <test>
@@ -356,7 +368,7 @@
       <wait_for_user>0</wait_for_user>
       <stop_group>1</stop_group>
     </prompt>
-
+    
     <message_box>Connect the Test Adapter to Inputs 5-8</message_box>
 
     <AIO_set_constant_current input="0" enabled="1" /> <!-- turn on constant current for input 1 -->
@@ -611,8 +623,20 @@
       <output>2</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-10.0</output_amplitude_db>
-      <pass_threshold_db>-69.0</pass_threshold_db>
+      <output_frequency>1000.0</output_frequency>
+      <output_amplitude_db>-2.0</output_amplitude_db>
+      <pass_threshold_db>-62.0</pass_threshold_db>
+    </test>
+
+    <test>
+      <type>Differential THD+N</type>
+      <input>4</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_frequency>7200.0</output_frequency>
+      <output_amplitude_db>-2.0</output_amplitude_db>
+      <pass_threshold_db>-46.0</pass_threshold_db>
     </test>
 
     <test>
@@ -651,8 +675,20 @@
       <output>2</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-10.0</output_amplitude_db>
-      <pass_threshold_db>-69.0</pass_threshold_db>
+      <output_frequency>1000.0</output_frequency>
+      <output_amplitude_db>-2.0</output_amplitude_db>
+      <pass_threshold_db>-62.0</pass_threshold_db>
+    </test>
+
+    <test>
+      <type>Differential THD+N</type>
+      <input>6</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_frequency>7200.0</output_frequency>
+      <output_amplitude_db>-2.0</output_amplitude_db>
+      <pass_threshold_db>-46.0</pass_threshold_db>
     </test>
 
     <test>

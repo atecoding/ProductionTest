@@ -69,7 +69,7 @@ bool DiffDynRangeTest::calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg, E
 	msg = "Differential Dynamic Range at ";
 	msg += MsgSampleRate();
 	msg += ": ";
-	result = computeDiffTHDN(buffs[input]->getReadPointer(0), buffs[input + 1]->getReadPointer(0), sample_rate);
+	result = computeDiffTHDN(buffs[input]->getReadPointer(0), buffs[input + 1]->getReadPointer(0), sample_rate, output_frequency);
 	result = (-1.0 * result) + 60.0;
 	msg += String::formatted(T("  %.1f dB"), result);
 
