@@ -304,7 +304,7 @@
       <sample_rate>96000</sample_rate>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
-      <pass_threshold_db>0.3</pass_threshold_db>
+      <pass_threshold_db>0.4</pass_threshold_db>
       <sweep_time_seconds>2.0</sweep_time_seconds>
       <sweep_delay_seconds>0.4</sweep_delay_seconds>
       <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
@@ -358,7 +358,7 @@
       <sample_rate>96000</sample_rate>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
-      <pass_threshold_db>0.3</pass_threshold_db>
+      <pass_threshold_db>0.4</pass_threshold_db>
       <sweep_time_seconds>2.0</sweep_time_seconds>
       <sweep_delay_seconds>0.4</sweep_delay_seconds>
       <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
