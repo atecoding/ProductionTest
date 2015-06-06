@@ -8,8 +8,6 @@
 extern const double A_Weight[NUM_FILTER_RATES][FILTER_TAPS];
 extern const double Bandpass_1kHz[NUM_FILTER_RATES][FILTER_TAPS];
 extern const double BandRjct_1kHz[NUM_FILTER_RATES][FILTER_TAPS];
-extern const double Bandpass_7500Hz[FILTER_TAPS];
-extern const double BandRjct_7500Hz[FILTER_TAPS];
 extern const double Bandpass_7200Hz[FILTER_TAPS];
 extern const double BandRjct_7200Hz[FILTER_TAPS];
 

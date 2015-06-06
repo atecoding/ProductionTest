@@ -201,11 +201,6 @@ double computeDiffTHDN(float const *input1, float const *input2, int rate, float
 		bandPass = Bandpass_1kHz[filterIndex];
 		bandReject = BandRjct_1kHz[filterIndex];
 	}
-	else if (7500.0 == toneFrequency)
-	{
-		bandPass = Bandpass_7500Hz;
-		bandReject = BandRjct_7500Hz;
-	}
 	else if (7200.0 == toneFrequency)
 	{
 		bandPass = Bandpass_7200Hz;
@@ -230,17 +225,12 @@ double computeDiffTHDN(float const *input1, float const *input2, int rate, float
 	//WriteWaveFile("aweight.wav",rate,aweightedData,2048);
 
 	// filter the data to create signal
-	if (1000.0 == toneFrequency)
-		RunFIRFilter(aweightedData, 1024, bandPass, 512, signalBuffer);
-	else
-		RunFIRFilter(differentialSignal, 1024, bandPass, 512, signalBuffer);
-	//WriteWaveFile("bandpass.wav",rate,signal,1024);
+	RunFIRFilter(aweightedData, 1024, bandPass, 512, signalBuffer);
+	//WriteWaveFile("bandpass.wav",rate,signalBuffer,1024);
 
 	// filter the data to create noise, first pass
-	if (1000.0 == toneFrequency)
-		RunFIRFilter(aweightedData, 2048 - 512, bandReject, 512, bandRejectResults);
-	else
-		RunFIRFilter(differentialSignal, 2048 - 512, bandReject, 512, bandRejectResults);
+	RunFIRFilter(aweightedData, 2048 - 512, bandReject, 512, bandRejectResults);
+
 	//WriteWaveFile("reject1.wav",rate,bandRejectResults,2048-512);
 
 	// filter the data to create noise, second pass

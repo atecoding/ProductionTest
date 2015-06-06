@@ -16,6 +16,8 @@
 	<log>LED Test</log>
     </message_box>
 
+    <AIO_firmware_version_test max_version="0x54" />
+
     <message_box>Connect the Test Adapter to Inputs 1-4</message_box>
 
     <!-- Check constant current voltage and current -->
@@ -260,7 +262,7 @@
       <sample_rate>48000</sample_rate>
       <output_frequency>1000.0</output_frequency>
       <output_amplitude_db>-2.0</output_amplitude_db>
-      <pass_threshold_db>-62.0</pass_threshold_db>
+      <pass_threshold_db>-60.0</pass_threshold_db>
     </test>
 
     <test>
@@ -313,7 +315,7 @@
       <sample_rate>48000</sample_rate>
       <output_frequency>1000.0</output_frequency>
       <output_amplitude_db>-2.0</output_amplitude_db>
-      <pass_threshold_db>-62.0</pass_threshold_db>
+      <pass_threshold_db>-60.0</pass_threshold_db>
     </test>
 
     <test>
@@ -625,7 +627,7 @@
       <sample_rate>48000</sample_rate>
       <output_frequency>1000.0</output_frequency>
       <output_amplitude_db>-2.0</output_amplitude_db>
-      <pass_threshold_db>-62.0</pass_threshold_db>
+      <pass_threshold_db>-60.0</pass_threshold_db>
     </test>
 
     <test>
@@ -677,7 +679,7 @@
       <sample_rate>48000</sample_rate>
       <output_frequency>1000.0</output_frequency>
       <output_amplitude_db>-2.0</output_amplitude_db>
-      <pass_threshold_db>-62.0</pass_threshold_db>
+      <pass_threshold_db>-60.0</pass_threshold_db>
     </test>
 
     <test>

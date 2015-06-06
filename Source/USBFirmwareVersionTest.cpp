@@ -14,13 +14,17 @@ bool RunUSBFirmwareVersionTest(XmlElement const *element,
                  Content *content,
                  ErrorCodes &errorCodes)
 {
-    uint32 min_version = element->getStringAttribute("min_version").getHexValue32();
-    uint32 deviceFirmwareVersion = dev->getFirmwareVersion();
-    
+	uint32 min_version = 0.0;
+	uint32 max_version = 999.0;
+	uint32 deviceFirmwareVersion = dev->getFirmwareVersion();
+
+	min_version = element->getStringAttribute("min_version").getHexValue32();
+	max_version = element->getStringAttribute("max_version").getHexValue32();
+
     displayedInput = -1;
     
     msg = "Device firmware version " + String::toHexString((int32)deviceFirmwareVersion).getLastCharacters(4);
-    if (deviceFirmwareVersion >= min_version)
+	if (deviceFirmwareVersion >= min_version && deviceFirmwareVersion <= max_version)
     {
         msg += " OK";
         return true;

@@ -16,6 +16,10 @@
 	<log>LED Test</log>
     </message_box>
 
+    <AIO_firmware_version_test max_version="0x54" />
+
+    <!-- Check constant current voltage and current -->
+
     <message_box>Connect the Test Adapter to Inputs 5-8</message_box>
 
     <AIO_set_constant_current input="0" enabled="1" /> <!-- turn on constant current for input 1 -->
@@ -272,7 +276,7 @@
       <sample_rate>48000</sample_rate>
       <output_frequency>1000.0</output_frequency>
       <output_amplitude_db>-2.0</output_amplitude_db>
-      <pass_threshold_db>-62.0</pass_threshold_db>
+      <pass_threshold_db>-60.0</pass_threshold_db>
     </test>
 
     <test>
@@ -324,7 +328,7 @@
       <sample_rate>48000</sample_rate>
       <output_frequency>1000.0</output_frequency>
       <output_amplitude_db>-2.0</output_amplitude_db>
-      <pass_threshold_db>-62.0</pass_threshold_db>
+      <pass_threshold_db>-60.0</pass_threshold_db>
     </test>
 
     <test>
