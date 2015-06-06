@@ -373,6 +373,11 @@ void ProductionUnit::RunTests(String const serialNumber_)
 void ProductionUnit::audioDeviceAboutToStart(AudioIODevice *device)
 {
     //DBG("ProductionUnit::audioDeviceAboutToStart " << device->getName());
+
+	for (int i = 0; i < _inbuffs.size(); ++i)
+	{
+		_inbuffs[i]->clear();
+	}
 }
 
 void ProductionUnit::audioDeviceStopped()
