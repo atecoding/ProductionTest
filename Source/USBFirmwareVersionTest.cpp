@@ -14,8 +14,8 @@ bool RunUSBFirmwareVersionTest(XmlElement const *element,
                  Content *content,
                  ErrorCodes &errorCodes)
 {
-	uint32 min_version = 0.0;
-	uint32 max_version = 0.0;
+	uint32 min_version = 0;
+	uint32 max_version = 0;
 	uint32 deviceFirmwareVersion = dev->getFirmwareVersion();
 
 	min_version = element->getStringAttribute("min_version").getHexValue32();

@@ -259,6 +259,9 @@
     <Filter Include="ProductionTest\Source\r8brain">
       <UniqueIdentifier>{7728f6e8-4c9d-4eee-91ff-3f8175a71b37}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ProductionTest\Source\calibration">
+      <UniqueIdentifier>{90a64c43-736d-4b42-a8eb-94f4b953aac2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\Analysis.cpp">
@@ -1389,12 +1392,6 @@
     <ClCompile Include="..\..\Source\AIOSReferenceVoltageTest.cpp">
       <Filter>ProductionTest\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\CalibrationData.cpp">
-      <Filter>ProductionTest\Source\AIO</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\crc32.cpp">
-      <Filter>ProductionTest\Source\AIO</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\FrequencySweepAudioSource.cpp">
       <Filter>ProductionTest\Source</Filter>
     </ClCompile>
@@ -1405,6 +1402,30 @@
       <Filter>ProductionTest\Source\r8brain</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\Upsampler.cpp">
+      <Filter>ProductionTest\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\calibration\CalibrationAudioIOCallback.cpp">
+      <Filter>ProductionTest\Source\calibration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\calibration\CalibrationData.cpp">
+      <Filter>ProductionTest\Source\calibration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\calibration\CalibrationDialogComponent.cpp">
+      <Filter>ProductionTest\Source\calibration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\calibration\CalibrationManager.cpp">
+      <Filter>ProductionTest\Source\calibration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\calibration\crc32.cpp">
+      <Filter>ProductionTest\Source\calibration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Description.cpp">
+      <Filter>ProductionTest\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\DescriptionAIO.cpp">
+      <Filter>ProductionTest\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\DescriptionAMB.cpp">
       <Filter>ProductionTest\Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -2681,12 +2702,6 @@
     <ClInclude Include="..\..\Source\ErrorCodes.h">
       <Filter>ProductionTest\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\CalibrationData.h">
-      <Filter>ProductionTest\Source\AIO</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\crc32.h">
-      <Filter>ProductionTest\Source\AIO</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\FrequencySweepAudioSource.h">
       <Filter>ProductionTest\Source</Filter>
     </ClInclude>
@@ -2721,6 +2736,36 @@
       <Filter>ProductionTest\Source\r8brain</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\Upsampler.h">
+      <Filter>ProductionTest\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\calibration\CalibrationAudioIOCallback.h">
+      <Filter>ProductionTest\Source\calibration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\calibration\CalibrationData.h">
+      <Filter>ProductionTest\Source\calibration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\calibration\CalibrationDialogComponent.h">
+      <Filter>ProductionTest\Source\calibration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\calibration\CalibrationManager.h">
+      <Filter>ProductionTest\Source\calibration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\calibration\crc32.h">
+      <Filter>ProductionTest\Source\calibration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\calibration\ExternalSpeakerMonitorTestResult.h">
+      <Filter>ProductionTest\Source\calibration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\calibration\SquareWaveAnalysisResult.h">
+      <Filter>ProductionTest\Source\calibration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Description.h">
+      <Filter>ProductionTest\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\DescriptionAIO.h">
+      <Filter>ProductionTest\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\DescriptionAMB.h">
       <Filter>ProductionTest\Source</Filter>
     </ClInclude>
   </ItemGroup>
@@ -2784,6 +2829,9 @@
       <Filter>Scripts</Filter>
     </Xml>
     <Xml Include="..\..\scripts\AIO-2 Module 1 sweep.xml">
+      <Filter>Scripts</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO-S Calibrate-O-Matic.xml">
       <Filter>Scripts</Filter>
     </Xml>
   </ItemGroup>

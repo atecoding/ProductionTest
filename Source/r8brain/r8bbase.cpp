@@ -13,7 +13,7 @@
  * r8brain-free-src Copyright (c) 2013-2014 Aleksey Vaneev
  * See the "License.txt" file for license.
  */
-
+#pragma warning(disable:4201)
 #include "CDSPFIRFilter.h"
 #include "CDSPFracInterpolator.h"
 

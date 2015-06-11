@@ -21,8 +21,11 @@
 #include <IOKit/IOCFPlugIn.h>
 
 #include "hwcaps.h"
+
+#if ACOUSTICIO_BUILD
 #include "Description.h"
 #include "../calibration/CalibrationData.h"
+#endif
 
 //
 // ehw

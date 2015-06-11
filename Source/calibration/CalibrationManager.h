@@ -3,7 +3,7 @@
 #include "CalibrationAudioIOCallback.h"
 #include "SquareWaveAnalysisResult.h"
 #include "CalibrationData.h"
-#include "AIOTestAdapter.h"
+#include "../AIOTestAdapter.h"
 #include "ExternalSpeakerMonitorTestResult.h"
 
 class ehw;

@@ -24,6 +24,10 @@ typedef unsigned __int8 byte;
 #include "tusbaudioapi.h"
 #include "../Session.h"
 #include "../hwcaps.h"
+#if ACOUSTICIO_BUILD
+#include "../../../Description.h"
+#include "../../../calibration/CalibrationData.h"
+#endif
 
 //
 // ehw
@@ -53,6 +57,13 @@ public:
 	{	
 		return &_caps;
 	}
+
+#if ACOUSTICIO_BUILD
+	Description const * const getDescription() const
+	{
+		return description;
+	}
+#endif
 	
 	String GetUniqueName()
 	{
@@ -233,16 +244,20 @@ public:
 
 #if ACOUSTICIO_BUILD
 
+	Result setMicGain(uint8 channel, uint8 gain);
+	Result setAmpGain(uint8 channel, uint8 gain);
 	Result setMicGain(XmlElement const *element);
 	Result setAmpGain(XmlElement const *element);
 	Result setConstantCurrent(XmlElement const *element);
 	Result setConstantCurrent(uint8 const input, uint8 const enabled);
-	Result readTEDSData(uint8 const input, uint8* data, size_t dataBufferBytes); 
+	Result readTEDSData(uint8 const input, uint8* data, size_t dataBufferBytes);
 	Result setAIOSReferenceVoltage(XmlElement const *element);
-	Result setAIOSReferenceVoltage(bool const enabled);
+	Result setAIOSReferenceVoltage(int const module, bool const enabled);
 	Result readFlashBlock(uint8 const block, uint8 * const buffer, size_t const bufferBytes);
 	Result writeFlashBlock(uint8 const block, uint8 const * const buffer, size_t const bufferBytes);
 	Result clearRAMCalibrationData();
+	Result setCalibrationData(AcousticIOCalibrationData const * const data);
+	Result getCalibrationData(AcousticIOCalibrationData * const data);
 
 #endif
 
@@ -332,6 +347,11 @@ protected:
 		GNODE_PEAK_METERS = 0
 	};
 
+#if ACOUSTICIO_BUILD
+	ScopedPointer<Description> description;
+
+	uint8 getModuleTypes();
+#endif
 };
 
 #define COMMAND_TIMEOUT_MSEC				1000

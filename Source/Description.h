@@ -8,7 +8,7 @@ public:
 		moduleTypes[0] = moduleTypes_ & 0xf;
 		moduleTypes[1] = moduleTypes_ >> 4;
         
-        DBG("Description " << moduleTypes[0] << " " << moduleTypes[1]);
+		DBG("Description " << (int)moduleTypes[0] << " " << (int)moduleTypes[1]);
 	}
 
     virtual ~Description()

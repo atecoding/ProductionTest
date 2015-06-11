@@ -13,7 +13,6 @@
 #include "ehwlist.h"
 #include "hwcaps.h"
 #include "NotificationWindow.h"
-#include "../CalibrationData.h"
 
 #ifdef ECHO2_BUILD
 #include "/proj/xmos/common/Echo2.h"
@@ -1418,6 +1417,22 @@ Result ehw::setMicGain(XmlElement const *element)
 	return Result::fail(error);
 }
 
+Result ehw::setMicGain(uint8 channel, uint8 gain)
+{
+	TUsbAudioStatus status;
+	status = TUSBAUDIO_AudioControlRequestSet(handle,
+		ACOUSTICIO_EXTENSION_UNIT,	// unit ID
+		CUR,
+		ACOUSTICIO_MIC_GAIN_CONTROL,
+		channel,
+		(void *)&gain,
+		1,
+		NULL,
+		COMMAND_TIMEOUT_MSEC);
+	String error("Failed to set mic gain");
+	error += " - error " + String::toHexString((int)status);
+	return Result::fail(error);
+}
 
 Result ehw::setAmpGain(XmlElement const *element)
 {
@@ -1514,6 +1529,23 @@ Result ehw::setAmpGain(XmlElement const *element)
 	}
 
 	String error("Failed to set amp gain for input " + String((int)channel));
+	error += " - error " + String::toHexString((int)status);
+	return Result::fail(error);
+}
+
+Result ehw::setAmpGain(uint8 channel, uint8 gain)
+{
+	TUsbAudioStatus status;
+	status = TUSBAUDIO_AudioControlRequestSet(handle,
+		ACOUSTICIO_EXTENSION_UNIT,	// unit ID
+		CUR,
+		ACOUSTICIO_AMP_GAIN_CONTROL,
+		channel,
+		(void *)&gain,
+		1,
+		NULL,
+		COMMAND_TIMEOUT_MSEC);
+	String error("Failed to set amp gain");
 	error += " - error " + String::toHexString((int)status);
 	return Result::fail(error);
 }
@@ -1642,19 +1674,19 @@ Result ehw::setAIOSReferenceVoltage(XmlElement const *element)
 	}
 
 	bool enabled = element->getIntAttribute("enabled", 0) != 0;
-	return setAIOSReferenceVoltage(enabled);
+	int const module = 0; // assume AIO center module for now
+	return setAIOSReferenceVoltage(module, enabled);
 }
 
-Result ehw::setAIOSReferenceVoltage(bool const enabled)
+Result ehw::setAIOSReferenceVoltage(int const module, bool const enabled)
 {
-	uint8 const module = 0; // assume AIO center module for now
 	TUsbAudioStatus status;
 
 	status = TUSBAUDIO_AudioControlRequestSet(handle,
 		ACOUSTICIO_EXTENSION_UNIT,	// unit ID
 		CUR,
 		ACOUSTICIO_CALIBRATION_VOLTAGE_CONTROL,
-		module,
+		(uint8)module,
 		(void *)&enabled,
 		1,
 		NULL,
@@ -1712,22 +1744,46 @@ Result ehw::clearRAMCalibrationData()
 {
 	AIOSCalibrationData data;
 
+	return setCalibrationData(&data.data);
+}
+
+Result ehw::setCalibrationData(AcousticIOCalibrationData const * const data)
+{
 	TUsbAudioStatus status;
 	status = TUSBAUDIO_AudioControlRequestSet(handle,
 		ACOUSTICIO_EXTENSION_UNIT,	// unit ID
 		CUR,
 		ACOUSTICIO_CALIBRATION_DATA_CONTROL,
 		0,
-		(void *)&(data.data),
+		(void *)data,
 		sizeof(AcousticIOCalibrationData),
 		NULL,
 		COMMAND_TIMEOUT_MSEC);
 	if (TSTATUS_SUCCESS == status)
 		return Result::ok();
 
-	String error("Failed to clear RAM calibration data ");
+	String error("Failed to set RAM calibration data ");
 	error += " - error " + String::toHexString((int32)status);
 	return Result::fail(error);
 }
 
+Result ehw::getCalibrationData(AcousticIOCalibrationData * const data)
+{
+	TUsbAudioStatus status;
+	status = TUSBAUDIO_AudioControlRequestGet(handle,
+		ACOUSTICIO_EXTENSION_UNIT,	// unit ID
+		CUR,
+		ACOUSTICIO_CALIBRATION_DATA_CONTROL,
+		0,
+		(void *)data,
+		sizeof(AcousticIOCalibrationData),
+		NULL,
+		COMMAND_TIMEOUT_MSEC);
+	if (TSTATUS_SUCCESS == status)
+		return Result::ok();
+
+	String error("Failed to read RAM calibration data");
+	error += " - error " + String::toHexString((int32)status);
+	return Result::fail(error);
+}
 #endif

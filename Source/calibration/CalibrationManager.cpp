@@ -2,7 +2,7 @@
 #include "CalibrationManager.h"
 #include "ehw.h"
 #include "crc32.h"
-#include "OldMessage.h"
+#include "../OldMessage.h"
 
 #define SHOW_INTERMEDIATE_RESULTS 0
 #define SKIP_AIO2_CALIBRATION 0

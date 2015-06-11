@@ -2,7 +2,7 @@
 #include "CalibrationDialogComponent.h"
 #include "CalibrationManager.h"
 #include "ehw.h"
-#include "DescriptionAIO.h"
+#include "../DescriptionAIO.h"
 
 CalibrationDialogComponent::CalibrationDialogComponent(CalibrationManager* calibrationManager_, ReferenceCountedObjectPtr<ehw>  device_) :
 calibrationManager(calibrationManager_),
