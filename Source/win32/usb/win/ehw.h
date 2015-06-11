@@ -350,7 +350,7 @@ protected:
 #if ACOUSTICIO_BUILD
 	ScopedPointer<Description> description;
 
-	uint8 getModuleTypes();
+	uint8 getModuleTypes(TUsbAudioHandle tempHandle);
 #endif
 };
 

@@ -103,15 +103,15 @@ ehw::ehw
 	}
 
 	TUsbAudioStatus status;
-	TUsbAudioHandle handle;
+	TUsbAudioHandle tempHandle;
 
 	props.usbProductId = 0;
 
-	status = TUSBAUDIO_OpenDeviceByIndex(device_index,&handle);
-	DBG_PRINTF(("TUSBAUDIO_OpenDeviceByIndex handle:0x%x status:0x%x",handle,status));
+	status = TUSBAUDIO_OpenDeviceByIndex(device_index, &tempHandle);
+	DBG_PRINTF(("TUSBAUDIO_OpenDeviceByIndex handle:0x%x status:0x%x", tempHandle, status));
 	if (TSTATUS_SUCCESS == status)
 	{
-		status = TUSBAUDIO_GetDeviceProperties(handle,&props);
+		status = TUSBAUDIO_GetDeviceProperties(tempHandle, &props);
 		//if (TSTATUS_SUCCESS == status)
 		//{
 		//	switch (props.usbProductId)
@@ -122,11 +122,27 @@ ehw::ehw
 		//	}
 		//}
 
-		DBG_PRINTF(("usbProductId:0x%04x  usbRevisionId:0x%04x  handle:0x%x",props.usbProductId,props.usbRevisionId,handle));
+		DBG_PRINTF(("usbProductId:0x%04x  usbRevisionId:0x%04x  tempHandle:0x%x", props.usbProductId, props.usbRevisionId, tempHandle));
 
-		TUSBAUDIO_CloseDevice(handle);
-		DBG_PRINTF(("Closing 0x%x",handle));
-		handle = 0;
+		uint8 moduleTypes = getModuleTypes(tempHandle);
+		switch (props.usbProductId)
+		{
+		case hwcaps::ACOUSTICIO_PRODUCT_ID:
+			description = new DescriptionAIO(moduleTypes);
+			break;
+
+		case hwcaps::ACOUSTICIO_MB_PRODUCT_ID:
+			description = new DescriptionAMB(moduleTypes);
+			break;
+
+		default:
+			description = new Description(moduleTypes);
+			break;
+		}
+
+		TUSBAUDIO_CloseDevice(tempHandle);
+		DBG_PRINTF(("Closing 0x%x", tempHandle));
+		tempHandle = 0;
 	}
 
 	//
@@ -140,6 +156,8 @@ ehw::ehw
 
 	_caps.init(props.usbProductId);
 	_uniquename = _caps.BoxTypeName();
+
+	
 	//initializeSession();
 	//loadSession();
 } // constructor
@@ -1320,6 +1338,66 @@ int ehw::ReceiveTestBuffer (uint8 *buffer,size_t buffer_size,size_t &bytes_recei
 
 #include "../AcousticIO.h"
 
+uint8 ehw::getModuleTypes(TUsbAudioHandle tempHandle)
+{
+	TUsbAudioStatus status;
+
+	uint8 moduleTypes = 0;
+	if (getFirmwareVersion() >= ACOUSTICIO_MODULE_TYPE_CONTROL_MIN_FIRMWARE_VERSION)
+	{
+		//
+		// Use ACOUSTICIO_MODULE_TYPE_CONTROL to detect AIO-S or analog module
+		//
+		status = TUSBAUDIO_AudioControlRequestGet(tempHandle,
+			ACOUSTICIO_EXTENSION_UNIT, CUR,
+			ACOUSTICIO_MODULE_TYPE_CONTROL, 0, &moduleTypes, 1,
+			NULL, COMMAND_TIMEOUT_MSEC);
+		if (TSTATUS_SUCCESS != status)
+			moduleTypes = 0;
+	}
+	else
+	{
+		//
+		// Use ACOUSTICIO_MODULE_STATUS_CONTROL for older firmware
+		//
+		uint8 moduleStatus = 0;
+		status = TUSBAUDIO_AudioControlRequestGet(tempHandle,
+			ACOUSTICIO_EXTENSION_UNIT, CUR,
+			ACOUSTICIO_MODULE_STATUS_CONTROL, 0, &moduleStatus, 1,
+			NULL, COMMAND_TIMEOUT_MSEC);
+
+		if (TSTATUS_SUCCESS != status)
+		{
+			moduleTypes = 0;
+		}
+		else
+		{
+			//
+			// Check the low 2 bits of moduleStatus - the module is present
+			// if the bit is low
+			//
+			if (moduleStatus & 2)
+			{
+				moduleTypes = ACOUSTICIO_MODULE_NOT_PRESENT;
+			}
+			else
+			{
+				moduleTypes = ACOUSTICIO_ANALOG_MODULE;
+			}
+
+			if (moduleStatus & 1)
+			{
+				moduleTypes |= ACOUSTICIO_MODULE_NOT_PRESENT << 4;
+			}
+			else
+			{
+				moduleTypes |= ACOUSTICIO_ANALOG_MODULE << 4;
+			}
+		}
+	}
+	return moduleTypes;
+}
+
 Result ehw::setMicGain(XmlElement const *element)
 {
 	uint8 channel;
@@ -1429,6 +1507,9 @@ Result ehw::setMicGain(uint8 channel, uint8 gain)
 		1,
 		NULL,
 		COMMAND_TIMEOUT_MSEC);
+	if (TSTATUS_SUCCESS == status)
+		return Result::ok();
+
 	String error("Failed to set mic gain");
 	error += " - error " + String::toHexString((int)status);
 	return Result::fail(error);
@@ -1545,6 +1626,9 @@ Result ehw::setAmpGain(uint8 channel, uint8 gain)
 		1,
 		NULL,
 		COMMAND_TIMEOUT_MSEC);
+	if (TSTATUS_SUCCESS == status)
+		return Result::ok();
+
 	String error("Failed to set amp gain");
 	error += " - error " + String::toHexString((int)status);
 	return Result::fail(error);

@@ -257,11 +257,12 @@ void ProductionUnit::RunTests(String const serialNumber_)
 	File f(application->testManager->getCurrentScript());
 	String devname(_dev->getcaps()->BoxTypeName()),txt;
     
-	XmlDocument myDocument(f);
+	XmlDocument xmlDocument(f);
 	XmlElement *temp,*child;
 
-	_root = myDocument.getDocumentElement();
-	DBG(String("Parsing XML for ") + devname);
+	_root = xmlDocument.getDocumentElement();
+	DBG("XML file " + f.getFullPathName());
+	DBG("Parsing XML for " + devname);
 	if (_root)
 	{
 		child = _root->getFirstChildElement();

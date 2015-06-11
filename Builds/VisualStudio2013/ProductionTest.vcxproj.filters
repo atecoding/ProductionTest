@@ -1454,9 +1454,6 @@
     <ClInclude Include="..\..\Source\ehw\usb\win\tusbaudioapi_defs.h">
       <Filter>ProductionTest\Source\ehw</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\ehw\usb\hwcaps.h">
-      <Filter>ProductionTest\Source\ehw</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\ehw\usb\Session.h">
       <Filter>ProductionTest\Source\ehw</Filter>
     </ClInclude>

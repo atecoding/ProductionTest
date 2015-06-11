@@ -1376,7 +1376,6 @@
     <ClInclude Include="..\..\Source\ehw\usb\win\tusbaudio_defs.h" />
     <ClInclude Include="..\..\Source\ehw\usb\win\tusbaudioapi.h" />
     <ClInclude Include="..\..\Source\ehw\usb\win\tusbaudioapi_defs.h" />
-    <ClInclude Include="..\..\Source\ehw\usb\hwcaps.h" />
     <ClInclude Include="..\..\Source\ehw\usb\Session.h" />
     <ClInclude Include="..\..\Source\Analysis.h" />
     <ClInclude Include="..\..\Source\App.h" />
