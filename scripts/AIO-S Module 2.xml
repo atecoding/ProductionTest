@@ -20,8 +20,6 @@
 
     <message_box>Connect the Test Adapter to Inputs 5-8</message_box>
 
-    <!-- Check constant current voltage and current -->
-    
     <AIO_set_constant_current input="0" enabled="1" /> <!-- turn on constant current for input 1 -->
     <AIO_set_constant_current input="1" enabled="1" /> <!-- turn on constant current for input 2 -->
     <AIO_set_constant_current input="2" enabled="1" /> <!-- turn on constant current for input 3 -->
@@ -67,80 +65,81 @@
     <Delay_msec>500</Delay_msec>
 
     <!-- Check TEDS read circuits - do this after disabling constant current -->
+
     <AIO_TEDS_test input="4" />
-    
+
     <!-- Test 100x gain settings for inputs -->
     <!-- Leave test adapter in mic mode so inputs are disconnected from amp outputs -->
-    
+
     <AIO_set_mic_gain input="4" gain="10" />
     <AIO_set_mic_gain input="5" gain="10" />
     <AIO_set_mic_gain input="6" gain="10" />
     <AIO_set_mic_gain input="7" gain="10" />
     <Delay_msec>2000</Delay_msec>
-    
+
     <prompt>
-        Input and Output Gains 5-8
-        <text>Check levels for gain settings 5-8</text>
-        <output_amplitude_db>-20.0</output_amplitude_db>
-        <input>4</input>
-        <output>2</output>
-        <num_channels>2</num_channels>
-        <sample_rate>48000</sample_rate>
-        <min_input_db>-200.0</min_input_db>
-        <max_input_db>0.0</max_input_db>
-        <wait_for_user>0</wait_for_user>
-        <start_group>0</start_group>
+      Input and Output Gains 5-8
+      <text>Check levels for gain settings 5-8</text>
+      <output_amplitude_db>-20.0</output_amplitude_db>
+      <input>4</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-200.0</min_input_db>
+      <max_input_db>0.0</max_input_db>
+      <wait_for_user>0</wait_for_user>
+      <start_group>1</start_group>
     </prompt>
-    
+
     <test>
-        10x Input Level Check 5-6
-        <type>Relative level check</type>
-        <output_amplitude_db>-144.0</output_amplitude_db>
-        <input>4</input>
-        <output>2</output>
-        <num_channels>2</num_channels>
-        <sample_rate>48000</sample_rate>
+      10x Input Level Check 5-6
+      <type>Relative level check</type>
+      <output_amplitude_db>-144.0</output_amplitude_db>
+      <input>4</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
     </test>
-    
+
     <test>
-        10x Input Level Check 7-8
-        <type>Relative level check</type>
-        <output_amplitude_db>-144.0</output_amplitude_db>
-        <input>6</input>
-        <output>2</output>
-        <num_channels>2</num_channels>
-        <sample_rate>48000</sample_rate>
+      10x Input Level Check 7-8
+      <type>Relative level check</type>
+      <output_amplitude_db>-144.0</output_amplitude_db>
+      <input>6</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
     </test>
 
     <AIO_set_mic_gain input="4" gain="100" />
     <AIO_set_mic_gain input="5" gain="100" />
     <AIO_set_mic_gain input="6" gain="100" />
     <AIO_set_mic_gain input="7" gain="100" />
-    
+
     <test>
-        100x Input Level Check 5-6
-        <type>Relative level check</type>
-        <output_amplitude_db>-144.0</output_amplitude_db>
-        <input>4</input>
-        <output>2</output>
-        <num_channels>2</num_channels>
-        <sample_rate>48000</sample_rate>
-        <min_level_db>18.0</min_level_db>
-        <max_level_db>22.0</max_level_db>
+      100x Input Level Check 5-6
+      <type>Relative level check</type>
+      <output_amplitude_db>-144.0</output_amplitude_db>
+      <input>4</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_level_db>18.0</min_level_db>
+      <max_level_db>22.0</max_level_db>
     </test>
-    
+
     <test>
-        100x Input Level Check 7-8
-        <type>Relative level check</type>
-        <output_amplitude_db>-144.0</output_amplitude_db>
-        <input>6</input>
-        <output>2</output>
-        <num_channels>2</num_channels>
-        <sample_rate>48000</sample_rate>
-        <min_level_db>18.0</min_level_db>
-        <max_level_db>22.0</max_level_db>
+      100x Input Level Check 7-8
+      <type>Relative level check</type>
+      <output_amplitude_db>-144.0</output_amplitude_db>
+      <input>6</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_level_db>18.0</min_level_db>
+      <max_level_db>22.0</max_level_db>
     </test>
-    
+
     <!-- Test gain settings for inputs and outputs -->
 
     <AIO_write_test_adapter byte="0x30"/> <!-- set adapter for audio measurements-->
@@ -273,8 +272,20 @@
       <output>2</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-10.0</output_amplitude_db>
-      <pass_threshold_db>-69.0</pass_threshold_db>
+      <output_frequency>1000.0</output_frequency>
+      <output_amplitude_db>-2.0</output_amplitude_db>
+      <pass_threshold_db>-60.0</pass_threshold_db>
+    </test>
+
+    <test>
+      <type>Differential THD+N</type>
+      <input>4</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_frequency>7200.0</output_frequency>
+      <output_amplitude_db>-2.0</output_amplitude_db>
+      <pass_threshold_db>-46.0</pass_threshold_db>
     </test>
 
     <test>
@@ -287,49 +298,22 @@
       <pass_threshold_db>100.0</pass_threshold_db>
     </test>
 
-    <!-- Frequency response tests for 5-6 -->
-
     <test>
-      <type>Frequency response</type>
+      <type>Frequency sweep response</type>
       <input>4</input>
       <output>2</output>
       <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
+      <sample_rate>96000</sample_rate>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
-      <pass_threshold_db>-13.5</pass_threshold_db>
-      <Glitch_threshold>16.0</Glitch_threshold>
+      <pass_threshold_db>0.4</pass_threshold_db>
+      <sweep_time_seconds>2.0</sweep_time_seconds>
+      <sweep_delay_seconds>0.4</sweep_delay_seconds>
+      <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
+      <sweep_fadeout_seconds>0.1</sweep_fadeout_seconds>
+      <sweep_record_seconds>4.0</sweep_record_seconds>
     </test>
-    <test>
-      <type>Frequency response</type>
-      <input>4</input>
-      <output>2</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-10.0</output_amplitude_db>
-      <output_frequency>1000.0</output_frequency>
-      <pass_threshold_db>-13.5</pass_threshold_db>
-    </test>
-    <test>
-      <type>Frequency response</type>
-      <input>4</input>
-      <output>2</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-10.0</output_amplitude_db>
-      <output_frequency>10000.0</output_frequency>
-      <pass_threshold_db>-13.5</pass_threshold_db>
-    </test>
-    <test>
-      <type>Frequency response</type>
-      <input>4</input>
-      <output>2</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-10.0</output_amplitude_db>
-      <output_frequency>20000.0</output_frequency>
-      <pass_threshold_db>-13.5</pass_threshold_db>
-    </test>
+
 
     <!-- THD+N and DNR Channels 7-8 -->
 
@@ -340,8 +324,20 @@
       <output>2</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-10.0</output_amplitude_db>
-      <pass_threshold_db>-69.0</pass_threshold_db>
+      <output_frequency>1000.0</output_frequency>
+      <output_amplitude_db>-2.0</output_amplitude_db>
+      <pass_threshold_db>-60.0</pass_threshold_db>
+    </test>
+
+    <test>
+      <type>Differential THD+N</type>
+      <input>6</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_frequency>7200.0</output_frequency>
+      <output_amplitude_db>-2.0</output_amplitude_db>
+      <pass_threshold_db>-46.0</pass_threshold_db>
     </test>
 
     <test>
@@ -357,45 +353,19 @@
     <!-- Frequency response tests for 7-8 -->
 
     <test>
-      <type>Frequency response</type>
+      <type>Frequency sweep response</type>
       <input>6</input>
       <output>2</output>
       <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
+      <sample_rate>96000</sample_rate>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
-      <pass_threshold_db>-13.5</pass_threshold_db>
-      <Glitch_threshold>16.0</Glitch_threshold>
-    </test>
-    <test>
-      <type>Frequency response</type>
-      <input>6</input>
-      <output>2</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-10.0</output_amplitude_db>
-      <output_frequency>1000.0</output_frequency>
-      <pass_threshold_db>-13.5</pass_threshold_db>
-    </test>
-    <test>
-      <type>Frequency response</type>
-      <input>6</input>
-      <output>2</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-10.0</output_amplitude_db>
-      <output_frequency>10000.0</output_frequency>
-      <pass_threshold_db>-13.5</pass_threshold_db>
-    </test>
-    <test>
-      <type>Frequency response</type>
-      <input>6</input>
-      <output>2</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-10.0</output_amplitude_db>
-      <output_frequency>20000.0</output_frequency>
-      <pass_threshold_db>-13.5</pass_threshold_db>
+      <pass_threshold_db>0.4</pass_threshold_db>
+      <sweep_time_seconds>2.0</sweep_time_seconds>
+      <sweep_delay_seconds>0.4</sweep_delay_seconds>
+      <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
+      <sweep_fadeout_seconds>0.1</sweep_fadeout_seconds>
+      <sweep_record_seconds>4.0</sweep_record_seconds>
     </test>
 
   </device>
