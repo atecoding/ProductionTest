@@ -72,7 +72,8 @@ _devlist(devlist),
 _content(content),
 _asio(nullptr),
 active_outputs(0),
-_script(NULL)
+_script(NULL),
+calibrationManager(this)
 {
 	zerostruct(input_meters);
 
@@ -603,6 +604,12 @@ void ProductionUnit::handleMessage(const Message &message)
 			ParseScript();
 		}
 		break;
+            
+        case MESSAGE_AIOS_CALIBRATION_DONE:
+        {
+            finishAIOSCalibration();
+        }
+        break;
 	}
 }
 
@@ -1454,6 +1461,13 @@ void ProductionUnit::ParseScript()
             runAIOTest(RunFlashMemoryTest, "Flash memory");
             continue;
         }
+        
+        if (_script->hasTagName("AIOS_calibrate"))
+        {
+            calibrationManager.startIntegratedSpeakerMonitorCalibration(_dev);
+            _script = _script->getNextElement();
+            return;
+        }
 #endif
         
         //-----------------------------------------------------------------------------
@@ -1501,7 +1515,6 @@ void ProductionUnit::ParseScript()
 	//
 	// Pass or fail?
 	//
-
 	if (_num_tests)
     {
 		String msg;
@@ -1755,7 +1768,7 @@ void ProductionUnit::runAIOTest(AIOTestVector function, String const groupName)
                        _content,
                        errorCodes) == TestPrompt::ok;
     
-    _content->log(msg);
+    _content->log(msg + "\n");
     
     _unit_passed &= ok;
     
@@ -1776,4 +1789,41 @@ void ProductionUnit::runAIOTest(AIOTestVector function, String const groupName)
     
     _script = _script->getNextElement();
 }
+
+void ProductionUnit::finishAIOSCalibration()
+{
+    const String testName("AIO-S Calibration");
+    
+    switch (calibrationManager.getState())
+    {
+    default:
+        {
+            _content->AddResult(testName, false);
+            _content->log("*** AIO-S calibration failed");
+            _content->log("*** Unexpected calibraton manager state " + String((int)calibrationManager.getState()));
+            _unit_passed = false;
+        }
+        break;
+            
+    case CalibrationManager::STATE_CANCELLED:
+        {
+            _content->AddResult(testName, false);
+            _content->log("*** AIO-S calibration failed");
+            _unit_passed = false;
+        }
+        break;
+    
+    case CalibrationManager::STATE_FINISH_INTEGRATED_SPEAKER_MONITOR_TEST:
+        {
+            _content->AddResult(testName, true);
+            _content->log("AIO-S calibration OK");
+            _content->log( calibrationManager.calibrationDataAIOS.toString() );
+        }
+        break;
+            
+    }
+
+    ParseScript();
+}
+
 #endif

@@ -2,32 +2,33 @@
 #include "ehw.h"
 #include "ehwlist.h"
 #include "AcousticIO.h"
-#include "../CalibrationData.h"
+#include "../calibration/CalibrationData.h"
 
 ehw::ehw(IOUSBDeviceInterface** deviceInterface_) :
 deviceInterface(deviceInterface_)
 {
     uint16 productID = 0;
     
+    (*deviceInterface_)->GetDeviceReleaseNumber(deviceInterface_,&firmwareVersion);
     (*deviceInterface_)->GetDeviceProduct(deviceInterface_,&productID);
+    
+    uint8 moduleTypes = getModuleTypes();
     switch (productID)
     {
         case hwcaps::ACOUSTICIO_PRODUCT_ID:
-            description = new DescriptionAIO;
+            description = new DescriptionAIO(moduleTypes);
             break;
             
         case hwcaps::ACOUSTICIO_MB_PRODUCT_ID:
-            description = new DescriptionAMB;
+            description = new DescriptionAMB(moduleTypes);
             break;
             
         default:
-            description = new Description;
+            description = new Description(moduleTypes);
             break;
     }
     
     _caps.init(productID);
-    
-    (*deviceInterface_)->GetDeviceReleaseNumber(deviceInterface_,&firmwareVersion);
 }
 
 ehw::~ehw()
@@ -49,6 +50,61 @@ uint64 ehw::GetSerialNumber()
     jassertfalse;
     return 0;
 }
+
+uint8 ehw::getModuleTypes()
+{
+    uint8 moduleTypes = 0;
+    if (firmwareVersion >= ACOUSTICIO_MODULE_TYPE_CONTROL_MIN_FIRMWARE_VERSION)
+    {
+        //
+        // Use ACOUSTICIO_MODULE_TYPE_CONTROL to detect AIO-S or analog module
+        //
+        IOReturn status = getRequest(ACOUSTICIO_EXTENSION_UNIT, ACOUSTICIO_MODULE_TYPE_CONTROL, 0, &moduleTypes, 1);
+        Result result(createResult(status));
+        if (result.failed())
+            moduleTypes = 0;
+    }
+    else
+    {
+        //
+        // Use ACOUSTICIO_MODULE_STATUS_CONTROL for older firmware
+        //
+        uint8 moduleStatus = 0;
+        IOReturn status = getRequest(ACOUSTICIO_EXTENSION_UNIT, ACOUSTICIO_MODULE_STATUS_CONTROL, 0, &moduleStatus, 1);
+        Result result(createResult(status));
+        
+        if (result.failed())
+        {
+            moduleTypes = 0;
+        }
+        else
+        {
+            //
+            // Check the low 2 bits of moduleStatus - the module is present
+            // if the bit is low
+            //
+            if (moduleStatus & 2)
+            {
+                moduleTypes = ACOUSTICIO_MODULE_NOT_PRESENT;
+            }
+            else
+            {
+                moduleTypes = ACOUSTICIO_ANALOG_MODULE;
+            }
+            
+            if (moduleStatus & 1)
+            {
+                moduleTypes |= ACOUSTICIO_MODULE_NOT_PRESENT << 4;
+            }
+            else
+            {
+                moduleTypes |= ACOUSTICIO_ANALOG_MODULE << 4;
+            }
+        }
+    }
+    return moduleTypes;
+}
+
 
 uint32 ehw::getFirmwareVersion() const
 {
@@ -176,6 +232,20 @@ Result ehw::setMicGain(XmlElement const *element)
     return Result::fail(error);
 }
 
+Result ehw::setMicGain(uint8 channel, uint8 gain)
+{
+    IOReturn rc = setRequest(ACOUSTICIO_EXTENSION_UNIT, ACOUSTICIO_MIC_GAIN_CONTROL, channel, &gain, 1);
+    
+    if (kIOReturnSuccess == rc)
+    {
+        return Result::ok();
+    }
+    
+    String error("Failed to set mic gain");
+    error += " - error " + String::toHexString(rc);
+    return Result::fail(error);
+}
+
 Result ehw::setAmpGain(XmlElement const *element)
 {
     uint8 channel;
@@ -254,6 +324,21 @@ Result ehw::setAmpGain(XmlElement const *element)
     }
     
     String error("Failed to set amp gain for input " + String((int)channel));
+    error += " - error " + String::toHexString(rc);
+    return Result::fail(error);
+}
+
+
+Result ehw::setAmpGain(uint8 channel, uint8 gain)
+{
+    IOReturn rc = setRequest(ACOUSTICIO_EXTENSION_UNIT, ACOUSTICIO_AMP_GAIN_CONTROL, channel, &gain, 1);
+    
+    if (kIOReturnSuccess == rc)
+    {
+        return Result::ok();
+    }
+    
+    String error("Failed to set amp gain");
     error += " - error " + String::toHexString(rc);
     return Result::fail(error);
 }
@@ -344,12 +429,12 @@ Result ehw::setAIOSReferenceVoltage(XmlElement const *element)
     }
     
     bool enabled = element->getIntAttribute("enabled", 0) != 0;
-    return setAIOSReferenceVoltage(enabled);
+    int const module = 0;
+    return setAIOSReferenceVoltage(module, enabled);
 }
 
-Result ehw::setAIOSReferenceVoltage(bool const enabled)
+Result ehw::setAIOSReferenceVoltage(int const module, bool const enabled)
 {
-    uint8 const module = 0; // assume AIO center module for now
     IOReturn rc = setRequest(ACOUSTICIO_EXTENSION_UNIT, ACOUSTICIO_CALIBRATION_VOLTAGE_CONTROL, module, (uint8 *)&enabled, 1);
     
     if (kIOReturnSuccess == rc)
@@ -400,12 +485,28 @@ Result ehw::clearRAMCalibrationData()
 {
     AIOSCalibrationData data;
     
+    return setCalibrationData(&data.data);
+}
+
+Result ehw::setCalibrationData(AcousticIOCalibrationData const * const data)
+{
     IOReturn rc = setRequest(ACOUSTICIO_EXTENSION_UNIT, ACOUSTICIO_CALIBRATION_DATA_CONTROL,
-                             0, (uint8*)&(data.data), sizeof(AcousticIOCalibrationData));
+                             0, (uint8*)data, sizeof(AcousticIOCalibrationData));
     if (kIOReturnSuccess == rc)
         return Result::ok();
     
-    String error("Failed to clear RAM calibration data ");
+    String error("Failed to set RAM calibration data ");
     error += " - error " + String::toHexString((int32)rc);
+    return Result::fail(error);
+}
+
+Result ehw::getCalibrationData(AcousticIOCalibrationData * const data)
+{
+    IOReturn rc = getRequest(ACOUSTICIO_EXTENSION_UNIT, ACOUSTICIO_CALIBRATION_DATA_CONTROL, 0, (uint8*)data, sizeof(AcousticIOCalibrationData));
+    if (kIOReturnSuccess == rc)
+        return Result::ok();
+    
+    String error("Failed to read RAM calibration data");
+    error += " - error " + String::toHexString(rc);
     return Result::fail(error);
 }

@@ -6,6 +6,7 @@
 
 #if ACOUSTICIO_BUILD
 #include "AIOTestAdapter.h"
+#include "calibration/CalibrationManager.h"
 class Content;
 typedef bool (*AIOTestVector)(XmlElement const *element, ehw *dev, String &msg, int &displayedInput, AIOTestAdapter &testAdapter, Content *content, ErrorCodes &errorCodes);
 #endif
@@ -109,6 +110,9 @@ protected:
 
 #if ACOUSTICIO_BUILD
 	AIOTestAdapter aioTestAdapter;
+    CalibrationManager calibrationManager;
+    
     void runAIOTest(AIOTestVector function, String const groupName);
+    void finishAIOSCalibration();
 #endif
 };

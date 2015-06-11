@@ -40,7 +40,7 @@ public:
 	void log(String msg);
 	void setFinalResult(String text,Colour color);
 
-	void AddResult(String &name,int pass);
+	void AddResult(String const &name,int pass);
 	void FinishTests(bool pass,bool skipped);
 	void Reset();
 

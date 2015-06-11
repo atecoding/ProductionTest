@@ -47,7 +47,7 @@ class ehwlist
 protected:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ehwlist);
     
-    OwnedArray<ehw> devices;
+    ReferenceCountedArray<ehw> devices;
     
     static void serviceMatched(void *context,io_iterator_t iterator);
     static void serviceTerminated(void *context,io_iterator_t iterator);

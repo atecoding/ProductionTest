@@ -22,6 +22,7 @@
 
 #include "hwcaps.h"
 #include "Description.h"
+#include "../calibration/CalibrationData.h"
 
 //
 // ehw
@@ -33,15 +34,20 @@ class ehwlist;
 #define DBG_PRINTF(x) DBG(String::formatted x )
 #endif
 
-class ehw //: public ReferenceCountedObject
+class ehw : public ReferenceCountedObject
 {
 public:
-	//typedef ReferenceCountedObjectPtr<ehw> ptr;
+	typedef ReferenceCountedObjectPtr<ehw> ptr;
 
     ehw(IOUSBDeviceInterface** deviceInterface_);
 	~ehw();
 	
 	void removed();
+    
+    Description const * const getDescription() const
+    {
+        return description;
+    }
     
 	hwcaps *getcaps()
 	{	
@@ -210,16 +216,20 @@ public:
 	
 #if ACOUSTICIO_BUILD
 
-	Result setMicGain(XmlElement const *element);
+    Result setMicGain(uint8 channel, uint8 gain);
+    Result setAmpGain(uint8 channel, uint8 gain);
+    Result setMicGain(XmlElement const *element);
 	Result setAmpGain(XmlElement const *element);
 	Result setConstantCurrent(XmlElement const *element);
 	Result setConstantCurrent(uint8 const input, uint8 const enabled);
     Result readTEDSData(uint8 const input, uint8* data, size_t dataBufferBytes);
     Result setAIOSReferenceVoltage(XmlElement const *element);
-    Result setAIOSReferenceVoltage(bool const enabled);
+    Result setAIOSReferenceVoltage(int const module, bool const enabled);
     Result readFlashBlock(uint8 const block, uint8 * const buffer, size_t const bufferBytes);
     Result writeFlashBlock(uint8 const block, uint8 const * const buffer, size_t const bufferBytes);
     Result clearRAMCalibrationData();
+    Result setCalibrationData(AcousticIOCalibrationData const * const data);
+    Result getCalibrationData(AcousticIOCalibrationData * const data);
     
 #endif
 
@@ -267,6 +277,8 @@ protected:
     
     IOUSBDeviceInterface** deviceInterface;
     ScopedPointer<Description> description;
+    
+    uint8 getModuleTypes();
     
     Result createResult(IOReturn const status);
     IOReturn setRequest(uint8 unit, uint8 type, uint8 channel, uint8 *data, uint16 length);

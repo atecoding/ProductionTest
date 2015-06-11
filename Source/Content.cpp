@@ -347,7 +347,7 @@ void Content::resized()
 #endif
 }
 
-void Content::AddResult(String &name,int pass)
+void Content::AddResult(String const &name,int pass)
 {
 	if(name[0] != '%')
 		_group_names.add(name);
