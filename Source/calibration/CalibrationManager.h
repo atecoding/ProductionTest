@@ -90,7 +90,8 @@ public:
     static const float AIOSReferencePeakVolts;
     static const float voltageInputPeakVolts;
     static const float voltageOutputPeakVolts;
-    static const float expectedAIOSVoltageInputResult;
+    static const float expectedAIOSVoltageInputReferenceSignalResult;
+    static const float expectedAIOSVoltageInputWithCalibratedOutputResult;
     static const float expectedAIO2VoltageInputResult;
     static const float expectedVoltageOutputResult;
     static const float expectedVoltageOverCurrent;
@@ -101,20 +102,24 @@ public:
 
 	struct Limits
 	{
-		Limits(float const voltageOutputMin,
-			float const voltageOutputMax,
-			float const voltageInputMin,
-			float const voltageInputMax,
-			float const currentInputMin,
-			float const currentInputMax) :
+		Limits( float const uncalibratedVoltageInputMin,
+                float const uncalibratedVoltageInputMax,
+                float const voltageOutputMin,
+                float const voltageOutputMax,
+                float const calibratedVoltageInputMin,
+                float const calibratedVoltageInputMax,
+                float const currentInputMin,
+                float const currentInputMax) :
+            uncalibratedVoltageInput(uncalibratedVoltageInputMin, uncalibratedVoltageInputMax),
 			voltageOutput(voltageOutputMin, voltageOutputMax),
-			voltageInput(voltageInputMin, voltageInputMax),
+			calibratedVoltageInput(calibratedVoltageInputMin, calibratedVoltageInputMax),
 			currentInput(currentInputMin, currentInputMax)
 		{
 		}
 
+        Range<float> const uncalibratedVoltageInput;
 		Range<float> const voltageOutput;
-		Range<float> const voltageInput;
+        Range<float> const calibratedVoltageInput;
 		Range<float> const currentInput;
 
 		JUCE_DECLARE_NON_COPYABLE(Limits);

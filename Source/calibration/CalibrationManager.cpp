@@ -19,7 +19,8 @@ static const float externalSpeakerMonitorTolerance = 0.005f; // +/- 0.5%
 const float CalibrationManager::AIOSReferencePeakVolts = 2.5f;   // Reference signal is 0 to +5V, but AC coupled so -2.5V to +2.5V
 const float CalibrationManager::voltageInputPeakVolts = 8.75f;    // Max +8.75V, min -8.75V, common to AIO-2 and AIO-S
 const float CalibrationManager::voltageOutputPeakVolts = 13.5f;   // Max +13.5V, min -13.5V, common to AIO-2 and AIO-S
-const float CalibrationManager::expectedAIOSVoltageInputResult = (AIOSReferencePeakVolts * 2.0f) / voltageInputPeakVolts;
+const float CalibrationManager::expectedAIOSVoltageInputReferenceSignalResult = (AIOSReferencePeakVolts * 2.0f) / voltageInputPeakVolts;
+const float CalibrationManager::expectedAIOSVoltageInputWithCalibratedOutputResult = (voltageOutputPeakVolts / voltageInputPeakVolts) *voltageOutputAmplitude;
 const float CalibrationManager::expectedAIO2VoltageInputResult = (voltageOutputPeakVolts * voltageOutputAmplitude) / voltageInputPeakVolts;
 const float CalibrationManager::expectedVoltageOutputResult = (voltageOutputPeakVolts / voltageInputPeakVolts) * voltageOutputAmplitude;
 const float CalibrationManager::expectedVoltageOverCurrent = 5.0f;
@@ -34,22 +35,33 @@ const String CalibrationManager::voltageOutputName("Output voltage");
 
 CalibrationManager::Limits CalibrationManager::limitsExternalSpeakerMonitor
 (
+	0.6f, // uncalibratedVoltageInputMin
+	0.8f, // uncalibratedVoltageInputMax
 	0.6f, // voltageOutputMin
 	0.8f, // voltageOutputMax
-	0.6f, // voltageInputMin
-	0.8f, // voltageInputMax
+	0.6f, // uncalibratedVoltageInputMin
+	0.8f, // uncalibratedVoltageInputMax
 	0.6f, // currentInputMin
 	0.8f  // currentInputMax
 );
 
 CalibrationManager::Limits CalibrationManager::limitsAIOS
 (
-	0.25f, // voltageOutputMin
-	0.85f, // voltageOutputMax
-	0.25f, // voltageInputMin
-	0.85f, // voltageInputMax
-	0.01f, // currentInputMin
-	0.35f  // currentInputMax
+    // Uncalibrated voltage input - 5V ref signal into voltage input
+	expectedAIOSVoltageInputReferenceSignalResult * 0.94f, // voltageInputMin - nominal 0.571
+	expectedAIOSVoltageInputReferenceSignalResult * 1.06f, // voltageInputMax
+ 
+    // Uncalibrated voltage output into calibrated voltage input
+	expectedVoltageOutputResult * 0.88f, // voltageOutputMin - nominal 0.771
+	expectedVoltageOutputResult * 1.12f, // voltageOutputMax
+
+    // Calibrated voltage output into calibrated voltage input
+	expectedAIOSVoltageInputWithCalibratedOutputResult * 0.94f, // voltageInputMin - nominal 0.571
+	expectedAIOSVoltageInputWithCalibratedOutputResult * 1.06f, // voltageInputMax
+ 
+    // Current input
+    (expectedVoltageOutputResult / expectedVoltageOverCurrent) * 0.99f, // currentInputMin - nominal 0.154
+	(expectedVoltageOutputResult / expectedVoltageOverCurrent) * 1.01f // currentInputMax
 );
 
 CalibrationManager::CalibrationManager(MessageListener *messageListener_) :
@@ -200,6 +212,8 @@ Result CalibrationManager::startIODevice()
 	inputChannels.setRange(0, inputNames.size(), true);
 	outputChannels.setRange(0, outputNames.size(), true);
 	String openResult(ioDevice->open(inputChannels, outputChannels, sampleRate, ioDevice->getDefaultBufferSize()));
+    DBG("inputChannels:" + inputChannels.toString(16) + " outputChannels:" + outputChannels.toString(16) +
+        " sampleRate:" + String(sampleRate,0));
 	if (openResult.isNotEmpty())
 	{
 		DBG("CalibrationManager::startIODevice open error " + openResult);
@@ -1035,7 +1049,7 @@ void CalibrationManager::analyzeVoltageInput()
 		positiveCalibrationResults[voltageInputChannel],
 		negativeCalibrationResults[voltageInputChannel],
 		voltage,
-		limits->voltageInput));
+		limits->uncalibratedVoltageInput));
 	if (analysisResult.wasOk())
 	{
 #if SHOW_INTERMEDIATE_RESULTS
@@ -1069,12 +1083,12 @@ void CalibrationManager::storeVoltageInputResults()
 	{
 	case ACOUSTICIO_SPKRMON_MODULE:
 		{
-            DBG("ACOUSTICIO_SPKRMON_MODULE");
-            
-            float ratio = expectedAIOSVoltageInputResult / voltage;
+            float ratio = expectedAIOSVoltageInputReferenceSignalResult / voltage;
 			uint16 value = (uint16)(ratio * 32768.0f);
 			calibrationDataAIOS.data.inputGains[AIOS_VOLTAGE_INPUT_CHANNEL] = value;
-
+            
+            DBG(calibrationDataAIOS.toString());
+            
 			Result storeResult(setActiveCalibration());
             DBG("Result " + storeResult.getErrorMessage());
 			if (storeResult.failed())
@@ -1243,6 +1257,8 @@ void CalibrationManager::storeVoltageOutputCalibration()
 			float ratio = expectedVoltageOutputResult / voltage;
 			uint16 value = (uint16)(ratio * 32768.0f);
 			calibrationDataAIOS.data.outputGains[AIOS_VOLTAGE_OUTPUT_CHANNEL] = value;
+            
+            DBG(calibrationDataAIOS.toString());
 
 			Result storeResult(setActiveCalibration());
 			if (storeResult.failed())
@@ -1297,7 +1313,7 @@ void CalibrationManager::analyzeCurrentInput()
 				positiveCalibrationResults[voltageInputChannel],
 				negativeCalibrationResults[voltageInputChannel],
 				voltage,
-				limits->voltageInput));
+				limits->calibratedVoltageInput));
 			Result currentAnalysisResult(analyze(currentInputName,
 				audioIOCallback.recordBuffer.getReadPointer(currentInputChannel),
 				audioIOCallback.recordPosition,
@@ -1370,6 +1386,8 @@ void CalibrationManager::storeCurrentInputResults()
 			ratio = ratio / expectedVoltageOverCurrent;
 			uint16 value = (uint16)(ratio * 32768.0f);
 			calibrationDataAIOS.data.inputGains[currentInputChannel] = value;
+            
+            DBG(calibrationDataAIOS.toString());
 
 			Result storeResult(setActiveCalibration());
 			if (storeResult.failed())
@@ -1463,7 +1481,7 @@ void CalibrationManager::analyzeResistanceMeasurement()
 		positiveCalibrationResults[AIOS_VOLTAGE_INPUT_CHANNEL],
 		negativeCalibrationResults[AIOS_VOLTAGE_INPUT_CHANNEL],
 		voltage,
-		limits->voltageInput);
+		limits->calibratedVoltageInput);
 	analyze(currentInputName,
 		audioIOCallback.recordBuffer.getReadPointer(AIOS_CURRENT_INPUT_CHANNEL),
 		audioIOCallback.recordPosition,
@@ -1644,7 +1662,7 @@ void CalibrationManager::finishExternalSpeakerMonitorTest()
 		positiveCalibrationResults[voltageInputChannel],
 		negativeCalibrationResults[voltageInputChannel],
 		voltage,
-		limits->voltageInput));
+		limits->calibratedVoltageInput));
 	Result currentAnalysisResult(analyze(currentInputName,
 		audioIOCallback.recordBuffer.getReadPointer(currentInputChannel),
 		audioIOCallback.recordPosition,

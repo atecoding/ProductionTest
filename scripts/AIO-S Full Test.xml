@@ -811,6 +811,11 @@
       <sweep_fadeout_seconds>0.1</sweep_fadeout_seconds>
       <sweep_record_seconds>4.0</sweep_record_seconds>
     </test>
+    
+    <!-- Final calibration -->
+    <!-- This must be the last stage of the test or the CalibrationManager doesn't get CoreAudio callbacks -->
+    
+    <AIOS_calibrate/>
 
   </device>
 

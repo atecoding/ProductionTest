@@ -1465,7 +1465,20 @@ void ProductionUnit::ParseScript()
         
         if (_script->hasTagName("AIOS_calibrate"))
         {
-            calibrationManager.startIntegratedSpeakerMonitorCalibration(_dev);
+            if (_unit_passed)
+            {
+                //
+                // Destroy this object's AudioIODevice - this means that the
+                // calibration has to be the last stage of the test
+                //
+                _asio = nullptr;
+                
+                //
+                // Start the calibration
+                //
+                calibrationManager.startIntegratedSpeakerMonitorCalibration(_dev);
+            }
+            
             _script = _script->getNextElement();
             return;
         }

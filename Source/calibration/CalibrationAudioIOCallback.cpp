@@ -19,6 +19,10 @@ CalibrationAudioIOCallback::~CalibrationAudioIOCallback()
 
 void CalibrationAudioIOCallback::audioDeviceAboutToStart(AudioIODevice* device)
 {
+    DBG("CalibrationAudioIOCallback::audioDeviceAboutToStart recordBuffer:" << recordBuffer.getNumSamples());
+    
+    callbackCount = 0;
+    
 	squareWavePeriodSamples = roundDoubleToInt(device->getCurrentSampleRate() / squareWaveFrequency);
 	squareWavePosition = 0;
 	
@@ -38,6 +42,7 @@ void CalibrationAudioIOCallback::audioDeviceIOCallback(const float** inputChanne
 
 void CalibrationAudioIOCallback::audioDeviceStopped()
 {
+    DBG("CalibrationAudioIOCallback::audioDeviceStopped() callbackCount:" << callbackCount << " recordPosition:" << recordPosition);
 }
 
 void CalibrationAudioIOCallback::fillSquareWave(AudioSampleBuffer &outputBuffer)
