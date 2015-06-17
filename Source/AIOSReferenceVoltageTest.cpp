@@ -18,7 +18,7 @@ Test(xe,ok,unit_)
     squareWavePosition = 0;
     squareWaveMaxAmplitude = 0.5f;
     squareWaveMinAmplitude = -0.5f;
-    squareWaveFrequency = 1000.0f;
+    squareWaveFrequency = 500.0f;
     squareWavePeriodSamples = roundDoubleToInt( double(sample_rate) / squareWaveFrequency);
 }
 
@@ -68,7 +68,7 @@ bool AIOSReferenceVoltageTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String 
             totalResult,allowed));
 
     msg = "     ";
-    msg += String(totalResult * voltageInputPeakVolts, 2) + " V";
+    msg += String(totalResult * voltageInputPeakVolts, 6) + " V";
     if (rangeResult.failed())
     {
         msg += " FAIL";

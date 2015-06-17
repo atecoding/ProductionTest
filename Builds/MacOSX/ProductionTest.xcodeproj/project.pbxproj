@@ -71,7 +71,6 @@
 		C9A44FB11B30A24A00E2AE06 /* AIO-S Full Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9679FC71B0D57E4001DDDB7 /* AIO-S Full Test.xml */; };
 		C9A44FB21B30A24A00E2AE06 /* AIO-S Module 1.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9679FC81B0D57E4001DDDB7 /* AIO-S Module 1.xml */; };
 		C9A44FB31B30A24A00E2AE06 /* AIO-S Module 2.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9679FC91B0D57E4001DDDB7 /* AIO-S Module 2.xml */; };
-		C9A44FB41B30A5CB00E2AE06 /* AIO-S Calibrate-O-Matic.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9288FCE1B29441800E09090 /* AIO-S Calibrate-O-Matic.xml */; };
 		C9BC4A451B1E4E7C009736B7 /* Upsampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BC4A431B1E4E7C009736B7 /* Upsampler.cpp */; };
 		C9BC4A521B1E566E009736B7 /* r8bbase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BC4A511B1E566E009736B7 /* r8bbase.cpp */; };
 		C9F48E9E1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F48E9D1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp */; };
@@ -2666,7 +2665,6 @@
 				C95C66351B0A787300DA394D /* factory.icns in Resources */,
 				C9A44FB31B30A24A00E2AE06 /* AIO-S Module 2.xml in Resources */,
 				C95C66321B0A765000DA394D /* AIO-2 Module 2.xml in Resources */,
-				C9A44FB41B30A5CB00E2AE06 /* AIO-S Calibrate-O-Matic.xml in Resources */,
 				C9A44FB21B30A24A00E2AE06 /* AIO-S Module 1.xml in Resources */,
 				C95C66311B0A765000DA394D /* AIO-2 Module 1.xml in Resources */,
 				C9A44FB11B30A24A00E2AE06 /* AIO-S Full Test.xml in Resources */,
