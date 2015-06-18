@@ -60,8 +60,8 @@ CalibrationManager::Limits CalibrationManager::limitsAIOS
 	expectedAIOSVoltageInputWithCalibratedOutputResult * 1.06f, // voltageInputMax
  
     // Current input
-    (expectedVoltageOutputResult / expectedVoltageOverCurrent) * 0.99f, // currentInputMin - nominal 0.154
-	(expectedVoltageOutputResult / expectedVoltageOverCurrent) * 1.01f // currentInputMax
+    (expectedVoltageOutputResult / expectedVoltageOverCurrent) * 0.94f, // currentInputMin - nominal 0.154
+	(expectedVoltageOutputResult / expectedVoltageOverCurrent) * 1.06f // currentInputMax
 );
 
 CalibrationManager::CalibrationManager(MessageListener *messageListener_) :
@@ -99,6 +99,8 @@ void CalibrationManager::startIntegratedSpeakerMonitorCalibration(ReferenceCount
 	voltageInputChannel = AIOS_VOLTAGE_INPUT_CHANNEL;
 	currentInputChannel = AIOS_CURRENT_INPUT_CHANNEL;
 	voltageOutputChannel = AIOS_VOLTAGE_OUTPUT_CHANNEL;
+    
+    results = String::empty;
 
 	state = STATE_START_CALIBRATE_VOLTAGE_INPUT_WITH_REFERENCE_VOLTAGE;
 	usbDevice = device_;
@@ -352,7 +354,7 @@ Result CalibrationManager::analyze(
 		return Result::ok();
 	}
 
-	return Result::fail(name + " out of range (value " + String(totalResult,1) + ")");
+	return Result::fail(name + " out of range (value " + String(totalResult,4) + ")");
 }
 
 void CalibrationManager::findZeroCrossing(const float * data, int numSamples, int startIndex, int &zeroCrossingIndex)
@@ -979,6 +981,8 @@ void CalibrationManager::startCalibrateVoltageInputWithReferenceVoltage()
 				setResult = usbDevice->setConstantCurrent(AIOS_CURRENT_INPUT_CHANNEL, false);
 				if (setResult.failed())
 				{
+                    results += setResult.getErrorMessage() + newLine;
+                    
 					AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), setResult.getErrorMessage(), "Close");
                     state = STATE_CANCELLED;
 					return;
@@ -986,11 +990,19 @@ void CalibrationManager::startCalibrateVoltageInputWithReferenceVoltage()
 			}
 		}
 	}
+    
+    if (setResult.failed())
+    {
+        results += setResult.getErrorMessage() + newLine;
+        state = STATE_CANCELLED;
+        return;
+    }
 
 	calibrationDataAIOS.reset();
 	setResult = setActiveCalibration();
 	if (setResult.failed())
 	{
+        results += setResult.getErrorMessage() + newLine;
 		AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), setResult.getErrorMessage(), "Close");
         state = STATE_CANCELLED;
 		return;
@@ -1002,6 +1014,7 @@ void CalibrationManager::startCalibrateVoltageInputWithReferenceVoltage()
 	Result setCVResult(usbDevice->setAIOSReferenceVoltage(0, true));
 	if (setCVResult.failed())
 	{
+        results += setCVResult.getErrorMessage() + newLine;
 		AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), setCVResult.getErrorMessage(), "Close");
         state = STATE_CANCELLED;
 		return;
@@ -1015,6 +1028,7 @@ void CalibrationManager::startCalibrateVoltageInputWithReferenceVoltage()
 	Result startIOResult(startIODevice());
 	if (startIOResult.failed())
 	{
+        results += startIOResult.getErrorMessage() + newLine;
 		AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), startIOResult.getErrorMessage(), "Close");
         state = STATE_CANCELLED;
 		return;
@@ -1038,6 +1052,7 @@ void CalibrationManager::analyzeVoltageInput()
 		Result setCVResult(usbDevice->setAIOSReferenceVoltage(0, false));
 		if (setCVResult.failed())
 		{
+            results += setCVResult.getErrorMessage() + newLine;
 			AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), setCVResult.getErrorMessage(), "Close");
 			return;
 		}
@@ -1050,6 +1065,17 @@ void CalibrationManager::analyzeVoltageInput()
 		negativeCalibrationResults[voltageInputChannel],
 		voltage,
 		limits->uncalibratedVoltageInput));
+    
+    results += "     Uncalibrated voltage input ratio: " + String(voltage, 4);
+    if (analysisResult.wasOk())
+    {
+        results += " OK" + newLine;
+    }
+    else
+    {
+        results += " FAIL" + newLine;
+    }
+    
 	if (analysisResult.wasOk())
 	{
 #if SHOW_INTERMEDIATE_RESULTS
@@ -1223,6 +1249,17 @@ void CalibrationManager::analyzeVoltageOutput()
 		negativeCalibrationResults[voltageInputChannel],
 		voltage,
 		limits->voltageOutput));
+    
+    results += "     Uncalibrated voltage output ratio: " + String(voltage, 4);
+    if (analysisResult.wasOk())
+    {
+        results += " OK" + newLine;
+    }
+    else
+    {
+        results += " FAIL" + newLine;
+    }
+    
 	if (analysisResult.wasOk())
 	{
 #if SHOW_INTERMEDIATE_RESULTS
@@ -1321,6 +1358,26 @@ void CalibrationManager::analyzeCurrentInput()
 				negativeCalibrationResults[currentInputChannel],
 				current,
 				limits->currentInput));
+            
+            results += "     Calibrated voltage input ratio: " + String(voltage, 4);
+            if (voltageAnalysisResult.wasOk())
+            {
+                results += " OK" + newLine;
+            }
+            else
+            {
+                results += " FAIL" + newLine;
+            }
+            
+            results += "     Uncalibrated current input ratio: " + String(current, 4);
+            if (currentAnalysisResult.wasOk())
+            {
+                results += " OK" + newLine;
+            }
+            else
+            {
+                results += " FAIL" + newLine;
+            }
 
 			if (voltageAnalysisResult.wasOk() && currentAnalysisResult.wasOk())
 			{
@@ -1802,6 +1859,11 @@ Result CalibrationManager::configureAIO()
 			}
 		}
 	}
+    
+    if (setResult.failed())
+    {
+        results += setResult.getErrorMessage() + newLine;
+    }
 
 	return setResult;
 }

@@ -84,6 +84,8 @@ bool AIOSReferenceVoltageTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String 
         msg += " OK";
     }
     
+    msg += newLine;
+    
     return rangeResult.wasOk();
 }
 

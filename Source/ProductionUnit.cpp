@@ -1808,12 +1808,15 @@ void ProductionUnit::finishAIOSCalibration()
 {
     const String testName("AIO-S Calibration");
     
+    _content->log(testName);
+    
+    
     switch (calibrationManager.getState())
     {
     default:
         {
             _content->AddResult(testName, false);
-            _content->log("*** AIO-S calibration failed");
+            _content->log("*** Calibration failed");
             _content->log("*** Unexpected calibraton manager state " + String((int)calibrationManager.getState()));
             _unit_passed = false;
         }
@@ -1822,7 +1825,8 @@ void ProductionUnit::finishAIOSCalibration()
     case CalibrationManager::STATE_CANCELLED:
         {
             _content->AddResult(testName, false);
-            _content->log("*** AIO-S calibration failed");
+            _content->log("*** Calibration failed");
+            _content->log(calibrationManager.results);
             _unit_passed = false;
         }
         break;
@@ -1830,7 +1834,9 @@ void ProductionUnit::finishAIOSCalibration()
     case CalibrationManager::STATE_FINISH_INTEGRATED_SPEAKER_MONITOR_TEST:
         {
             _content->AddResult(testName, true);
-            _content->log("AIO-S calibration OK");
+            _content->log("Calibration OK");
+            _content->log(calibrationManager.results);
+            _content->log( "Calibration Data");
             _content->log( calibrationManager.calibrationDataAIOS.toString() );
         }
         break;

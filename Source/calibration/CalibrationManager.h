@@ -86,6 +86,7 @@ public:
 
 	AIOSCalibrationData calibrationDataAIOS;
 	ExternalSpeakerMonitorCalibrationData calibrationDataExternal;
+    String results;
     
     static const float AIOSReferencePeakVolts;
     static const float voltageInputPeakVolts;

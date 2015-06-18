@@ -7,6 +7,7 @@
 #include "hwcaps.h"
 #if ACOUSTICIO_BUILD
 #include "AIOTestAdapter.h"
+#include "printer/Printer.h"
 #endif
 
 App *application;
@@ -29,6 +30,13 @@ void App::initialise (const String& commandLine)
     //DBG("App::initialise " << commandLine);
     
 	application = this;
+  
+#if 0
+    {
+        Printer printer;
+        printer.print("Hello");
+    }
+#endif
 
 	//
 	// Make sure this is the only instance running
