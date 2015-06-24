@@ -262,6 +262,12 @@
     <Filter Include="ProductionTest\Source\calibration">
       <UniqueIdentifier>{90a64c43-736d-4b42-a8eb-94f4b953aac2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ProductionTest\Source\printer">
+      <UniqueIdentifier>{eacd9cfc-6b6c-4beb-b8c7-b12b4d0cdf34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ProductionTest\Source\win32">
+      <UniqueIdentifier>{0d1f1afd-54d1-4b47-b7c5-a0141d92f97a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\Analysis.cpp">
@@ -1427,6 +1433,12 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\DescriptionAMB.cpp">
       <Filter>ProductionTest\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\printer\Printer.cpp">
+      <Filter>ProductionTest\Source\printer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\win32\Printer_win32.cpp">
+      <Filter>ProductionTest\Source\win32</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2764,6 +2776,9 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\DescriptionAMB.h">
       <Filter>ProductionTest\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\printer\Printer.h">
+      <Filter>ProductionTest\Source\printer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

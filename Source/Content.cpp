@@ -328,7 +328,7 @@ void Content::resized()
 	int x,y,w,h;
 	float split = 0.45f;
     
-	x = roundFloatToInt(getWidth() * split);
+	x = proportionOfWidth(split);
 	y = 26;
 	w = getWidth() - x - 4;
 	h = getHeight() - y;
@@ -342,12 +342,9 @@ void Content::resized()
 
 	startButton.setSize(80,30);
     stopButton.setSize(80,30);
-#ifdef JUCE_MAC
-    startButton.setCentrePosition( proportionOfWidth(split * 0.40f), getHeight() - stopButton.getHeight());
-    stopButton.setCentrePosition( proportionOfWidth(split * 0.60f), getHeight() - startButton.getHeight());
-#else
-	_start_button->setCentreRelative(split * 0.5f,0.9f);
-#endif
+	x = proportionOfWidth(split * 0.5f);
+	startButton.setTopLeftPosition(x - startButton.getWidth() - 10, getHeight() - stopButton.getHeight() - 10);
+	stopButton.setTopLeftPosition(x + 10, getHeight() - stopButton.getHeight() - 10);
 }
 
 void Content::AddResult(String const &name,int pass)

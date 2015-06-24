@@ -21,7 +21,7 @@
 #endif
 
 #ifdef ACOUSTICIO_BUILD
-#include "Printer.h"
+#include "printer/Printer.h"
 
 bool RunTEDSTest(XmlElement const *element,
                  ehw *dev,

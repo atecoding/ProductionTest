@@ -336,6 +336,7 @@
     <ClCompile Include="..\..\Source\MIDILoopTest.cpp" />
     <ClCompile Include="..\..\Source\MidiTest.cpp" />
     <ClCompile Include="..\..\Source\PhaseTest.cpp" />
+    <ClCompile Include="..\..\Source\printer\Printer.cpp" />
     <ClCompile Include="..\..\Source\ProductionUnit.cpp" />
     <ClCompile Include="..\..\Source\r8brain\r8bbase.cpp" />
     <ClCompile Include="..\..\Source\RelativeLevelTest.cpp" />
@@ -351,6 +352,7 @@
     <ClCompile Include="..\..\Source\win32\AIODevices_win.cpp" />
     <ClCompile Include="..\..\Source\win32\AIODevice_win.cpp" />
     <ClCompile Include="..\..\Source\win32\AIOTestAdapter_win.cpp" />
+    <ClCompile Include="..\..\Source\win32\Printer_win32.cpp" />
     <ClCompile Include="..\..\Source\win32\usb\ehwlist_usb.cpp" />
     <ClCompile Include="..\..\Source\win32\usb\hwcaps.cpp" />
     <ClCompile Include="..\..\Source\win32\usb\win\ehw.cpp" />
@@ -1393,6 +1395,7 @@
     <ClInclude Include="..\..\Source\MeterWindow.h" />
     <ClInclude Include="..\..\Source\MIDILoopTest.h" />
     <ClInclude Include="..\..\Source\OldMessage.h" />
+    <ClInclude Include="..\..\Source\printer\Printer.h" />
     <ClInclude Include="..\..\Source\ProductionUnit.h" />
     <ClInclude Include="..\..\Source\r8brain\CDSPBlockConvolver.h" />
     <ClInclude Include="..\..\Source\r8brain\CDSPFIRFilter.h" />
