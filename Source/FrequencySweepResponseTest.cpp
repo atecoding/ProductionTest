@@ -96,6 +96,8 @@ bool FrequencySweepResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,Strin
 			pass[channel] = FALSE;
 			msg += "    *** Input " + String(physicalInput + 1) + ":";
 			msg += "Invalid Waveform!" + newLine;
+            
+            errorCodes.add( ErrorCodes::LEVEL, physicalInput);
 		}
 		period_start += period;
 
@@ -111,6 +113,7 @@ bool FrequencySweepResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,Strin
 				pass[channel] = FALSE;
 				msg += "    *** Input " + String(physicalInput + 1) + ":";
 				msg += "Invalid Waveform!" + newLine;
+                errorCodes.add( ErrorCodes::LEVEL, physicalInput);
 				break;
 			}
 			period_start += period;
@@ -133,6 +136,7 @@ bool FrequencySweepResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,Strin
 				pass[channel] = FALSE;
 				msg += "    *** Input " + String(physicalInput + 1) + ":";
 				msg += "Invalid Waveform!" + newLine;
+                errorCodes.add( ErrorCodes::LEVEL, physicalInput);
 				break;
 			}
 			if (amplitude > max.amplitude)
@@ -164,6 +168,7 @@ bool FrequencySweepResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,Strin
 				pass[channel] = FALSE;
 				msg += "    *** Input " + String(physicalInput + 1) + ":";
 				msg += "Invalid Waveform!" + newLine;
+                errorCodes.add( ErrorCodes::LEVEL, physicalInput);
 				break;
 			}
 			if (amplitude > max.amplitude)
@@ -192,6 +197,7 @@ bool FrequencySweepResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,Strin
 				{
 					msg += "    *** Input " + String(physicalInput + 1) + ":";
 					pass[channel] = FALSE;
+                    errorCodes.add( ErrorCodes::LEVEL, physicalInput);
 				}
 				else
 					msg += "    Input " + String(physicalInput + 1) + ":";
@@ -207,6 +213,7 @@ bool FrequencySweepResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,Strin
 				pass[channel] = FALSE;
 				msg += "    *** Input " + String(physicalInput + 1) + ":";
 				msg += " Invalid Waveform!" + newLine;
+                errorCodes.add( ErrorCodes::LEVEL, physicalInput);
 			}
 		}
 
@@ -266,5 +273,6 @@ bool FrequencySweepResponseTest::getFreq(int &period_start,int &period,double &a
 	amplitude = max - min;
 	if (amplitude == 0.0)
 		return FALSE;
+    
 	return TRUE;
 }

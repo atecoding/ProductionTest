@@ -91,7 +91,7 @@ Content::Content(ehwlist *devlist,const StringArray &hardwareInstances_) :
 	//else
 	{
 		startButton.setEnabled(false);
-        stopButton.setEnabled(true);
+        stopButton.setEnabled(false);
 	}
 #endif
 

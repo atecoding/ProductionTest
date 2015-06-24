@@ -12,10 +12,16 @@ String const getMacModelID()
                                                                      kCFAllocatorDefault,
                                                                      0);
     
+    CFStringRef serialNumber = (CFStringRef)IORegistryEntryCreateCFProperty(service, CFSTR("IOPlatformSerialNumber"), kCFAllocatorDefault, 0);
+    
     const UInt8 *data = CFDataGetBytePtr(modelIDCF);
     CFIndex length = CFDataGetLength(modelIDCF);
     String modelIDString( (const char *)data, length - 1);
+
+    modelIDString += " " + String::fromCFString(serialNumber);
+
     CFRelease(modelIDCF);
+    CFRelease(serialNumber);
     IOObjectRelease(service);
     
     return modelIDString;
