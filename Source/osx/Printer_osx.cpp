@@ -3,7 +3,7 @@
 
 const String PrinterName("Brother_QL_710W");
 
-Result Printer::findPrinter()
+bool Printer::printerFound()
 {
     //
     // Use "lpstat -p" to search for the Brother printer
@@ -15,25 +15,31 @@ Result Printer::findPrinter()
         String output(process.readAllProcessOutput());
         DBG(output);
         
-       if (false == output.contains("printer " + PrinterName))
-           return Result::fail(PrinterName + " not found");
+        return output.contains("printer " + PrinterName);
     }
-    else
-    {
-        return Result::fail("Could not enumerate printers");
-    }
-    
-    return Result::ok();
-}
 
-
-Result Printer::configurePrinter()
-{
-    return Result::ok();
+    return false;
 }
 
 
 Result Printer::printInternal(String const text)
 {
+    File file(File::createTempFile(".txt"));
+    file.appendText(text);
+    
+    ChildProcess process;
+    String commandLine("lp ");
+    
+    commandLine += "-d " + PrinterName + " ";
+    commandLine += file.getFullPathName();
+    commandLine += " -o landscape ";
+    commandLine += " -o media=DC03 ";
+    if (process.start(commandLine))
+    {
+        process.waitForProcessToFinish(2000);
+    }
+    
+    file.deleteFile();
+    
     return Result::ok();
 }

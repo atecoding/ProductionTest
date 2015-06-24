@@ -20,7 +20,7 @@ const float CalibrationManager::AIOSReferencePeakVolts = 2.5f;   // Reference si
 const float CalibrationManager::voltageInputPeakVolts = 8.75f;    // Max +8.75V, min -8.75V, common to AIO-2 and AIO-S
 const float CalibrationManager::voltageOutputPeakVolts = 13.5f;   // Max +13.5V, min -13.5V, common to AIO-2 and AIO-S
 const float CalibrationManager::expectedAIOSVoltageInputReferenceSignalResult = (AIOSReferencePeakVolts * 2.0f) / voltageInputPeakVolts;
-const float CalibrationManager::expectedAIOSVoltageInputWithCalibratedOutputResult = (voltageOutputPeakVolts / voltageInputPeakVolts) *voltageOutputAmplitude;
+const float CalibrationManager::expectedAIOSVoltageInputWithCalibratedOutputResult = (voltageOutputPeakVolts / voltageInputPeakVolts) * voltageOutputAmplitude;
 const float CalibrationManager::expectedAIO2VoltageInputResult = (voltageOutputPeakVolts * voltageOutputAmplitude) / voltageInputPeakVolts;
 const float CalibrationManager::expectedVoltageOutputResult = (voltageOutputPeakVolts / voltageInputPeakVolts) * voltageOutputAmplitude;
 const float CalibrationManager::expectedVoltageOverCurrent = 5.0f;
@@ -56,7 +56,7 @@ CalibrationManager::Limits CalibrationManager::limitsAIOS
 	expectedVoltageOutputResult * 1.12f, // voltageOutputMax
 
     // Calibrated voltage output into calibrated voltage input
-	expectedAIOSVoltageInputWithCalibratedOutputResult * 0.94f, // voltageInputMin - nominal 0.571
+	expectedAIOSVoltageInputWithCalibratedOutputResult * 0.94f, // voltageInputMin - nominal 0.771
 	expectedAIOSVoltageInputWithCalibratedOutputResult * 1.06f, // voltageInputMax
  
     // Current input

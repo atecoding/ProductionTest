@@ -26,7 +26,9 @@ public:
         MIC_SUPPLY_CURRENT,
         AIOS_REFERENCE_VOLTAGE,
         FIRMWARE,
-        FLASH
+        FLASH,
+        
+        LAST
     };
     
 protected:

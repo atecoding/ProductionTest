@@ -450,6 +450,15 @@
       <sweep_fadeout_seconds>0.1</sweep_fadeout_seconds>
       <sweep_record_seconds>4.0</sweep_record_seconds>
     </test>
+    
+    <!--
+    <Print_error_codes>
+        <text> - Module 1</text>
+        <first_channel>0</first_channel>
+        <last_channel>3</last_channel>
+        <codes>0 1 2 4 5 6</codes>
+    </Print_error_codes>
+    -->
 
   </device>
 

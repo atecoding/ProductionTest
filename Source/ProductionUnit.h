@@ -22,7 +22,7 @@ public:
 	~ProductionUnit(void);
 
 	bool status();
-	void RunTests(String const serialNumber_);
+	void RunTests(String const serialNumber_, Time const testStartTime_);
 
 	void audioDeviceAboutToStart(AudioIODevice *device);
 	void audioDeviceIOCallback(const float **inputChannelData, int numInputChannels, float **outputChannelData, int numOutputChannels, int numSamples);
@@ -94,6 +94,7 @@ protected:
 	int _channel_group_passed;
 
 	String _serial_number;
+    Time testStartTime;
 	File _logfile;
 	ScopedPointer <FileOutputStream> _log_stream;
 
@@ -114,5 +115,6 @@ protected:
     
     void runAIOTest(AIOTestVector function, String const groupName);
     void finishAIOSCalibration();
+    void printErrorCodes(XmlElement *xe);
 #endif
 };

@@ -21,6 +21,8 @@
 #endif
 
 #ifdef ACOUSTICIO_BUILD
+#include "Printer.h"
+
 bool RunTEDSTest(XmlElement const *element,
                  ehw *dev,
                  String &msg,
@@ -237,9 +239,11 @@ bool ProductionUnit::status()
 	return _ok;
 }
 
-void ProductionUnit::RunTests(String const serialNumber_)
+void ProductionUnit::RunTests(String const serialNumber_, Time const testStartTime_)
 {
 	_serial_number = serialNumber_;
+    testStartTime = testStartTime_;
+    
 	CreateLogFile();
 
 	_channel_group_name = String::empty;
@@ -350,7 +354,7 @@ void ProductionUnit::RunTests(String const serialNumber_)
     _content->log("Test built " __DATE__);
 	_content->log(msg);
     _content->log("Firmware version " + _dev->getFirmwareVersionString());
-	_content->log(Time::getCurrentTime().toString(true,true));
+	_content->log(testStartTime_.toString(true,true));
 #if JUCE_MAC
     _content->log(getMacModelID());
 #endif
@@ -1482,6 +1486,13 @@ void ProductionUnit::ParseScript()
             _script = _script->getNextElement();
             return;
         }
+        
+        if (_script->hasTagName("Print_error_codes"))
+        {
+            printErrorCodes(_script);
+            _script = _script->getNextElement();
+            continue;
+        }
 #endif
         
         //-----------------------------------------------------------------------------
@@ -1844,6 +1855,114 @@ void ProductionUnit::finishAIOSCalibration()
     }
 
     ParseScript();
+}
+
+void ProductionUnit::printErrorCodes(XmlElement *xe)
+{
+#ifdef JUCE_MAC
+    if (0 == errorCodes.getCount())
+    {
+        _content->log("No error codes");
+        return;
+    }
+    
+    String headerTextTag("text");
+    String headerText;
+    XmlElement* headerTextElement = xe->getChildByName(headerTextTag);
+    if (headerTextElement)
+    {
+        // don't use getStringValue to avoid trimming the text
+        headerText = headerTextElement->getAllSubText();
+    }
+
+    String firstChannelTag("first_channel");
+    int firstChannel = -1;
+    if (false == getIntValue( xe, firstChannelTag, firstChannel))
+    {
+        _content->log("Missing tag " + firstChannelTag);
+        return;
+    }
+    if (firstChannel < 0 || firstChannel >= _dev->getcaps()->numbusin())
+    {
+        _content->log(firstChannelTag + " value " + String(firstChannel) + " out of range");
+        return;
+    }
+    
+    String lastChannelTag("last_channel");
+    int lastChannel = -1;
+    if (false == getIntValue( xe, lastChannelTag, lastChannel))
+    {
+        _content->log("Missing tag " + lastChannelTag);
+        return;
+    }
+    if (lastChannel < 0 || lastChannel >= _dev->getcaps()->numbusin())
+    {
+        _content->log(lastChannelTag + " value " + String(lastChannel) + " out of range");
+        return;
+    }
+    
+    String selectedCodesString(getStringValue(xe, "codes"));
+    StringArray selectedCodesStringArray;
+    selectedCodesStringArray.addTokens(selectedCodesString, false);
+    Array<int> selectedCodes;
+    for (int i = 0; i < selectedCodesStringArray.size(); ++i)
+    {
+        int code = selectedCodesStringArray[i].getIntValue();
+        
+        DBG("XML code " + String(code));
+        
+        if (code < 0 ||code > ErrorCodes::LAST)
+        {
+            _content->log("Invalid code " + String(code) + " in Codes tag");
+            return;
+        }
+        selectedCodes.add(code);
+    }
+    
+    String output(newLine + _serial_number + headerText + newLine);
+    output += testStartTime.toString(true,true) + newLine;
+    
+    Array<int> printedCodes;
+    for (int i = 0; i < errorCodes.getCount(); ++i)
+    {
+        uint32 code = errorCodes.getCode(i);
+        int channel = code >> 4;
+        DBG("Unit has code " + String(code));
+        if (selectedCodes.contains(code & 0xf) && firstChannel <= channel && channel <= lastChannel)
+        {
+            printedCodes.add(code);
+            DBG("Matched code " + String(code));
+        }
+    }
+    
+    switch (printedCodes.size())
+    {
+        case 0:
+            return;
+            
+        case 1:
+            output += "Code: ";
+            break;
+            
+        default:
+            output += "Codes: ";
+            break;
+    }
+    
+    for (int i = 0; i < printedCodes.size(); ++i)
+    {
+        output += String::toHexString(printedCodes[i]) + " ";
+    }
+    
+    if (false == Printer::printerFound())
+    {
+        _content->log("Printer not found");
+        return;
+    }
+    
+    Printer::print(output);
+    DBG(output);
+#endif
 }
 
 #endif

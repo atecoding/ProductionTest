@@ -26,7 +26,9 @@ void colorlabel(Label *lbl)
 //
 Content::Content(ehwlist *devlist,const StringArray &hardwareInstances_) :
 	hardwareInstances (hardwareInstances_),
-    _unit(NULL)
+    _unit(NULL),
+    startButton("Start"),
+    stopButton("Stop")
 {
 	_dev_listener._content = this;
 
@@ -40,30 +42,31 @@ Content::Content(ehwlist *devlist,const StringArray &hardwareInstances_) :
 	//_f.setHeight(15);
 	//_f.setStyleFlags(Font::bold);
 
-	_log = new TextEditor;
-	_log->setMultiLine(true);
+	logDisplay.setMultiLine(true);
     Font f(14.0f, Font::bold);
-    _log->setFont(f);
-	_log->setReadOnly(true);
-	_log->setCaretVisible(false);
-	addAndMakeVisible(_log);
+    logDisplay.setFont(f);
+	logDisplay.setReadOnly(true);
+	logDisplay.setCaretVisible(false);
+	addAndMakeVisible(logDisplay);
 	//log(String("Production test (built ") << __DATE__ << " at " << __TIME__ << ")");
 
-	_start_button = new TextButton(T("Start"));
-	addAndMakeVisible(_start_button);
-	_start_button->addListener(this);
-	_start_button->addShortcut(KeyPress(KeyPress::returnKey));
+	addAndMakeVisible(startButton);
+    addAndMakeVisible(stopButton);
+	startButton.addListener(this);
+    stopButton.addListener(this);
+	startButton.addShortcut(KeyPress(KeyPress::returnKey));
+    stopButton.addShortcut(KeyPress(KeyPress::escapeKey));
+    stopButton.setEnabled(false);
     
-    scriptCombo = new ComboBox;
     TestManager* testManager = application->testManager;
     for (int index = 0; index < testManager->getNumScripts(); ++index)
     {
         File file(testManager->getScript(index));
-        scriptCombo->addItem(file.getFileNameWithoutExtension(), index + 1);
+        scriptCombo.addItem(file.getFileNameWithoutExtension(), index + 1);
     }
-    scriptCombo->setSelectedItemIndex(testManager->getCurrentScriptIndex());
+    scriptCombo.setSelectedItemIndex(testManager->getCurrentScriptIndex());
     addAndMakeVisible(scriptCombo);
-    scriptCombo->addListener(this);
+    scriptCombo.addListener(this);
 
 	//
 	// Check that only one device is connected
@@ -87,7 +90,8 @@ Content::Content(ehwlist *devlist,const StringArray &hardwareInstances_) :
 	//}
 	//else
 	{
-		_start_button->setEnabled(false);
+		startButton.setEnabled(false);
+        stopButton.setEnabled(true);
 	}
 #endif
 
@@ -104,7 +108,6 @@ Content::~Content()
 
 	//Reset();
 
-	deleteAllChildren();
 
 	DBG("~Content done");
 }
@@ -136,7 +139,7 @@ void Content::paint(Graphics &g)
 
 	x = roundFloatToInt(getWidth() * 0.1f);
 	y = roundFloatToInt(getHeight() * 0.025f);
-	w = _log->getX() - x*2;
+	w = logDisplay.getX() - x*2;
 	h = 24;
 	g.setColour(Colours::white);
 	g.fillRect(x,y,w,h);
@@ -156,7 +159,7 @@ void Content::paint(Graphics &g)
 	{
 		x = roundFloatToInt(getWidth() * 0.05f);
 		y = roundFloatToInt(getHeight() * 0.1f);
-		w = roundFloatToInt(_log->getX() * 0.6f);
+		w = roundFloatToInt(logDisplay.getX() * 0.6f);
 		h = 24;
 		for (int i = 0; i < _group_names.size(); i++)
 		{
@@ -210,7 +213,7 @@ void Content::paint(Graphics &g)
 
 void Content::buttonClicked(Button *button)
 {
-	if (button == _start_button)
+	if (button == &startButton)
 	{
 #ifdef PCI_BUILD
 		bool result = false;
@@ -250,39 +253,40 @@ void Content::buttonClicked(Button *button)
 		if (_unit)
 		{
 
-			if (false == _unit->_running)
-			{
-
 #if defined(ECHOUSB) && defined(ECHO2_BUILD)
-				//
-				// Unregister to handle the Echo2 power test, which generates PnP arrival & removal messages
-				//
-				_devlist->UnregisterMessageListener(&_dev_listener);
+            //
+            // Unregister to handle the Echo2 power test, which generates PnP arrival & removal messages
+            //
+            _devlist->UnregisterMessageListener(&_dev_listener);
 #endif
 
-				String serialNumber_(_unit->getSerialNumber());
-				if (serialNumber_.isEmpty())
-				{
-					Result serialNumberResult(GetSerialNumber(serialNumber_));
-					if (serialNumberResult.failed())
-						return;
-				}
+            String serialNumber_(_unit->getSerialNumber());
+            if (serialNumber_.isEmpty())
+            {
+                Result serialNumberResult(GetSerialNumber(serialNumber_));
+                if (serialNumberResult.failed())
+                    return;
+            }
 
-				finalResult = String::empty;
-				repaint();
-				_start_button->setButtonText("Stop");
-				_unit->RunTests(serialNumber_);
-			}
-			else // stop button pressed
-			{
-				_start_button->setButtonText("Start");
-				_start_button->setEnabled(false);
-                scriptCombo->setEnabled(false);
-				_unit->_running = false;
-			}
+            finalResult = String::empty;
+            repaint();
+            startButton.setEnabled(false);
+            stopButton.setEnabled(true);
+            _unit->RunTests(serialNumber_, Time::getCurrentTime());
 		}
 #endif
+    
+    return;
 	}
+
+
+    if (button == &stopButton)
+    {
+        stopButton.setEnabled(false);
+        scriptCombo.setEnabled(false);
+        _unit->_running = false;
+        return;
+    }
 }
 
 bool Content::keyPressed(const KeyPress &key)
@@ -307,19 +311,16 @@ void Content::log(String msg)
 
 	const char * cr = "\n";
 
-	if (nullptr != _log)
-	{
-		_log->setCaretPosition(INT_MAX);
-		_log->insertTextAtCaret(msg);
-		_log->insertTextAtCaret(cr);
+    logDisplay.setCaretPosition(INT_MAX);
+    logDisplay.insertTextAtCaret(msg);
+    logDisplay.insertTextAtCaret(cr);
 
-		//_logfile.appendText(msg);
-		//const char * lfcr = "\r\n";
-		//_logfile.appendText(lfcr);
-		FileOutputStream* logStream = _unit->getLogStream();
-		if (logStream)
-			logStream->writeText( msg + cr, false, false );
-	}
+    //_logfile.appendText(msg);
+    //const char * lfcr = "\r\n";
+    //_logfile.appendText(lfcr);
+    FileOutputStream* logStream = _unit->getLogStream();
+    if (logStream)
+        logStream->writeText( msg + cr, false, false );
 }
 
 void Content::resized()
@@ -331,17 +332,19 @@ void Content::resized()
 	y = 26;
 	w = getWidth() - x - 4;
 	h = getHeight() - y;
-	_log->setBounds(x,y,w,h);
+	logDisplay.setBounds(x,y,w,h);
     
     w = 300;
-    scriptCombo->setBounds((_log->getWidth() - w)/2 + _log->getX(),
+    scriptCombo.setBounds((logDisplay.getWidth() - w)/2 + logDisplay.getX(),
                            3,
                            w,
                            20);
 
-	_start_button->setSize(80,30);
+	startButton.setSize(80,30);
+    stopButton.setSize(80,30);
 #ifdef JUCE_MAC
-    _start_button->setCentrePosition( proportionOfWidth(split * 0.5f), getHeight() - _start_button->getHeight());
+    startButton.setCentrePosition( proportionOfWidth(split * 0.40f), getHeight() - stopButton.getHeight());
+    stopButton.setCentrePosition( proportionOfWidth(split * 0.60f), getHeight() - startButton.getHeight());
 #else
 	_start_button->setCentreRelative(split * 0.5f,0.9f);
 #endif
@@ -361,10 +364,10 @@ void Content::FinishTests(bool pass,bool skipped)
 		logStream->flush();
 
 	_unit->_running = false;
-	_start_button->setButtonText("Start");
-	_start_button->setEnabled(true);
-    scriptCombo->setEnabled(true);
-	_start_button->grabKeyboardFocus();
+	startButton.setEnabled(true);
+    stopButton.setEnabled(false);
+    scriptCombo.setEnabled(true);
+	startButton.grabKeyboardFocus();
 
 #ifdef PCI_BUILD
 	_unit = nullptr;
@@ -427,9 +430,10 @@ void Content::DevArrived(ehw *dev)
 #else
 	DBG("Content::DevArrived - button enabled");
 
-	_start_button->setEnabled(true);
-    scriptCombo->setEnabled(true);
-	_start_button->grabKeyboardFocus();
+	startButton.setEnabled(true);
+    stopButton.setEnabled(false);
+    scriptCombo.setEnabled(true);
+	startButton.grabKeyboardFocus();
 #endif
 
 	repaint();
@@ -440,8 +444,9 @@ void Content::DevRemoved(ehw *dev)
 	_unit = nullptr;
 	_unit_name = String::empty;
 #ifndef PCI_BUILD
-	_start_button->setEnabled(false);
-    scriptCombo->setEnabled(true);
+    startButton.setEnabled(false);
+    stopButton.setEnabled(false);
+    scriptCombo.setEnabled(true);
 #endif
 
 #if 0 // def ECHOUSB
@@ -504,7 +509,7 @@ void Content::setFinalResult(String text,Colour color)
 
 void Content::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 {
-    application->testManager->setCurrentScriptIndex(scriptCombo->getSelectedItemIndex());
+    application->testManager->setCurrentScriptIndex(scriptCombo.getSelectedItemIndex());
 }
 
 Result Content::GetSerialNumber(String &serialNumber_)

@@ -64,14 +64,13 @@ protected:
 	String finalResult;
 	Colour finalResultColour;
 
-	TextEditor *_log;
-	
 	ScopedPointer<ProductionUnit> _unit;
 	String _unit_name;
 
-	TextButton *_start_button;
-    
-    ComboBox *scriptCombo;
+    TextEditor logDisplay;
+    TextButton startButton;
+    TextButton stopButton;
+    ComboBox scriptCombo;
 
 	DevChangeListener _dev_listener;
 
