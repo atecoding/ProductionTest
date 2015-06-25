@@ -274,7 +274,7 @@
       <sample_rate>48000</sample_rate>
       <output_frequency>1000.0</output_frequency>
       <output_amplitude_db>-2.0</output_amplitude_db>
-      <pass_threshold_db>-73.0</pass_threshold_db>
+      <pass_threshold_db>-66.0</pass_threshold_db>
     </test>
 
     <test>
@@ -306,7 +306,7 @@
       <sample_rate>96000</sample_rate>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
-      <pass_threshold_db>0.4</pass_threshold_db>
+      <pass_threshold_db>0.49</pass_threshold_db>
       <sweep_time_seconds>2.0</sweep_time_seconds>
       <sweep_delay_seconds>0.4</sweep_delay_seconds>
       <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
@@ -326,7 +326,7 @@
       <sample_rate>48000</sample_rate>
       <output_frequency>1000.0</output_frequency>
       <output_amplitude_db>-2.0</output_amplitude_db>
-      <pass_threshold_db>-73.0</pass_threshold_db>
+      <pass_threshold_db>-66.0</pass_threshold_db>
     </test>
 
     <test>
@@ -360,13 +360,21 @@
       <sample_rate>96000</sample_rate>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
-      <pass_threshold_db>0.4</pass_threshold_db>
+      <pass_threshold_db>0.49</pass_threshold_db>
       <sweep_time_seconds>2.0</sweep_time_seconds>
       <sweep_delay_seconds>0.4</sweep_delay_seconds>
       <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
       <sweep_fadeout_seconds>0.1</sweep_fadeout_seconds>
       <sweep_record_seconds>4.0</sweep_record_seconds>
     </test>
+
+    <Print_error_codes>
+      <text> - Module 2</text>
+      <first_channel>4</first_channel>
+      <last_channel>7</last_channel>
+      <codes>0 1 2 4 5 6</codes>
+    </Print_error_codes>
+
 
   </device>
 
