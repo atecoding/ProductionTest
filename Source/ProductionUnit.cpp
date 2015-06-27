@@ -2030,7 +2030,7 @@ void ProductionUnit::printErrorCodes(XmlElement *xe)
 void ProductionUnit::runOfflineTest(XmlElement *script)
 {
     bool ok;
-    int input,output;
+    int input = 0,output = 0;
     
     ScopedPointer<ToneGeneratorAudioSource> offlineTone = new ToneGeneratorAudioSource;
     ScopedPointer<Test> offlineTest = Test::Create(_script,input,output,ok,this);

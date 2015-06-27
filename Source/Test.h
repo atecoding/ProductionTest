@@ -136,8 +136,8 @@ public:
 class RelativeLevelTest : public Test
 {
 public:
-    RelativeLevelTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
-    ~RelativeLevelTest();
+	RelativeLevelTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
+	~RelativeLevelTest();
     
     bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg, ErrorCodes &errorCodes);
     
@@ -234,4 +234,13 @@ protected:
                    float &totalResult,
                    Range<float> const range
                    );
+};
+
+class NoiseSegmentTest : public Test
+{
+public:
+	NoiseSegmentTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
+	~NoiseSegmentTest();
+
+	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg, ErrorCodes &errorCodes);
 };

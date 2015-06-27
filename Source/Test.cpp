@@ -93,7 +93,7 @@ Test *Test::Create(XmlElement *xe, int input, int output, bool &ok, ProductionUn
 			test = new LevelCheckTest(xe, ok, unit_);
         
         if (typeString == "Relative level check")
-            test = new RelativeLevelTest(xe, ok, unit_);
+			test = new RelativeLevelTest(xe, ok, unit_);
 
 #if ECHO1394
 		if (typeString == "Guitar hex input crosstalk")
@@ -108,6 +108,9 @@ Test *Test::Create(XmlElement *xe, int input, int output, bool &ok, ProductionUn
         
         if (typeString == "AIOS Reference voltage check")
             test = new AIOSReferenceVoltageTest(xe, ok, unit_);
+
+		if (typeString == "Noise segment")
+			test = new NoiseSegmentTest(xe, ok, unit_);
 	}
 
 	if (test)
