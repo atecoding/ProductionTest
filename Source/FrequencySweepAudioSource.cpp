@@ -44,7 +44,7 @@ void FrequencySweepAudioSource::prepareToPlay (int /*samplesPerBlockExpected*/, 
     
     phasePerSampleStep = pow( ratio, 1.0 / totalSamples);
     
-    DBG(startPhasePerSample << " " << finalPhasePerSample << " " << totalSamples << " " << phasePerSampleStep);
+    //DBG(startPhasePerSample << " " << finalPhasePerSample << " " << totalSamples << " " << phasePerSampleStep);
     
     phasePerSample = startPhasePerSample;
     

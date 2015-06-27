@@ -438,8 +438,10 @@ void Content::DevArrived(ehw *dev)
 
 void Content::DevRemoved(ehw *dev)
 {
-	_unit = nullptr;
-	_unit_name = String::empty;
+    _unit->deviceRemoved();
+	//_unit = nullptr;
+
+    _unit_name = String::empty;
 #ifndef PCI_BUILD
     startButton.setEnabled(false);
     stopButton.setEnabled(false);

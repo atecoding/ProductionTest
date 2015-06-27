@@ -68,11 +68,13 @@
 		C95C66381B0A85E800DA394D /* USBFirmwareVersionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C66371B0A85E800DA394D /* USBFirmwareVersionTest.cpp */; };
 		C95C663D1B0A94CC00DA394D /* ErrorCodes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C663B1B0A94CC00DA394D /* ErrorCodes.cpp */; };
 		C95C663F1B0AA26E00DA394D /* FlashMemoryTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C663E1B0AA26E00DA394D /* FlashMemoryTest.cpp */; };
+		C96E48821B3D0ED900FD566E /* AIO Offline Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C96E48811B3D0ED900FD566E /* AIO Offline Test.xml */; };
 		C9A44FB11B30A24A00E2AE06 /* AIO-S Full Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9679FC71B0D57E4001DDDB7 /* AIO-S Full Test.xml */; };
 		C9A44FB21B30A24A00E2AE06 /* AIO-S Module 1.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9679FC81B0D57E4001DDDB7 /* AIO-S Module 1.xml */; };
 		C9A44FB31B30A24A00E2AE06 /* AIO-S Module 2.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9679FC91B0D57E4001DDDB7 /* AIO-S Module 2.xml */; };
 		C9AE36341B312B8F00911FE2 /* AIO-S Full Test (small inductor).xml in Resources */ = {isa = PBXBuildFile; fileRef = C9AE36321B312B8F00911FE2 /* AIO-S Full Test (small inductor).xml */; };
 		C9AE36351B312B8F00911FE2 /* AIO-S Module 1 (small inductor).xml in Resources */ = {isa = PBXBuildFile; fileRef = C9AE36331B312B8F00911FE2 /* AIO-S Module 1 (small inductor).xml */; };
+		C9AE92861B3E0E4700A1D0A3 /* CoreAudio.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9AE92851B3E0E4700A1D0A3 /* CoreAudio.cpp */; };
 		C9BBBF801B322CC600766B48 /* Printer_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BBBF7F1B322CC600766B48 /* Printer_osx.cpp */; };
 		C9BBBF821B322CDF00766B48 /* Printer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BBBF811B322CDF00766B48 /* Printer.cpp */; };
 		C9BC4A451B1E4E7C009736B7 /* Upsampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BC4A431B1E4E7C009736B7 /* Upsampler.cpp */; };
@@ -804,8 +806,10 @@
 		C9679FC81B0D57E4001DDDB7 /* AIO-S Module 1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Module 1.xml"; path = "../../scripts/AIO-S Module 1.xml"; sourceTree = "<group>"; };
 		C9679FC91B0D57E4001DDDB7 /* AIO-S Module 2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Module 2.xml"; path = "../../scripts/AIO-S Module 2.xml"; sourceTree = "<group>"; };
 		C9679FCD1B0D58A1001DDDB7 /* AIOTestAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIOTestAdapter.h; path = ../../Source/AIOTestAdapter.h; sourceTree = "<group>"; };
+		C96E48811B3D0ED900FD566E /* AIO Offline Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO Offline Test.xml"; path = "../../scripts/AIO Offline Test.xml"; sourceTree = "<group>"; };
 		C9AE36321B312B8F00911FE2 /* AIO-S Full Test (small inductor).xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Full Test (small inductor).xml"; path = "../../scripts/AIO-S Full Test (small inductor).xml"; sourceTree = "<group>"; };
 		C9AE36331B312B8F00911FE2 /* AIO-S Module 1 (small inductor).xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Module 1 (small inductor).xml"; path = "../../scripts/AIO-S Module 1 (small inductor).xml"; sourceTree = "<group>"; };
+		C9AE92851B3E0E4700A1D0A3 /* CoreAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CoreAudio.cpp; path = ../../Source/osx/CoreAudio.cpp; sourceTree = "<group>"; };
 		C9BBBF7C1B322C3300766B48 /* Printer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Printer.h; path = ../../Source/printer/Printer.h; sourceTree = "<group>"; };
 		C9BBBF7F1B322CC600766B48 /* Printer_osx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Printer_osx.cpp; path = ../../Source/osx/Printer_osx.cpp; sourceTree = "<group>"; };
 		C9BBBF811B322CDF00766B48 /* Printer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Printer.cpp; path = ../../Source/printer/Printer.cpp; sourceTree = "<group>"; };
@@ -1829,6 +1833,7 @@
 				AEE12737856DC95C7AD5E892 /* osx.h */,
 				2476BBA2A7CF33D72E9856CC /* ScopedCFObject.h */,
 				3B33FF94B9F063E2E8CF3832 /* ScopedIOObject.h */,
+				C9AE92851B3E0E4700A1D0A3 /* CoreAudio.cpp */,
 			);
 			name = osx;
 			sourceTree = "<group>";
@@ -1877,6 +1882,7 @@
 				C95C66341B0A787300DA394D /* factory.icns */,
 				C95C662C1B0A765000DA394D /* AIO-2 Full Test.xml */,
 				C95C662D1B0A765000DA394D /* AIO-2 Module 1.xml */,
+				C96E48811B3D0ED900FD566E /* AIO Offline Test.xml */,
 				C95C662E1B0A765000DA394D /* AIO-2 Module 2.xml */,
 				ECB33092A73D580039E20E87 /* Info.plist */,
 				7DDFE4DA407C0FE8084B8C5D /* RecentFilesMenuTemplate.nib */,
@@ -2690,6 +2696,7 @@
 				C95C66311B0A765000DA394D /* AIO-2 Module 1.xml in Resources */,
 				C9A44FB11B30A24A00E2AE06 /* AIO-S Full Test.xml in Resources */,
 				C95C66301B0A765000DA394D /* AIO-2 Full Test.xml in Resources */,
+				C96E48821B3D0ED900FD566E /* AIO Offline Test.xml in Resources */,
 				C9AE36341B312B8F00911FE2 /* AIO-S Full Test (small inductor).xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2758,6 +2765,7 @@
 				13CC2FD6F41783BEF4701829 /* juce_audio_formats.mm in Sources */,
 				0C59FDD1282327ECF83284D4 /* juce_core.mm in Sources */,
 				3402F306C0167E7CD364209F /* juce_data_structures.mm in Sources */,
+				C9AE92861B3E0E4700A1D0A3 /* CoreAudio.cpp in Sources */,
 				C94CC6A11B293C9100CEC3BF /* CalibrationDialogComponent.cpp in Sources */,
 				CCAFCFE69CB697A6CF6F0058 /* juce_events.mm in Sources */,
 				F7D24D5D3060A361C436B312 /* juce_graphics.mm in Sources */,

@@ -29,12 +29,14 @@ public:
 	void audioDeviceStopped();
 
 	void handleMessage(const Message &message);
+    void deviceRemoved();
 
 	int	_num_tests;
     ErrorCodes errorCodes;
 	bool _unit_passed;
 	bool _skipped;
 	bool _running;
+    bool deviceAttached;
 
 	FileOutputStream *getLogStream() const
 	{
@@ -106,6 +108,7 @@ protected:
 	bool OpenASIO(int sample_rate);
 	bool CreateASIO(XmlElement *script);
 	void clockDetectTest();
+    void runOfflineTest(XmlElement *script);
 
 	Result CheckSampleRate();
 

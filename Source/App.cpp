@@ -30,6 +30,16 @@ void App::initialise (const String& commandLine)
     //DBG("App::initialise " << commandLine);
     
 	application = this;
+    
+#if 0
+    {
+        void CoreAudioTest();
+        
+        CoreAudioTest();
+        quit();
+        return;
+    }
+#endif
 
 	//
 	// Make sure this is the only instance running

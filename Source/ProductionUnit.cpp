@@ -67,6 +67,7 @@ _num_tests(0),
 _unit_passed(true),
 _skipped(false),
 _running(false),
+deviceAttached(true),
 tree("ProductionUnit"),
 _ok(true),
 _dev(dev),
@@ -215,16 +216,6 @@ ProductionUnit::~ProductionUnit(void)
 {
 	Cleanup();
 
-#if defined(ECHOUSB) && defined(ECHO2_BUILD)
-	extern bool CloseUSBDevice(TUsbAudioHandle handle);
-	CloseUSBDevice(_dev->GetNativeHandle());
-#endif
-
-#if ACOUSTICIO_BUILD
-	aioTestAdapter.close();
-#endif
-
-	_dev->CloseDriver();
 	//_dev->decReferenceCount();
 
 	DBG("ProductionUnit::~ProductionUnit");
@@ -232,6 +223,34 @@ ProductionUnit::~ProductionUnit(void)
 
 void ProductionUnit::Cleanup()
 {
+    DBG("ProductionUnit::Cleanup()");
+    
+    deviceAttached = false;
+    _running = false;
+    
+#if defined(ECHOUSB) && defined(ECHO2_BUILD)
+    extern bool CloseUSBDevice(TUsbAudioHandle handle);
+    CloseUSBDevice(_dev->GetNativeHandle());
+#endif
+    
+    if (_asio)
+    {
+        _asio->stop();
+        _asio->close();
+        _asio = nullptr;
+    }
+    
+    Process::setPriority(Process::NormalPriority);
+    
+#if ACOUSTICIO_BUILD
+    aioTestAdapter.close();
+#endif
+    
+    if (_dev)
+    {
+        _dev->CloseDriver();
+        _dev = nullptr;
+    }
 }
 
 bool ProductionUnit::status()
@@ -241,6 +260,8 @@ bool ProductionUnit::status()
 
 void ProductionUnit::RunTests(String const serialNumber_, Time const testStartTime_)
 {
+    DBG("ProductionUnit::RunTests")
+    ;
 	_serial_number = serialNumber_;
     testStartTime = testStartTime_;
     
@@ -298,6 +319,7 @@ void ProductionUnit::RunTests(String const serialNumber_, Time const testStartTi
 											false);
 		JUCEApplication::quit();
 		_ok = false;
+        DBG("   RunTests exit");
 		return;
 	}
 
@@ -307,6 +329,7 @@ void ProductionUnit::RunTests(String const serialNumber_, Time const testStartTi
 											"Could not parse " + f.getFullPathName(),
 											false);
 		JUCEApplication::quit();
+        DBG("   RunTests exit");
 		return;
 	}
     
@@ -325,6 +348,7 @@ void ProductionUnit::RunTests(String const serialNumber_, Time const testStartTi
 				if (0 == adapterFound)
 				{
 					AlertWindow::showMessageBox(AlertWindow::NoIcon, "Production Test", "Please connect the AcousticIO test adapter to this computer and restart.", "Close");
+                    DBG("   RunTests exit");
 					return;
 				}
 			}
@@ -338,7 +362,10 @@ void ProductionUnit::RunTests(String const serialNumber_, Time const testStartTi
 	// Create the ASIO driver
 	//
 	if (!CreateASIO(_script))
+    {
+        DBG("   RunTests exit");
 		return;
+    }
 
 	//
 	// onscreen logging
@@ -374,6 +401,8 @@ void ProductionUnit::RunTests(String const serialNumber_, Time const testStartTi
 		_script = _script->getNextElement();
 		ParseScript();
 	}
+    
+    DBG("   RunTests exit");
 }
 
 void ProductionUnit::audioDeviceAboutToStart(AudioIODevice *device)
@@ -623,7 +652,7 @@ void ProductionUnit::ParseScript()
 	bool ok;
 	int rval = -1;
 
-	while (_script  && _running)
+	while (_script && _running && deviceAttached)
 	{
 		//-----------------------------------------------------------------------------
 		//
@@ -1503,11 +1532,23 @@ void ProductionUnit::ParseScript()
       
         if (_script->hasTagName("Delay_msec"))
         {
-            Result runDelayTask(XmlElement *element);
+            Result runDelayTask(XmlElement *element, bool& running_);
             
-            Result result(runDelayTask(_script));
+            Result result(runDelayTask(_script, _running));
             
-            
+            _script = _script->getNextElement();
+            continue;
+        }
+        
+        //-----------------------------------------------------------------------------
+        //
+        // Offline test?
+        //
+        //-----------------------------------------------------------------------------
+        
+        if (_script->hasTagName("Offline_test"))
+        {
+            runOfflineTest(_script);
             _script = _script->getNextElement();
             continue;
         }
@@ -1531,6 +1572,12 @@ void ProductionUnit::ParseScript()
 		Cleanup();
 		return;
 	}
+    
+    if (false == deviceAttached)
+    {
+        DBG("Cancel script parsing - device no longer attached");
+        return;
+    }
 
 	//
 	// Finish the last group
@@ -1780,6 +1827,19 @@ void ProductionUnit::CreateLogFile()
     _log_stream = new FileOutputStream(_logfile);
 }
 
+void ProductionUnit::deviceRemoved()
+{
+    _content->log(String::empty);
+    _content->log(String::empty);
+    _content->log("*** Device removed ***");
+    _content->log(String::empty);
+    _content->log(String::empty);
+    
+    _content->setFinalResult("UNIT FAILED\n(removed)",Colours::red);
+    
+    Cleanup();
+}
+
 #ifdef ACOUSTICIO_BUILD
 void ProductionUnit::runAIOTest(AIOTestVector function, String const groupName)
 {
@@ -1862,7 +1922,7 @@ void ProductionUnit::printErrorCodes(XmlElement *xe)
 #ifdef JUCE_MAC
     if (0 == errorCodes.getCount())
     {
-        _content->log("No error codes");
+        _content->log("No error codes\n");
         return;
     }
     
@@ -1966,3 +2026,60 @@ void ProductionUnit::printErrorCodes(XmlElement *xe)
 }
 
 #endif
+
+void ProductionUnit::runOfflineTest(XmlElement *script)
+{
+    bool ok;
+    int input,output;
+    
+    ScopedPointer<ToneGeneratorAudioSource> offlineTone = new ToneGeneratorAudioSource;
+    ScopedPointer<Test> offlineTest = Test::Create(_script,input,output,ok,this);
+    
+    if (!ok || (nullptr == offlineTest))
+    {
+        AlertWindow::showNativeDialogBox(	"Production Test",
+                                         "Test object init failed; missing parameter?",
+                                         false);
+        return;
+    }
+    
+    uint32 activeOutputs = 0xffffffff;
+    offlineTest->Setup(_asio->getCurrentBufferSizeSamples(),*offlineTone,activeOutputs);
+    
+    FileChooser fc("So pick a wave file already",File::getSpecialLocation(File::userDesktopDirectory),"*.wav");
+    if (fc.browseForFileToOpen())
+    {
+        File f(fc.getResult());
+        ScopedPointer<FileInputStream> inputStream = new FileInputStream(f);
+        if (nullptr == inputStream || false == inputStream->openedOk())
+        {
+            AlertWindow::showNativeDialogBox(	"Production Test",
+                                             "Could not open " + f.getFullPathName(),
+                                             false);
+            return;
+        }
+        
+        WavAudioFormat format;
+        ScopedPointer<AudioFormatReader> reader(format.createReaderFor(inputStream.release(), true));
+        if (nullptr == reader)
+        {
+            AlertWindow::showNativeDialogBox(	"Production Test",
+                                             "Could not read " + f.getFullPathName(),
+                                             false);
+            return;
+        }
+        
+        AudioSampleBuffer *buffer = new AudioSampleBuffer(reader->numChannels, reader->lengthInSamples);
+        reader->read(buffer, 0, reader->lengthInSamples, 0, true, true);
+        
+        OwnedArray<AudioSampleBuffer> buffers;
+        buffers.add(buffer);
+        String msg;
+        ErrorCodes codes;
+        offlineTest->calc(buffers, msg, codes);
+        AlertWindow::showNativeDialogBox(	"Production Test",
+                                         msg,
+                                         false);
+        return;
+    }
+}
