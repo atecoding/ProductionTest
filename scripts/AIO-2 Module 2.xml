@@ -46,6 +46,7 @@
     <AIO_set_constant_current input="6" enabled="1" /> <!-- turn on constant current for input 7 -->
     <AIO_set_constant_current input="7" enabled="1" /> <!-- turn on constant current for input 8 -->
     <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
+    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
     <AIO_mic_supply_on_voltage_test input="4">
       <minimum>19.0</minimum>
       <!-- minimum and maximum are in volts -->
@@ -300,6 +301,8 @@
       <pass_threshold_db>100.0</pass_threshold_db>
     </test>
 
+    <!-- Frequency response tests for 5-6 -->
+
     <test>
       <type>Frequency sweep response</type>
       <input>4</input>
@@ -315,7 +318,6 @@
       <sweep_fadeout_seconds>0.1</sweep_fadeout_seconds>
       <sweep_record_seconds>4.0</sweep_record_seconds>
     </test>
-
 
     <!-- THD+N and DNR Channels 7-8 -->
 
@@ -376,7 +378,6 @@
       <last_channel>7</last_channel>
       <codes>0 1 2 4 5 6</codes>
     </Print_error_codes>
-
 
   </device>
 
