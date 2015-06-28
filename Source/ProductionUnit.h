@@ -18,7 +18,7 @@ class Content;
 class ProductionUnit : public AudioIODeviceCallback, public MessageListener
 {
 public:
-	ProductionUnit(ehw *dev,ehwlist *devlist,Content *content);
+	ProductionUnit(ReferenceCountedObjectPtr<ehw> dev, ehwlist *devlist, Content *content);
 	~ProductionUnit(void);
 
 	bool status();
@@ -67,7 +67,7 @@ protected:
 	float input_meters[max_inputs];
 
 	bool _ok;
-	ehw *_dev;
+	ReferenceCountedObjectPtr<ehw> _dev;
 	ehwlist *_devlist;
 	Content *_content;
 	ScopedPointer<AudioIODevice> _asio;

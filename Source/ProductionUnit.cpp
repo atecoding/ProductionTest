@@ -62,7 +62,7 @@ bool RunFlashMemoryTest(XmlElement const *element,
 
 //extern String ProductionTestsXmlFileName;
 
-ProductionUnit::ProductionUnit(ehw *dev, ehwlist *devlist, Content *content) :
+ProductionUnit::ProductionUnit(ReferenceCountedObjectPtr<ehw> dev, ehwlist *devlist, Content *content) :
 _num_tests(0),
 _unit_passed(true),
 _skipped(false),
@@ -78,6 +78,7 @@ active_outputs(0),
 _script(NULL),
 calibrationManager(this)
 {
+	DBG(String::formatted("ProductionUnit::ProductionUnit %p", dev));
 	zerostruct(input_meters);
 
 	//_dev->incReferenceCount();
@@ -216,7 +217,15 @@ ProductionUnit::~ProductionUnit(void)
 {
 	Cleanup();
 
-	//_dev->decReferenceCount();
+#if ACOUSTICIO_BUILD
+	aioTestAdapter.close();
+#endif
+
+	if (_dev)
+	{
+		_dev->CloseDriver();
+		_dev = nullptr;
+	}
 
 	DBG("ProductionUnit::~ProductionUnit");
 }
@@ -225,7 +234,6 @@ void ProductionUnit::Cleanup()
 {
     DBG("ProductionUnit::Cleanup()");
     
-    deviceAttached = false;
     _running = false;
     
 #if defined(ECHOUSB) && defined(ECHO2_BUILD)
@@ -238,19 +246,8 @@ void ProductionUnit::Cleanup()
         _asio->stop();
         _asio->close();
         _asio = nullptr;
-    }
-    
-    Process::setPriority(Process::NormalPriority);
-    
-#if ACOUSTICIO_BUILD
-    aioTestAdapter.close();
-#endif
-    
-    if (_dev)
-    {
-        _dev->CloseDriver();
-        _dev = nullptr;
-    }
+		Process::setPriority(Process::NormalPriority);
+	}
 }
 
 bool ProductionUnit::status()
@@ -1510,10 +1507,11 @@ void ProductionUnit::ParseScript()
                 // Start the calibration
                 //
                 calibrationManager.startIntegratedSpeakerMonitorCalibration(_dev);
+				return;
             }
             
             _script = _script->getNextElement();
-            return;
+			continue;
         }
         
         if (_script->hasTagName("Print_error_codes"))
@@ -1829,15 +1827,20 @@ void ProductionUnit::CreateLogFile()
 
 void ProductionUnit::deviceRemoved()
 {
-    _content->log(String::empty);
-    _content->log(String::empty);
-    _content->log("*** Device removed ***");
-    _content->log(String::empty);
-    _content->log(String::empty);
-    
-    _content->setFinalResult("UNIT FAILED\n(removed)",Colours::red);
-    
-    Cleanup();
+	deviceAttached = false;
+
+	if (_running)
+	{
+		_content->log(String::empty);
+		_content->log(String::empty);
+		_content->log("*** Device removed ***");
+		_content->log(String::empty);
+		_content->log(String::empty);
+
+		_content->setFinalResult("UNIT FAILED\n(removed)", Colours::red);
+
+		Cleanup();
+	}
 }
 
 #ifdef ACOUSTICIO_BUILD

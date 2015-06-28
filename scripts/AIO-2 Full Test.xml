@@ -32,8 +32,7 @@
     <AIO_set_constant_current input="7" enabled="1" /> <!-- turn on constant current for input 8 -->
     <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
     <AIO_mic_supply_off_voltage_test input="0">
-      <minimum>0.0</minimum>
-      <!-- minimum and maximum are in volts -->
+      <minimum>0.0</minimum> <!-- minimum and maximum are in volts -->
       <maximum>1.0</maximum>
     </AIO_mic_supply_off_voltage_test>
 
@@ -48,16 +47,14 @@
     <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
     <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
     <AIO_mic_supply_on_voltage_test input="0">
-      <minimum>19.0</minimum>
-      <!-- minimum and maximum are in volts -->
+      <minimum>19.0</minimum> <!-- minimum and maximum are in volts -->
       <maximum>21.0</maximum>
     </AIO_mic_supply_on_voltage_test>
 
     <AIO_write_test_adapter byte="0x0f"/> <!-- set adapter for Mic Supply current measurement and read ADCs-->
     <AIO_write_test_adapter byte="0x0f"/> <!-- second time to allow capacitor discharge-->
     <AIO_mic_supply_current_test input="0">
-      <minimum>4.0</minimum>
-      <!-- minimum and maximum are in volts -->
+      <minimum>4.0</minimum> <!-- minimum and maximum are in volts -->
       <maximum>4.4</maximum>
     </AIO_mic_supply_current_test>
 
@@ -406,8 +403,7 @@
     <AIO_set_constant_current input="7" enabled="0" /> <!-- turn off constant current for input 8 -->
     <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
     <AIO_mic_supply_off_voltage_test input="4">
-      <minimum>0.0</minimum>
-      <!-- minimum and maximum are in volts -->
+      <minimum>0.0</minimum> <!-- minimum and maximum are in volts -->
       <maximum>1.0</maximum>
     </AIO_mic_supply_off_voltage_test>
 
@@ -422,16 +418,14 @@
     <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
     <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
     <AIO_mic_supply_on_voltage_test input="4">
-      <minimum>19.0</minimum>
-      <!-- minimum and maximum are in volts -->
+      <minimum>19.0</minimum> <!-- minimum and maximum are in volts -->
       <maximum>21.0</maximum>
     </AIO_mic_supply_on_voltage_test>
 
     <AIO_write_test_adapter byte="0x0f"/> <!-- set adapter for Mic Supply current measurement and read ADCs-->
     <AIO_write_test_adapter byte="0x0f"/> <!-- second time to allow capacitor discharge-->
     <AIO_mic_supply_current_test input="4">
-      <minimum>4.0</minimum>
-      <!-- minimum and maximum are in volts -->
+      <minimum>4.0</minimum> <!-- minimum and maximum are in volts -->
       <maximum>4.4</maximum>
     </AIO_mic_supply_current_test>
 
