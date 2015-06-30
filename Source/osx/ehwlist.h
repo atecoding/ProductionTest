@@ -2,106 +2,75 @@
  *
  * ehwlist.h
  *
- * A class that builds a list of Echo hardware objects
+ * A class that builds a list of Echo FireWire hardware objects for OS X
  *
  ********************************************************************************/
 
-#pragma once
+#ifndef _ehwlist_h_
+#define _ehwlist_h_
 
-#if JUCE_MAC
-#include <CoreFoundation/CoreFoundation.h>
 #include <IOKit/IOKitLib.h>
-#include <IOKit/usb/IOUSBLib.h>
-#include <IOKit/usb/USBSpec.h>
-#include <IOKit/IOCFPlugIn.h>
-#include "ScopedCFObject.h"
-#include "ScopedIOObject.h"
+#include <CoreAudio/AudioHardware.h>
 
-#endif
-
-#include "ehw.h"
-
-enum
+enum 
 {
-    EHW_DEVICE_ARRIVAL = 0xecc00000,
-    EHW_DEVICE_REMOVAL
-};
-
-class DeviceChangeMessage : public Message
-{
-public:
-    DeviceChangeMessage(int p1,int /*p2*/,int /*p3*/,void* p4):
-    intParameter1(p1),
-    pointerParameter (p4)
-    {
-    }
-    int intParameter1;
-    void* pointerParameter;
-    
-    JUCE_LEAK_DETECTOR (DeviceChangeMessage)
+	EHW_DEVICE_ARRIVAL = 0xecc00000,
+	EHW_DEVICE_REMOVAL,
+	ARRANGE_WINDOWS = 'arng'
 };
 
 class ehw;
+#if MAC_DEVICE_MENU
+class ehwlist : public MenuBarModel
+#else
 class ehwlist
+#endif
 {
 protected:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ehwlist);
-    
-    ReferenceCountedArray<ehw> devices;
-    
-    static void serviceMatched(void *context,io_iterator_t iterator);
-    static void serviceTerminated(void *context,io_iterator_t iterator);
-    
-    class Type
-    {
-    public:
-        Type(ehwlist *parent, SInt32 productID);
-        ~Type();
-        
-        ScopedCFObject<CFMutableDictionaryRef> dictionary;
-        IONotificationPortRef notificationPort;
-        ScopedIOObject<io_iterator_t> iteratorMatching;
-        ScopedIOObject<io_iterator_t> iteratorTerminated;
-    };
-    
-    OwnedArray<Type> types;
-    
-    void PostChangeMessage(int code, ehw *device);
+	
+	Array<uint32>				_vendor_ids;
+	class ehw					*_hwlist;
+	int32						_numdevices;
+	
+	Array<MessageListener *> _listeners;
+	
+	void findboxes();
+	bool validate(CFStringRef name);
+	
+	static void ServiceMatched(void *context,io_iterator_t iterator);
+	OSStatus add( io_object_t iodev,CFStringRef name);
+	void PostArrivalMessage(ehw *dev);
 
+	static void ServiceTerminated(void *context,io_iterator_t iterator);
+	void PostRemovalMessage(ehw *dev);
+	
+	CriticalSection *_cs;
+	bool localLock;
+	IONotificationPortRef _np;
+	CFMutableDictionaryRef _dict;
+	io_iterator_t _IterMatching;
+	io_iterator_t _IterTerminated;
+	
 public:
-	ehwlist(int num_vendor_ids,uint32 *vendor_ids,CriticalSection *lock = NULL,FileLogger *logger = NULL);
-	~ehwlist();
-
-	ehw *BuildDeviceList(char *pnpid);
-	ehw *RemoveDevice(const char *pnpid);
-	ehw *FindDevice(char *pnpid);
-
+	ehwlist(int num_vendor_ids, uint32 *vendor_ids,CriticalSection *lock = NULL);
+	virtual ~ehwlist();
+	
 	int32 GetNumDevices()
 	{
-		return devices.size();
+		return _numdevices;
 	}
 
-	ehw *GetNthDevice(int32 index);
+	class ehw *GetNthDevice(int32 index);
 	
-	void Cleanup(ehw *pDeviceToKeep = NULL);
-	
+	virtual void Cleanup(class ehw *pDeviceToKeep);
 	void RegisterMessageListener(MessageListener *listener);
 	void UnregisterMessageListener(MessageListener *listener);
 	
-	CriticalSection	*_cs;
-	bool localLock;
-    
-    Array<MessageListener *> _listeners;
-
-	enum
-	{
-		MATCH_ANY_VENDOR = 0
-	};
-    
-    enum
-    {
-        ECHO_VENDOR_ID = 0x40f,
-        XMOS_VENDOR_ID = 0x20b1,
-        SLICEKIT_PRODUCT_ID = 0x0008
-    };
+#if MAC_DEVICE_MENU
+	virtual const StringArray getMenuBarNames();
+	virtual const PopupMenu getMenuForIndex(int topLevelMenuIndex, const String &menuName);
+	virtual void menuItemSelected (int menuItemID, int topLevelMenuIndex);
+#endif
 };
+
+#endif // _ehwlist_h_

@@ -469,7 +469,7 @@ void Content::DevRemoved(ehw *dev)
 
 void DevChangeListener::handleMessage(const Message &message)
 {
-#if 1
+#if 0
 	ehw *dev;
 	DeviceChangeMessage const*const deviceChangeMessage = dynamic_cast <DeviceChangeMessage const*const>(&message);
 	if (nullptr == deviceChangeMessage)

@@ -20,7 +20,7 @@
 #include "osx/osx.h"
 #endif
 
-#ifdef ACOUSTICIO_BUILD
+#if ACOUSTICIO_BUILD
 #include "printer/Printer.h"
 
 bool RunTEDSTest(XmlElement const *element,
@@ -75,8 +75,10 @@ _devlist(devlist),
 _content(content),
 _asio(nullptr),
 active_outputs(0),
-_script(NULL),
-calibrationManager(this)
+_script(NULL)
+#if ACOUSTICIO_BUILD
+,calibrationManager(this)
+#endif
 {
 	zerostruct(input_meters);
 
@@ -635,10 +637,12 @@ void ProductionUnit::handleMessage(const Message &message)
 		}
 		break;
             
+#if ACOUSTICIO_BUILD
         case MESSAGE_AIOS_CALIBRATION_DONE:
         {
             finishAIOSCalibration();
         }
+#endif
         break;
 	}
 }
@@ -1388,7 +1392,7 @@ void ProductionUnit::ParseScript()
 		//
 		//-----------------------------------------------------------------------------
 
-#ifdef ACOUSTICIO_BUILD
+#if ACOUSTICIO_BUILD
 		if (_script->hasTagName("AIO_set_mic_gain"))
 		{
 			Result result(_dev->setMicGain(_script));
@@ -1824,7 +1828,8 @@ File ProductionUnit::getOutputFolder()
 	logfolder = logfolder.getChildFile("AIO Test Results");
 	logfolder.createDirectory();
 #else
-#pragma message("Not defined")
+    logfolder = logfolder.getChildFile("Test Results");
+    logfolder.createDirectory();
 #endif
 
 	return logfolder;
@@ -1856,7 +1861,7 @@ void ProductionUnit::deviceRemoved()
 	}
 }
 
-#ifdef ACOUSTICIO_BUILD
+#if ACOUSTICIO_BUILD
 void ProductionUnit::runAIOTest(AIOTestVector function, String const groupName)
 {
     String msg;

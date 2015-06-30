@@ -1,4 +1,7 @@
 #include "../base.h"
+
+#if ACOUSTICIO_BUILD
+
 #include "CalibrationDialogComponent.h"
 #include "CalibrationManager.h"
 #include "ehw.h"
@@ -691,3 +694,6 @@ void CalibrationDialogComponent::ExternalSpeakerMonitorDoneComponent::resized()
 	externalSpeakerMonitorDoneButton.setSize(buttonW, h);
 	externalSpeakerMonitorDoneButton.setCentreRelative(0.5f, 0.78f);
 }
+
+#endif
+

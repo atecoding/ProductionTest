@@ -2,98 +2,138 @@
  *
  * ehw.h
  *
- * A single Echo USB hardware device
- *
- * Hardware calls return:
- *
- * 0 for success
- * 1 or more for an error
- * -1 or less if the console should try again later
+ * A single Echo FireWire hardware device on Mac OS X
  *
  ********************************************************************************/
 
-#pragma once
+#ifndef _Ehw_h_
+#define _Ehw_h_
 
-#include <CoreFoundation/CoreFoundation.h>
-#include <IOKit/IOKitLib.h>
-#include <IOKit/usb/IOUSBLib.h>
-#include <IOKit/usb/USBSpec.h>
-#include <IOKit/IOCFPlugIn.h>
+typedef UInt8 byte;
 
-#include "hwcaps.h"
-
-#if ACOUSTICIO_BUILD
-#include "Description.h"
-#include "../calibration/CalibrationData.h"
-#endif
-
-//
-// ehw
-//
-class ehwlist;
-
+#include "ehw.h"
+#include "ehwlist.h"
+#include <IOKit/IOTypes.h>
+#include <IOKit/IOCFPlugin.h>
+#include <IOKit/firewire/IOFireWireLib.h>
+#include <IOKit/avc/IOFireWireAVCLib.h>
+#include <CoreAudio/CoreAudio.h>
+#include "CoreEFC.h"
 
 #ifndef DBG_PRINTF
 #define DBG_PRINTF(x) DBG(String::formatted x )
 #endif
 
+//
+// ehw for Mac FireWire
+//
+class ehwlist;
+class hwcaps;
 class ehw : public ReferenceCountedObject
 {
+protected:
+	friend class ehwlist;
+	
+	enum
+	{
+		max_async_packet_bytes = 2048
+	};
+	
+	const static int AVC_COMMAND_OFFSET	= 8;
+	
+	int32							_ok;
+	CFNumberRef						_guid;
+	IOCFPlugInInterface				**_fwplugin;
+	IOFireWireAVCLibUnitInterface	**_fwavc;
+	AudioDeviceID					_CoreAudioId;
+	
+	hwcaps *_caps;
+	
+	char _devname[ 64 ];
+	io_object_t _avcsvc;
+	
+	class ehw *_prev;
+	class ehw *_next;
+	
+	UInt8 _outbuff[ sizeof(efc) +  AVC_COMMAND_OFFSET ];
+	UInt8 _inbuff[ sizeof(efr) +  AVC_COMMAND_OFFSET ];
+	UInt8 _polledbuff[ max_async_packet_bytes ];
+	
+	#ifdef JUCE_LITTLE_ENDIAN
+	UInt8 _outbuff_le[ sizeof(efc) + AVC_COMMAND_OFFSET  ];
+	UInt8 _inbuff_le[ max_async_packet_bytes ];
+	#endif
+	
+	efc *_cmd;
+	efr *_rsp;
+	
+	uint32 _seqnum;
+	
+	uint32				_efrpolledstuffbytes;
+	
+	CriticalSection *_cs;
+	bool localLock;
+	
+	int SendEfc(size_t outbytes,size_t inbytes);
+	int readcaps();
+    
+    OSStatus CreatePlugin(FileLogger *log = NULL);
+    void DestroyPlugin();
+	
 public:
 	typedef ReferenceCountedObjectPtr<ehw> ptr;
 
-    ehw(IOUSBDeviceInterface** deviceInterface_);
+	ehw(io_object_t dev,CFNumberRef guid,CFStringRef cfname,CriticalSection *device_lock);
 	~ehw();
 	
-	void removed();
-    
-    Description const * const getDescription() const
-    {
-        return description;
-    }
-    
-	hwcaps *getcaps()
-	{	
-		return &_caps;
-	}
+	OSStatus init();
 	
-	String GetUniqueName()
+	CFNumberRef GetGuid()
 	{
-		return _uniquename;
+		return _guid;
 	}
 	
-	String GetIdString();
-
+	hwcaps *getcaps()
+	{
+		return _caps;
+	}
+	
+	String GetIdString()
+	{
+		return _devname;
+	}
+	
+	const char *GetUniqueName()
+	{
+		return (const char *) _devname;
+	}
+	
 	uint32 GetVendorId();
-	uint32 GetBoxType();
+	uint32 GetBoxType();	
 	uint32 GetBoxRev();
 
-	uint64 GetSerialNumber();
+	inline efr_polled_stuff* getpolledstuff()
+	{
+		return (efr_polled_stuff *) (_polledbuff + AVC_COMMAND_OFFSET);
+	}
 
-	uint32 GetDriverVersion();
-	
-	
-	//------------------------------------------------------------------------------
-	// Open and close the driver
-	//------------------------------------------------------------------------------
-
-	int OpenDriver();
-	void CloseDriver();
-	
-	//efr_polled_stuff* getpolledstuff()
-	//{
-	//	return &(_pstuff.stuff);
-	//}
 	int updatepolledstuff();
 	
-	uint32 getFirmwareVersion() const;
-    String getFirmwareVersionString() const;
-
+	void OpenDriver() {}
+    void CloseDriver() {}
+	
+	int getarmversion(uint32 &armversion);
+    String getFirmwareVersionString();
+    
+    //int ResetInterface(FileLogger *log = NULL);
+    
+    int efctest(uint32 value,uint32 &result);
+	
 
 	//------------------------------------------------------------------------------
 	// Hardware controls
 	//------------------------------------------------------------------------------
-
+	
 	enum
 	{
 		spdif_pro_format = 2	// Matches the 1394 driver
@@ -102,27 +142,22 @@ public:
 	int changeboxflags(uint32 setmask,uint32 clearmask);
 	int getboxflags(uint32 &flags);
 
-	int changedriverflags(uint32 ormask,uint32 andmask);
-
 	int getmirror(int &output);
 	int setmirror(int output);
 
 	int getdigitalmode(int &mode);
 	int setdigitalmode(int mode);
-
+	
 	int getphantom(int &phantom);
 	int setphantom(int phantom);
+
+	int getisocmap(efr_isoc_map *map);
+	int setisocmap(efc_isoc_map *map);
 	
 	int identify();
-
-	uint32 GetClockEnableMask();
-	uint32 ClockDetected(int clock);
-
-	int SetCoreAudioRate(uint32 rate);
-	int GetCoreAudioRate(uint32 &rate);
-
-	int SendTestBuffer (uint8 const *buffer,size_t buffer_size);
-	int ReceiveTestBuffer (uint8 *buffer,size_t buffer_size,size_t &bytes_received);
+	
+	void reconnectphy();
+	void busreset();
 
 
 	//------------------------------------------------------------------------------
@@ -131,10 +166,6 @@ public:
 
 	int getinshift(int input,int &shift);
 	int setinshift(int input,int shift);
-
-	int GetInputMeter(int input);
-
-	int setingain(int input,float gain);
 
 
 	//------------------------------------------------------------------------------
@@ -160,13 +191,11 @@ public:
 
 	int setplaygain(uint32 virtout,uint32 output,float gain);
 	int setplaymute(uint32 virtout,uint32 output,uint32 mute);
-	int setplaypan(uint32 virtout,uint32 output,float pan);
 	int getplaygain(uint32 virtout,uint32 output,float &gain);
 	int getplaymute(uint32 virtout,uint32 output,uint32 &mute);
-	int getplaypan(uint32 virtout,uint32 output,float &pan);
 	int setplaysolo(uint32 output,uint32 solo);
 	int getplaysolo(uint32 output,uint32 &solo);
-
+	
 	
 	//------------------------------------------------------------------------------
 	// Master output controls
@@ -178,74 +207,89 @@ public:
 	int getmastermute(uint32 output,uint32 &mute);
 	int getoutshift(int output,int &shift);
 	int setoutshift(int output,int shift);
-
 	int GetMasterOutMeter(int output);
-
+	int GetInputMeter(int input);
+	
 
 	//------------------------------------------------------------------------------
 	// Transport controls
 	//------------------------------------------------------------------------------
-
+	
 	enum
 	{
-		clock_not_specified = 0xffffffff,
-
-		ASIO_BUSY = 1000,
-		WINDOWS_AUDIO_BUSY,
-		USB_MODE_ERROR
+		clock_not_specified = 0xffffffff
 	};
 
-#if TUSBAUDIO_API_VERSION_MJ >=4 
-	int getbuffsize(uint32 &aframes);
-	int setbuffsize(uint32 aframes);
-	int getusbmode(int &mode);
-	int setusbmode(int mode);
-#else
-	int getbuffsize(uint32 &usec);
-	int setbuffsize(uint32 usec);
-
-	int getUSBBufferSizes(Array<int> &sizes,unsigned &current);
-	int getUSBBufferSize(int &usec);
-	int setUSBBufferSize(int usec);
-
-	int getAsioBufferSizes(Array<int> &sizes,unsigned &current);
-#endif
-
 	int getclock(int32 &samplerate,int32 &clock);
-	int setclock(int32 samplerate,int32 clock);
-
-	int getratelock(bool &locked);
-	int setratelock(bool locked);
+	int setclock(int32 samplerate,int32 clock,bool reconnect = false);
 	
-#if ACOUSTICIO_BUILD
-
-    Result setMicGain(uint8 channel, uint8 gain);
-    Result setAmpGain(uint8 channel, uint8 gain);
-    Result setMicGain(XmlElement const *element);
-	Result setAmpGain(XmlElement const *element);
-	Result setConstantCurrent(XmlElement const *element);
-	Result setConstantCurrent(uint8 const input, uint8 const enabled);
-    Result readTEDSData(uint8 const input, uint8* data, size_t dataBufferBytes);
-    Result setAIOSReferenceVoltage(XmlElement const *element);
-    Result setAIOSReferenceVoltage(int const module, bool const enabled);
-    Result readFlashBlock(uint8 const block, uint8 * const buffer, size_t const bufferBytes);
-    Result writeFlashBlock(uint8 const block, uint8 const * const buffer, size_t const bufferBytes);
-    Result clearRAMCalibrationData();
-    Result setCalibrationData(AcousticIOCalibrationData const * const data);
-    Result getCalibrationData(AcousticIOCalibrationData * const data);
-    
-#endif
-
+	int32 GetCoreAudioSampleRate();	// Mac only
+	int SetCoreAudioSampleRate(int32 samplerate);
 
 	//------------------------------------------------------------------------------
-	// MIDI status
+	// Flash memory
+	//------------------------------------------------------------------------------
+
+	int readflash(uint32 offset,uint32 quadcount,uint32 *dest);
+	int eraseflash(uint32 offset);
+	int writeflash(uint32 offset,uint32 quadcount,uint32 *data);
+	int getflashstatus(bool &ready);
+	int getsessionbase(uint32 &offset);
+	int setflashlock(bool locked);
+	
+
+	//------------------------------------------------------------------------------
+	// Read a session block
+	//------------------------------------------------------------------------------
+
+	int readsession(uint32 offsetquads,int &quads,uint32 *dest);	
+	
+	
+	//------------------------------------------------------------------------------
+	// MIDI and clock status
 	//------------------------------------------------------------------------------
 
 	uint32 GetMidiStatus();
 	bool MidiInActive(int input);
 	bool MidiOutActive(int output);
 
+	uint32 GetClockEnableMask();
+	uint32 ClockDetected(int clock);
 
+	
+	//------------------------------------------------------------------------------
+	//  robot guitar
+	//------------------------------------------------------------------------------
+	
+	int SetRIPChargeState
+	(
+	 bool manual_charge_on,
+	 bool automatic_charging,
+	 uint32 inactivity_time_seconds
+	 );
+	int GetRIPChargeState
+	(
+	 bool &manual_charge_on,
+	 bool &automatic_charging,
+	 uint32 &inactivity_time_seconds
+	 );
+	
+	int RoboCommWrite(	byte *data,						// data to send to guitar
+						uint32 write_byte_count,		// number of bytes to write to guitar
+						bool &success);		// true if it's safe to write more data
+	
+	int RoboCommRead(	byte *data,			// caller's buffer for data received from the guitar
+						uint32 buffer_size,	// caller's buffer size in bytes
+						uint32 &byte_count);// number of bytes received from guitar
+	
+	bool HexSignalDetected();
+	bool GuitarStereoCableDetected();
+	bool GuitarCharging();
+	uint32 GuitarStatusFlags();
+	
+	int SetHexModeControl(uint32 mode);
+	
+	
 	//------------------------------------------------------------------------------
 	//  conversion routines
 	//------------------------------------------------------------------------------
@@ -253,42 +297,9 @@ public:
 	static int32 DbToLin(float gaindb);
 	static float LinToDb(uint32 gainlin);
 	static uint32 PanFloatToEfc(float pan);
-	static float EfcToPanFloat(uint32 pan);
-	static float PanFloatToDb(float pan);
-
-protected:
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ehw)
-
-	friend class ehwlist;
-	
-	ehw *_prev;
-	ehw *_next;
-	
-	hwcaps	_caps;
-	String	_uniquename;
-    uint16 firmwareVersion;
-	
-    int		_ok;
-	String	_error;
-
-	enum
-	{
-		CUR = 1,
-        USB_REQUEST_FROM_DEV = 0xa1,
-        USB_REQUEST_TO_DEV = 0x21
-	};
-    
-    IOUSBDeviceInterface** deviceInterface;
-    ScopedPointer<Description> description;
-    
-    uint8 getModuleTypes();
-    
-    Result createResult(IOReturn const status);
-    IOReturn setRequest(uint8 unit, uint8 type, uint8 channel, uint8 *data, uint16 length);
-    IOReturn getRequest(uint8 unit, uint8 type, uint8 channel, uint8 *data, uint16 length);
+	static float EfcToPanFloat(uint32 pan);	
 };
 
 #define COMMAND_TIMEOUT_MSEC				2000
 
-
-
+#endif // _Ehw_h_

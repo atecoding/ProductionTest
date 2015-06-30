@@ -4,13 +4,24 @@
 class hwcaps
 {
 protected:
-	unsigned productId;
 	friend class ehw;
 
+	typedef struct
+	{
+		byte	type;
+		byte	group;
+		byte	groupoffset;
+	} chanmap;
+
+	echo1394_caps	_caps;	
+	
 	enum
 	{
 		max_chan = 64
 	};
+	
+	chanmap	_inmap[ max_chan ];
+	chanmap _outmap[ max_chan ];
 	
 public:
 	//
@@ -50,17 +61,8 @@ public:
 
 		not_specified = 0xff
 	};
-
-	enum
-	{
-		ECHO2 = 0x10,
-		ECHO4 = 0x40,
-		ANALYZERBR = 0x80,
-        ACOUSTICIO_PRODUCT_ID = 0xa0,
-        ACOUSTICIO_MB_PRODUCT_ID = 0xa1
-	};
 	
-	void init(unsigned product_id);
+	void init();
 	void dump(Logger *log);
 
 	int32 numbusin();
@@ -71,12 +73,12 @@ public:
 	int32 NumMidiOut();
 	int32 NumMidiIn();
 
-	char const *BoxTypeName();
+	const char *BoxTypeName();
 	
 	int NumMixInGroups();
 	int MixInGroupSize(int group);
-	char const *MixInGroupName(int group);
-	char const *MixInGroupShortName(int group);
+	const char *MixInGroupName(int group);
+	const char *MixInGroupShortName(int group);
 	int MixInGroup(int chan);
 	int MixInGroupOffset(int chan);
 	int MixInType(int chan);
@@ -86,8 +88,8 @@ public:
 	
 	int NumMixOutGroups();
 	int MixOutGroupSize(int group);
-	char const *MixOutGroupName(int group);
-	char const *MixOutGroupShortName(int group);
+	const char *MixOutGroupName(int group);
+	const char *MixOutGroupShortName(int group);
 	int MixOutGroup(int chan);
 	int MixOutGroupOffset(int chan);
 	int MixOutType(int chan);

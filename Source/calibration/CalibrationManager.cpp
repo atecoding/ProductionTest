@@ -1,4 +1,7 @@
 #include "../base.h"
+
+#if ACOUSTICIO_BUILD
+
 #include "CalibrationManager.h"
 #include "ehw.h"
 #include "crc32.h"
@@ -1868,3 +1871,4 @@ Result CalibrationManager::configureAIO()
 	return setResult;
 }
 
+#endif
