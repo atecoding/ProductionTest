@@ -78,7 +78,6 @@ active_outputs(0),
 _script(NULL),
 calibrationManager(this)
 {
-	DBG(String::formatted("ProductionUnit::ProductionUnit %p", dev));
 	zerostruct(input_meters);
 
 	//_dev->incReferenceCount();
@@ -687,8 +686,9 @@ void ProductionUnit::ParseScript()
 		if (_script->hasTagName("message_box"))
 		{
 			XmlElement *text,*log_text;
-			int yesno;
-
+            int yesOrNo = 0;
+            int continueOrStop = 0;
+            
 			//
 			// Look for the message box text
 			//
@@ -703,15 +703,14 @@ void ProductionUnit::ParseScript()
 			}
 
 			//
-			// get "yes/no" flag
+			// get "yes/no" flag and "continue/stop" flag
 			//
-			ok = getIntValue(_script,"show_yes_no",yesno);
-			if (false == ok)
-				yesno = 0;
+			getIntValue(_script,"show_yes_no",yesOrNo);
+            getIntValue(_script,"continue_or_stop",continueOrStop);
 
-			if (yesno)
+			if (yesOrNo)
 			{
-				ok = AlertWindow::showOkCancelBox(AlertWindow::NoIcon,"Production Test",text->getText(),T("Yes"),T("No"));
+				ok = AlertWindow::showOkCancelBox(AlertWindow::NoIcon,"Production Test",text->getText(),"Yes","No");
 				_unit_passed &= ok;
 
 				log_text = _script->getChildByName("log");
@@ -734,12 +733,25 @@ void ProductionUnit::ParseScript()
 					_content->log(msg);
 				}
 			}
+            else if (continueOrStop)
+            {
+                ok = AlertWindow::showOkCancelBox(AlertWindow::NoIcon,"Production Test",text->getText(),"Continue","Stop");
+                if (false == ok)
+                {
+                    _running = false;
+                    _skipped = true;
+                    
+                    _content->FinishTests(false, true);
+                    _script = _script->getNextElement();
+                    break;
+                }
+            }
 			else
 			{
 				AlertWindow::showMessageBox(AlertWindow::NoIcon,"Production Test",text->getText(),"OK");
 			}
 
-			_script = _script->getNextElement();
+            _script = _script->getNextElement();
 			continue;
 		}
 
@@ -1495,6 +1507,8 @@ void ProductionUnit::ParseScript()
         
         if (_script->hasTagName("AIOS_calibrate"))
         {
+            _script = _script->getNextElement();
+
             if (_unit_passed)
             {
                 //
@@ -1510,7 +1524,6 @@ void ProductionUnit::ParseScript()
 				return;
             }
             
-            _script = _script->getNextElement();
 			continue;
         }
         
@@ -1923,9 +1936,26 @@ void ProductionUnit::finishAIOSCalibration()
 void ProductionUnit::printErrorCodes(XmlElement *xe)
 {
 #ifdef JUCE_MAC
+    _content->log("Printer test");
+    {
+        String status(Printer::dumpPrinters());
+        _content->log(status);
+    }
+    
     if (0 == errorCodes.getCount())
     {
         _content->log("No error codes\n");
+        
+        String status;
+        if (false == Printer::printerFound(status))
+        {
+            _content->log("Printer not found");
+            _content->log(status);
+            
+            return;
+        }
+        
+        Printer::print("No error codes");
         return;
     }
     
@@ -2017,14 +2047,15 @@ void ProductionUnit::printErrorCodes(XmlElement *xe)
         output += String::toHexString(printedCodes[i]) + " ";
     }
     
-    if (false == Printer::printerFound())
+    String status;
+    if (false == Printer::printerFound(status))
     {
         _content->log("Printer not found");
+        _content->log(status);
         return;
     }
     
     Printer::print(output);
-    DBG(output);
 #endif
 }
 

@@ -52,8 +52,8 @@ bool RelativeLevelTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, E
 		int num_samples = getSamplesRequired();
         bool channelOK = false;
 		int transitions = 0, lowCount = 0, highCount = 0;
-		int lowSamples = 0, highSamples = 0;
-		float totalAve = 0.0, runningAve = 0.0, lowAve = 0.0, highAve = 0.0, tops = 0.0, max = 0.0;
+        int lowSamples = 0;//, highSamples = 0;
+		float totalAve = 0.0, runningAve = 0.0, lowAve = 0.0, tops = 0.0, max = 0.0; // highAve = 0.0
 
 		testInput.setSize(1, num_samples);
 		testInput.copyFrom(0, 0, *sourceBuffer, 0, 0, num_samples);

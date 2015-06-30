@@ -28,6 +28,7 @@ recordProgress(calibrationManager_)
 
 	nextButton.addListener(this);
     cancelButton.setWantsKeyboardFocus(false);
+    cancelButton.addShortcut(KeyPress(KeyPress::escapeKey));
 	cancelButton.addListener(this);
 	dataDisplayAIOS.calibrateButton.addListener(this);
 	dataDisplayAIOS.measureButton.addListener(this);

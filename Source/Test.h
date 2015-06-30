@@ -235,12 +235,3 @@ protected:
                    Range<float> const range
                    );
 };
-
-class NoiseSegmentTest : public Test
-{
-public:
-	NoiseSegmentTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
-	~NoiseSegmentTest();
-
-	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg, ErrorCodes &errorCodes);
-};

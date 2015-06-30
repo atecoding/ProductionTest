@@ -3,13 +3,6 @@
 
 void Printer::print(String const text)
 {
-    DBG("Printer::print");
-    
-    Result printResult(printInternal(text));
-    if (printResult.failed())
-    {
-        DBG(printResult.getErrorMessage());
-        return;
-    }
+    printInternal(text);
 }
 

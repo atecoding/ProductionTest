@@ -19,7 +19,7 @@ class Content;
 class AppWindow;
 class ProductionUnit;
 
-class Content : public Component, ButtonListener, SliderListener, public AsyncUpdater,
+class Content : public Component, Button::Listener, public AsyncUpdater,
 ComboBox::Listener
 {
 public:
@@ -52,8 +52,7 @@ public:
 protected:
 	virtual void paint (Graphics& g);
 	virtual void buttonClicked(Button *button);
-	virtual bool keyPressed(const KeyPress &key);
-	virtual void sliderValueChanged(Slider *s);
+    virtual bool keyPressed(KeyPress const & key);
     virtual void comboBoxChanged (ComboBox* comboBoxThatHasChanged);
 
 	Result GetSerialNumber(String &serialNumber);

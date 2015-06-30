@@ -52,10 +52,9 @@ Content::Content(ehwlist *devlist,const StringArray &hardwareInstances_) :
 
 	addAndMakeVisible(startButton);
     addAndMakeVisible(stopButton);
+    startButton.addShortcut(KeyPress(KeyPress::returnKey));
 	startButton.addListener(this);
     stopButton.addListener(this);
-	startButton.addShortcut(KeyPress(KeyPress::returnKey));
-    stopButton.addShortcut(KeyPress(KeyPress::escapeKey));
     stopButton.setEnabled(false);
     
     TestManager* testManager = application->testManager;
@@ -92,6 +91,7 @@ Content::Content(ehwlist *devlist,const StringArray &hardwareInstances_) :
 	{
 		startButton.setEnabled(false);
         stopButton.setEnabled(false);
+        scriptCombo.setEnabled(true);
 	}
 #endif
 
@@ -106,8 +106,7 @@ Content::~Content()
 {
 	DBG("~Content");
 
-	//Reset();
-
+    ModalComponentManager::getInstance()->cancelAllModalComponents();
 
 	DBG("~Content done");
 }
@@ -213,6 +212,8 @@ void Content::paint(Graphics &g)
 
 void Content::buttonClicked(Button *button)
 {
+    DBG("Content::buttonClicked " + button->getButtonText());
+    
 	if (button == &startButton)
 	{
 #ifdef PCI_BUILD
@@ -272,6 +273,9 @@ void Content::buttonClicked(Button *button)
             repaint();
             startButton.setEnabled(false);
             stopButton.setEnabled(true);
+            stopButton.setState(Button::buttonNormal);
+            scriptCombo.setEnabled(false);
+            stopButton.grabKeyboardFocus();
             _unit->RunTests(serialNumber_, Time::getCurrentTime());
 		}
 #endif
@@ -283,25 +287,29 @@ void Content::buttonClicked(Button *button)
     if (button == &stopButton)
     {
         stopButton.setEnabled(false);
-        scriptCombo.setEnabled(false);
+        scriptCombo.setEnabled(true);
         _unit->_running = false;
         return;
     }
 }
 
-bool Content::keyPressed(const KeyPress &key)
+bool Content::keyPressed(KeyPress const & key)
 {
-    if (key == KeyPress::escapeKey)
+    DBG("Content::keyPressed " + key.getTextDescription());
+    
+    if (key.isKeyCode (KeyPress::returnKey) && startButton.isEnabled())
     {
-        JUCEApplication::quit();
+        startButton.triggerClick();
         return true;
-	}
-
-	return false;
-}
-
-void Content::sliderValueChanged(Slider *s)
-{
+    }
+    
+    if (key.isKeyCode (KeyPress::escapeKey) && stopButton.isEnabled())
+    {
+        stopButton.triggerClick();
+        return true;
+    }
+    
+    return false;
 }
 
 void Content::log(String msg)
@@ -362,6 +370,7 @@ void Content::FinishTests(bool pass,bool skipped)
 
 	_unit->_running = false;
 	startButton.setEnabled(true);
+    startButton.setState(Button::buttonNormal);
     stopButton.setEnabled(false);
     scriptCombo.setEnabled(true);
 	startButton.grabKeyboardFocus();
@@ -428,6 +437,7 @@ void Content::DevArrived(ehw *dev)
 	DBG("Content::DevArrived - button enabled");
 
 	startButton.setEnabled(true);
+    startButton.setState(Button::buttonNormal);
     stopButton.setEnabled(false);
     scriptCombo.setEnabled(true);
 	startButton.grabKeyboardFocus();

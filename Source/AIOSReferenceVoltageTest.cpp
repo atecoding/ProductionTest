@@ -140,12 +140,12 @@ Result AIOSReferenceVoltageTest::analyze(
             return Result::fail(name + " signal too noisy");
         }
         
-        DBG("Zero crossing at " << zeroCrossing2);
+        //DBG("Zero crossing at " << zeroCrossing2);
         
         length = zeroCrossing2 - zeroCrossing1;
         float sample = data[length / 2];
         
-        DBG("  Center sample " << sample);
+        //DBG("  Center sample " << sample);
         
         if (sample < 0.0f)
         {
