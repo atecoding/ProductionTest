@@ -29,6 +29,10 @@ const float CalibrationManager::voltMeterMax = 7.0f;
 const float CalibrationManager::voltMeterMin = 6.0f;
 const int CalibrationManager::serialNumberLength = 7;
 
+const float ratioTolerancePercent = 25.0f;
+const float minDutyCycle = 0.45f;
+const float maxDutyCycle = 0.55f;
+
 const String CalibrationManager::voltageInputName("Voltage input");
 const String CalibrationManager::currentInputName("Current input");
 const String CalibrationManager::voltageOutputName("Output voltage");
@@ -275,6 +279,10 @@ Result CalibrationManager::analyze(
 	Range<float> const range
 )
 {
+    int length;
+    int positiveLength = 0;
+    int negativeLength = 0;
+    
 	totalResult = 0.0f;
 
 	int skipSamples = roundDoubleToInt(sampleRate * skipInitialDataSeconds);
@@ -304,8 +312,6 @@ Result CalibrationManager::analyze(
 
 	while (numSamples > 0)
 	{
-		int length;
-
 		findZeroCrossing(data, numSamples, zeroCrossing1, zeroCrossing2);
 		if (zeroCrossing2 < 0)
 			break;
@@ -327,11 +333,13 @@ Result CalibrationManager::analyze(
 		{
 			negativeResult.add(sample);
 			numNegativeCenterPoints++;
+            negativeLength += length;
 		}
 		else
 		{
 			positiveResult.add(sample);
 			numPositiveCenterPoints++;
+            positiveLength += length;
 		}
 
 		data += length;
@@ -347,6 +355,30 @@ Result CalibrationManager::analyze(
 	{
 		positiveResult.average /= numPositiveCenterPoints;
 	}
+    
+    // make sure waveform is centered around ground (symmetrical)
+    {
+        if (0.0f == negativeResult.average)
+        {
+            return Result::fail(name + " negative result is zero");
+        }
+        
+        float ratio = positiveResult.average / negativeResult.average;
+        
+        if (ratio < (1.0f - ratioTolerancePercent * 0.01f) || ratio > (1.0f + ratioTolerancePercent * 0.01f))
+            return Result::fail(name + " ratio out of range " + String(ratio));
+    }
+    
+    // make sure duty cycle is approximately 50%
+    {
+        int denominator = positiveLength + negativeLength;
+        if (0 == denominator)
+            return Result::fail(name + " failed duty cycle - zero length");
+        
+        float dutyCycle = float(positiveLength) / float(denominator);
+        if (dutyCycle < minDutyCycle || dutyCycle > maxDutyCycle)
+            return Result::fail(name + " invalid duty cycle " + String(dutyCycle));
+    }
 
 	totalResult = fabs(negativeResult.average) + positiveResult.average;
 	if (range.contains(totalResult))
@@ -359,6 +391,8 @@ Result CalibrationManager::analyze(
 
 void CalibrationManager::findZeroCrossing(const float * data, int numSamples, int startIndex, int &zeroCrossingIndex)
 {
+    int const periodThreshold = roundFloatToInt( (sampleRate / audioIOCallback.getSquareWaveFrequency()) * 0.4f);
+    
 	if (numSamples < 2)
 	{
 		zeroCrossingIndex = -1;
@@ -374,11 +408,11 @@ void CalibrationManager::findZeroCrossing(const float * data, int numSamples, in
 	{
 		float sample = *data;
 
-		if ((sample < 0.0f && previousSample >= 0.0f) ||
-			(previousSample < 0.0f && sample >= 0.0f))
-		{
-			return;
-		}
+        if (((sample < 0.0f && previousSample >= 0.0f) ||
+             (previousSample < 0.0f && sample >= 0.0f)) && ((zeroCrossingIndex - startIndex) > periodThreshold))
+        {
+            return;
+        }
 
 		zeroCrossingIndex++;
 		numSamples--;

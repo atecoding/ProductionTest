@@ -9,6 +9,9 @@ const float AIOSReferencePeakVolts = 2.5f;   // Reference signal is 0 to +5V, bu
 const float voltageInputPeakVolts = 8.75f;    // Max +8.75V, min -8.75V, common to AIO-2 and AIO-S
 const float expectedAIOSVoltageInputResult = (AIOSReferencePeakVolts * 2.0f) / voltageInputPeakVolts;
 const float tolerancePercent = 6.0f;
+const float ratioTolerancePercent = 25.0f;
+const float minDutyCycle = 0.45f;
+const float maxDutyCycle = 0.55f;
 
 AIOSReferenceVoltageTest::AIOSReferenceVoltageTest(XmlElement *xe,bool &ok, ProductionUnit *unit_) :
 Test(xe,ok,unit_)
@@ -125,7 +128,6 @@ Result AIOSReferenceVoltageTest::analyze(
 	int length;
 	int positiveLength = 0;
 	int negativeLength = 0;
-	float dutyCycle;
 
     positiveResult.clear(1.0f);
     negativeResult.clear(-1.0f);
@@ -180,16 +182,28 @@ Result AIOSReferenceVoltageTest::analyze(
 	totalResult = fabs(negativeResult.average) + positiveResult.average;
 
 	// make sure waveform is centered around ground (symmetrical)
+    {
+        if (0.0f == negativeResult.average)
+        {
+            return Result::fail(name + " negative result is zero");
+        }
+        
+        float ratio = positiveResult.average / negativeResult.average;
+        
+        if (ratio < (1.0f - ratioTolerancePercent * 0.01f) || ratio > (1.0f + ratioTolerancePercent * 0.01f))
+            return Result::fail(name + " ratio out of range " + String(ratio));
+    }
 
-	if ((positiveResult.average < 0.20f) || (positiveResult.average > 0.36f) ||
-		(negativeResult.average > -0.20f) || (negativeResult.average < -0.36f))
-		totalResult = 0.0f;
-
-	// make sure duty cycle is approximatley 50%
-
-	dutyCycle = (float)positiveLength / ((float)positiveLength + (float)negativeLength);
-	if (dutyCycle < 0.45f || dutyCycle > 0.55f)
-		totalResult = 0.0f;
+    // make sure duty cycle is approximately 50%
+    {
+        int denominator = positiveLength + negativeLength;
+        if (0 == denominator)
+            return Result::fail(name + " failed duty cycle - zero length");
+        
+        float dutyCycle = float(positiveLength) / float(denominator);
+        if (dutyCycle < minDutyCycle || dutyCycle > maxDutyCycle)
+            return Result::fail(name + " invalid duty cycle " + String(dutyCycle));
+    }
 
 	if (range.contains(totalResult))
     {
@@ -202,6 +216,7 @@ Result AIOSReferenceVoltageTest::analyze(
 
 void AIOSReferenceVoltageTest::findZeroCrossing(const float * data, int numSamples, int startIndex, int &zeroCrossingIndex)
 {
+    
 	int const periodThreshold = roundFloatToInt(squareWavePeriodSamples * 0.4f);
 
     if (numSamples < 2)
