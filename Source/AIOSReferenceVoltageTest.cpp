@@ -74,7 +74,7 @@ bool AIOSReferenceVoltageTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String 
     msg += String(totalResult * voltageInputPeakVolts, 6) + " V";
     if (rangeResult.failed())
     {
-        msg += " FAIL";
+        msg += " FAIL - " + rangeResult.getErrorMessage();
         
         String filename(title);
         filename += String::formatted(" (out%02d-in%02d).wav", output, physicalInput);
@@ -188,7 +188,7 @@ Result AIOSReferenceVoltageTest::analyze(
             return Result::fail(name + " negative result is zero");
         }
         
-        float ratio = positiveResult.average / negativeResult.average;
+        float ratio = fabs(positiveResult.average / negativeResult.average);
         
         if (ratio < (1.0f - ratioTolerancePercent * 0.01f) || ratio > (1.0f + ratioTolerancePercent * 0.01f))
             return Result::fail(name + " ratio out of range " + String(ratio));
