@@ -53,7 +53,6 @@
 		C9314A241B43316C00EFC529 /* CaDevList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9314A201B43316C00EFC529 /* CaDevList.cpp */; };
 		C9314A251B43316C00EFC529 /* EndianSwap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9314A231B43316C00EFC529 /* EndianSwap.cpp */; };
 		C9314A261B43322900EFC529 /* hwcaps.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD5027A7ACE57A808563459E /* hwcaps.cpp */; };
-		C9314A281B4332AC00EFC529 /* AudioFire 8 Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9314A271B4332AC00EFC529 /* AudioFire 8 Test.xml */; };
 		C94CC6A01B293C9100CEC3BF /* CalibrationData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6961B293C9100CEC3BF /* CalibrationData.cpp */; };
 		C94CC6A11B293C9100CEC3BF /* CalibrationDialogComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6981B293C9100CEC3BF /* CalibrationDialogComponent.cpp */; };
 		C94CC6A21B293C9100CEC3BF /* CalibrationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC69A1B293C9100CEC3BF /* CalibrationManager.cpp */; };
@@ -70,6 +69,7 @@
 		C9BBBF821B322CDF00766B48 /* Printer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BBBF811B322CDF00766B48 /* Printer.cpp */; };
 		C9BC4A451B1E4E7C009736B7 /* Upsampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BC4A431B1E4E7C009736B7 /* Upsampler.cpp */; };
 		C9BC4A521B1E566E009736B7 /* r8bbase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BC4A511B1E566E009736B7 /* r8bbase.cpp */; };
+		C9D4FB4A1B4333FF006D0607 /* AudioFire 12 Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9D4FB491B4333FF006D0607 /* AudioFire 12 Test.xml */; };
 		C9F48E9E1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F48E9D1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp */; };
 		CCAFCFE69CB697A6CF6F0058 /* juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9FA5C625F428490B83F5393B /* juce_events.mm */; };
 		CE54B4FA36345C53CCB60912 /* MIDILoopTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 873A2AA908695E9CBC5508FC /* MIDILoopTest.cpp */; };
@@ -771,7 +771,6 @@
 		C9314A211B43316C00EFC529 /* CaDevList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CaDevList.h; path = ../../Source/osx/CaDevList.h; sourceTree = "<group>"; };
 		C9314A221B43316C00EFC529 /* CfHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CfHelpers.h; path = ../../Source/osx/CfHelpers.h; sourceTree = "<group>"; };
 		C9314A231B43316C00EFC529 /* EndianSwap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = EndianSwap.cpp; path = ../../Source/osx/EndianSwap.cpp; sourceTree = "<group>"; };
-		C9314A271B4332AC00EFC529 /* AudioFire 8 Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AudioFire 8 Test.xml"; path = "../../scripts/AudioFire 8 Test.xml"; sourceTree = "<group>"; };
 		C94CC6951B293C9100CEC3BF /* CalibrationAudioIOCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalibrationAudioIOCallback.h; path = ../../Source/calibration/CalibrationAudioIOCallback.h; sourceTree = "<group>"; };
 		C94CC6961B293C9100CEC3BF /* CalibrationData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalibrationData.cpp; path = ../../Source/calibration/CalibrationData.cpp; sourceTree = "<group>"; };
 		C94CC6971B293C9100CEC3BF /* CalibrationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalibrationData.h; path = ../../Source/calibration/CalibrationData.h; sourceTree = "<group>"; };
@@ -814,6 +813,7 @@
 		C9BC4A501B1E506A009736B7 /* r8bconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = r8bconf.h; path = ../../Source/r8brain/r8bconf.h; sourceTree = "<group>"; };
 		C9BC4A511B1E566E009736B7 /* r8bbase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = r8bbase.cpp; path = ../../Source/r8brain/r8bbase.cpp; sourceTree = "<group>"; };
 		C9CC188B6EC29494A14EB4A4 /* juce_ChoicePropertyComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ChoicePropertyComponent.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/properties/juce_ChoicePropertyComponent.h; sourceTree = SOURCE_ROOT; };
+		C9D4FB491B4333FF006D0607 /* AudioFire 12 Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AudioFire 12 Test.xml"; path = "../../scripts/AudioFire 12 Test.xml"; sourceTree = "<group>"; };
 		C9F48E9D1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FrequencySweepResponseTest.cpp; path = ../../Source/FrequencySweepResponseTest.cpp; sourceTree = "<group>"; };
 		CA53AFFB17039691A4668A6C /* juce_android_GraphicsContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_android_GraphicsContext.cpp; path = ../../JuceLibraryCode/modules/juce_graphics/native/juce_android_GraphicsContext.cpp; sourceTree = SOURCE_ROOT; };
 		CA8D1ABF1507CEBD321ABD1D /* Content.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Content.cpp; path = ../../Source/Content.cpp; sourceTree = SOURCE_ROOT; };
@@ -1864,7 +1864,7 @@
 		93C619DBF455E2A537DD75BE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C9314A271B4332AC00EFC529 /* AudioFire 8 Test.xml */,
+				C9D4FB491B4333FF006D0607 /* AudioFire 12 Test.xml */,
 				C95C66341B0A787300DA394D /* factory.icns */,
 				ECB33092A73D580039E20E87 /* Info.plist */,
 				7DDFE4DA407C0FE8084B8C5D /* RecentFilesMenuTemplate.nib */,
@@ -2669,7 +2669,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9314A281B4332AC00EFC529 /* AudioFire 8 Test.xml in Resources */,
+				C9D4FB4A1B4333FF006D0607 /* AudioFire 12 Test.xml in Resources */,
 				6E32B1E6B0A50AF4474A55D8 /* RecentFilesMenuTemplate.nib in Resources */,
 				C95C66351B0A787300DA394D /* factory.icns in Resources */,
 			);
@@ -2767,6 +2767,7 @@
 					"JUCER_XCODE_MAC_F6D2F4CF=1",
 					"JUCE_APP_VERSION=1.0.0",
 					"JUCE_APP_VERSION_HEX=0x10000",
+					"AF_BUILD=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -2842,6 +2843,7 @@
 					"JUCER_XCODE_MAC_F6D2F4CF=1",
 					"JUCE_APP_VERSION=1.0.0",
 					"JUCE_APP_VERSION_HEX=0x10000",
+					"AF_BUILD=1",
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = (

@@ -31,6 +31,8 @@ static CFStringRef validnames[ NUM_VALID_DEV_NAMES ] =
 };
 #endif
 
+#define ECHO_VENDOR_ID		0x001486
+
 
 //******************************************************************************
 // ehwlist methods
@@ -54,11 +56,18 @@ ehwlist::ehwlist(int num_vendor_ids, uint32 *vendor_ids,CriticalSection *lock) :
 	_IterMatching = 0;
 	_IterTerminated = 0;
 	
-	for (int i = 0; i < num_vendor_ids; i++)
-	{
-		_vendor_ids.add(vendor_ids[i]);
-	}
-										
+    if (num_vendor_ids != 0)
+    {
+        for (int i = 0; i < num_vendor_ids; i++)
+        {
+            _vendor_ids.add(vendor_ids[i]);
+        }
+    }
+    else
+    {
+        _vendor_ids.add((uint32)ECHO_VENDOR_ID);
+    }
+    
 	findboxes();
 
 #if MAC_DEVICE_MENU	
@@ -448,7 +457,7 @@ void ehwlist::ServiceMatched(void *context,io_iterator_t iterator)
 	ehwlist *that = (ehwlist *) context;
 	ScopedLock lock(*(that->_cs));
 	
-	//Logger::outputDebugString("ehwlist::ServiceMatched");
+	Logger::outputDebugString("ehwlist::ServiceMatched");
 
 	while ((audiodev = IOIteratorNext(iterator)))
 	{
@@ -470,7 +479,7 @@ void ehwlist::ServiceMatched(void *context,io_iterator_t iterator)
 		nameok = that->validate(name._ref);
 		if (false == nameok)
 		{
-			//Logger::outputDebugString("ehwlist::ServiceMatched - name invalid");
+			Logger::outputDebugString("ehwlist::ServiceMatched - name invalid");
 			IOObjectRelease(audiodev);
 			continue;
 		}
@@ -483,7 +492,7 @@ void ehwlist::ServiceMatched(void *context,io_iterator_t iterator)
 		avcunit = FindIoRegParent(audiodev,CFSTR("IOFireWireAVCUnit"));
 		if (0 == avcunit)
 		{
-			//Logger::outputDebugString("ehwlist::ServiceMatched - no parent");
+			Logger::outputDebugString("ehwlist::ServiceMatched - no parent");
 			IOObjectRelease(audiodev);
 			continue;
 		}
@@ -498,7 +507,7 @@ void ehwlist::ServiceMatched(void *context,io_iterator_t iterator)
 		vendor._ref = (CFNumberRef) IORegistryEntryCreateCFProperty(avcunit,CFSTR("Vendor_ID"),NULL,0);
 		if (NULL == vendor._ref)
 		{
-			//Logger::outputDebugString("ehwlist::ServiceMatched - cannot read vendor ID");
+			Logger::outputDebugString("ehwlist::ServiceMatched - cannot read vendor ID");
 			IOObjectRelease(audiodev);
 			continue;
 		}
@@ -506,7 +515,7 @@ void ehwlist::ServiceMatched(void *context,io_iterator_t iterator)
 		ok = CFNumberGetValue(vendor._ref,kCFNumberSInt32Type,&id);
 		if (!ok)
 		{
-			//Logger::outputDebugString("ehwlist::ServiceMatched - CFNumberGetValue failed");
+			Logger::outputDebugString("ehwlist::ServiceMatched - CFNumberGetValue failed");
 			IOObjectRelease(audiodev);
 			continue;
 		}
@@ -625,10 +634,10 @@ void ehwlist::ServiceTerminated(void *context,io_iterator_t iterator)
 
 void ehwlist::PostArrivalMessage(ehw *dev)
 {
-#if 0
+#if 1
 	for (int index = 0; index < _listeners.size(); index++)
 	{
-		Message *msg = new Message(EHW_DEVICE_ARRIVAL,0,0,dev);
+		Message *msg = new DeviceChangeMessage(EHW_DEVICE_ARRIVAL,0,0,dev);
 		_listeners[index]->postMessage(msg);
 	}
 #endif
@@ -643,10 +652,10 @@ void ehwlist::PostArrivalMessage(ehw *dev)
 
 void ehwlist::PostRemovalMessage(ehw *dev)
 {
-#if 0
+#if 1
 	for (int index = 0; index < _listeners.size(); index++)
 	{
-		Message *msg = new Message(EHW_DEVICE_REMOVAL,0,0,dev);
+		Message *msg = new DeviceChangeMessage(EHW_DEVICE_REMOVAL,0,0,dev);
 		_listeners[index]->postMessage(msg);
 	}
 #endif

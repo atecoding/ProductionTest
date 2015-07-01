@@ -1763,5 +1763,5 @@ void ehw::busreset()
 
 String ehw::getFirmwareVersionString()
 {
-    return "Firmware version goes here";
+    return String("DSP:" + String::toHexString((int32)_caps->DspVersion()) + " ARM:" + String::toHexString((int32)_caps->ArmVersion()));
 }

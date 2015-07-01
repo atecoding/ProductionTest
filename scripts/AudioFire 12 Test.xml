@@ -8,7 +8,7 @@
 		AudioFire12
 
 	<ASIO_driver>AudioFire12</ASIO_driver>
-
+    <CoreAudio_driver>AudioFire12</CoreAudio_driver>
 
     <!-- ============================== -->
     <!-- Analog output 1 => analog in 1 -->

@@ -36,6 +36,7 @@ public:
 	bool _unit_passed;
 	bool _skipped;
 	bool _running;
+    bool prompting;
     bool deviceAttached;
 
 	FileOutputStream *getLogStream() const

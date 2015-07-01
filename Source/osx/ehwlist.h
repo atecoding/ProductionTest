@@ -73,4 +73,18 @@ public:
 #endif
 };
 
+class DeviceChangeMessage : public Message
+{
+public:
+    DeviceChangeMessage(int p1,int /*p2*/,int /*p3*/,void* p4):
+    intParameter1(p1),
+    pointerParameter (p4)
+    {
+    }
+    int intParameter1;
+    void* pointerParameter;
+    
+    JUCE_LEAK_DETECTOR (DeviceChangeMessage)
+};
+
 #endif // _ehwlist_h_

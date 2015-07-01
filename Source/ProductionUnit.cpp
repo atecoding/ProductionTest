@@ -67,6 +67,7 @@ _num_tests(0),
 _unit_passed(true),
 _skipped(false),
 _running(false),
+prompting(false),
 deviceAttached(true),
 tree("ProductionUnit"),
 _ok(true),
@@ -514,6 +515,14 @@ void ProductionUnit::audioDeviceIOCallback
     {
         test->fillAudioOutputs(asb,_tone);
     }
+    else if (prompting)
+    {
+        AudioSourceChannelInfo asci;
+        asci.buffer = &asb;
+        asci.numSamples = asb.getNumSamples();
+        asci.startSample = 0;
+        _tone.getNextAudioBlock(asci);
+    }
     else
     {
         asb.clear();
@@ -843,8 +852,10 @@ void ProductionUnit::ParseScript()
 
 			if (0 == tp.start_group)
 			{
+                prompting = true;
 				_asio->start(this);
 				rval = tp.ShowMeterWindow(_content, _dev, input_meters);
+                prompting = false;
 				_asio->stop();
 				//DBG("_asio start and stop");
 			}
@@ -1705,11 +1716,15 @@ bool ProductionUnit::CreateASIO(XmlElement *script)
 		StringArray deviceNames(type->getDeviceNames());  // This will now return a list of available devices of this type
 		for (int j = 0; j < deviceNames.size(); ++j)
 		{
-			if (deviceNames[j] == devicename)
+#if JUCE_MAC
+            if (deviceNames[j].contains(devicename))
+#else
+            if (deviceNames[j] == devicename)
+#endif
 			{
-				_asio = type->createDevice(devicename, devicename);
+                _asio = type->createDevice(deviceNames[j], deviceNames[j]);
 				DBG("CreateASIO ok");
-				return true;
+				return _asio != nullptr;
 			}
 		}
 	}
