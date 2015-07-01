@@ -29,6 +29,10 @@ local.properties
 # PDT-specific
 .buildpath
 
+# Xcode
+
+Builds/MacOSX/build/
+Builds/MacOSX/DerivedData
 
 #################
 ## Visual Studio
