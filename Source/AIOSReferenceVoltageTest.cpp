@@ -122,13 +122,16 @@ Result AIOSReferenceVoltageTest::analyze(
     
     int numPositiveCenterPoints = 0;
     int numNegativeCenterPoints = 0;
-    
+	int length;
+	int positiveLength = 0;
+	int negativeLength = 0;
+	float dutyCycle;
+
     positiveResult.clear(1.0f);
     negativeResult.clear(-1.0f);
     
     while (numSamples > 0)
     {
-        int length;
         
         findZeroCrossing(data, numSamples, zeroCrossing1, zeroCrossing2);
         if (zeroCrossing2 < 0)
@@ -151,12 +154,14 @@ Result AIOSReferenceVoltageTest::analyze(
         {
             negativeResult.add(sample);
             numNegativeCenterPoints++;
+			negativeLength += length;
         }
         else
         {
             positiveResult.add(sample);
             numPositiveCenterPoints++;
-        }
+			positiveLength += length;
+		}
         
         data += length;
         numSamples -= length;
@@ -171,9 +176,22 @@ Result AIOSReferenceVoltageTest::analyze(
     {
         positiveResult.average /= numPositiveCenterPoints;
     }
-    
-    totalResult = fabs(negativeResult.average) + positiveResult.average;
-    if (range.contains(totalResult))
+
+	totalResult = fabs(negativeResult.average) + positiveResult.average;
+
+	// make sure waveform is centered around ground (symmetrical)
+
+	if ((positiveResult.average < 0.20f) || (positiveResult.average > 0.36f) ||
+		(negativeResult.average > -0.20f) || (negativeResult.average < -0.36f))
+		totalResult = 0.0f;
+
+	// make sure duty cycle is approximatley 50%
+
+	dutyCycle = (float)positiveLength / ((float)positiveLength + (float)negativeLength);
+	if (dutyCycle < 0.45f || dutyCycle > 0.55f)
+		totalResult = 0.0f;
+
+	if (range.contains(totalResult))
     {
         return Result::ok();
     }
@@ -184,6 +202,8 @@ Result AIOSReferenceVoltageTest::analyze(
 
 void AIOSReferenceVoltageTest::findZeroCrossing(const float * data, int numSamples, int startIndex, int &zeroCrossingIndex)
 {
+	int const periodThreshold = roundFloatToInt(squareWavePeriodSamples * 0.4f);
+
     if (numSamples < 2)
     {
         zeroCrossingIndex = -1;
@@ -199,8 +219,8 @@ void AIOSReferenceVoltageTest::findZeroCrossing(const float * data, int numSampl
     {
         float sample = *data;
         
-        if ((sample < 0.0f && previousSample >= 0.0f) ||
-            (previousSample < 0.0f && sample >= 0.0f))
+        if (((sample < 0.0f && previousSample >= 0.0f) ||
+			(previousSample < 0.0f && sample >= 0.0f)) && ((zeroCrossingIndex - startIndex) > periodThreshold))
         {
             return;
         }

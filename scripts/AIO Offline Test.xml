@@ -9,6 +9,15 @@
     <ASIO_driver>ASIO Echo Acoustic AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO</CoreAudio_driver>
 
+    <Offline_test>
+      <type>AIOS Reference voltage check</type>
+      <output_amplitude_db>-6.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+    </Offline_test>
+    
     <Print_error_codes/>
 
   </device>

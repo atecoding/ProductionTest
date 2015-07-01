@@ -1440,9 +1440,6 @@
     <ClCompile Include="..\..\Source\win32\Printer_win32.cpp">
       <Filter>ProductionTest\Source\win32</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\NoiseSegmentTest.cpp">
-      <Filter>ProductionTest\Source</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\ehw\win\NotificationWindow.h">

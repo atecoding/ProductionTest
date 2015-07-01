@@ -4,7 +4,7 @@
 
 #include "../printer/Printer.h"
 
-bool Printer::printerFound()
+bool Printer::printerFound(juce::String &status)
 {
     return false;
 }

@@ -335,7 +335,6 @@
     <ClCompile Include="..\..\Source\MeterWindow.cpp" />
     <ClCompile Include="..\..\Source\MIDILoopTest.cpp" />
     <ClCompile Include="..\..\Source\MidiTest.cpp" />
-    <ClCompile Include="..\..\Source\NoiseSegmentTest.cpp" />
     <ClCompile Include="..\..\Source\PhaseTest.cpp" />
     <ClCompile Include="..\..\Source\printer\Printer.cpp" />
     <ClCompile Include="..\..\Source\ProductionUnit.cpp" />
