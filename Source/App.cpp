@@ -159,7 +159,7 @@ void App::shutdown()
 
 const String App::getApplicationName()
 {
-    return T("Production test");
+    return "Production Test";
 }
 
 //==============================================================================
@@ -168,7 +168,7 @@ bool App::SingleInstanceCheck()
 {
 	bool locked;
 
-	_processlock = new InterProcessLock("Production test lock");
+	_processlock = new InterProcessLock("Production Test lock");
 	locked = _processlock->enter(0);
 	if (false == locked)
 	{

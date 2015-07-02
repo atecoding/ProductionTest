@@ -2622,9 +2622,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BA1D034141381BA1469F20A9 /* ProductionTest */ = {
+		BA1D034141381BA1469F20A9 /* AF12 Test */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 0118404503397F592517DD38 /* Build configuration list for PBXNativeTarget "ProductionTest" */;
+			buildConfigurationList = 0118404503397F592517DD38 /* Build configuration list for PBXNativeTarget "AF12 Test" */;
 			buildPhases = (
 				7688B9F2C2A6D20A18C64E48 /* Resources */,
 				A92059840A4DE68A78FBCECD /* Sources */,
@@ -2634,7 +2634,7 @@
 			);
 			dependencies = (
 			);
-			name = ProductionTest;
+			name = "AF12 Test";
 			productInstallPath = "$(HOME)/Applications";
 			productName = ProductionTest;
 			productReference = 6763390C4B987A4428528DAD /* ProductionTest.app */;
@@ -2659,7 +2659,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BA1D034141381BA1469F20A9 /* ProductionTest */,
+				BA1D034141381BA1469F20A9 /* AF12 Test */,
 			);
 		};
 /* End PBXProject section */
@@ -2780,6 +2780,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
+				PRODUCT_NAME = "AF12 Test";
 				SDKROOT_ppc = macosx10.5;
 			};
 			name = Release;
@@ -2856,6 +2857,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
+				PRODUCT_NAME = "AF12 Test";
 				SDKROOT_ppc = macosx10.5;
 			};
 			name = Debug;
@@ -2863,7 +2865,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0118404503397F592517DD38 /* Build configuration list for PBXNativeTarget "ProductionTest" */ = {
+		0118404503397F592517DD38 /* Build configuration list for PBXNativeTarget "AF12 Test" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				93C2963F7E57B20F0D212D96 /* Debug */,
