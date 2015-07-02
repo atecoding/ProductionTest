@@ -1936,26 +1936,9 @@ void ProductionUnit::finishAIOSCalibration()
 void ProductionUnit::printErrorCodes(XmlElement *xe)
 {
 #ifdef JUCE_MAC
-    _content->log("Printer test");
-    {
-        String status(Printer::dumpPrinters());
-        _content->log(status);
-    }
-    
     if (0 == errorCodes.getCount())
     {
         _content->log("No error codes\n");
-        
-        String status;
-        if (false == Printer::printerFound(status))
-        {
-            _content->log("Printer not found");
-            _content->log(status);
-            
-            return;
-        }
-        
-        Printer::print("No error codes");
         return;
     }
     
