@@ -95,7 +95,7 @@ Test *Test::Create(XmlElement *xe, int input, int output, bool &ok, ProductionUn
         if (typeString == "Relative level check")
 			test = new RelativeLevelTest(xe, ok, unit_);
 
-#if ECHO1394
+#if 0 // ECHO1394
 		if (typeString == "Guitar hex input crosstalk")
 			test = new HexInputCrosstalkTest(xe,ok);
 

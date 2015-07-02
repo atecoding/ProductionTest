@@ -424,6 +424,14 @@ uint32 ehw::GetBoxRev()
 	return _caps->_caps.hwversion;
 }
 
+uint64 ehw::GetSerialNumber()
+{
+    uint64 serial = _caps->_caps.node_id_hi & 0xffffff;
+    serial <<= 32;
+    serial |= _caps->_caps.node_id_lo;
+    return serial;
+}
+
 
 //******************************************************************************
 //

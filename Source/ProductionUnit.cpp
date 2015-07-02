@@ -257,11 +257,41 @@ bool ProductionUnit::status()
 	return _ok;
 }
 
+String ProductionUnit::getSerialNumber()
+{
+    if (_serial_number.isEmpty())
+    {
+    
+#if ACOUSTICIO_BUILD
+        Time currentTime = Time::getCurrentTime();
+        int dayOfYear = currentTime.getDayOfYear();
+        int hour = currentTime.getHours();
+        int minute = currentTime.getMinutes();
+        String const deviceName("AIO");
+        _serial_number = String::formatted("AIO%03d%02d%02d", dayOfYear, hour, minute);
+#endif
+    
+#if ECHO1394
+        _serial_number =  String::toHexString((int64)_dev->GetSerialNumber());
+#endif
+        
+    }
+    
+    return _serial_number;
+}
+
 void ProductionUnit::RunTests(String const serialNumber_, Time const testStartTime_)
 {
     DBG("ProductionUnit::RunTests")
     ;
-	_serial_number = serialNumber_;
+    if (serialNumber_.isEmpty())
+    {
+        getSerialNumber();
+    }
+    else
+    {
+        _serial_number = serialNumber_;
+    }
     testStartTime = testStartTime_;
     
 	CreateLogFile();
@@ -271,9 +301,12 @@ void ProductionUnit::RunTests(String const serialNumber_, Time const testStartTi
 	_skipped = false;
 	_unit_passed = true;
 	_running = true;
+    prompting = false;
+    _channel_group_passed = 0;
     errorCodes.reset();
     tree.removeAllChildren(nullptr);
     tree.removeAllProperties(nullptr);
+    _test = nullptr;
 
 	//
 	// Load the set of tests from XML
@@ -510,18 +543,18 @@ void ProductionUnit::audioDeviceIOCallback
 	//
 	// Playback
 	//
-	AudioSampleBuffer asb(outputChannelData, numOutputChannels, numSamples);
-    if (test)
-    {
-        test->fillAudioOutputs(asb,_tone);
-    }
-    else if (prompting)
+	AudioSampleBuffer asb(outputChannelData, numOutputChannels, numSamples);\
+    if (prompting)
     {
         AudioSourceChannelInfo asci;
         asci.buffer = &asb;
         asci.numSamples = asb.getNumSamples();
         asci.startSample = 0;
         _tone.getNextAudioBlock(asci);
+    }
+    else if (test)
+    {
+        test->fillAudioOutputs(asb,_tone);
     }
     else
     {
@@ -663,6 +696,8 @@ void ProductionUnit::ParseScript()
 
 	while (_script && _running && deviceAttached)
 	{
+        DBG("ParseScript - tag " + _script->getTagName());
+        
 		//-----------------------------------------------------------------------------
 		//
 		// Firmware version check?
@@ -938,8 +973,8 @@ void ProductionUnit::ParseScript()
 		//
 		//-----------------------------------------------------------------------------
 
-#if ECHO1394
-		if (_script->hasTagName(T("write_rip_test_register")))
+#if 0 // ECHO1394
+		if (_script->hasTagName("write_rip_test_register"))
 		{
 			extern bool WriteRIPTestRegister(ehw *dev,XmlElement *xe,uint32 &reg_value);
 			uint32 reg_value;
@@ -965,8 +1000,8 @@ void ProductionUnit::ParseScript()
 		//
 		//-----------------------------------------------------------------------------
 
-#if ECHO1394
-		if (_script->hasTagName(T("check_rip_status_register")))
+#if 0 // ECHO1394
+		if (_script->hasTagName("check_rip_status_register"))
 		{
 			extern bool CheckRIPStatusRegister(ehw *dev,XmlElement *xe,bool &passed);
 			bool passed;
@@ -1017,8 +1052,8 @@ void ProductionUnit::ParseScript()
 		//
 		//-----------------------------------------------------------------------------
 
-#if ECHO1394
-		if (_script->hasTagName(T("boxstatus")))
+#if 0 // ECHO1394
+		if (_script->hasTagName("boxstatus"))
 		{
 			extern bool CheckBoxstatusRegister(ehw *dev,XmlElement *xe,bool &passed);
 			bool passed;
@@ -1118,8 +1153,8 @@ void ProductionUnit::ParseScript()
 		//
 		//-----------------------------------------------------------------------------
 
-#if ECHO1394
-		if (_script->hasTagName(T("set_rip_charge_mode")))
+#if 0 // ECHO1394
+		if (_script->hasTagName("set_rip_charge_mode"))
 		{
 			bool SetChargeMode(ehw *dev,XmlElement *xe);
 
@@ -1176,7 +1211,7 @@ void ProductionUnit::ParseScript()
 		//-----------------------------------------------------------------------------
 
 #if ECHO1394
-		if (_script->hasTagName(T("testMIDI")))
+		if (_script->hasTagName("testMIDI"))
 		{
 			extern bool MidiTest(ehw *dev,bool &passed);
 			bool passed;
@@ -1224,7 +1259,7 @@ void ProductionUnit::ParseScript()
 		//-----------------------------------------------------------------------------
 
 #if ECHO1394
-		if (_script->hasTagName(T("softclip")))
+		if (_script->hasTagName("softclip"))
 		{
 			int rval;
 			int set;
@@ -1312,7 +1347,7 @@ void ProductionUnit::ParseScript()
 		//-----------------------------------------------------------------------------
 
 #if defined(ECHOPCI) || defined(ECHO1394)
-		if (_script->hasTagName(T("PhantomPower")))
+		if (_script->hasTagName("PhantomPower"))
 		{
 			int mode = _script->getAllSubText().getIntValue();
 			_dev->setphantom(mode);

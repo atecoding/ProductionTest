@@ -54,8 +54,6 @@ protected:
 	virtual void buttonClicked(Button *button);
     virtual bool keyPressed(KeyPress const & key);
     virtual void comboBoxChanged (ComboBox* comboBoxThatHasChanged);
-
-	Result GetSerialNumber(String &serialNumber);
 	
 	StringArray hardwareInstances;
 	ehwlist		*_devlist;

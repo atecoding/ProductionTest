@@ -48,6 +48,7 @@
     </test>
 
       	<!-- Frequency response - 20 Hz at 48 kHz -->
+<!---
     <test>
       	<type>Frequency response</type>
       	<input>0</input>
@@ -128,6 +129,24 @@
       	<output_frequency>20000.0</output_frequency>
     		<pass_threshold_db>-8.5</pass_threshold_db>
     </test>
+        -->
+
+    <test>
+        <type>Frequency sweep response</type>
+        <input>0</input>
+        <output>0</output>
+        <num_channels>1</num_channels>
+        <sample_rate>48000</sample_rate>
+        <output_amplitude_db>-10.0</output_amplitude_db>
+        <output_frequency>20.0</output_frequency>
+        <pass_threshold_db>1.0</pass_threshold_db>
+        <sweep_time_seconds>2.0</sweep_time_seconds>
+        <sweep_delay_seconds>1.0</sweep_delay_seconds>
+        <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
+        <sweep_fadeout_seconds>0.1</sweep_fadeout_seconds>
+        <sweep_record_seconds>4.0</sweep_record_seconds>
+    </test>
+
 	
     <!-- End of Testing Analog output 1 -->	
 
@@ -167,7 +186,8 @@
       	<pass_threshold_db>102.0</pass_threshold_db>
 	</test>	
 	
-	<!-- Frequency response - A2 to A2 - 20 Hz at 48 kHz -->	
+	<!-- Frequency response - A2 to A2 - 20 Hz at 48 kHz -->
+    <!--
 	<test>
 		<type>Frequency response</type>
 		<input>1</input>
@@ -248,6 +268,25 @@
       	<output_frequency>20000.0</output_frequency>
       	<pass_threshold_db>-8.5</pass_threshold_db>
 	</test>
+    -->
+    
+    <test>
+        <type>Frequency sweep response</type>
+        <input>1</input>
+        <output>1</output>
+        <num_channels>1</num_channels>
+        <sample_rate>48000</sample_rate>
+        <output_amplitude_db>-10.0</output_amplitude_db>
+        <output_frequency>20.0</output_frequency>
+        <pass_threshold_db>1.0</pass_threshold_db>
+        <sweep_time_seconds>2.0</sweep_time_seconds>
+        <sweep_delay_seconds>1.0</sweep_delay_seconds>
+        <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
+        <sweep_fadeout_seconds>0.1</sweep_fadeout_seconds>
+        <sweep_record_seconds>4.0</sweep_record_seconds>
+    </test>
+
+
 		
     <!-- End of Testing Analog output 2 -->
 

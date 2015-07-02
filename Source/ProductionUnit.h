@@ -46,10 +46,7 @@ public:
 
 	File getOutputFolder();
 
-	String getSerialNumber() const
-	{
-		return _serial_number;
-	}
+    String getSerialNumber();
     
     ValueTree tree;
 

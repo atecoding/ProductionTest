@@ -261,6 +261,7 @@ void Content::buttonClicked(Button *button)
             _devlist->UnregisterMessageListener(&_dev_listener);
 #endif
 
+#if 0
             String serialNumber_(_unit->getSerialNumber());
             if (serialNumber_.isEmpty())
             {
@@ -268,6 +269,7 @@ void Content::buttonClicked(Button *button)
                 if (serialNumberResult.failed())
                     return;
             }
+#endif
 
             finalResult = String::empty;
             repaint();
@@ -276,7 +278,7 @@ void Content::buttonClicked(Button *button)
             stopButton.setState(Button::buttonNormal);
             scriptCombo.setEnabled(false);
             stopButton.grabKeyboardFocus();
-            _unit->RunTests(serialNumber_, Time::getCurrentTime());
+            _unit->RunTests(String::empty, Time::getCurrentTime());
 		}
 #endif
     
@@ -521,14 +523,13 @@ void Content::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
     application->testManager->setCurrentScriptIndex(scriptCombo.getSelectedItemIndex());
 }
 
+#if 0
 Result Content::GetSerialNumber(String &serialNumber_)
 {
-	Time currentTime = Time::getCurrentTime();
-	int dayOfYear = currentTime.getDayOfYear();
-	int hour = currentTime.getHours();
-	int minute = currentTime.getMinutes();
-#if ACOUSTICIO_BUILD
-	String const deviceName("AIO");
+
+    
+#if ECHO1394
+    
 #endif
 
 #if (0)
@@ -576,7 +577,7 @@ Result Content::GetSerialNumber(String &serialNumber_)
 		}
 	} while (false == ok);
 #endif
-	serialNumber_ = String::formatted("AIO%03d%02d%02d", dayOfYear, hour, minute);
-	return Result::ok();
+
 }
+#endif
 
