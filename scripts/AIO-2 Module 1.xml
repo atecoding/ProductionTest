@@ -16,7 +16,7 @@
 	<log>LED Test</log>
     </message_box>
 
-    <AIO_firmware_version_test max_version="0x54" />
+    <AIO_firmware_version_test max_version="0x71" />
 
     <message_box>Connect the Test Adapter to Inputs 1-4</message_box>
 
