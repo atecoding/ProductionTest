@@ -647,6 +647,13 @@ void ProductionUnit::handleMessage(const Message &message)
             finishAIOSCalibration();
         }
         break;
+            
+           
+        case MESSAGE_AIOS_RESISTANCE_MEASUREMENT_DONE:
+        {
+            finishAIOSResistanceMeasurement();
+        }
+        break;
 	}
 }
 
@@ -1540,6 +1547,50 @@ void ProductionUnit::ParseScript()
 			continue;
         }
         
+        if (_script->hasTagName("AIOS_calibrate"))
+        {
+            _script = _script->getNextElement();
+            
+            if (_unit_passed)
+            {
+                //
+                // Destroy this object's AudioIODevice - this means that the
+                // calibration has to be the last stage of the test
+                //
+                _asio = nullptr;
+                
+                //
+                // Start the calibration
+                //
+                calibrationManager.startIntegratedSpeakerMonitorCalibration(_dev);
+                return;
+            }
+            
+            continue;
+        }
+        
+        if (_script->hasTagName("AIOS_measure_resistance"))
+        {
+            _script = _script->getNextElement();
+            
+            if (_unit_passed)
+            {
+                //
+                // Destroy this object's AudioIODevice - this means that the
+                // calibration has to be the last stage of the test
+                //
+                _asio = nullptr;
+                
+                //
+                // Start the resistance measurement
+                //
+                calibrationManager.startResistanceMeasurement(_dev);
+                return;
+            }
+            
+            continue;
+        }
+        
         if (_script->hasTagName("Print_error_codes"))
         {
             printErrorCodes(_script);
@@ -1906,10 +1957,10 @@ void ProductionUnit::runAIOTest(AIOTestVector function, String const groupName)
 
 void ProductionUnit::finishAIOSCalibration()
 {
+    bool pass;
     const String testName("AIO-S Calibration");
     
     _content->log(testName);
-    
     
     switch (calibrationManager.getState())
     {
@@ -1926,7 +1977,7 @@ void ProductionUnit::finishAIOSCalibration()
         {
             _content->AddResult(testName, false);
             _content->log("*** Calibration failed");
-            _content->log(calibrationManager.results);
+            _content->log(calibrationManager.getResults(pass));
             _unit_passed = false;
         }
         break;
@@ -1935,7 +1986,7 @@ void ProductionUnit::finishAIOSCalibration()
         {
             _content->AddResult(testName, true);
             _content->log("Calibration OK");
-            _content->log(calibrationManager.results);
+            _content->log(calibrationManager.getResults(pass));
             _content->log( "Calibration Data");
             _content->log( calibrationManager.calibrationDataAIOS.toString() );
         }
@@ -1943,6 +1994,49 @@ void ProductionUnit::finishAIOSCalibration()
             
     }
 
+    ParseScript();
+}
+
+
+void ProductionUnit::finishAIOSResistanceMeasurement()
+{
+    bool pass;
+    const String testName("AIO-S Resistance Measurement");
+    
+    _content->log(testName);
+    
+    switch (calibrationManager.getState())
+    {
+        default:
+            {
+                _content->AddResult(testName, false);
+                _content->log("*** Resistance measurement failed");
+                _content->log("*** Unexpected calibraton manager state " + String((int)calibrationManager.getState()));
+                _unit_passed = false;
+            }
+            break;
+            
+        case CalibrationManager::STATE_CANCELLED:
+            {
+                _content->AddResult(testName, false);
+                _content->log("*** Resistance measurement failed");
+                _content->log(calibrationManager.getResults(pass));
+                _unit_passed = false;
+            }
+            break;
+            
+        case CalibrationManager::STATE_RESISTANCE_MEASUREMENT_DONE:
+            {
+                String results(calibrationManager.getResults(pass));
+                _unit_passed &= pass;
+                _content->AddResult(testName, pass);
+                _content->log( "Calibration Data");
+                _content->log( calibrationManager.calibrationDataAIOS.toString());
+                _content->log( results);
+            }
+            break;
+    }
+    
     ParseScript();
 }
 

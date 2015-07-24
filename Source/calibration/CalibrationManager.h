@@ -16,6 +16,7 @@ public:
 
 	void startIntegratedSpeakerMonitorCalibration(ReferenceCountedObjectPtr<ehw> device_);
 	void startExternalSpeakerMonitorCalibration(ReferenceCountedObjectPtr<ehw> device_);
+    void startResistanceMeasurement(ReferenceCountedObjectPtr<ehw> device_);
 
 	virtual void timerCallback() override;
 	void modalStateFinished(int returnValue);
@@ -45,7 +46,8 @@ public:
 
 		STATE_START_RESISTANCE_MEASUREMENT,
 		STATE_ANALYZE_RESISTANCE_MEASUREMENT,
-		STATE_SHOW_RESISTANCE_MEASUREMENT,
+        STATE_SHOW_RESISTANCE_MEASUREMENT,
+		STATE_RESISTANCE_MEASUREMENT_DONE,
 
 		STATE_CONNECT_PRODUCTION_TEST_ADAPTER,
 		STATE_START_CALIBRATE_VOLTAGE_INPUT_WITH_LOOPBACK,
@@ -83,10 +85,15 @@ public:
 		return serialNumber;
 	}
 	Result setSerialNumber(String serialNumber_);
+    
+    String getResults(bool &pass_)
+    {
+        pass_ = pass;
+        return results;
+    }
 
 	AIOSCalibrationData calibrationDataAIOS;
 	ExternalSpeakerMonitorCalibrationData calibrationDataExternal;
-    String results;
     
     static const float AIOSReferencePeakVolts;
     static const float voltageInputPeakVolts;
@@ -136,6 +143,9 @@ protected:
 	ScopedPointer<AudioIODeviceType> ioDeviceType;
 	ScopedPointer<AudioIODevice> ioDevice;
 	ScopedPointer<AIOTestAdapter> testAdapter;
+    
+    String results;
+    bool pass;
 
 	class ModalDialogCallback : public ModalComponentManager::Callback
 	{
@@ -149,7 +159,7 @@ protected:
 	};
 
 	void execute();
-    void finish();
+    void finish(int messageCode);
 
 	//void showActiveCalibration();
 	void startCalibrateVoltageInputWithReferenceVoltage();

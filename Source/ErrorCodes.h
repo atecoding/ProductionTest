@@ -28,6 +28,7 @@ public:
         FIRMWARE,
         FLASH,
         MODULE_TYPE,
+        RESISTANCE_MEASUREMENT,
         
         LAST
     };

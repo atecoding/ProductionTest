@@ -118,6 +118,7 @@ protected:
     
     void runAIOTest(AIOTestVector function, String const groupName);
     void finishAIOSCalibration();
+    void finishAIOSResistanceMeasurement();
     void printErrorCodes(XmlElement *xe);
 #endif
 };

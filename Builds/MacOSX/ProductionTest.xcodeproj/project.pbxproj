@@ -66,6 +66,7 @@
 		C95C66381B0A85E800DA394D /* USBFirmwareVersionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C66371B0A85E800DA394D /* USBFirmwareVersionTest.cpp */; };
 		C95C663D1B0A94CC00DA394D /* ErrorCodes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C663B1B0A94CC00DA394D /* ErrorCodes.cpp */; };
 		C95C663F1B0AA26E00DA394D /* FlashMemoryTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C663E1B0AA26E00DA394D /* FlashMemoryTest.cpp */; };
+		C99B4EC11B62E6F000B28545 /* AIO-S Resistance Check.xml in Resources */ = {isa = PBXBuildFile; fileRef = C99B4EC01B62E6F000B28545 /* AIO-S Resistance Check.xml */; };
 		C9BA32E61B44AB8D0057F535 /* AIO-S Full Test (small inductor).xml in Resources */ = {isa = PBXBuildFile; fileRef = C9AE36321B312B8F00911FE2 /* AIO-S Full Test (small inductor).xml */; };
 		C9BA32E71B44AB8D0057F535 /* AIO-S Module 1 (small inductor).xml in Resources */ = {isa = PBXBuildFile; fileRef = C9AE36331B312B8F00911FE2 /* AIO-S Module 1 (small inductor).xml */; };
 		C9BA32E81B44AB8D0057F535 /* AIO-S Full Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9679FC71B0D57E4001DDDB7 /* AIO-S Full Test.xml */; };
@@ -808,6 +809,7 @@
 		C9679FC91B0D57E4001DDDB7 /* AIO-S Module 2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Module 2.xml"; path = "../../scripts/AIO-S Module 2.xml"; sourceTree = "<group>"; };
 		C9679FCD1B0D58A1001DDDB7 /* AIOTestAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIOTestAdapter.h; path = ../../Source/AIOTestAdapter.h; sourceTree = "<group>"; };
 		C96E48811B3D0ED900FD566E /* AIO Offline Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO Offline Test.xml"; path = "../../scripts/AIO Offline Test.xml"; sourceTree = "<group>"; };
+		C99B4EC01B62E6F000B28545 /* AIO-S Resistance Check.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Resistance Check.xml"; path = "../../scripts/AIO-S Resistance Check.xml"; sourceTree = "<group>"; };
 		C9AE36321B312B8F00911FE2 /* AIO-S Full Test (small inductor).xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Full Test (small inductor).xml"; path = "../../scripts/AIO-S Full Test (small inductor).xml"; sourceTree = "<group>"; };
 		C9AE36331B312B8F00911FE2 /* AIO-S Module 1 (small inductor).xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Module 1 (small inductor).xml"; path = "../../scripts/AIO-S Module 1 (small inductor).xml"; sourceTree = "<group>"; };
 		C9AE92851B3E0E4700A1D0A3 /* CoreAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CoreAudio.cpp; path = ../../Source/osx/CoreAudio.cpp; sourceTree = "<group>"; };
@@ -1880,6 +1882,7 @@
 				C9AE36331B312B8F00911FE2 /* AIO-S Module 1 (small inductor).xml */,
 				C9679FC71B0D57E4001DDDB7 /* AIO-S Full Test.xml */,
 				C9679FC81B0D57E4001DDDB7 /* AIO-S Module 1.xml */,
+				C99B4EC01B62E6F000B28545 /* AIO-S Resistance Check.xml */,
 				C9679FC91B0D57E4001DDDB7 /* AIO-S Module 2.xml */,
 				C95C66341B0A787300DA394D /* factory.icns */,
 				C95C662C1B0A765000DA394D /* AIO-2 Full Test.xml */,
@@ -2698,6 +2701,7 @@
 				C9BA32EA1B44AB8D0057F535 /* AIO-S Module 2.xml in Resources */,
 				C9BA32E61B44AB8D0057F535 /* AIO-S Full Test (small inductor).xml in Resources */,
 				C9BA32E91B44AB8D0057F535 /* AIO-S Module 1.xml in Resources */,
+				C99B4EC11B62E6F000B28545 /* AIO-S Resistance Check.xml in Resources */,
 				C9BA32E81B44AB8D0057F535 /* AIO-S Full Test.xml in Resources */,
 				C95C66351B0A787300DA394D /* factory.icns in Resources */,
 			);

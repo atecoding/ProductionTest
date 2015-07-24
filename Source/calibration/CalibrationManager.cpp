@@ -15,6 +15,7 @@ static const float voltageInputOutputAmplitude = 0.5f;
 static const float currentInputOutputAmplitude = 0.5f;
 static const float referenceResistorOhms = 10.0f;
 static const float externalSpeakerMonitorTolerance = 0.005f; // +/- 0.5%
+static const float resistanceMeasurementTolerance = 0.003f; // +/- 0.3%
 
 const float CalibrationManager::AIOSReferencePeakVolts = 2.5f;   // Reference signal is 0 to +5V, but AC coupled so -2.5V to +2.5V
 const float CalibrationManager::voltageInputPeakVolts = 8.75f;    // Max +8.75V, min -8.75V, common to AIO-2 and AIO-S
@@ -100,6 +101,8 @@ CalibrationManager::~CalibrationManager()
 
 void CalibrationManager::startIntegratedSpeakerMonitorCalibration(ReferenceCountedObjectPtr<ehw> device_)
 {
+    pass = true;
+    
 	voltageInputChannel = AIOS_VOLTAGE_INPUT_CHANNEL;
 	currentInputChannel = AIOS_CURRENT_INPUT_CHANNEL;
 	voltageOutputChannel = AIOS_VOLTAGE_OUTPUT_CHANNEL;
@@ -112,6 +115,24 @@ void CalibrationManager::startIntegratedSpeakerMonitorCalibration(ReferenceCount
 	limits = &limitsAIOS;
 
 	execute();
+}
+
+void CalibrationManager::startResistanceMeasurement(ReferenceCountedObjectPtr<ehw> device_)
+{
+    pass = false;
+    
+    voltageInputChannel = AIOS_VOLTAGE_INPUT_CHANNEL;
+    currentInputChannel = AIOS_CURRENT_INPUT_CHANNEL;
+    voltageOutputChannel = AIOS_VOLTAGE_OUTPUT_CHANNEL;
+    
+    results = String::empty;
+    
+    state = STATE_START_RESISTANCE_MEASUREMENT;
+    usbDevice = device_;
+    
+    limits = &limitsAIOS;
+    
+    execute();
 }
 
 void CalibrationManager::timerCallback()
@@ -538,7 +559,7 @@ void CalibrationManager::execute()
     case STATE_FINISH_INTEGRATED_SPEAKER_MONITOR_TEST:
         {
             DBG("case STATE_FINISH_INTEGRATED_SPEAKER_MONITOR_TEST");
-            finish();
+            finish(MESSAGE_AIOS_CALIBRATION_DONE);
         }
         break;
 
@@ -546,13 +567,13 @@ void CalibrationManager::execute()
 		{
 			AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), "No audio data recorded - unable to proceed.", "Close");
 
-            finish();
+            finish(MESSAGE_AIOS_CALIBRATION_DONE);
 		}
 		break;
 
 	case STATE_CANCELLED:
 		{
-            finish();
+            finish(MESSAGE_AIOS_CALIBRATION_DONE);
         }
 		break;
             
@@ -561,7 +582,7 @@ void CalibrationManager::execute()
 	}
 }
 
-void CalibrationManager::finish()
+void CalibrationManager::finish(int messageCode)
 {
     DBG("CalibrationManager::finish");
     
@@ -583,7 +604,7 @@ void CalibrationManager::finish()
     JUCEApplication::quit();
 #endif
     
-    messageListener->postMessage(new OldMessage(MESSAGE_AIOS_CALIBRATION_DONE,0,0,nullptr));
+    messageListener->postMessage(new OldMessage(messageCode,0,0,nullptr));
 }
 
 Result CalibrationManager::resetCalibration()
@@ -1521,6 +1542,28 @@ void CalibrationManager::startResistanceMeasurement()
 {
     DBG("CalibrationManager::startResistanceMeasurement()");
     
+    //
+    // Get the current RAM calibration data
+    //
+    Result getDataResult(usbDevice->getCalibrationData(&calibrationDataAIOS.data));
+    if (getDataResult.failed())
+    {
+        AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), getDataResult.getErrorMessage(), "Close");
+        return;
+    }
+    
+    calibrationDataAIOS.validateChecksum();
+    if (false == calibrationDataAIOS.isChecksumOK())
+    {
+        results = "Invalid RAM calibration" + newLine;
+        state = STATE_RESISTANCE_MEASUREMENT_DONE;
+        finish(MESSAGE_AIOS_RESISTANCE_MEASUREMENT_DONE);
+        return;
+    }
+    
+    //
+    // Configure the audio I/O
+    //
 	Result setResult(usbDevice->setMicGain(AIOS_VOLTAGE_INPUT_CHANNEL, 1));
 	if (setResult.failed())
 	{
@@ -1534,15 +1577,20 @@ void CalibrationManager::startResistanceMeasurement()
 		return;
 	}
 
-	usbDevice->setAmpGain(AIOS_VOLTAGE_OUTPUT_CHANNEL, ACOUSTICIO_AMP_GAIN_10V_P2P);
-
+	setResult = usbDevice->setAmpGain(AIOS_VOLTAGE_OUTPUT_CHANNEL, ACOUSTICIO_AMP_GAIN_10V_P2P);
+    if (setResult.failed())
+    {
+        AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), setResult.getErrorMessage(), "Close");
+        return;
+    }
+                                                        
 	Result audioDeviceResult(createIODevice());
 	if (audioDeviceResult.failed())
 	{
 		AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), audioDeviceResult.getErrorMessage(), "Close");
 		return;
 	}
-
+    
 	//
 	// Start the audio
 	//
@@ -1565,6 +1613,7 @@ void CalibrationManager::startResistanceMeasurement()
 void CalibrationManager::analyzeResistanceMeasurement()
 {
 	stopIODevice();
+    calibrationDialog->exitModalState(CalibrationDialogComponent::CONTINUE);
 
 	analyze(voltageInputName,
 		audioIOCallback.recordBuffer.getReadPointer(AIOS_VOLTAGE_INPUT_CHANNEL),
@@ -1580,9 +1629,32 @@ void CalibrationManager::analyzeResistanceMeasurement()
 		negativeCalibrationResults[AIOS_CURRENT_INPUT_CHANNEL],
 		current,
 		limits->currentInput);
+    
+    if (current != 0.0f)
+    {
+        float ratio = voltage / current;
+        float ohms = referenceResistorOhms * (ratio / expectedVoltageOverCurrent);
+        results += "Resistance: " + String(ohms, 5) + " ohms";
+        
+        float difference = fabs(ohms - referenceResistorOhms);
+        pass = difference <= resistanceMeasurementTolerance;
+    }
+    else
+    {
+        results += "Could not measure resistance - voltage:" + String(voltage,5) + " current: 0.0";
+    }
+    
+    if (pass)
+    {
+        results += " - PASS" + newLine;
+    }
+    else
+    {
+        results += " - FAIL" + newLine;
+    }
 
-	state = STATE_SHOW_RESISTANCE_MEASUREMENT;
-	showCalibrationDialog();
+	state = STATE_RESISTANCE_MEASUREMENT_DONE;
+    finish(MESSAGE_AIOS_RESISTANCE_MEASUREMENT_DONE);
 }
 
 void CalibrationManager::connectProductionTestAdapter()
