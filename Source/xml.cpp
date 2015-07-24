@@ -1,8 +1,8 @@
 #include "base.h"
 
-bool getIntValue(XmlElement *parent,String tagname,int &val)
+bool getIntValue(XmlElement const *parent,String tagname,int &val)
 {
-	XmlElement *xe;
+	XmlElement const *xe;
 
 	xe = parent->getChildByName(tagname);
 	if (xe)
@@ -14,9 +14,9 @@ bool getIntValue(XmlElement *parent,String tagname,int &val)
 	return false;
 }
 
-bool getFloatValue(XmlElement *parent,String tagname,float &val)
+bool getFloatValue(XmlElement const *parent,String tagname,float &val)
 {
-	XmlElement *xe;
+	XmlElement const *xe;
 
 	xe = parent->getChildByName(tagname);
 	if (xe)
@@ -29,9 +29,9 @@ bool getFloatValue(XmlElement *parent,String tagname,float &val)
 }
 
 
-bool getHexValue(XmlElement *parent,String tagname,uint32 &val)
+bool getHexValue(XmlElement const *parent,String tagname,uint32 &val)
 {
-	XmlElement *xe;
+	XmlElement const *xe;
 
 	xe = parent->getChildByName(tagname);
 	if (xe)
@@ -44,9 +44,9 @@ bool getHexValue(XmlElement *parent,String tagname,uint32 &val)
 }
 
 
-String getStringValue(XmlElement *parent,String tagname)
+String getStringValue(XmlElement const *parent,String tagname)
 {
-	XmlElement *xe;
+	XmlElement const *xe;
 
 	xe = parent->getChildByName(tagname);
 	if (xe)

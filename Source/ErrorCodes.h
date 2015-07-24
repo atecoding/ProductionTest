@@ -27,6 +27,7 @@ public:
         AIOS_REFERENCE_VOLTAGE,
         FIRMWARE,
         FLASH,
+        MODULE_TYPE,
         
         LAST
     };

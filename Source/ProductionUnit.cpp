@@ -58,6 +58,13 @@ bool RunFlashMemoryTest(XmlElement const *element,
                         AIOTestAdapter &testAdapter,
                         Content *content,
                         ErrorCodes &errorCodes);
+bool RunModuleTypeTest(XmlElement const *element,
+                       ehw *dev,
+                       String &msg,
+                       int &displayedInput,
+                       AIOTestAdapter &testAdapter,
+                       Content *content,
+                       ErrorCodes &errorCodes);
 #endif
 
 //extern String ProductionTestsXmlFileName;
@@ -1502,6 +1509,12 @@ void ProductionUnit::ParseScript()
         if (_script->hasTagName("AIO_flash_memory_test"))
         {
             runAIOTest(RunFlashMemoryTest, "Flash memory");
+            continue;
+        }
+        
+        if (_script->hasTagName("AIO_module_type_test"))
+        {
+            runAIOTest(RunModuleTypeTest, "Module type");
             continue;
         }
         
