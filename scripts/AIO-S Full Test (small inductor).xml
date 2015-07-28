@@ -31,7 +31,7 @@
         <type>1</type>  <!-- type 1 == TEDS microphone + class D amp analog module -->
     </AIO_module_type_test>
 
-    <AIO_flash_memory_test />
+    <!-- <AIO_flash_memory_test /> -->
     
     <message_box>Connect the Test Adapter to Inputs 1-2 and AMP1 and insert the Reference Resistor Adapter.</message_box>
 

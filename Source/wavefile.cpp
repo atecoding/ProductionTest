@@ -80,4 +80,38 @@ void WriteWaveFile(String filename, int rate, double* buffer, int samples)
 	WriteWaveFile(filename, rate, &asb, samples);
 }
 
+void WriteWaveFile(File wavefile, int rate, AudioSampleBuffer *asb, int samples, BigInteger channels)
+{
+    int numDestinationChannels = channels.countNumberOfSetBits();
+    AudioSampleBuffer destinationBuffer(numDestinationChannels, samples);
+    
+    int sourceChannel = 0;
+    for (int destinationChannel = 0; destinationChannel < numDestinationChannels; ++destinationChannel)
+    {
+        sourceChannel = channels.findNextSetBit(sourceChannel);
+        if (sourceChannel < 0)
+            return;
+        destinationBuffer.copyFrom(destinationChannel, 0, *asb, sourceChannel, 0, samples);
+        sourceChannel++;
+    }
+    
+    wavefile.deleteFile();
+    FileOutputStream* stream = wavefile.createOutputStream();
+    if (stream)
+    {
+        WavAudioFormat waf;
+        StringPairArray meta;
+        AudioFormatWriter* writer = waf.createWriterFor(stream,rate,numDestinationChannels,32,meta,0);
+        if (writer)
+        {
+            writer->writeFromAudioSampleBuffer(destinationBuffer, 0, samples);
+            delete writer;
+        }
+        else
+        {
+            delete stream;
+        }
+    }
+}
+
 #endif

@@ -37,6 +37,18 @@
 
 #define WRITE_WAVE_FILES 1
 
+#ifndef ALLOW_USER_SCRIPT_SELECT
+#define ALLOW_USER_SCRIPT_SELECT 1
+#endif
+
+#ifndef WINDOW_TITLE
+#define WINDOW_TITLE "Production"
+#endif
+
+#ifndef USER_PROMPT_SERIAL_NUMBER
+#define USER_PROMPT_SERIAL_NUMBER 0
+#endif
+
 enum
 {
 	MESSAGE_AUDIO_TEST_DONE,

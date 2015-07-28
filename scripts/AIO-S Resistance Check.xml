@@ -22,6 +22,8 @@
         <type>1</type>  <!-- type 1 == TEDS microphone + class D amp analog module -->
     </AIO_module_type_test>
     
+    <AIO_calibration_verification_test/>
+    
     <message_box>Insert the Reference Resistor Adapter.</message_box>
     
     <AIOS_measure_resistance/>

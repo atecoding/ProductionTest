@@ -31,3 +31,10 @@ uint32 ErrorCodes::getCode(int const index) const
 {
     return codes[index];
 }
+
+String ErrorCodes::getCodeAsString(int const index) const
+{
+    uint32 code = getCode(index);
+    
+    return String::toHexString((int32)code).toUpperCase();
+}

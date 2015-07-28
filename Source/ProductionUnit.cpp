@@ -65,6 +65,13 @@ bool RunModuleTypeTest(XmlElement const *element,
                        AIOTestAdapter &testAdapter,
                        Content *content,
                        ErrorCodes &errorCodes);
+bool RunCalibrationVerificationTest(XmlElement const *element,
+                       ehw *dev,
+                       String &msg,
+                       int &displayedInput,
+                       AIOTestAdapter &testAdapter,
+                       Content *content,
+                       ErrorCodes &errorCodes);
 #endif
 
 //extern String ProductionTestsXmlFileName;
@@ -83,11 +90,15 @@ _content(content),
 _asio(nullptr),
 active_outputs(0),
 _script(NULL),
-calibrationManager(this)
+calibrationManager(this, getOutputFolder())
 {
 	zerostruct(input_meters);
 
 	//_dev->incReferenceCount();
+    
+#if ACOUSTICIO_BUILD && 0 == USER_PROMPT_SERIAL_NUMBER
+    assignAutomaticSerialNumber();
+#endif
 
 	//
 	// Set up the mixer and buffer size
@@ -261,11 +272,27 @@ bool ProductionUnit::status()
 	return _ok;
 }
 
-void ProductionUnit::RunTests(String const serialNumber_, Time const testStartTime_)
+#if ACOUSTICIO_BUILD && 0 == USER_PROMPT_SERIAL_NUMBER
+void ProductionUnit::assignAutomaticSerialNumber()
 {
-    DBG("ProductionUnit::RunTests")
-    ;
-	_serial_number = serialNumber_;
+    Time currentTime = Time::getCurrentTime();
+    int dayOfYear = currentTime.getDayOfYear();
+    int hour = currentTime.getHours();
+    int minute = currentTime.getMinutes();
+    String const deviceName("AIO");
+    _serial_number = String::formatted("AIO%03d%02d%02d", dayOfYear, hour, minute);
+}
+#endif
+
+void ProductionUnit::setSerialNumber(const String serialNumber_)
+{
+    _serial_number = serialNumber_;
+}
+
+void ProductionUnit::RunTests(Time const testStartTime_)
+{
+    DBG("ProductionUnit::RunTests");
+    
     testStartTime = testStartTime_;
     
 	CreateLogFile();
@@ -381,6 +408,7 @@ void ProductionUnit::RunTests(String const serialNumber_, Time const testStartTi
 	_content->log(String::empty);
 	_content->log(String::empty);
 	_content->log("------------------------------------------------");
+    _content->log("Script: " + f.getFileNameWithoutExtension());
     _content->log("Test built " __DATE__);
 	_content->log(msg);
     _content->log("Firmware version " + _dev->getFirmwareVersionString());
@@ -1522,6 +1550,19 @@ void ProductionUnit::ParseScript()
         if (_script->hasTagName("AIO_module_type_test"))
         {
             runAIOTest(RunModuleTypeTest, "Module type");
+            if (false == _unit_passed)
+            {
+                break;
+            }
+            continue;
+        }
+        
+        if (_script->hasTagName("AIO_calibration_verification_test"))
+        {
+            if (_unit_passed)
+            {
+                runAIOTest(RunCalibrationVerificationTest, "Calibration verification");
+            }
             continue;
         }
         
@@ -1584,6 +1625,7 @@ void ProductionUnit::ParseScript()
                 //
                 // Start the resistance measurement
                 //
+                calibrationManager.setSerialNumber(_serial_number);
                 calibrationManager.startResistanceMeasurement(_dev);
                 return;
             }
@@ -1701,7 +1743,7 @@ void ProductionUnit::ParseScript()
                 
                 for (i = 0; i < errorCodeCount; i++)
                 {
-                    String errorCode(String::toHexString((int32)errorCodes.getCode(i)));
+                    String errorCode(errorCodes.getCodeAsString(i));
                     
                     errorCode += " ";
                     msg += errorCode;
@@ -1984,9 +2026,13 @@ void ProductionUnit::finishAIOSCalibration()
     
     case CalibrationManager::STATE_FINISH_INTEGRATED_SPEAKER_MONITOR_TEST:
         {
-            _content->AddResult(testName, true);
-            _content->log("Calibration OK");
-            _content->log(calibrationManager.getResults(pass));
+            String results(calibrationManager.getResults(pass));
+            _unit_passed &= pass;
+            _content->AddResult(testName, pass);
+            if (pass)
+                _content->log("Calibration OK");
+            else
+                _content->log("Calibration FAIL");
             _content->log( "Calibration Data");
             _content->log( calibrationManager.calibrationDataAIOS.toString() );
         }
@@ -2030,8 +2076,8 @@ void ProductionUnit::finishAIOSResistanceMeasurement()
                 String results(calibrationManager.getResults(pass));
                 _unit_passed &= pass;
                 _content->AddResult(testName, pass);
-                _content->log( "Calibration Data");
-                _content->log( calibrationManager.calibrationDataAIOS.toString());
+                //_content->log( "Calibration Data");
+                //_content->log( calibrationManager.calibrationDataAIOS.toString());
                 _content->log( results);
             }
             break;
@@ -2134,7 +2180,7 @@ void ProductionUnit::printErrorCodes(XmlElement *xe)
     
     for (int i = 0; i < printedCodes.size(); ++i)
     {
-        output += String::toHexString(printedCodes[i]) + " ";
+        output += String::toHexString(printedCodes[i]).toUpperCase() + " ";
     }
     
     String status;

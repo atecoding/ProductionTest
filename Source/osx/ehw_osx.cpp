@@ -45,12 +45,6 @@ void ehw::CloseDriver()
 {
 }
 
-uint64 ehw::GetSerialNumber()
-{
-    jassertfalse;
-    return 0;
-}
-
 uint8 ehw::getModuleTypes()
 {
     uint8 moduleTypes = 0;

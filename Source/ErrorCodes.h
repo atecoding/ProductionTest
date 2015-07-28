@@ -10,6 +10,7 @@ public:
     void add(uint32 code, uint32 channel);
     int getCount() const;
     uint32 getCode(int const index) const;
+    String getCodeAsString(int const index) const;
     
     enum
     {
@@ -29,6 +30,7 @@ public:
         FLASH,
         MODULE_TYPE,
         RESISTANCE_MEASUREMENT,
+        CALIBRATION_VERIFICATION,
         
         LAST
     };

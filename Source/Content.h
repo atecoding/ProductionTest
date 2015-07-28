@@ -20,7 +20,8 @@ class AppWindow;
 class ProductionUnit;
 
 class Content : public Component, Button::Listener, public AsyncUpdater,
-ComboBox::Listener
+public ComboBox::Listener,
+public ListBoxModel
 {
 public:
 	Content(ehwlist *devlist, const StringArray &hardwareInstances_);
@@ -54,8 +55,10 @@ protected:
 	virtual void buttonClicked(Button *button);
     virtual bool keyPressed(KeyPress const & key);
     virtual void comboBoxChanged (ComboBox* comboBoxThatHasChanged);
+    virtual int getNumRows();
+    virtual void paintListBoxItem (int rowNumber, Graphics &g, int width, int height, bool rowIsSelected);
 
-	Result GetSerialNumber(String &serialNumber);
+	Result promptForSerialNumber(String &serialNumber);
 	
 	StringArray hardwareInstances;
 	ehwlist		*_devlist;
@@ -69,7 +72,10 @@ protected:
     TextEditor logDisplay;
     TextButton startButton;
     TextButton stopButton;
+#if ALLOW_USER_SCRIPT_SELECT
     ComboBox scriptCombo;
+#endif
+    ListBox resultsListBox;
 
 	DevChangeListener _dev_listener;
 

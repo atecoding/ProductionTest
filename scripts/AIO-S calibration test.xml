@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  
+  <!-- **************************************************** -->
+	<!-- Echo Acoustic AIO                                    -->
+	<!-- **************************************************** -->
+	<device>
+    Acoustic AIO
+    <ASIO_driver>ASIO Echo Acoustic AIO</ASIO_driver>
+    <CoreAudio_driver>EchoAIO</CoreAudio_driver>
+
+    <AIOS_calibrate/>
+
+  </device>
+
+</root>
+

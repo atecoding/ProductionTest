@@ -51,8 +51,93 @@
 		C56E0875FF2EF880984F9194 /* TestPrompt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D218ABCF456C886AB5867EB0 /* TestPrompt.cpp */; };
 		C631329AE2D0578BC6027732 /* ConstantCurrentTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5DF22E869AFB1C87D3E5AED2 /* ConstantCurrentTest.cpp */; };
 		C90ED0311B09337F000D0950 /* AIOSReferenceVoltageTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C90ED0301B09337F000D0950 /* AIOSReferenceVoltageTest.cpp */; };
+		C920FEF01B62F68E009CC653 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7DDFE4DA407C0FE8084B8C5D /* RecentFilesMenuTemplate.nib */; };
+		C920FEF71B62F68E009CC653 /* AIO-S Resistance Check.xml in Resources */ = {isa = PBXBuildFile; fileRef = C99B4EC01B62E6F000B28545 /* AIO-S Resistance Check.xml */; };
+		C920FEFB1B62F68E009CC653 /* FrequencySweepResponseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F48E9D1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp */; };
+		C920FEFC1B62F68E009CC653 /* AIODevice_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BF116500005F0508D31630E /* AIODevice_osx.cpp */; };
+		C920FEFD1B62F68E009CC653 /* AIODevices_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15A0DD33EFA4F2075581B057 /* AIODevices_osx.cpp */; };
+		C920FEFE1B62F68E009CC653 /* AIOTestAdapter_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9BDF2D76AA5EA0C37980A6F5 /* AIOTestAdapter_osx.cpp */; };
+		C920FEFF1B62F68E009CC653 /* ehw_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 75199A4B45F98728E908B97C /* ehw_osx.cpp */; };
+		C920FF001B62F68E009CC653 /* ProductionUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51932B8BE722EA8393CBEB8C /* ProductionUnit.cpp */; };
+		C920FF011B62F68E009CC653 /* ehwlist_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F1DC90FFEFE44B6860FD866A /* ehwlist_osx.cpp */; };
+		C920FF021B62F68E009CC653 /* hwcaps.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD5027A7ACE57A808563459E /* hwcaps.cpp */; };
+		C920FF031B62F68E009CC653 /* osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C73BE9FF1818524EE8EC017B /* osx.cpp */; };
+		C920FF041B62F68E009CC653 /* AIODevice_win.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3B2325D1B4B9F5AFFD82E98 /* AIODevice_win.cpp */; };
+		C920FF051B62F68E009CC653 /* AIODevices_win.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CEC36C5A10A53F771388AAB /* AIODevices_win.cpp */; };
+		C920FF061B62F68E009CC653 /* AIOTestAdapter_win.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADABD406FED66B8D12FB01C9 /* AIOTestAdapter_win.cpp */; };
+		C920FF071B62F68E009CC653 /* Printer_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BBBF7F1B322CC600766B48 /* Printer_osx.cpp */; };
+		C920FF081B62F68E009CC653 /* DescriptionAMB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6A81B293DE300CEC3BF /* DescriptionAMB.cpp */; };
+		C920FF091B62F68E009CC653 /* Analysis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B0110162BDE8AC0AAC824EF /* Analysis.cpp */; };
+		C920FF0A1B62F68E009CC653 /* AIOSReferenceVoltageTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C90ED0301B09337F000D0950 /* AIOSReferenceVoltageTest.cpp */; };
+		C920FF0B1B62F68E009CC653 /* App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 818009283030A757CA4EDD82 /* App.cpp */; };
+		C920FF0C1B62F68E009CC653 /* Upsampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BC4A431B1E4E7C009736B7 /* Upsampler.cpp */; };
+		C920FF0D1B62F68E009CC653 /* AppWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83F9F8AAD4DF4B12467CC60B /* AppWindow.cpp */; };
+		C920FF0E1B62F68E009CC653 /* AudioOutput.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED5F20575F9BCA07E5949DDD /* AudioOutput.cpp */; };
+		C920FF0F1B62F68E009CC653 /* DescriptionAIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6A61B293DE300CEC3BF /* DescriptionAIO.cpp */; };
+		C920FF101B62F68E009CC653 /* r8bbase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BC4A511B1E566E009736B7 /* r8bbase.cpp */; };
+		C920FF111B62F68E009CC653 /* ConstantCurrentTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5DF22E869AFB1C87D3E5AED2 /* ConstantCurrentTest.cpp */; };
+		C920FF121B62F68E009CC653 /* Content.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA8D1ABF1507CEBD321ABD1D /* Content.cpp */; };
+		C920FF131B62F68E009CC653 /* DelayTask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F442BFDA33FE19F5E05246E3 /* DelayTask.cpp */; };
+		C920FF141B62F68E009CC653 /* CalibrationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC69A1B293C9100CEC3BF /* CalibrationManager.cpp */; };
+		C920FF151B62F68E009CC653 /* Printer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BBBF811B322CDF00766B48 /* Printer.cpp */; };
+		C920FF161B62F68E009CC653 /* crc32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC69C1B293C9100CEC3BF /* crc32.cpp */; };
+		C920FF171B62F68E009CC653 /* CalibrationData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6961B293C9100CEC3BF /* CalibrationData.cpp */; };
+		C920FF181B62F68E009CC653 /* DynRangeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AC445681610839BDFD81496 /* DynRangeTest.cpp */; };
+		C920FF191B62F68E009CC653 /* FilterCoeff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35C9A04904D8DEC1FD542AA1 /* FilterCoeff.cpp */; };
+		C920FF1A1B62F68E009CC653 /* FrequencyResponseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4638F066B539886F6C07C35F /* FrequencyResponseTest.cpp */; };
+		C920FF1B1B62F68E009CC653 /* Images.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EF06525877011F9E0F3BF63E /* Images.cpp */; };
+		C920FF1C1B62F68E009CC653 /* LevelCheckTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6ADE3B2A3EACD856348D6D /* LevelCheckTest.cpp */; };
+		C920FF1D1B62F68E009CC653 /* USBFirmwareVersionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C66371B0A85E800DA394D /* USBFirmwareVersionTest.cpp */; };
+		C920FF1E1B62F68E009CC653 /* MeterWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EED30B6667A5C9A7320CDD46 /* MeterWindow.cpp */; };
+		C920FF1F1B62F68E009CC653 /* MIDILoopTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 873A2AA908695E9CBC5508FC /* MIDILoopTest.cpp */; };
+		C920FF201B62F68E009CC653 /* MidiTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C4A2073CA9745A2D42194614 /* MidiTest.cpp */; };
+		C920FF211B62F68E009CC653 /* PhaseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CB73351F390727926CFA6980 /* PhaseTest.cpp */; };
+		C920FF221B62F68E009CC653 /* RelativeLevelTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20453085BE26C5F0A8DF9175 /* RelativeLevelTest.cpp */; };
+		C920FF231B62F68E009CC653 /* SawtoothAudioSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629F8919423F871C8337CBCC /* SawtoothAudioSource.cpp */; };
+		C920FF241B62F68E009CC653 /* TEDSTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E761E1D0BFE22C3B9D07F25 /* TEDSTest.cpp */; };
+		C920FF251B62F68E009CC653 /* Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9B94D8A26A077F11C86494B /* Test.cpp */; };
+		C920FF261B62F68E009CC653 /* ModuleTypeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9495EEF1B62DD05008474CE /* ModuleTypeTest.cpp */; };
+		C920FF271B62F68E009CC653 /* TestManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F405D5E5D6C0E97F71211C83 /* TestManager.cpp */; };
+		C920FF281B62F68E009CC653 /* CalibrationAudioIOCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6AD1B29415B00CEC3BF /* CalibrationAudioIOCallback.cpp */; };
+		C920FF291B62F68E009CC653 /* TestPrompt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D218ABCF456C886AB5867EB0 /* TestPrompt.cpp */; };
+		C920FF2A1B62F68E009CC653 /* ThdnTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C357906C758CAE751E9D992 /* ThdnTest.cpp */; };
+		C920FF2B1B62F68E009CC653 /* Description.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6A41B293DE300CEC3BF /* Description.cpp */; };
+		C920FF2C1B62F68E009CC653 /* wavefile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAABABBE36DBD2C8C7E97D17 /* wavefile.cpp */; };
+		C920FF2D1B62F68E009CC653 /* xml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D953EC808550D9DA4B37A9F8 /* xml.cpp */; };
+		C920FF2E1B62F68E009CC653 /* ErrorCodes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C663B1B0A94CC00DA394D /* ErrorCodes.cpp */; };
+		C920FF2F1B62F68E009CC653 /* juce_audio_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4731BA1E15D2872109D9A5E /* juce_audio_basics.mm */; };
+		C920FF301B62F68E009CC653 /* FrequencySweepAudioSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92197B51B18FAB700D4AD6B /* FrequencySweepAudioSource.cpp */; };
+		C920FF311B62F68E009CC653 /* juce_audio_devices.mm in Sources */ = {isa = PBXBuildFile; fileRef = 38CF6BDAE86A5ABDBD28CFB1 /* juce_audio_devices.mm */; };
+		C920FF321B62F68E009CC653 /* juce_audio_formats.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3412FE492186B7BB1E9CFCD3 /* juce_audio_formats.mm */; };
+		C920FF331B62F68E009CC653 /* juce_core.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0E43F97BAD3398EB4C347895 /* juce_core.mm */; };
+		C920FF341B62F68E009CC653 /* juce_data_structures.mm in Sources */ = {isa = PBXBuildFile; fileRef = FC337C4D1CA49ABC38D53C9E /* juce_data_structures.mm */; };
+		C920FF351B62F68E009CC653 /* CalibrationDialogComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6981B293C9100CEC3BF /* CalibrationDialogComponent.cpp */; };
+		C920FF361B62F68E009CC653 /* juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9FA5C625F428490B83F5393B /* juce_events.mm */; };
+		C920FF371B62F68E009CC653 /* juce_graphics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0DBD7B35410DB5DA55E84AB5 /* juce_graphics.mm */; };
+		C920FF381B62F68E009CC653 /* juce_gui_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 920853EC223BFB4336F09585 /* juce_gui_basics.mm */; };
+		C920FF391B62F68E009CC653 /* juce_gui_extra.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5E7401ACD781E2E7F6B56F8F /* juce_gui_extra.mm */; };
+		C920FF3A1B62F68E009CC653 /* FlashMemoryTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C663E1B0AA26E00DA394D /* FlashMemoryTest.cpp */; };
+		C920FF3C1B62F68E009CC653 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4801F724DFD190D320C77B8 /* Accelerate.framework */; };
+		C920FF3D1B62F68E009CC653 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C6C4A0D78C8CF106EB6E4B /* AudioToolbox.framework */; };
+		C920FF3E1B62F68E009CC653 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC268F255627EB828E4EA47 /* Carbon.framework */; };
+		C920FF3F1B62F68E009CC653 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C88942FD6DAB4EA55CB6794 /* Cocoa.framework */; };
+		C920FF401B62F68E009CC653 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DA1BDBDD5DD872D99EA963A /* CoreAudio.framework */; };
+		C920FF411B62F68E009CC653 /* CoreMIDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D5CF458C915B2F60CC89775 /* CoreMIDI.framework */; };
+		C920FF421B62F68E009CC653 /* DiscRecording.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6870FA5FC23ABEFCBB5F9E /* DiscRecording.framework */; };
+		C920FF431B62F68E009CC653 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D0553D92F0925091210BBE6 /* IOKit.framework */; };
+		C920FF441B62F68E009CC653 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE2B756DBB18DE84BA504EAD /* QuartzCore.framework */; };
+		C920FF451B62F68E009CC653 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 386D3D79B858091C93DB9AFE /* WebKit.framework */; };
+		C920FF521B62FE80009CC653 /* factory.icns in Resources */ = {isa = PBXBuildFile; fileRef = C95C66341B0A787300DA394D /* factory.icns */; };
+		C920FF5D1B62FEE0009CC653 /* AIO-S Full Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9679FC71B0D57E4001DDDB7 /* AIO-S Full Test.xml */; };
+		C920FF5E1B62FEE0009CC653 /* AIO-S Module 1.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9679FC81B0D57E4001DDDB7 /* AIO-S Module 1.xml */; };
+		C920FF5F1B62FEE0009CC653 /* AIO-S Module 2.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9679FC91B0D57E4001DDDB7 /* AIO-S Module 2.xml */; };
+		C920FF601B62FEE0009CC653 /* AIO-2 Full Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C95C662C1B0A765000DA394D /* AIO-2 Full Test.xml */; };
+		C920FF611B62FEE0009CC653 /* AIO-2 Module 1.xml in Resources */ = {isa = PBXBuildFile; fileRef = C95C662D1B0A765000DA394D /* AIO-2 Module 1.xml */; };
+		C920FF621B62FEE0009CC653 /* AIO-2 Module 2.xml in Resources */ = {isa = PBXBuildFile; fileRef = C95C662E1B0A765000DA394D /* AIO-2 Module 2.xml */; };
 		C92197B71B18FAB700D4AD6B /* FrequencySweepAudioSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C92197B51B18FAB700D4AD6B /* FrequencySweepAudioSource.cpp */; };
 		C930C6D11B40BF10000296E8 /* ProductionUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51932B8BE722EA8393CBEB8C /* ProductionUnit.cpp */; };
+		C93528851B66F86C00723FA7 /* CalibrationVerificationTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C93528841B66F86C00723FA7 /* CalibrationVerificationTest.cpp */; };
+		C93528861B66F89C00723FA7 /* CalibrationVerificationTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C93528841B66F86C00723FA7 /* CalibrationVerificationTest.cpp */; };
 		C9495EF01B62DD05008474CE /* ModuleTypeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9495EEF1B62DD05008474CE /* ModuleTypeTest.cpp */; };
 		C94CC6A01B293C9100CEC3BF /* CalibrationData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6961B293C9100CEC3BF /* CalibrationData.cpp */; };
 		C94CC6A11B293C9100CEC3BF /* CalibrationDialogComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6981B293C9100CEC3BF /* CalibrationDialogComponent.cpp */; };
@@ -62,19 +147,10 @@
 		C94CC6AB1B293DE300CEC3BF /* DescriptionAIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6A61B293DE300CEC3BF /* DescriptionAIO.cpp */; };
 		C94CC6AC1B293DE300CEC3BF /* DescriptionAMB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6A81B293DE300CEC3BF /* DescriptionAMB.cpp */; };
 		C94CC6AE1B29415B00CEC3BF /* CalibrationAudioIOCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6AD1B29415B00CEC3BF /* CalibrationAudioIOCallback.cpp */; };
-		C95C66351B0A787300DA394D /* factory.icns in Resources */ = {isa = PBXBuildFile; fileRef = C95C66341B0A787300DA394D /* factory.icns */; };
 		C95C66381B0A85E800DA394D /* USBFirmwareVersionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C66371B0A85E800DA394D /* USBFirmwareVersionTest.cpp */; };
 		C95C663D1B0A94CC00DA394D /* ErrorCodes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C663B1B0A94CC00DA394D /* ErrorCodes.cpp */; };
 		C95C663F1B0AA26E00DA394D /* FlashMemoryTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C663E1B0AA26E00DA394D /* FlashMemoryTest.cpp */; };
-		C99B4EC11B62E6F000B28545 /* AIO-S Resistance Check.xml in Resources */ = {isa = PBXBuildFile; fileRef = C99B4EC01B62E6F000B28545 /* AIO-S Resistance Check.xml */; };
-		C9BA32E61B44AB8D0057F535 /* AIO-S Full Test (small inductor).xml in Resources */ = {isa = PBXBuildFile; fileRef = C9AE36321B312B8F00911FE2 /* AIO-S Full Test (small inductor).xml */; };
-		C9BA32E71B44AB8D0057F535 /* AIO-S Module 1 (small inductor).xml in Resources */ = {isa = PBXBuildFile; fileRef = C9AE36331B312B8F00911FE2 /* AIO-S Module 1 (small inductor).xml */; };
-		C9BA32E81B44AB8D0057F535 /* AIO-S Full Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9679FC71B0D57E4001DDDB7 /* AIO-S Full Test.xml */; };
-		C9BA32E91B44AB8D0057F535 /* AIO-S Module 1.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9679FC81B0D57E4001DDDB7 /* AIO-S Module 1.xml */; };
-		C9BA32EA1B44AB8D0057F535 /* AIO-S Module 2.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9679FC91B0D57E4001DDDB7 /* AIO-S Module 2.xml */; };
-		C9BA32EB1B44AB8D0057F535 /* AIO-2 Full Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C95C662C1B0A765000DA394D /* AIO-2 Full Test.xml */; };
-		C9BA32EC1B44AB8D0057F535 /* AIO-2 Module 1.xml in Resources */ = {isa = PBXBuildFile; fileRef = C95C662D1B0A765000DA394D /* AIO-2 Module 1.xml */; };
-		C9BA32ED1B44AB8D0057F535 /* AIO-2 Module 2.xml in Resources */ = {isa = PBXBuildFile; fileRef = C95C662E1B0A765000DA394D /* AIO-2 Module 2.xml */; };
+		C9BA91F51B63158200BEE902 /* aios.icns in Resources */ = {isa = PBXBuildFile; fileRef = C9BA91F31B63156E00BEE902 /* aios.icns */; };
 		C9BBBF801B322CC600766B48 /* Printer_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BBBF7F1B322CC600766B48 /* Printer_osx.cpp */; };
 		C9BBBF821B322CDF00766B48 /* Printer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BBBF811B322CDF00766B48 /* Printer.cpp */; };
 		C9BC4A451B1E4E7C009736B7 /* Upsampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BC4A431B1E4E7C009736B7 /* Upsampler.cpp */; };
@@ -774,8 +850,11 @@
 		C8280C66AC1F920421C72B99 /* juce_BorderSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_BorderSize.h; path = ../../JuceLibraryCode/modules/juce_graphics/geometry/juce_BorderSize.h; sourceTree = SOURCE_ROOT; };
 		C89D009A31D6F0311854919A /* juce_ComponentBoundsConstrainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ComponentBoundsConstrainer.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/layout/juce_ComponentBoundsConstrainer.h; sourceTree = SOURCE_ROOT; };
 		C90ED0301B09337F000D0950 /* AIOSReferenceVoltageTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIOSReferenceVoltageTest.cpp; path = ../../Source/AIOSReferenceVoltageTest.cpp; sourceTree = "<group>"; };
+		C920FF491B62F68E009CC653 /* AIO-S Final Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AIO-S Final Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C920FF4A1B62F68F009CC653 /* AIO-S_Final_Test.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AIO-S_Final_Test.plist"; path = "/Users/matt/proj/ProductionTest/Builds/MacOSX/AIO-S_Final_Test.plist"; sourceTree = "<absolute>"; };
 		C92197B51B18FAB700D4AD6B /* FrequencySweepAudioSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FrequencySweepAudioSource.cpp; path = ../../Source/FrequencySweepAudioSource.cpp; sourceTree = "<group>"; };
 		C92197B61B18FAB700D4AD6B /* FrequencySweepAudioSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FrequencySweepAudioSource.h; path = ../../Source/FrequencySweepAudioSource.h; sourceTree = "<group>"; };
+		C93528841B66F86C00723FA7 /* CalibrationVerificationTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalibrationVerificationTest.cpp; path = ../../Source/CalibrationVerificationTest.cpp; sourceTree = "<group>"; };
 		C9495EEF1B62DD05008474CE /* ModuleTypeTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ModuleTypeTest.cpp; path = ../../Source/ModuleTypeTest.cpp; sourceTree = "<group>"; };
 		C94CC6951B293C9100CEC3BF /* CalibrationAudioIOCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalibrationAudioIOCallback.h; path = ../../Source/calibration/CalibrationAudioIOCallback.h; sourceTree = "<group>"; };
 		C94CC6961B293C9100CEC3BF /* CalibrationData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalibrationData.cpp; path = ../../Source/calibration/CalibrationData.cpp; sourceTree = "<group>"; };
@@ -813,6 +892,7 @@
 		C9AE36321B312B8F00911FE2 /* AIO-S Full Test (small inductor).xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Full Test (small inductor).xml"; path = "../../scripts/AIO-S Full Test (small inductor).xml"; sourceTree = "<group>"; };
 		C9AE36331B312B8F00911FE2 /* AIO-S Module 1 (small inductor).xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Module 1 (small inductor).xml"; path = "../../scripts/AIO-S Module 1 (small inductor).xml"; sourceTree = "<group>"; };
 		C9AE92851B3E0E4700A1D0A3 /* CoreAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CoreAudio.cpp; path = ../../Source/osx/CoreAudio.cpp; sourceTree = "<group>"; };
+		C9BA91F31B63156E00BEE902 /* aios.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = aios.icns; sourceTree = "<group>"; };
 		C9BBBF7C1B322C3300766B48 /* Printer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Printer.h; path = ../../Source/printer/Printer.h; sourceTree = "<group>"; };
 		C9BBBF7F1B322CC600766B48 /* Printer_osx.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Printer_osx.cpp; path = ../../Source/osx/Printer_osx.cpp; sourceTree = "<group>"; };
 		C9BBBF811B322CDF00766B48 /* Printer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Printer.cpp; path = ../../Source/printer/Printer.cpp; sourceTree = "<group>"; };
@@ -831,6 +911,7 @@
 		C9BC4A511B1E566E009736B7 /* r8bbase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = r8bbase.cpp; path = ../../Source/r8brain/r8bbase.cpp; sourceTree = "<group>"; };
 		C9CC188B6EC29494A14EB4A4 /* juce_ChoicePropertyComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ChoicePropertyComponent.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/properties/juce_ChoicePropertyComponent.h; sourceTree = SOURCE_ROOT; };
 		C9F48E9D1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FrequencySweepResponseTest.cpp; path = ../../Source/FrequencySweepResponseTest.cpp; sourceTree = "<group>"; };
+		C9F4CF761B631E600060D6CD /* AIO-S calibration test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S calibration test.xml"; path = "../../scripts/AIO-S calibration test.xml"; sourceTree = "<group>"; };
 		CA53AFFB17039691A4668A6C /* juce_android_GraphicsContext.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_android_GraphicsContext.cpp; path = ../../JuceLibraryCode/modules/juce_graphics/native/juce_android_GraphicsContext.cpp; sourceTree = SOURCE_ROOT; };
 		CA8D1ABF1507CEBD321ABD1D /* Content.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = Content.cpp; path = ../../Source/Content.cpp; sourceTree = SOURCE_ROOT; };
 		CB2BE5219155DD7686BB9BAF /* juce_SubregionStream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_SubregionStream.cpp; path = ../../JuceLibraryCode/modules/juce_core/streams/juce_SubregionStream.cpp; sourceTree = SOURCE_ROOT; };
@@ -934,7 +1015,7 @@
 		EBF940B5A7416D8EB6198B47 /* juce_FileOutputStream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_FileOutputStream.cpp; path = ../../JuceLibraryCode/modules/juce_core/files/juce_FileOutputStream.cpp; sourceTree = SOURCE_ROOT; };
 		EC38290F231337B9CF74D089 /* juce_CharacterFunctions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_CharacterFunctions.cpp; path = ../../JuceLibraryCode/modules/juce_core/text/juce_CharacterFunctions.cpp; sourceTree = SOURCE_ROOT; };
 		EC6B3E1683C5E06C30751117 /* juce_PlatformDefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_PlatformDefs.h; path = ../../JuceLibraryCode/modules/juce_core/system/juce_PlatformDefs.h; sourceTree = SOURCE_ROOT; };
-		ECB33092A73D580039E20E87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = SOURCE_ROOT; };
+		ECB33092A73D580039E20E87 /* ProductionTest.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = ProductionTest.plist; sourceTree = SOURCE_ROOT; };
 		ED3C075BA7830652FFACA844 /* juce_Slider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_Slider.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/widgets/juce_Slider.h; sourceTree = SOURCE_ROOT; };
 		ED41DED13CF396AB1E43B76B /* juce_ZipFile.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_ZipFile.cpp; path = ../../JuceLibraryCode/modules/juce_core/zip/juce_ZipFile.cpp; sourceTree = SOURCE_ROOT; };
 		ED5F20575F9BCA07E5949DDD /* AudioOutput.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AudioOutput.cpp; path = ../../Source/AudioOutput.cpp; sourceTree = SOURCE_ROOT; };
@@ -1011,6 +1092,23 @@
 				5DDA69A1675994C317F116B0 /* IOKit.framework in Frameworks */,
 				E77DC74B1A115BDD4D95FD1D /* QuartzCore.framework in Frameworks */,
 				30751D5CF9986BFE72D177FA /* WebKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C920FF3B1B62F68E009CC653 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C920FF3C1B62F68E009CC653 /* Accelerate.framework in Frameworks */,
+				C920FF3D1B62F68E009CC653 /* AudioToolbox.framework in Frameworks */,
+				C920FF3E1B62F68E009CC653 /* Carbon.framework in Frameworks */,
+				C920FF3F1B62F68E009CC653 /* Cocoa.framework in Frameworks */,
+				C920FF401B62F68E009CC653 /* CoreAudio.framework in Frameworks */,
+				C920FF411B62F68E009CC653 /* CoreMIDI.framework in Frameworks */,
+				C920FF421B62F68E009CC653 /* DiscRecording.framework in Frameworks */,
+				C920FF431B62F68E009CC653 /* IOKit.framework in Frameworks */,
+				C920FF441B62F68E009CC653 /* QuartzCore.framework in Frameworks */,
+				C920FF451B62F68E009CC653 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1354,77 +1452,78 @@
 		36EE07E9B35589CE09BF7113 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				C9BBBF7B1B322BD200766B48 /* printer */,
+				E27290DC8B5B776949030F7F /* AcousticIO.h */,
+				C90ED0301B09337F000D0950 /* AIOSReferenceVoltageTest.cpp */,
+				C9679FCD1B0D58A1001DDDB7 /* AIOTestAdapter.h */,
+				2B0110162BDE8AC0AAC824EF /* Analysis.cpp */,
+				86B7076CFA310F35A73A56A2 /* Analysis.h */,
+				818009283030A757CA4EDD82 /* App.cpp */,
+				72ED304FFE481AC3D9CE8CDD /* App.h */,
+				83F9F8AAD4DF4B12467CC60B /* AppWindow.cpp */,
+				895B581243357D64963C725B /* AppWindow.h */,
+				CC3ABAD05E41382FB8DF947B /* asio.h */,
+				563BEB04B8366285076CF29A /* asiosys.h */,
+				ED5F20575F9BCA07E5949DDD /* AudioOutput.cpp */,
+				E441075086F64FDEC37BA460 /* AudioOutput.h */,
+				9329E694F7DB706A82C7B948 /* base.h */,
+				C94CC6941B293C6B00CEC3BF /* calibration */,
+				C93528841B66F86C00723FA7 /* CalibrationVerificationTest.cpp */,
+				5DF22E869AFB1C87D3E5AED2 /* ConstantCurrentTest.cpp */,
+				CA8D1ABF1507CEBD321ABD1D /* Content.cpp */,
+				4EC1FEBE7F71D4A47DED1905 /* Content.h */,
+				F442BFDA33FE19F5E05246E3 /* DelayTask.cpp */,
 				C94CC6A41B293DE300CEC3BF /* Description.cpp */,
 				C94CC6A51B293DE300CEC3BF /* Description.h */,
 				C94CC6A61B293DE300CEC3BF /* DescriptionAIO.cpp */,
 				C94CC6A71B293DE300CEC3BF /* DescriptionAIO.h */,
 				C94CC6A81B293DE300CEC3BF /* DescriptionAMB.cpp */,
 				C94CC6A91B293DE300CEC3BF /* DescriptionAMB.h */,
-				C94CC6941B293C6B00CEC3BF /* calibration */,
-				C9BC4A461B1E505C009736B7 /* r8brain */,
-				C9679FCD1B0D58A1001DDDB7 /* AIOTestAdapter.h */,
-				C90ED0301B09337F000D0950 /* AIOSReferenceVoltageTest.cpp */,
-				2B0110162BDE8AC0AAC824EF /* Analysis.cpp */,
-				818009283030A757CA4EDD82 /* App.cpp */,
-				83F9F8AAD4DF4B12467CC60B /* AppWindow.cpp */,
-				ED5F20575F9BCA07E5949DDD /* AudioOutput.cpp */,
-				5DF22E869AFB1C87D3E5AED2 /* ConstantCurrentTest.cpp */,
-				CA8D1ABF1507CEBD321ABD1D /* Content.cpp */,
-				F442BFDA33FE19F5E05246E3 /* DelayTask.cpp */,
 				8AC445681610839BDFD81496 /* DynRangeTest.cpp */,
 				C95C663B1B0A94CC00DA394D /* ErrorCodes.cpp */,
-				35C9A04904D8DEC1FD542AA1 /* FilterCoeff.cpp */,
-				C95C663E1B0AA26E00DA394D /* FlashMemoryTest.cpp */,
-				C9495EEF1B62DD05008474CE /* ModuleTypeTest.cpp */,
-				4638F066B539886F6C07C35F /* FrequencyResponseTest.cpp */,
-				C9F48E9D1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp */,
-				EF06525877011F9E0F3BF63E /* Images.cpp */,
-				DD6ADE3B2A3EACD856348D6D /* LevelCheckTest.cpp */,
-				EED30B6667A5C9A7320CDD46 /* MeterWindow.cpp */,
-				873A2AA908695E9CBC5508FC /* MIDILoopTest.cpp */,
-				C4A2073CA9745A2D42194614 /* MidiTest.cpp */,
-				CB73351F390727926CFA6980 /* PhaseTest.cpp */,
-				51932B8BE722EA8393CBEB8C /* ProductionUnit.cpp */,
-				20453085BE26C5F0A8DF9175 /* RelativeLevelTest.cpp */,
-				629F8919423F871C8337CBCC /* SawtoothAudioSource.cpp */,
-				2E761E1D0BFE22C3B9D07F25 /* TEDSTest.cpp */,
-				D9B94D8A26A077F11C86494B /* Test.cpp */,
-				F405D5E5D6C0E97F71211C83 /* TestManager.cpp */,
-				D218ABCF456C886AB5867EB0 /* TestPrompt.cpp */,
-				2C357906C758CAE751E9D992 /* ThdnTest.cpp */,
-				C95C66371B0A85E800DA394D /* USBFirmwareVersionTest.cpp */,
-				AAABABBE36DBD2C8C7E97D17 /* wavefile.cpp */,
-				D953EC808550D9DA4B37A9F8 /* xml.cpp */,
-				E27290DC8B5B776949030F7F /* AcousticIO.h */,
-				86B7076CFA310F35A73A56A2 /* Analysis.h */,
-				72ED304FFE481AC3D9CE8CDD /* App.h */,
-				895B581243357D64963C725B /* AppWindow.h */,
-				CC3ABAD05E41382FB8DF947B /* asio.h */,
-				563BEB04B8366285076CF29A /* asiosys.h */,
-				E441075086F64FDEC37BA460 /* AudioOutput.h */,
-				9329E694F7DB706A82C7B948 /* base.h */,
-				4EC1FEBE7F71D4A47DED1905 /* Content.h */,
 				C95C663C1B0A94CC00DA394D /* ErrorCodes.h */,
+				35C9A04904D8DEC1FD542AA1 /* FilterCoeff.cpp */,
 				D4C10367F74DCC5719695E1C /* FilterCoeff.h */,
-				973EDC157DA4DBA0518D16B6 /* iasiodrv.h */,
-				B5EE1507D4FD62B032C80007 /* Images.h */,
-				96173F5215E216B6F996EBE3 /* MeterWindow.h */,
-				D2F42CAE0003D3B3BF95A718 /* MIDILoopTest.h */,
-				F9D4468B9A7AE0EB04C7F28D /* OldMessage.h */,
-				BA44F5DAC27A9BDED2E15E88 /* ProductionUnit.h */,
-				FFD7A9576AE4F303272E58C0 /* SawtoothAudioSource.h */,
-				9A5EBEAE26483857426AEB87 /* Test.h */,
-				A280248C8ECA8BDF4BACDF34 /* TestManager.h */,
-				FB1872A4EC7008AEF2F1E237 /* TestPrompt.h */,
-				021E3310204BE0747376AB8E /* wavefile.h */,
-				B043F4EE1B876DBAFD7DAE0D /* xml.h */,
+				C95C663E1B0AA26E00DA394D /* FlashMemoryTest.cpp */,
+				4638F066B539886F6C07C35F /* FrequencyResponseTest.cpp */,
 				C92197B51B18FAB700D4AD6B /* FrequencySweepAudioSource.cpp */,
 				C92197B61B18FAB700D4AD6B /* FrequencySweepAudioSource.h */,
+				C9F48E9D1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp */,
+				973EDC157DA4DBA0518D16B6 /* iasiodrv.h */,
+				EF06525877011F9E0F3BF63E /* Images.cpp */,
+				B5EE1507D4FD62B032C80007 /* Images.h */,
+				DD6ADE3B2A3EACD856348D6D /* LevelCheckTest.cpp */,
+				EED30B6667A5C9A7320CDD46 /* MeterWindow.cpp */,
+				96173F5215E216B6F996EBE3 /* MeterWindow.h */,
+				873A2AA908695E9CBC5508FC /* MIDILoopTest.cpp */,
+				D2F42CAE0003D3B3BF95A718 /* MIDILoopTest.h */,
+				C4A2073CA9745A2D42194614 /* MidiTest.cpp */,
+				C9495EEF1B62DD05008474CE /* ModuleTypeTest.cpp */,
+				F9D4468B9A7AE0EB04C7F28D /* OldMessage.h */,
 				84A59D38186369A5A2401E4B /* osx */,
-				BC7A4B13B072DB1B88BD596B /* win32 */,
+				CB73351F390727926CFA6980 /* PhaseTest.cpp */,
+				C9BBBF7B1B322BD200766B48 /* printer */,
+				51932B8BE722EA8393CBEB8C /* ProductionUnit.cpp */,
+				BA44F5DAC27A9BDED2E15E88 /* ProductionUnit.h */,
+				C9BC4A461B1E505C009736B7 /* r8brain */,
+				20453085BE26C5F0A8DF9175 /* RelativeLevelTest.cpp */,
+				629F8919423F871C8337CBCC /* SawtoothAudioSource.cpp */,
+				FFD7A9576AE4F303272E58C0 /* SawtoothAudioSource.h */,
+				2E761E1D0BFE22C3B9D07F25 /* TEDSTest.cpp */,
+				D9B94D8A26A077F11C86494B /* Test.cpp */,
+				9A5EBEAE26483857426AEB87 /* Test.h */,
+				F405D5E5D6C0E97F71211C83 /* TestManager.cpp */,
+				A280248C8ECA8BDF4BACDF34 /* TestManager.h */,
+				D218ABCF456C886AB5867EB0 /* TestPrompt.cpp */,
+				FB1872A4EC7008AEF2F1E237 /* TestPrompt.h */,
+				2C357906C758CAE751E9D992 /* ThdnTest.cpp */,
 				C9BC4A431B1E4E7C009736B7 /* Upsampler.cpp */,
 				C9BC4A441B1E4E7C009736B7 /* Upsampler.h */,
+				C95C66371B0A85E800DA394D /* USBFirmwareVersionTest.cpp */,
+				AAABABBE36DBD2C8C7E97D17 /* wavefile.cpp */,
+				021E3310204BE0747376AB8E /* wavefile.h */,
+				BC7A4B13B072DB1B88BD596B /* win32 */,
+				D953EC808550D9DA4B37A9F8 /* xml.cpp */,
+				B043F4EE1B876DBAFD7DAE0D /* xml.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -1878,6 +1977,7 @@
 		93C619DBF455E2A537DD75BE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C9BA91F31B63156E00BEE902 /* aios.icns */,
 				C9AE36321B312B8F00911FE2 /* AIO-S Full Test (small inductor).xml */,
 				C9AE36331B312B8F00911FE2 /* AIO-S Module 1 (small inductor).xml */,
 				C9679FC71B0D57E4001DDDB7 /* AIO-S Full Test.xml */,
@@ -1888,9 +1988,11 @@
 				C95C662C1B0A765000DA394D /* AIO-2 Full Test.xml */,
 				C95C662D1B0A765000DA394D /* AIO-2 Module 1.xml */,
 				C96E48811B3D0ED900FD566E /* AIO Offline Test.xml */,
+				C9F4CF761B631E600060D6CD /* AIO-S calibration test.xml */,
 				C952CE141B40FFEA00C96FA3 /* AIO Printer Test.xml */,
 				C95C662E1B0A765000DA394D /* AIO-2 Module 2.xml */,
-				ECB33092A73D580039E20E87 /* Info.plist */,
+				ECB33092A73D580039E20E87 /* ProductionTest.plist */,
+				C920FF4A1B62F68F009CC653 /* AIO-S_Final_Test.plist */,
 				7DDFE4DA407C0FE8084B8C5D /* RecentFilesMenuTemplate.nib */,
 			);
 			name = Resources;
@@ -2340,6 +2442,7 @@
 			isa = PBXGroup;
 			children = (
 				6763390C4B987A4428528DAD /* ProductionTest.app */,
+				C920FF491B62F68E009CC653 /* AIO-S Final Test.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2664,6 +2767,24 @@
 			productReference = 6763390C4B987A4428528DAD /* ProductionTest.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C920FEED1B62F68E009CC653 /* AIO-S Final Test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C920FF461B62F68E009CC653 /* Build configuration list for PBXNativeTarget "AIO-S Final Test" */;
+			buildPhases = (
+				C920FEEE1B62F68E009CC653 /* Resources */,
+				C920FEFA1B62F68E009CC653 /* Sources */,
+				C920FF3B1B62F68E009CC653 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "AIO-S Final Test";
+			productInstallPath = "$(HOME)/Applications";
+			productName = ProductionTest;
+			productReference = C920FF491B62F68E009CC653 /* AIO-S Final Test.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -2671,6 +2792,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0440;
+				TargetAttributes = {
+					BA1D034141381BA1469F20A9 = {
+						DevelopmentTeam = 78L5JU47MH;
+					};
+					C920FEED1B62F68E009CC653 = {
+						DevelopmentTeam = 78L5JU47MH;
+					};
+				};
 			};
 			buildConfigurationList = 9D0FAB4D34C80DAE9A2DDAE2 /* Build configuration list for PBXProject "ProductionTest" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -2684,6 +2813,7 @@
 			projectRoot = "";
 			targets = (
 				BA1D034141381BA1469F20A9 /* ProductionTest */,
+				C920FEED1B62F68E009CC653 /* AIO-S Final Test */,
 			);
 		};
 /* End PBXProject section */
@@ -2693,17 +2823,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C9BA32E71B44AB8D0057F535 /* AIO-S Module 1 (small inductor).xml in Resources */,
+				C920FF5F1B62FEE0009CC653 /* AIO-S Module 2.xml in Resources */,
+				C920FF611B62FEE0009CC653 /* AIO-2 Module 1.xml in Resources */,
 				6E32B1E6B0A50AF4474A55D8 /* RecentFilesMenuTemplate.nib in Resources */,
-				C9BA32EC1B44AB8D0057F535 /* AIO-2 Module 1.xml in Resources */,
-				C9BA32ED1B44AB8D0057F535 /* AIO-2 Module 2.xml in Resources */,
-				C9BA32EB1B44AB8D0057F535 /* AIO-2 Full Test.xml in Resources */,
-				C9BA32EA1B44AB8D0057F535 /* AIO-S Module 2.xml in Resources */,
-				C9BA32E61B44AB8D0057F535 /* AIO-S Full Test (small inductor).xml in Resources */,
-				C9BA32E91B44AB8D0057F535 /* AIO-S Module 1.xml in Resources */,
-				C99B4EC11B62E6F000B28545 /* AIO-S Resistance Check.xml in Resources */,
-				C9BA32E81B44AB8D0057F535 /* AIO-S Full Test.xml in Resources */,
-				C95C66351B0A787300DA394D /* factory.icns in Resources */,
+				C920FF5D1B62FEE0009CC653 /* AIO-S Full Test.xml in Resources */,
+				C920FF5E1B62FEE0009CC653 /* AIO-S Module 1.xml in Resources */,
+				C920FF601B62FEE0009CC653 /* AIO-2 Full Test.xml in Resources */,
+				C920FF621B62FEE0009CC653 /* AIO-2 Module 2.xml in Resources */,
+				C920FF521B62FE80009CC653 /* factory.icns in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C920FEEE1B62F68E009CC653 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C920FEF01B62F68E009CC653 /* RecentFilesMenuTemplate.nib in Resources */,
+				C920FEF71B62F68E009CC653 /* AIO-S Resistance Check.xml in Resources */,
+				C9BA91F51B63158200BEE902 /* aios.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2736,6 +2873,7 @@
 				8612F9F3C5508BCD36C7F774 /* AudioOutput.cpp in Sources */,
 				C94CC6AB1B293DE300CEC3BF /* DescriptionAIO.cpp in Sources */,
 				C9BC4A521B1E566E009736B7 /* r8bbase.cpp in Sources */,
+				C93528851B66F86C00723FA7 /* CalibrationVerificationTest.cpp in Sources */,
 				C631329AE2D0578BC6027732 /* ConstantCurrentTest.cpp in Sources */,
 				5F530F66334AD6EC4DFBF622 /* Content.cpp in Sources */,
 				0A1078F756985A619A276B48 /* DelayTask.cpp in Sources */,
@@ -2781,6 +2919,78 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C920FEFA1B62F68E009CC653 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C920FEFB1B62F68E009CC653 /* FrequencySweepResponseTest.cpp in Sources */,
+				C920FEFC1B62F68E009CC653 /* AIODevice_osx.cpp in Sources */,
+				C920FEFD1B62F68E009CC653 /* AIODevices_osx.cpp in Sources */,
+				C920FEFE1B62F68E009CC653 /* AIOTestAdapter_osx.cpp in Sources */,
+				C920FEFF1B62F68E009CC653 /* ehw_osx.cpp in Sources */,
+				C920FF001B62F68E009CC653 /* ProductionUnit.cpp in Sources */,
+				C920FF011B62F68E009CC653 /* ehwlist_osx.cpp in Sources */,
+				C920FF021B62F68E009CC653 /* hwcaps.cpp in Sources */,
+				C920FF031B62F68E009CC653 /* osx.cpp in Sources */,
+				C920FF041B62F68E009CC653 /* AIODevice_win.cpp in Sources */,
+				C920FF051B62F68E009CC653 /* AIODevices_win.cpp in Sources */,
+				C920FF061B62F68E009CC653 /* AIOTestAdapter_win.cpp in Sources */,
+				C920FF071B62F68E009CC653 /* Printer_osx.cpp in Sources */,
+				C920FF081B62F68E009CC653 /* DescriptionAMB.cpp in Sources */,
+				C920FF091B62F68E009CC653 /* Analysis.cpp in Sources */,
+				C920FF0A1B62F68E009CC653 /* AIOSReferenceVoltageTest.cpp in Sources */,
+				C920FF0B1B62F68E009CC653 /* App.cpp in Sources */,
+				C920FF0C1B62F68E009CC653 /* Upsampler.cpp in Sources */,
+				C920FF0D1B62F68E009CC653 /* AppWindow.cpp in Sources */,
+				C920FF0E1B62F68E009CC653 /* AudioOutput.cpp in Sources */,
+				C920FF0F1B62F68E009CC653 /* DescriptionAIO.cpp in Sources */,
+				C920FF101B62F68E009CC653 /* r8bbase.cpp in Sources */,
+				C93528861B66F89C00723FA7 /* CalibrationVerificationTest.cpp in Sources */,
+				C920FF111B62F68E009CC653 /* ConstantCurrentTest.cpp in Sources */,
+				C920FF121B62F68E009CC653 /* Content.cpp in Sources */,
+				C920FF131B62F68E009CC653 /* DelayTask.cpp in Sources */,
+				C920FF141B62F68E009CC653 /* CalibrationManager.cpp in Sources */,
+				C920FF151B62F68E009CC653 /* Printer.cpp in Sources */,
+				C920FF161B62F68E009CC653 /* crc32.cpp in Sources */,
+				C920FF171B62F68E009CC653 /* CalibrationData.cpp in Sources */,
+				C920FF181B62F68E009CC653 /* DynRangeTest.cpp in Sources */,
+				C920FF191B62F68E009CC653 /* FilterCoeff.cpp in Sources */,
+				C920FF1A1B62F68E009CC653 /* FrequencyResponseTest.cpp in Sources */,
+				C920FF1B1B62F68E009CC653 /* Images.cpp in Sources */,
+				C920FF1C1B62F68E009CC653 /* LevelCheckTest.cpp in Sources */,
+				C920FF1D1B62F68E009CC653 /* USBFirmwareVersionTest.cpp in Sources */,
+				C920FF1E1B62F68E009CC653 /* MeterWindow.cpp in Sources */,
+				C920FF1F1B62F68E009CC653 /* MIDILoopTest.cpp in Sources */,
+				C920FF201B62F68E009CC653 /* MidiTest.cpp in Sources */,
+				C920FF211B62F68E009CC653 /* PhaseTest.cpp in Sources */,
+				C920FF221B62F68E009CC653 /* RelativeLevelTest.cpp in Sources */,
+				C920FF231B62F68E009CC653 /* SawtoothAudioSource.cpp in Sources */,
+				C920FF241B62F68E009CC653 /* TEDSTest.cpp in Sources */,
+				C920FF251B62F68E009CC653 /* Test.cpp in Sources */,
+				C920FF261B62F68E009CC653 /* ModuleTypeTest.cpp in Sources */,
+				C920FF271B62F68E009CC653 /* TestManager.cpp in Sources */,
+				C920FF281B62F68E009CC653 /* CalibrationAudioIOCallback.cpp in Sources */,
+				C920FF291B62F68E009CC653 /* TestPrompt.cpp in Sources */,
+				C920FF2A1B62F68E009CC653 /* ThdnTest.cpp in Sources */,
+				C920FF2B1B62F68E009CC653 /* Description.cpp in Sources */,
+				C920FF2C1B62F68E009CC653 /* wavefile.cpp in Sources */,
+				C920FF2D1B62F68E009CC653 /* xml.cpp in Sources */,
+				C920FF2E1B62F68E009CC653 /* ErrorCodes.cpp in Sources */,
+				C920FF2F1B62F68E009CC653 /* juce_audio_basics.mm in Sources */,
+				C920FF301B62F68E009CC653 /* FrequencySweepAudioSource.cpp in Sources */,
+				C920FF311B62F68E009CC653 /* juce_audio_devices.mm in Sources */,
+				C920FF321B62F68E009CC653 /* juce_audio_formats.mm in Sources */,
+				C920FF331B62F68E009CC653 /* juce_core.mm in Sources */,
+				C920FF341B62F68E009CC653 /* juce_data_structures.mm in Sources */,
+				C920FF351B62F68E009CC653 /* CalibrationDialogComponent.cpp in Sources */,
+				C920FF361B62F68E009CC653 /* juce_events.mm in Sources */,
+				C920FF371B62F68E009CC653 /* juce_graphics.mm in Sources */,
+				C920FF381B62F68E009CC653 /* juce_gui_basics.mm in Sources */,
+				C920FF391B62F68E009CC653 /* juce_gui_extra.mm in Sources */,
+				C920FF3A1B62F68E009CC653 /* FlashMemoryTest.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
@@ -2789,6 +2999,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_LINK_OBJC_RUNTIME = NO;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
 				DEAD_CODE_STRIPPING = YES;
@@ -2809,7 +3020,7 @@
 					../../JuceLibraryCode/modules,
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = ProductionTest.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
 				SDKROOT_ppc = macosx10.5;
@@ -2864,6 +3075,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_LINK_OBJC_RUNTIME = NO;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
 				COPY_PHASE_STRIP = NO;
@@ -2883,12 +3095,85 @@
 					../../JuceLibraryCode/modules,
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = Info.plist;
+				INFOPLIST_FILE = ProductionTest.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
 				SDKROOT_ppc = macosx10.5;
 			};
 			name = Debug;
+		};
+		C920FF471B62F68E009CC653 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_LINK_OBJC_RUNTIME = NO;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"_DEBUG=1",
+					"DEBUG=1",
+					"ACOUSTICIO_BUILD=1",
+					"JUCER_XCODE_MAC_F6D2F4CF=1",
+					"JUCE_APP_VERSION=1.0.0",
+					"JUCE_APP_VERSION_HEX=0x10000",
+					"ALLOW_USER_SCRIPT_SELECT=0",
+					"WINDOW_TITLE='\"Final\"'",
+					"USER_PROMPT_SERIAL_NUMBER=1",
+				);
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = (
+					../../JuceLibraryCode,
+					../../JuceLibraryCode/modules,
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "AIO-S_Final_Test.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
+				PRODUCT_NAME = "AIO-S Final Test";
+				SDKROOT_ppc = macosx10.5;
+			};
+			name = Debug;
+		};
+		C920FF481B62F68E009CC653 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
+				CLANG_LINK_OBJC_RUNTIME = NO;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "$(PROJECT_DIR)/build/$(CONFIGURATION)";
+				DEAD_CODE_STRIPPING = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"_NDEBUG=1",
+					"NDEBUG=1",
+					"ACOUSTICIO_BUILD=1",
+					"JUCER_XCODE_MAC_F6D2F4CF=1",
+					"JUCE_APP_VERSION=1.0.0",
+					"JUCE_APP_VERSION_HEX=0x10000",
+					"ALLOW_USER_SCRIPT_SELECT=0",
+					"WINDOW_TITLE='\"Final\"'",
+					"USER_PROMPT_SERIAL_NUMBER=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = (
+					../../JuceLibraryCode,
+					../../JuceLibraryCode/modules,
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "AIO-S_Final_Test.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
+				PRODUCT_NAME = "AIO-S Final Test";
+				SDKROOT_ppc = macosx10.5;
+			};
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -2907,6 +3192,15 @@
 			buildConfigurations = (
 				5CEFDF5E5BFABA51A4EFFE06 /* Debug */,
 				931A516FAFCE502D9E920FD7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		C920FF461B62F68E009CC653 /* Build configuration list for PBXNativeTarget "AIO-S Final Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C920FF471B62F68E009CC653 /* Debug */,
+				C920FF481B62F68E009CC653 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

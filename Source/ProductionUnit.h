@@ -22,7 +22,7 @@ public:
 	~ProductionUnit(void);
 
 	bool status();
-	void RunTests(String const serialNumber_, Time const testStartTime_);
+	void RunTests(Time const testStartTime_);
 
 	void audioDeviceAboutToStart(AudioIODevice *device);
 	void audioDeviceIOCallback(const float **inputChannelData, int numInputChannels, float **outputChannelData, int numOutputChannels, int numSamples);
@@ -49,6 +49,8 @@ public:
 	{
 		return _serial_number;
 	}
+    
+    void setSerialNumber(String const serialNumber_);
     
     ValueTree tree;
 
@@ -100,6 +102,7 @@ protected:
 	File _logfile;
 	ScopedPointer <FileOutputStream> _log_stream;
 
+    void assignAutomaticSerialNumber();
 	void CreateLogFile();
 	void Cleanup();
 	bool ShowMeterWindow(Test &test);

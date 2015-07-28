@@ -30,7 +30,7 @@
  using namespace juce;
 #endif
 
-#if ! JUCE_DONT_DECLARE_PROJECTINFO
+#if 0 // ! JUCE_DONT_DECLARE_PROJECTINFO
 namespace ProjectInfo
 {
     const char* const  projectName    = "ProductionTest";

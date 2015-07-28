@@ -64,7 +64,7 @@ void App::initialise (const String& commandLine)
 	//
 
 	PropertiesFile::Options options;
-	options.applicationName     = "ProductionTest";
+    options.applicationName     = getApplicationName();
 	options.folderName          = "Echo";
 	options.filenameSuffix      = "xml";
 	options.osxLibrarySubFolder = "Application Support";
@@ -159,7 +159,7 @@ void App::shutdown()
 
 const String App::getApplicationName()
 {
-    return T("Production test");
+    return File::getSpecialLocation(File::currentApplicationFile).getFileNameWithoutExtension();
 }
 
 //==============================================================================

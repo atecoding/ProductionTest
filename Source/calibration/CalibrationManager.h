@@ -11,7 +11,7 @@ class ehw;
 class CalibrationManager : public Timer
 {
 public:
-	CalibrationManager(MessageListener* messageListener_);
+	CalibrationManager(MessageListener* messageListener_, File const outputFolder_);
 	virtual ~CalibrationManager();
 
 	void startIntegratedSpeakerMonitorCalibration(ReferenceCountedObjectPtr<ehw> device_);
@@ -175,6 +175,8 @@ protected:
 	void analyzeResistanceMeasurement();
 	void connectProductionTestAdapter();
 	void startCalibrateVoltageInputWithLoopback();
+    
+    void lowpassSquarewave(int const channel);
 
 	void showCalibrationDialog();
 	void closeCalibrationDialog();
@@ -204,7 +206,6 @@ protected:
 	void createExternalSpeakerMonitorLogFile();
 	void log(String const text);
 
-	File getOutputFolder();
 	void restart(String error, State newState);
 	void cancel(String error);
 	File logfile;
@@ -223,6 +224,7 @@ protected:
 
 	double recordProgress;
 	Time recordStartTime;
+    File const outputFolder;
 	String serialNumber;
 	Limits const *limits;
     MessageListener* messageListener;

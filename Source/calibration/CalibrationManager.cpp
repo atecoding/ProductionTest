@@ -3,6 +3,7 @@
 #include "ehw.h"
 #include "crc32.h"
 #include "../OldMessage.h"
+#include "../wavefile.h"
 
 #define SHOW_INTERMEDIATE_RESULTS 0
 #define SKIP_AIO2_CALIBRATION 0
@@ -69,9 +70,10 @@ CalibrationManager::Limits CalibrationManager::limitsAIOS
 	(expectedVoltageOutputResult / expectedVoltageOverCurrent) * 1.06f // currentInputMax
 );
 
-CalibrationManager::CalibrationManager(MessageListener *messageListener_) :
+CalibrationManager::CalibrationManager(MessageListener *messageListener_, File const outputFolder_) :
 state(STATE_IDLE),
 powerLED(false),
+outputFolder(outputFolder_),
 limits(nullptr),
 messageListener(messageListener_)
 {
@@ -278,7 +280,8 @@ void CalibrationManager::writeWaveFile( String name, AudioSampleBuffer &buffer, 
 		return;
 
 	WavAudioFormat format;
-	File file("c://tmp//" + name);
+    File directory(File::getSpecialLocation(File::userHomeDirectory));
+	File file(directory.getChildFile(name));
 	file.deleteFile();
 	FileOutputStream* outputStream = new FileOutputStream(file);
 	ScopedPointer<AudioFormatWriter> writer = format.createWriterFor(outputStream,
@@ -573,6 +576,7 @@ void CalibrationManager::execute()
 
 	case STATE_CANCELLED:
 		{
+            pass = false;
             finish(MESSAGE_AIOS_CALIBRATION_DONE);
         }
 		break;
@@ -872,6 +876,38 @@ Result CalibrationManager::writeActiveCalibrationToFlash()
 	result = usbDevice->writeFlashBlock(ACOUSTICIO_CALIBRATION_INDEX_BLOCK, (uint8 * const)&calibrationIndex, sizeof(calibrationIndex));
 	if (result.failed())
 		return result;
+    
+    //
+    // Read calibration data back to verify
+    //
+    {
+        uint8 readBlock[ sizeof(calibrationDataAIOS.data) ];
+        
+        result = usbDevice->readFlashBlock(calibrationBlock, readBlock, sizeof(readBlock));
+        if (result.failed())
+            return result;
+        
+        if (0 != memcmp( readBlock, &calibrationDataAIOS.data, sizeof(readBlock)))
+        {
+            return result.fail("Failed write validation for calibration data");
+        }
+    }
+    
+    //
+    // Read calibration index back to verify
+    //
+    {
+        uint8 readBlock[ sizeof(calibrationIndex) ];
+        
+        result = usbDevice->readFlashBlock(ACOUSTICIO_CALIBRATION_INDEX_BLOCK, readBlock, sizeof(readBlock));
+        if (result.failed())
+            return result;
+        
+        if (0 != memcmp( readBlock, &calibrationIndex, sizeof(readBlock)))
+        {
+            return result.fail("Failed write validation for calibration index");
+        }
+    }
 
 	//usbDevice->dumpFlash();
 
@@ -1021,6 +1057,7 @@ void CalibrationManager::startCalibrateVoltageInputWithReferenceVoltage()
 	{
 		AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), audioDeviceResult.getErrorMessage(), "Close");
         state = STATE_CANCELLED;
+        execute();
 		return;
 	}
 
@@ -1040,6 +1077,7 @@ void CalibrationManager::startCalibrateVoltageInputWithReferenceVoltage()
                     
 					AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), setResult.getErrorMessage(), "Close");
                     state = STATE_CANCELLED;
+                    execute();
 					return;
 				}
 			}
@@ -1050,6 +1088,7 @@ void CalibrationManager::startCalibrateVoltageInputWithReferenceVoltage()
     {
         results += setResult.getErrorMessage() + newLine;
         state = STATE_CANCELLED;
+        execute();
         return;
     }
 
@@ -1060,6 +1099,7 @@ void CalibrationManager::startCalibrateVoltageInputWithReferenceVoltage()
         results += setResult.getErrorMessage() + newLine;
 		AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), setResult.getErrorMessage(), "Close");
         state = STATE_CANCELLED;
+        execute();
 		return;
 	}
 
@@ -1072,6 +1112,7 @@ void CalibrationManager::startCalibrateVoltageInputWithReferenceVoltage()
         results += setCVResult.getErrorMessage() + newLine;
 		AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), setCVResult.getErrorMessage(), "Close");
         state = STATE_CANCELLED;
+        execute();
 		return;
 	}
 
@@ -1086,6 +1127,7 @@ void CalibrationManager::startCalibrateVoltageInputWithReferenceVoltage()
         results += startIOResult.getErrorMessage() + newLine;
 		AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), startIOResult.getErrorMessage(), "Close");
         state = STATE_CANCELLED;
+        execute();
 		return;
 	}
 
@@ -1505,6 +1547,7 @@ void CalibrationManager::storeCurrentInputResults()
 			if (storeResult.failed())
 			{
 				AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), storeResult.getErrorMessage(), "Close");
+                results += storeResult.getErrorMessage();
 				state = STATE_CANCELLED;
 			}
 			else
@@ -1512,12 +1555,15 @@ void CalibrationManager::storeCurrentInputResults()
 				Result writeResult(writeActiveCalibrationToFlash());
 				if (writeResult.failed())
 				{
-					AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), storeResult.getErrorMessage(), "Close");
+					AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), writeResult.getErrorMessage(), "Close");
+                    results += writeResult.getErrorMessage();
 					state = STATE_CANCELLED;
 				}
-                
-                DBG("Setting STATE_FINISH_INTEGRATED_SPEAKER_MONITOR_TEST");
-				state = STATE_FINISH_INTEGRATED_SPEAKER_MONITOR_TEST;
+                else
+                {
+                    DBG("Setting STATE_FINISH_INTEGRATED_SPEAKER_MONITOR_TEST");
+                    state = STATE_FINISH_INTEGRATED_SPEAKER_MONITOR_TEST;
+                }
 			}
 
 			execute();
@@ -1549,6 +1595,9 @@ void CalibrationManager::startResistanceMeasurement()
     if (getDataResult.failed())
     {
         AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), getDataResult.getErrorMessage(), "Close");
+        results += getDataResult.getErrorMessage();
+        state = STATE_RESISTANCE_MEASUREMENT_DONE;
+        finish(MESSAGE_AIOS_RESISTANCE_MEASUREMENT_DONE);
         return;
     }
     
@@ -1568,12 +1617,18 @@ void CalibrationManager::startResistanceMeasurement()
 	if (setResult.failed())
 	{
 		AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), setResult.getErrorMessage(), "Close");
+        results += setResult.getErrorMessage();
+        state = STATE_RESISTANCE_MEASUREMENT_DONE;
+        finish(MESSAGE_AIOS_RESISTANCE_MEASUREMENT_DONE);
 		return;
 	}
 	setResult = usbDevice->setMicGain(AIOS_CURRENT_INPUT_CHANNEL, 1);
 	if (setResult.failed())
 	{
 		AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), setResult.getErrorMessage(), "Close");
+        results += setResult.getErrorMessage();
+        state = STATE_RESISTANCE_MEASUREMENT_DONE;
+        finish(MESSAGE_AIOS_RESISTANCE_MEASUREMENT_DONE);
 		return;
 	}
 
@@ -1581,6 +1636,9 @@ void CalibrationManager::startResistanceMeasurement()
     if (setResult.failed())
     {
         AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), setResult.getErrorMessage(), "Close");
+        results += setResult.getErrorMessage();
+        state = STATE_RESISTANCE_MEASUREMENT_DONE;
+        finish(MESSAGE_AIOS_RESISTANCE_MEASUREMENT_DONE);
         return;
     }
                                                         
@@ -1588,6 +1646,9 @@ void CalibrationManager::startResistanceMeasurement()
 	if (audioDeviceResult.failed())
 	{
 		AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), audioDeviceResult.getErrorMessage(), "Close");
+        results += audioDeviceResult.getErrorMessage();
+        state = STATE_RESISTANCE_MEASUREMENT_DONE;
+        finish(MESSAGE_AIOS_RESISTANCE_MEASUREMENT_DONE);
 		return;
 	}
     
@@ -1600,6 +1661,9 @@ void CalibrationManager::startResistanceMeasurement()
 	if (startIOResult.failed())
 	{
 		AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), startIOResult.getErrorMessage(), "Close");
+        results += startIOResult.getErrorMessage();
+        state = STATE_RESISTANCE_MEASUREMENT_DONE;
+        finish(MESSAGE_AIOS_RESISTANCE_MEASUREMENT_DONE);
 		return;
 	}
 
@@ -1610,11 +1674,32 @@ void CalibrationManager::startResistanceMeasurement()
 	startTimer(200);
 }
 
+#if 0
+void CalibrationManager::lowpassSquarewave(int const channel)
+{
+    IIRCoefficients coefficients(IIRCoefficients::makeLowPass(ioDevice->getCurrentSampleRate(),
+                                                             audioIOCallback.getSquareWaveFrequency() * 1.99));
+    IIRFilter filter;
+                                
+    filter.setCoefficients(coefficients);
+                    
+    int numSamples = audioIOCallback.recordBuffer.getNumSamples();
+    AudioSampleBuffer lowpassBuffer( 1, numSamples);
+    lowpassBuffer.copyFrom(0, 0, audioIOCallback.recordBuffer, channel, 0, numSamples);
+    
+    writeWaveFile("square.wav", lowpassBuffer, numSamples);
+
+    filter.processSamples( lowpassBuffer.getWritePointer(0), numSamples);
+    
+    writeWaveFile("lowpass.wav", lowpassBuffer, numSamples);
+}
+#endif
+
 void CalibrationManager::analyzeResistanceMeasurement()
 {
 	stopIODevice();
     calibrationDialog->exitModalState(CalibrationDialogComponent::CONTINUE);
-
+    
 	analyze(voltageInputName,
 		audioIOCallback.recordBuffer.getReadPointer(AIOS_VOLTAGE_INPUT_CHANNEL),
 		audioIOCallback.recordPosition,
@@ -1630,14 +1715,33 @@ void CalibrationManager::analyzeResistanceMeasurement()
 		current,
 		limits->currentInput);
     
+    {
+        SquareWaveAnalysisResult &temp(positiveCalibrationResults[AIOS_VOLTAGE_INPUT_CHANNEL]);
+        results += "Voltage + (min/max/avg):" + String(temp.min, 5) + " " + String(temp.max,5) + " " + String(temp.average, 5) + newLine;
+    }
+    {
+        SquareWaveAnalysisResult &temp(negativeCalibrationResults[AIOS_VOLTAGE_INPUT_CHANNEL]);
+        results += "Voltage - (min/max/avg):" + String(temp.min, 5) + " " + String(temp.max,5) + " " + String(temp.average, 5) + newLine;
+    }
+    {
+        SquareWaveAnalysisResult &temp(positiveCalibrationResults[AIOS_CURRENT_INPUT_CHANNEL]);
+        results += "Current + (min/max/avg):" + String(temp.min, 5) + " " + String(temp.max,5) + " " + String(temp.average, 5) + newLine;
+    }
+    {
+        SquareWaveAnalysisResult &temp(negativeCalibrationResults[AIOS_CURRENT_INPUT_CHANNEL]);
+        results += "Current - (min/max/avg):" + String(temp.min, 5) + " " + String(temp.max,5) + " " + String(temp.average, 5) + newLine;
+    }
+    
+
     if (current != 0.0f)
     {
         float ratio = voltage / current;
         float ohms = referenceResistorOhms * (ratio / expectedVoltageOverCurrent);
         results += "Resistance: " + String(ohms, 5) + " ohms";
         
-        float difference = fabs(ohms - referenceResistorOhms);
-        pass = difference <= resistanceMeasurementTolerance;
+        float const minAllowedOhms = referenceResistorOhms * (1.0f - resistanceMeasurementTolerance);
+        float const maxAllowedOhms = referenceResistorOhms * (1.0f + resistanceMeasurementTolerance);
+        pass = minAllowedOhms <= ohms && ohms <= maxAllowedOhms;
     }
     else
     {
@@ -1651,6 +1755,15 @@ void CalibrationManager::analyzeResistanceMeasurement()
     else
     {
         results += " - FAIL" + newLine;
+        
+        BigInteger channelMask;
+        channelMask.setBit(AIOS_VOLTAGE_INPUT_CHANNEL);
+        channelMask.setBit(AIOS_CURRENT_INPUT_CHANNEL);
+        WriteWaveFile(outputFolder.getChildFile(serialNumber + " resistance.wav"),
+                      ioDevice->getCurrentSampleRate(),
+                      &audioIOCallback.recordBuffer,
+                      audioIOCallback.recordPosition,
+                      channelMask);
     }
 
 	state = STATE_RESISTANCE_MEASUREMENT_DONE;
@@ -1880,39 +1993,16 @@ void CalibrationManager::getExternalSpeakerMonitorTestResult(ExternalSpeakerMoni
 
 Result CalibrationManager::setSerialNumber(String serialNumber_)
 {
-	if (serialNumber_.isEmpty())
-		return Result::fail("Please enter the speaker monitor serial number");
-
-	if (serialNumber_.length() != serialNumberLength ||
-		false == serialNumber_.containsOnly("0123456789"))
-	{
-		return Result::fail("Invalid serial number " + serialNumber_);
-	}
-
 	serialNumber = serialNumber_;
 	return Result::ok();
 }
 
 void CalibrationManager::createExternalSpeakerMonitorLogFile()
 {
-	File logfolder(getOutputFolder());
+	File logfolder(outputFolder);
 
 	logfile = logfolder.getChildFile("SpeakerMonitorTestLog.txt");
 	logStream = new FileOutputStream(logfile);
-}
-
-File CalibrationManager::getOutputFolder()
-{
-	File logfolder;
-
-#if JUCE_WIN32
-	logfolder = File::getSpecialLocation(File::currentExecutableFile).getParentDirectory();
-#endif
-#if JUCE_MAC
-	logfolder = File::getSpecialLocation(File::currentApplicationFile).getParentDirectory();
-#endif
-
-	return logfolder;
 }
 
 

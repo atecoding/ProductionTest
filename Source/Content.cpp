@@ -16,6 +16,10 @@
 #define SLIDER_MIN	0.0
 #define SLIDER_MAX	2.0
 
+static const String pass_txt("PASS");
+static const String skip_txt("SKIP");
+static const String fail_txt("FAIL");
+
 void colorlabel(Label *lbl)
 {
 	lbl->setColour(Label::textColourId,Colours::black);
@@ -57,6 +61,11 @@ Content::Content(ehwlist *devlist,const StringArray &hardwareInstances_) :
     stopButton.addListener(this);
     stopButton.setEnabled(false);
     
+    resultsListBox.setColour(ListBox::backgroundColourId, Colours::transparentBlack);
+    resultsListBox.setModel(this);
+    addAndMakeVisible(resultsListBox);
+    
+#if ALLOW_USER_SCRIPT_SELECT
     TestManager* testManager = application->testManager;
     for (int index = 0; index < testManager->getNumScripts(); ++index)
     {
@@ -66,6 +75,7 @@ Content::Content(ehwlist *devlist,const StringArray &hardwareInstances_) :
     scriptCombo.setSelectedItemIndex(testManager->getCurrentScriptIndex());
     addAndMakeVisible(scriptCombo);
     scriptCombo.addListener(this);
+#endif
 
 	//
 	// Check that only one device is connected
@@ -91,7 +101,9 @@ Content::Content(ehwlist *devlist,const StringArray &hardwareInstances_) :
 	{
 		startButton.setEnabled(false);
         stopButton.setEnabled(false);
+#if ALLOW_USER_SCRIPT_SELECT
         scriptCombo.setEnabled(true);
+#endif
 	}
 #endif
 
@@ -122,9 +134,6 @@ void Content::paint(Graphics &g)
 {
 	int x,y,w,h,inset,result_w;
 	Font f;
-	static const String pass_txt("PASS");
-	static const String skip_txt("SKIP");
-	static const String fail_txt("FAIL");
 
 	f.setBold(true);
 	f.setHeight(14.0f);
@@ -154,6 +163,7 @@ void Content::paint(Graphics &g)
 	result_w = roundFloatToInt(getWidth() * 0.05f);
 	inset = roundFloatToInt(w * 0.02f);
 
+#if 0
 	if (_unit) // && (false == _unit->_skipped))
 	{
 		x = roundFloatToInt(getWidth() * 0.05f);
@@ -196,10 +206,13 @@ void Content::paint(Graphics &g)
 			y += h + 8;
 		}
 	}
+#endif
 
 	if (finalResult.isNotEmpty())
 	{
-		juce::Rectangle<int> r(x, y + 10, w + inset + result_w, h * 4);
+        juce::Rectangle<int> r(resultsListBox.getBounds());
+        r.setY(r.getBottom() + 10);
+        r.setHeight(96);
 		g.setFont(Font(24.0f, Font::bold));
 		g.setColour(Colours::darkgrey);
 		g.drawRect(r, 4);
@@ -261,22 +274,27 @@ void Content::buttonClicked(Button *button)
             _devlist->UnregisterMessageListener(&_dev_listener);
 #endif
 
-            String serialNumber_(_unit->getSerialNumber());
-            if (serialNumber_.isEmpty())
+#if USER_PROMPT_SERIAL_NUMBER
             {
-                Result serialNumberResult(GetSerialNumber(serialNumber_));
+                String serialNumber_;
+                Result serialNumberResult(promptForSerialNumber(serialNumber_));
                 if (serialNumberResult.failed())
                     return;
+                
+                _unit->setSerialNumber(serialNumber_);
             }
+#endif
 
             finalResult = String::empty;
             repaint();
             startButton.setEnabled(false);
             stopButton.setEnabled(true);
             stopButton.setState(Button::buttonNormal);
+#if ALLOW_USER_SCRIPT_SELECT
             scriptCombo.setEnabled(false);
+#endif
             stopButton.grabKeyboardFocus();
-            _unit->RunTests(serialNumber_, Time::getCurrentTime());
+            _unit->RunTests(Time::getCurrentTime());
 		}
 #endif
     
@@ -287,7 +305,9 @@ void Content::buttonClicked(Button *button)
     if (button == &stopButton)
     {
         stopButton.setEnabled(false);
+#if ALLOW_USER_SCRIPT_SELECT
         scriptCombo.setEnabled(true);
+#endif
         _unit->_running = false;
         return;
     }
@@ -343,16 +363,24 @@ void Content::resized()
 	logDisplay.setBounds(x,y,w,h);
     
     w = 300;
+#if ALLOW_USER_SCRIPT_SELECT
     scriptCombo.setBounds((logDisplay.getWidth() - w)/2 + logDisplay.getX(),
                            3,
                            w,
                            20);
+#endif
 
 	startButton.setSize(80,30);
     stopButton.setSize(80,30);
 	x = proportionOfWidth(split * 0.5f);
 	startButton.setTopLeftPosition(x - startButton.getWidth() - 10, getHeight() - stopButton.getHeight() - 10);
 	stopButton.setTopLeftPosition(x + 10, getHeight() - stopButton.getHeight() - 10);
+    
+    w = roundFloatToInt(logDisplay.getX() * 0.9f);
+    x = (logDisplay.getX() - w)/2;
+    y = logDisplay.getY() + 20;
+    h = logDisplay.getHeight() - 180;
+    resultsListBox.setBounds(x,y,w,h);
 }
 
 void Content::AddResult(String const &name,int pass)
@@ -360,6 +388,8 @@ void Content::AddResult(String const &name,int pass)
 	if(name[0] != '%')
 		_group_names.add(name);
 	_results.add(pass);
+    
+    resultsListBox.updateContent();
 }
 
 void Content::FinishTests(bool pass,bool skipped)
@@ -372,7 +402,9 @@ void Content::FinishTests(bool pass,bool skipped)
 	startButton.setEnabled(true);
     startButton.setState(Button::buttonNormal);
     stopButton.setEnabled(false);
+#if ALLOW_USER_SCRIPT_SELECT
     scriptCombo.setEnabled(true);
+#endif
 	startButton.grabKeyboardFocus();
 
 #ifdef PCI_BUILD
@@ -412,6 +444,7 @@ void Content::Reset()
 {
 	_results.clear();
 	_group_names.clear();
+    resultsListBox.updateContent();
 }
 
 void Content::DevArrived(ehw *dev)
@@ -439,7 +472,9 @@ void Content::DevArrived(ehw *dev)
 	startButton.setEnabled(true);
     startButton.setState(Button::buttonNormal);
     stopButton.setEnabled(false);
+#if ALLOW_USER_SCRIPT_SELECT
     scriptCombo.setEnabled(true);
+#endif
 	startButton.grabKeyboardFocus();
 #endif
 
@@ -455,7 +490,9 @@ void Content::DevRemoved(ehw *dev)
 #ifndef PCI_BUILD
     startButton.setEnabled(false);
     stopButton.setEnabled(false);
+#if ALLOW_USER_SCRIPT_SELECT
     scriptCombo.setEnabled(true);
+#endif
 #endif
 
 #if 0 // def ECHOUSB
@@ -518,20 +555,18 @@ void Content::setFinalResult(String text,Colour color)
 
 void Content::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 {
+#if ALLOW_USER_SCRIPT_SELECT
     application->testManager->setCurrentScriptIndex(scriptCombo.getSelectedItemIndex());
+#endif
 }
 
-Result Content::GetSerialNumber(String &serialNumber_)
+#if USER_PROMPT_SERIAL_NUMBER
+Result Content::promptForSerialNumber(String &serialNumber_)
 {
-	Time currentTime = Time::getCurrentTime();
-	int dayOfYear = currentTime.getDayOfYear();
-	int hour = currentTime.getHours();
-	int minute = currentTime.getMinutes();
 #if ACOUSTICIO_BUILD
 	String const deviceName("AIO");
 #endif
 
-#if (0)
     bool ok;
 
     String text("Please enter the serial number for this " + deviceName);// String(_dev->getcaps()->BoxTypeName()));
@@ -575,8 +610,53 @@ Result Content::GetSerialNumber(String &serialNumber_)
 			serialNumber_ = temp;
 		}
 	} while (false == ok);
+
+    return Result::ok();
+}
 #endif
-	serialNumber_ = String::formatted("AIO%03d%02d%02d", dayOfYear, hour, minute);
-	return Result::ok();
+
+int Content::getNumRows()
+{
+    return _results.size();
+}
+
+void Content::paintListBoxItem (int rowNumber, Graphics &g, int width, int height, bool rowIsSelected)
+{
+    int inset = 1;
+    Font f;
+    
+    f.setBold(true);
+    f.setHeight(14.0f);
+    g.setFont(f);
+    
+    g.setColour(Colours::black);
+    g.drawText(_group_names[rowNumber], 0, 0, width, height, Justification::centredLeft, false);
+    
+    String text;
+    Colour c;
+    switch (_results[rowNumber])
+    {
+        case 1:
+            text = pass_txt;
+            c = Colours::limegreen;
+            break;
+            
+        case 2:
+            text = skip_txt;
+            c = Colours::yellow;
+            break;
+            
+        default:
+            text = fail_txt;
+            c = Colours::red;
+            break;
+            
+    }
+    
+    int resultW = 50;
+    juce::Rectangle<int> r(width - inset - resultW, inset, resultW, height - inset * 2);
+    g.fillRect(r);
+    g.setColour(c);
+    g.drawText(text, r, Justification::centred,false);
 }
 
