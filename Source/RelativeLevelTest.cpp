@@ -75,12 +75,12 @@ bool RelativeLevelTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, E
 
 		for (int i = 0; i < num_samples - 500; i++)
 		{
-			tops *= 0.99;
+			tops *= 0.99f;
 			if (indata[i] > tops)
 				tops = indata[i];
-			runningAve *= 0.96;
+			runningAve *= 0.96f;
 			//			runningAve += fabs(indata[i]) * 0.04;
-			runningAve += tops * 0.04;
+			runningAve += tops * 0.04f;
 			//			if (0.1 * (runningAve / totalAve) < 0.1)
 			//			if (tops < max/2)
 			if (runningAve < max / 2)

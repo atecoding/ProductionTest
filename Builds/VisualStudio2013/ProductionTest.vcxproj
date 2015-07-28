@@ -308,6 +308,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\AIOSReferenceVoltageTest.cpp" />
+    <ClCompile Include="..\..\Source\CalibrationVerificationTest.cpp" />
     <ClCompile Include="..\..\Source\calibration\CalibrationAudioIOCallback.cpp" />
     <ClCompile Include="..\..\Source\calibration\CalibrationData.cpp" />
     <ClCompile Include="..\..\Source\calibration\CalibrationDialogComponent.cpp" />
@@ -335,6 +336,7 @@
     <ClCompile Include="..\..\Source\MeterWindow.cpp" />
     <ClCompile Include="..\..\Source\MIDILoopTest.cpp" />
     <ClCompile Include="..\..\Source\MidiTest.cpp" />
+    <ClCompile Include="..\..\Source\ModuleTypeTest.cpp" />
     <ClCompile Include="..\..\Source\PhaseTest.cpp" />
     <ClCompile Include="..\..\Source\printer\Printer.cpp" />
     <ClCompile Include="..\..\Source\ProductionUnit.cpp" />

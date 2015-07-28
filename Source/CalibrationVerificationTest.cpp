@@ -6,7 +6,7 @@
 #include "AIOTestAdapter.h"
 #include "ErrorCodes.h"
 #include "xml.h"
-#include "crc32.h"
+#include "calibration/crc32.h"
 
 
 bool RunCalibrationVerificationTest(XmlElement const *element,

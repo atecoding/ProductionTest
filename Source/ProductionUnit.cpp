@@ -2239,8 +2239,13 @@ void ProductionUnit::runOfflineTest(XmlElement *script)
             return;
         }
         
-        AudioSampleBuffer *buffer = new AudioSampleBuffer(reader->numChannels, reader->lengthInSamples);
-        reader->read(buffer, 0, reader->lengthInSamples, 0, true, true);
+		int numSamples;
+		if (reader->lengthInSamples > INT_MAX)
+			numSamples = INT_MAX;
+		else
+			numSamples = (int)reader->lengthInSamples;
+		AudioSampleBuffer *buffer = new AudioSampleBuffer(reader->numChannels, numSamples);
+		reader->read(buffer, 0, numSamples, 0, true, true);
         
         OwnedArray<AudioSampleBuffer> buffers;
         buffers.add(buffer);

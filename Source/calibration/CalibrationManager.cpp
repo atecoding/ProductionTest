@@ -415,7 +415,7 @@ Result CalibrationManager::analyze(
 
 void CalibrationManager::findZeroCrossing(const float * data, int numSamples, int startIndex, int &zeroCrossingIndex)
 {
-    int const periodThreshold = roundFloatToInt( (sampleRate / audioIOCallback.getSquareWaveFrequency()) * 0.4f);
+    int const periodThreshold = roundDoubleToInt( (sampleRate / audioIOCallback.getSquareWaveFrequency()) * 0.4);
     
 	if (numSamples < 2)
 	{
@@ -1760,7 +1760,7 @@ void CalibrationManager::analyzeResistanceMeasurement()
         channelMask.setBit(AIOS_VOLTAGE_INPUT_CHANNEL);
         channelMask.setBit(AIOS_CURRENT_INPUT_CHANNEL);
         WriteWaveFile(outputFolder.getChildFile(serialNumber + " resistance.wav"),
-                      ioDevice->getCurrentSampleRate(),
+                      roundDoubleToInt(ioDevice->getCurrentSampleRate()),
                       &audioIOCallback.recordBuffer,
                       audioIOCallback.recordPosition,
                       channelMask);
