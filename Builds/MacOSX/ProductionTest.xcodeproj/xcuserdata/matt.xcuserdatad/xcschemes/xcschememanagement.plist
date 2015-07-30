@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AIO Field Test.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>AIO-S Final Test.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -23,6 +28,11 @@
 			<true/>
 		</dict>
 		<key>C920FEED1B62F68E009CC653</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C9ED3C101B684274004A76CE</key>
 		<dict>
 			<key>primary</key>
 			<true/>

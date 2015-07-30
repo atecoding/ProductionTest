@@ -362,7 +362,7 @@ void ProductionUnit::RunTests(Time const testStartTime_)
         DBG("   RunTests exit");
 		return;
 	}
-    
+
 #if ACOUSTICIO_BUILD
 	//
 	// Look for the AIO test adapter (USB HID-class device)
@@ -387,6 +387,21 @@ void ProductionUnit::RunTests(Time const testStartTime_)
 		}
 	}
 #endif
+    
+    //
+    // Prompt user for serial number?
+    //
+    {
+        XmlElement* userPromptElement = _script->getChildByName("User_prompt_serial_number");
+        if (userPromptElement && userPromptElement->getAllSubText().compareIgnoreCase("true") == 0)
+        {
+            Result result(_content->promptForSerialNumber(_serial_number));
+            if (result.failed())
+            {
+                return;
+            }
+        }
+    }
 
 	//
 	// Create the ASIO driver
@@ -405,9 +420,7 @@ void ProductionUnit::RunTests(Time const testStartTime_)
 	msg = "Begin testing for ";
 	msg += _dev->getcaps()->BoxTypeName();
 	msg += " " + _serial_number;
-	_content->log(String::empty);
-	_content->log(String::empty);
-	_content->log("------------------------------------------------");
+    _content->log("-------------------------------------------");
     _content->log("Script: " + f.getFileNameWithoutExtension());
     _content->log("Test built " __DATE__);
 	_content->log(msg);
@@ -692,6 +705,8 @@ void ProductionUnit::ParseScript()
 
 	while (_script && _running && deviceAttached)
 	{
+        DBG("ParseScript " << _script->getTagName());
+        
 		//-----------------------------------------------------------------------------
 		//
 		// Firmware version check?
@@ -1190,7 +1205,8 @@ void ProductionUnit::ParseScript()
 		//
 		if (_script->hasTagName("ASIO_driver") ||
             _script->hasTagName("CoreAudio_driver") ||
-            _script->hasTagName("Require_AIO_Test_Adapter"))
+            _script->hasTagName("Require_AIO_Test_Adapter") ||
+            _script->hasTagName("User_prompt_serial_number"))
 		{
 			_script = _script->getNextElement();
 			continue;
@@ -1562,6 +1578,10 @@ void ProductionUnit::ParseScript()
             if (_unit_passed)
             {
                 runAIOTest(RunCalibrationVerificationTest, "Calibration verification");
+            }
+            else
+            {
+                _script = _script->getNextElement();
             }
             continue;
         }
@@ -1940,8 +1960,8 @@ void ProductionUnit::CreateLogFile()
 {
     File logfolder(getOutputFolder());
     
-    _logfile = logfolder.getChildFile(_serial_number + "-Log" + ".txt");
-    _log_stream = new FileOutputStream(_logfile);
+    logfile = logfolder.getChildFile(_serial_number + "-Log" + ".txt");
+    logfile.appendText(newLine);
 }
 
 void ProductionUnit::deviceRemoved()
@@ -2095,7 +2115,7 @@ void ProductionUnit::printErrorCodes(XmlElement *xe)
         return;
     }
     
-    String headerTextTag("text");
+    String const headerTextTag("text");
     String headerText;
     XmlElement* headerTextElement = xe->getChildByName(headerTextTag);
     if (headerTextElement)
@@ -2104,7 +2124,7 @@ void ProductionUnit::printErrorCodes(XmlElement *xe)
         headerText = headerTextElement->getAllSubText();
     }
 
-    String firstChannelTag("first_channel");
+    String const firstChannelTag("first_channel");
     int firstChannel = -1;
     if (false == getIntValue( xe, firstChannelTag, firstChannel))
     {
@@ -2117,7 +2137,7 @@ void ProductionUnit::printErrorCodes(XmlElement *xe)
         return;
     }
     
-    String lastChannelTag("last_channel");
+    String const lastChannelTag("last_channel");
     int lastChannel = -1;
     if (false == getIntValue( xe, lastChannelTag, lastChannel))
     {
@@ -2130,7 +2150,7 @@ void ProductionUnit::printErrorCodes(XmlElement *xe)
         return;
     }
     
-    String selectedCodesString(getStringValue(xe, "codes"));
+    String const selectedCodesString(getStringValue(xe, "codes"));
     StringArray selectedCodesStringArray;
     selectedCodesStringArray.addTokens(selectedCodesString, false);
     Array<int> selectedCodes;
@@ -2183,15 +2203,9 @@ void ProductionUnit::printErrorCodes(XmlElement *xe)
         output += String::toHexString(printedCodes[i]).toUpperCase() + " ";
     }
     
-    String status;
-    if (false == Printer::printerFound(status))
-    {
-        _content->log("Printer not found");
-        _content->log(status);
-        return;
-    }
-    
     Printer::print(output);
+    
+    DBG("Error code print done");
 #endif
 }
 

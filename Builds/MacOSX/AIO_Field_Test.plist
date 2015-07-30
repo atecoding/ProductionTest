@@ -7,9 +7,9 @@
 	<key>CFBundleIconFile</key>
 	<string>factory.icns</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.echoaudio.ProductionTest</string>
+	<string>com.echoaudio.FieldTest</string>
 	<key>CFBundleName</key>
-	<string>ProductionTest</string>
+	<string>AIOFieldTest</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleSignature</key>

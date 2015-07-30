@@ -203,13 +203,11 @@ protected:
 	void startExternalSpeakerMonitorTest();
 	void finishExternalSpeakerMonitorTest();
 
-	void createExternalSpeakerMonitorLogFile();
 	void log(String const text);
 
 	void restart(String error, State newState);
 	void cancel(String error);
 	File logfile;
-	ScopedPointer <FileOutputStream> logStream;
 
 	CalibrationAudioIOCallback audioIOCallback;
 

@@ -34,6 +34,8 @@ public:
 		return _devlist;
 	}
 
+    Result promptForSerialNumber(String &serialNumber);
+
 	void resized();
 
 	virtual void handleCommandMessage(int commandId);
@@ -57,8 +59,6 @@ protected:
     virtual void comboBoxChanged (ComboBox* comboBoxThatHasChanged);
     virtual int getNumRows();
     virtual void paintListBoxItem (int rowNumber, Graphics &g, int width, int height, bool rowIsSelected);
-
-	Result promptForSerialNumber(String &serialNumber);
 	
 	StringArray hardwareInstances;
 	ehwlist		*_devlist;

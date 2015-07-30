@@ -38,9 +38,9 @@ public:
 	bool _running;
     bool deviceAttached;
 
-	FileOutputStream *getLogStream() const
+	File & getLogFile()
 	{
-		return _log_stream;
+		return logfile;
 	}
 
 	File getOutputFolder();
@@ -99,8 +99,7 @@ protected:
 
 	String _serial_number;
     Time testStartTime;
-	File _logfile;
-	ScopedPointer <FileOutputStream> _log_stream;
+	File logfile;
 
     void assignAutomaticSerialNumber();
 	void CreateLogFile();

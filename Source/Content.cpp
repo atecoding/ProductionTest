@@ -346,9 +346,9 @@ void Content::log(String msg)
     //_logfile.appendText(msg);
     //const char * lfcr = "\r\n";
     //_logfile.appendText(lfcr);
-    FileOutputStream* logStream = _unit->getLogStream();
-    if (logStream)
-        logStream->writeText( msg + cr, false, false );
+    File &logfile(_unit->getLogFile());
+    if (logfile.exists())
+        logfile.appendText(msg + cr);
 }
 
 void Content::resized()
@@ -394,10 +394,6 @@ void Content::AddResult(String const &name,int pass)
 
 void Content::FinishTests(bool pass,bool skipped)
 {
-	FileOutputStream* logStream = _unit->getLogStream();
-	if (logStream)
-		logStream->flush();
-
 	_unit->_running = false;
 	startButton.setEnabled(true);
     startButton.setState(Button::buttonNormal);
@@ -560,7 +556,6 @@ void Content::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 #endif
 }
 
-#if USER_PROMPT_SERIAL_NUMBER
 Result Content::promptForSerialNumber(String &serialNumber_)
 {
 #if ACOUSTICIO_BUILD
@@ -598,8 +593,8 @@ Result Content::promptForSerialNumber(String &serialNumber_)
 #if ACOUSTICIO_BUILD
 		ok &= temp.startsWith("AIO");
 		int length = temp.length();
-		ok &= 10 == length;
-		ok &= temp.substring(4, 6).containsOnly("0123456789");
+		ok &= 10 == length || 11 == length;
+		ok &= temp.substring(4).containsOnly("0123456789");
 #endif
 		if (false == ok)
 		{
@@ -613,7 +608,6 @@ Result Content::promptForSerialNumber(String &serialNumber_)
 
     return Result::ok();
 }
-#endif
 
 int Content::getNumRows()
 {

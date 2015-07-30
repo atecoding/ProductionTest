@@ -17,6 +17,8 @@ static const float currentInputOutputAmplitude = 0.5f;
 static const float referenceResistorOhms = 10.0f;
 static const float externalSpeakerMonitorTolerance = 0.005f; // +/- 0.5%
 static const float resistanceMeasurementTolerance = 0.003f; // +/- 0.3%
+static const float minPowerSupplyFailDetectOhms = 1.5f;
+static const float maxPowerSupplyFailDetectOhms = 2.5f;
 
 const float CalibrationManager::AIOSReferencePeakVolts = 2.5f;   // Reference signal is 0 to +5V, but AC coupled so -2.5V to +2.5V
 const float CalibrationManager::voltageInputPeakVolts = 8.75f;    // Max +8.75V, min -8.75V, common to AIO-2 and AIO-S
@@ -987,6 +989,7 @@ String CalibrationManager::getHistory()
 }
 
 
+#if 0
 void CalibrationManager::startExternalSpeakerMonitorCalibration(ReferenceCountedObjectPtr<ehw> device_)
 {
     DBG("CalibrationManager::startExternalSpeakerMonitorCalibration");
@@ -1021,6 +1024,7 @@ void CalibrationManager::startExternalSpeakerMonitorCalibration(ReferenceCounted
 
 	execute();
 }
+#endif
 
 #if 0
 void CalibrationManager::showActiveCalibration()
@@ -1697,23 +1701,34 @@ void CalibrationManager::lowpassSquarewave(int const channel)
 
 void CalibrationManager::analyzeResistanceMeasurement()
 {
+    bool shipToEcho = false;
+    
 	stopIODevice();
     calibrationDialog->exitModalState(CalibrationDialogComponent::CONTINUE);
     
-	analyze(voltageInputName,
+	Result voltageResult(analyze(voltageInputName,
 		audioIOCallback.recordBuffer.getReadPointer(AIOS_VOLTAGE_INPUT_CHANNEL),
 		audioIOCallback.recordPosition,
 		positiveCalibrationResults[AIOS_VOLTAGE_INPUT_CHANNEL],
 		negativeCalibrationResults[AIOS_VOLTAGE_INPUT_CHANNEL],
 		voltage,
-		limits->calibratedVoltageInput);
-	analyze(currentInputName,
+		limits->calibratedVoltageInput));
+	Result currentResult(analyze(currentInputName,
 		audioIOCallback.recordBuffer.getReadPointer(AIOS_CURRENT_INPUT_CHANNEL),
 		audioIOCallback.recordPosition,
 		positiveCalibrationResults[AIOS_CURRENT_INPUT_CHANNEL],
 		negativeCalibrationResults[AIOS_CURRENT_INPUT_CHANNEL],
 		current,
-		limits->currentInput);
+		limits->currentInput));
+    
+    if (voltageResult.failed())
+    {
+        results += "Voltage measurement error: " + voltageResult.getErrorMessage() + newLine;
+    }
+    if (currentResult.failed())
+    {
+        results += "Current measurement error: " + currentResult.getErrorMessage() + newLine;
+    }
     
     {
         SquareWaveAnalysisResult &temp(positiveCalibrationResults[AIOS_VOLTAGE_INPUT_CHANNEL]);
@@ -1731,7 +1746,6 @@ void CalibrationManager::analyzeResistanceMeasurement()
         SquareWaveAnalysisResult &temp(negativeCalibrationResults[AIOS_CURRENT_INPUT_CHANNEL]);
         results += "Current - (min/max/avg):" + String(temp.min, 5) + " " + String(temp.max,5) + " " + String(temp.average, 5) + newLine;
     }
-    
 
     if (current != 0.0f)
     {
@@ -1742,10 +1756,17 @@ void CalibrationManager::analyzeResistanceMeasurement()
         float const minAllowedOhms = referenceResistorOhms * (1.0f - resistanceMeasurementTolerance);
         float const maxAllowedOhms = referenceResistorOhms * (1.0f + resistanceMeasurementTolerance);
         pass = minAllowedOhms <= ohms && ohms <= maxAllowedOhms;
+        
+        if (minPowerSupplyFailDetectOhms <= ohms && ohms <= maxPowerSupplyFailDetectOhms)
+        {
+            shipToEcho = true;
+        }
     }
     else
     {
         results += "Could not measure resistance - voltage:" + String(voltage,5) + " current: 0.0";
+        
+        shipToEcho = true;
     }
     
     if (pass)
@@ -1764,6 +1785,11 @@ void CalibrationManager::analyzeResistanceMeasurement()
                       &audioIOCallback.recordBuffer,
                       audioIOCallback.recordPosition,
                       channelMask);
+    }
+    
+    if (shipToEcho)
+    {
+        results += newLine + newLine + "====== Please ship this unit to Echo ======" + newLine + newLine;
     }
 
 	state = STATE_RESISTANCE_MEASUREMENT_DONE;
@@ -1997,6 +2023,7 @@ Result CalibrationManager::setSerialNumber(String serialNumber_)
 	return Result::ok();
 }
 
+#if 0
 void CalibrationManager::createExternalSpeakerMonitorLogFile()
 {
 	File logfolder(outputFolder);
@@ -2004,14 +2031,17 @@ void CalibrationManager::createExternalSpeakerMonitorLogFile()
 	logfile = logfolder.getChildFile("SpeakerMonitorTestLog.txt");
 	logStream = new FileOutputStream(logfile);
 }
+#endif
 
 
 void CalibrationManager::log(String const text)
 {
+#if 0
 	if (logStream)
 	{
 		logStream->writeText(text + newLine, false, false);
 	}
+#endif
 }
 
 
