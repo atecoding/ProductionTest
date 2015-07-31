@@ -82,7 +82,7 @@ _unit_passed(true),
 _skipped(false),
 _running(false),
 deviceAttached(true),
-tree("ProductionUnit"),
+unitTree("ProductionUnit"),
 _ok(true),
 _dev(dev),
 _devlist(devlist),
@@ -295,16 +295,14 @@ void ProductionUnit::RunTests(Time const testStartTime_)
     
     testStartTime = testStartTime_;
     
-	CreateLogFile();
-
 	_channel_group_name = String::empty;
 	_content->Reset();
 	_skipped = false;
 	_unit_passed = true;
 	_running = true;
     errorCodes.reset();
-    tree.removeAllChildren(nullptr);
-    tree.removeAllProperties(nullptr);
+    unitTree.removeAllChildren(nullptr);
+    unitTree.removeAllProperties(nullptr);
 
 	//
 	// Load the set of tests from XML
@@ -402,6 +400,8 @@ void ProductionUnit::RunTests(Time const testStartTime_)
             }
         }
     }
+    
+    CreateLogFile();
 
 	//
 	// Create the ASIO driver

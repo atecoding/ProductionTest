@@ -52,7 +52,7 @@ public:
     
     void setSerialNumber(String const serialNumber_);
     
-    ValueTree tree;
+    ValueTree unitTree;
 
 protected:
 	enum

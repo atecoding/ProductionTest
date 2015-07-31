@@ -3366,7 +3366,7 @@
 					"JUCE_APP_VERSION_HEX=0x10000",
 					"ALLOW_USER_SCRIPT_SELECT=0",
 					"WINDOW_TITLE='\"Final\"'",
-					"USER_PROMPT_SERIAL_NUMBER=0",
+					"USER_PROMPT_SERIAL_NUMBER=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;

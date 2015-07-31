@@ -37,7 +37,7 @@ bool RelativeLevelTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, E
 	IIRCoefficients highPassCoefficients(IIRCoefficients::makeHighPass(sample_rate, 500.0));
     IIRFilter highPassFilter;
 	bool pass = true;
-    ValueTree unitTree(unit->tree);
+    ValueTree unitTree(unit->unitTree);
     ValueTree previousResultsTree(unitTree.getOrCreateChildWithName(relativeLevelResults, nullptr));
     
     msg = String::empty;
