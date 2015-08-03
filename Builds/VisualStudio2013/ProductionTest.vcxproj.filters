@@ -1446,6 +1446,9 @@
     <ClCompile Include="..\..\Source\ModuleTypeTest.cpp">
       <Filter>ProductionTest\Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\PowerSupplyResetTest.cpp">
+      <Filter>ProductionTest\Source\AIO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\Source\ehw\win\NotificationWindow.h">

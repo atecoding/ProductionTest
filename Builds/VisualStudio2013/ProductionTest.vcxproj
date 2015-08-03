@@ -338,6 +338,7 @@
     <ClCompile Include="..\..\Source\MidiTest.cpp" />
     <ClCompile Include="..\..\Source\ModuleTypeTest.cpp" />
     <ClCompile Include="..\..\Source\PhaseTest.cpp" />
+    <ClCompile Include="..\..\Source\PowerSupplyResetTest.cpp" />
     <ClCompile Include="..\..\Source\printer\Printer.cpp" />
     <ClCompile Include="..\..\Source\ProductionUnit.cpp" />
     <ClCompile Include="..\..\Source\r8brain\r8bbase.cpp" />

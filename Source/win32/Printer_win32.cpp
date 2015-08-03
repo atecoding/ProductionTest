@@ -4,11 +4,6 @@
 
 #include "../printer/Printer.h"
 
-bool Printer::printerFound(juce::String &status)
-{
-    return false;
-}
-
 Result Printer::printInternal(String const text)
 {
     return Result::fail("Not supported");
