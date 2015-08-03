@@ -168,7 +168,7 @@
     </test>
     
     <AIO_power_supply_reset_test>
-        <text> - Module 1</text>
+        <text>module 1</text>
         <first_channel>0</first_channel>
         <last_channel>1</last_channel>
     </AIO_power_supply_reset_test>

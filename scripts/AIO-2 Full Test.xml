@@ -18,6 +18,20 @@
 
     <AIO_firmware_version_test max_version="0x71" />
 
+    <AIO_module_type_test>
+      <slot>0</slot>
+      <!-- slot 0 == center slot -->
+      <type>1</type>
+      <!-- type 1 == TEDS microphone + class D amp analog module -->
+    </AIO_module_type_test>
+
+    <AIO_module_type_test>
+      <slot>1</slot>
+      <!-- slot 1 == outer slot -->
+      <type>1</type>
+      <!-- type 1 == TEDS microphone + class D amp analog module -->
+    </AIO_module_type_test>
+
     <message_box>Connect the Test Adapter to Inputs 1-4</message_box>
 
     <!-- Check constant current voltage and current -->
@@ -112,7 +126,7 @@
     </test>
     
     <AIO_power_supply_reset_test>
-        <text> - Module 1</text>
+        <text>module 1</text>
         <first_channel>0</first_channel>
         <last_channel>3</last_channel>
     </AIO_power_supply_reset_test>
@@ -491,7 +505,7 @@
     </test>
     
     <AIO_power_supply_reset_test>
-        <text> - Module 2</text>
+        <text>module 2</text>
         <first_channel>4</first_channel>
         <last_channel>7</last_channel>
     </AIO_power_supply_reset_test>

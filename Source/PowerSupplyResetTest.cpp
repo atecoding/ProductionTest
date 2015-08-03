@@ -10,7 +10,7 @@
 
 const double relativeLevelThresholdDecibels = -95.0;
 
-bool static getXmlParameters(XmlElement const *element, ehw* dev, String &msg, int &firstChannel, int &lastChannel)
+bool static getXmlParameters(XmlElement const *element, ehw* dev, String &msg, int &firstChannel, int &lastChannel, String &moduleName)
 {
     String const firstChannelTag("first_channel");
     firstChannel = -1;
@@ -37,6 +37,14 @@ bool static getXmlParameters(XmlElement const *element, ehw* dev, String &msg, i
          msg += lastChannelTag + " value " + String(lastChannel) + " out of range";
         return false;
     }
+
+	String const moduleNameTag("text");
+	moduleName = getStringValue(element, moduleNameTag);
+	if (moduleName.isEmpty())
+	{
+		msg += "Module name not found";
+		return false;
+	}
     
     return true;
 }
@@ -52,12 +60,13 @@ bool RunPowerSupplyResetTest(XmlElement const *element,
                        ValueTree &unitTree)
 {
     int firstChannel,lastChannel;
+	String moduleName;
     
     displayedInput = -1;
     
     msg = newLine + "Power supply reset check: " + newLine;
     
-    if (false == getXmlParameters(element, dev, msg, firstChannel, lastChannel))
+    if (false == getXmlParameters(element, dev, msg, firstChannel, lastChannel, moduleName))
     {
         msg += " FAIL";
         return false;
@@ -93,12 +102,12 @@ bool RunPowerSupplyResetTest(XmlElement const *element,
     
     if (micSupplyError)
     {
-        msg += "    No mic supply current or voltage errors" + newLine;
-    }
+		msg += "   Found at least one mic supply current or voltage error" + newLine;
+	}
     else
     {
-        msg += "   Found at least one mic supply current or voltage error" + newLine;
-    }
+		msg += "   No mic supply current or voltage errors" + newLine;
+	}
     
     //
     // Look for TEDS failures
@@ -182,7 +191,7 @@ bool RunPowerSupplyResetTest(XmlElement const *element,
         //
         // This unit likely has a power supply reset problem
         //
-        msg += newLine + "====== Please set aside for further testing" + newLine +
+        msg += newLine + "====== Please set aside " + moduleName + " for further testing" + newLine +
         "====== Do not ship to customer" + newLine + newLine;
         msg += "FAIL" + newLine;
         return false;

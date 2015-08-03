@@ -120,7 +120,7 @@
     </test>
     
     <AIO_power_supply_reset_test>
-        <text> - Module 2</text>
+        <text>module 2</text>
         <first_channel>4</first_channel>
         <last_channel>7</last_channel>
     </AIO_power_supply_reset_test>

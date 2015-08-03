@@ -43,7 +43,11 @@ bool RunModuleTypeTest(XmlElement const *element,
     if (firmwareVersion < ACOUSTICIO_MODULE_TYPE_CONTROL_MIN_FIRMWARE_VERSION)
     {
         msg += "Minimum firmware version "+ String::toHexString((int)ACOUSTICIO_MODULE_TYPE_CONTROL_MIN_FIRMWARE_VERSION) + " required; cannot verify module type";
-        return false;
+
+		//
+		// Pass anyhow since we can't check this
+		//
+        return true;
     }
     
     //
