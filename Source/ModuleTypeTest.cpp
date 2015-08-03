@@ -26,7 +26,8 @@ bool RunModuleTypeTest(XmlElement const *element,
                        int &displayedInput,
                        AIOTestAdapter &testAdapter,
                        Content *content,
-                       ErrorCodes &errorCodes)
+                       ErrorCodes &errorCodes,
+                       ValueTree &unitTree)
 {
     int slot;
     int expectedModuleType,detectedModuleType;

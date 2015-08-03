@@ -12,7 +12,8 @@ bool RunTEDSTest(XmlElement const *element,
                  int &displayedInput,
                  AIOTestAdapter &testAdapter,
                  Content *content,
-                 ErrorCodes &errorCodes)
+                 ErrorCodes &errorCodes,
+                 ValueTree &unitTree)
 {
 	int attribute;
 	uint8 channel;

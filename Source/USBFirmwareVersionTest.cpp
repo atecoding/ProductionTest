@@ -7,12 +7,13 @@
 #include "ErrorCodes.h"
 
 bool RunUSBFirmwareVersionTest(XmlElement const *element,
-                 ehw *dev,
-                 String &msg,
-                 int &displayedInput,
-                 AIOTestAdapter &testAdapter,
-                 Content *content,
-                 ErrorCodes &errorCodes)
+                    ehw *dev,
+                    String &msg,
+                    int &displayedInput,
+                    AIOTestAdapter &testAdapter,
+                    Content *content,
+                    ErrorCodes &errorCodes,
+                    ValueTree &unitTree)
 {
 	uint32 min_version = 0;
 	uint32 max_version = 0;

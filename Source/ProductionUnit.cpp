@@ -29,49 +29,64 @@ bool RunTEDSTest(XmlElement const *element,
                  int &displayedInput,
                  AIOTestAdapter &testAdapter,
                  Content *content,
-                 ErrorCodes &errorCodes);
+                 ErrorCodes &errorCodes,
+                 ValueTree &unitTree);
 bool RunCCVoltageTest(XmlElement const *element,
                       ehw *dev,
                       String &msg,
                       int &displayedInput,
                       AIOTestAdapter &testAdapter,
                       Content *content,
-                      ErrorCodes &errorCodes);
+                      ErrorCodes &errorCodes,
+                      ValueTree &unitTree);
 bool RunCCCurrentTest(XmlElement const *element,
                       ehw *dev,
                       String &msg,
                       int &displayedInput,
                       AIOTestAdapter &testAdapter,
                       Content *content,
-                      ErrorCodes &errorCodes);
+                      ErrorCodes &errorCodes,
+                      ValueTree &unitTree);
 bool RunUSBFirmwareVersionTest(XmlElement const *element,
-                      ehw *dev,
-                      String &msg,
-                      int &displayedInput,
-                      AIOTestAdapter &testAdapter,
-                      Content *content,
-                      ErrorCodes &errorCodes);
+                        ehw *dev,
+                        String &msg,
+                        int &displayedInput,
+                        AIOTestAdapter &testAdapter,
+                        Content *content,
+                        ErrorCodes &errorCodes,
+                        ValueTree &unitTree);
 bool RunFlashMemoryTest(XmlElement const *element,
                         ehw *dev,
                         String &msg,
                         int &displayedInput,
                         AIOTestAdapter &testAdapter,
                         Content *content,
-                        ErrorCodes &errorCodes);
+                        ErrorCodes &errorCodes,
+                        ValueTree &unitTree);
 bool RunModuleTypeTest(XmlElement const *element,
                        ehw *dev,
                        String &msg,
                        int &displayedInput,
                        AIOTestAdapter &testAdapter,
                        Content *content,
-                       ErrorCodes &errorCodes);
+                       ErrorCodes &errorCodes,
+                       ValueTree &unitTree);
 bool RunCalibrationVerificationTest(XmlElement const *element,
-                       ehw *dev,
-                       String &msg,
-                       int &displayedInput,
-                       AIOTestAdapter &testAdapter,
-                       Content *content,
-                       ErrorCodes &errorCodes);
+                        ehw *dev,
+                        String &msg,
+                        int &displayedInput,
+                        AIOTestAdapter &testAdapter,
+                        Content *content,
+                        ErrorCodes &errorCodes,
+                        ValueTree &unitTree);
+bool RunPowerSupplyResetTest(XmlElement const *element,
+                                ehw *dev,
+                                String &msg,
+                                int &displayedInput,
+                                AIOTestAdapter &testAdapter,
+                                Content *content,
+                                ErrorCodes &errorCodes,
+                                ValueTree &unitTree);
 #endif
 
 //extern String ProductionTestsXmlFileName;
@@ -1563,6 +1578,16 @@ void ProductionUnit::ParseScript()
             continue;
         }
         
+        if (_script->hasTagName("AIO_power_supply_reset_test"))
+        {
+            runAIOTest(RunPowerSupplyResetTest, "Power supply reset");
+            if (false == _unit_passed)
+            {
+                break;
+            }
+            continue;
+        }
+        
         if (_script->hasTagName("AIO_module_type_test"))
         {
             runAIOTest(RunModuleTypeTest, "Module type");
@@ -1993,7 +2018,8 @@ void ProductionUnit::runAIOTest(AIOTestVector function, String const groupName)
                        displayedInput,
                        aioTestAdapter,
                        _content,
-                       errorCodes) == TestPrompt::ok;
+                       errorCodes,
+                       unitTree) == TestPrompt::ok;
     
     _content->log(msg + "\n");
     

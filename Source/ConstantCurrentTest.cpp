@@ -13,7 +13,8 @@ bool RunCCVoltageTest(XmlElement const *element,
                       int &displayedInput,
                       AIOTestAdapter &testAdapter,
                       Content *content,
-                      ErrorCodes &errorCodes)
+                      ErrorCodes &errorCodes,
+                      ValueTree &unitTree)
 {
 	int attribute;
     int numInputs;
@@ -119,7 +120,8 @@ bool RunCCCurrentTest(XmlElement const *element,
                       int &displayedInput,
                       AIOTestAdapter &testAdapter,
                       Content *content,
-                      ErrorCodes &errorCodes)
+                      ErrorCodes &errorCodes,
+                      ValueTree &unitTree)
 {
 	int attribute;
 	uint8 channel;

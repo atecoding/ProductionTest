@@ -96,7 +96,7 @@
 		C920FF231B62F68E009CC653 /* SawtoothAudioSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629F8919423F871C8337CBCC /* SawtoothAudioSource.cpp */; };
 		C920FF241B62F68E009CC653 /* TEDSTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E761E1D0BFE22C3B9D07F25 /* TEDSTest.cpp */; };
 		C920FF251B62F68E009CC653 /* Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9B94D8A26A077F11C86494B /* Test.cpp */; };
-		C920FF261B62F68E009CC653 /* ModuleTypeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9495EEF1B62DD05008474CE /* ModuleTypeTest.cpp */; };
+		C920FF261B62F68E009CC653 /* PowerSupplyResetTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9495EEF1B62DD05008474CE /* PowerSupplyResetTest.cpp */; };
 		C920FF271B62F68E009CC653 /* TestManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F405D5E5D6C0E97F71211C83 /* TestManager.cpp */; };
 		C920FF281B62F68E009CC653 /* CalibrationAudioIOCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6AD1B29415B00CEC3BF /* CalibrationAudioIOCallback.cpp */; };
 		C920FF291B62F68E009CC653 /* TestPrompt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D218ABCF456C886AB5867EB0 /* TestPrompt.cpp */; };
@@ -138,7 +138,7 @@
 		C930C6D11B40BF10000296E8 /* ProductionUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51932B8BE722EA8393CBEB8C /* ProductionUnit.cpp */; };
 		C93528851B66F86C00723FA7 /* CalibrationVerificationTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C93528841B66F86C00723FA7 /* CalibrationVerificationTest.cpp */; };
 		C93528861B66F89C00723FA7 /* CalibrationVerificationTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C93528841B66F86C00723FA7 /* CalibrationVerificationTest.cpp */; };
-		C9495EF01B62DD05008474CE /* ModuleTypeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9495EEF1B62DD05008474CE /* ModuleTypeTest.cpp */; };
+		C9495EF01B62DD05008474CE /* PowerSupplyResetTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9495EEF1B62DD05008474CE /* PowerSupplyResetTest.cpp */; };
 		C94CC6A01B293C9100CEC3BF /* CalibrationData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6961B293C9100CEC3BF /* CalibrationData.cpp */; };
 		C94CC6A11B293C9100CEC3BF /* CalibrationDialogComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6981B293C9100CEC3BF /* CalibrationDialogComponent.cpp */; };
 		C94CC6A21B293C9100CEC3BF /* CalibrationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC69A1B293C9100CEC3BF /* CalibrationManager.cpp */; };
@@ -147,6 +147,8 @@
 		C94CC6AB1B293DE300CEC3BF /* DescriptionAIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6A61B293DE300CEC3BF /* DescriptionAIO.cpp */; };
 		C94CC6AC1B293DE300CEC3BF /* DescriptionAMB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6A81B293DE300CEC3BF /* DescriptionAMB.cpp */; };
 		C94CC6AE1B29415B00CEC3BF /* CalibrationAudioIOCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6AD1B29415B00CEC3BF /* CalibrationAudioIOCallback.cpp */; };
+		C94D94D21B6C2D0700DF03E9 /* ModuleTypeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94D94D11B6C2D0700DF03E9 /* ModuleTypeTest.cpp */; };
+		C94D94D31B6C2D0700DF03E9 /* ModuleTypeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94D94D11B6C2D0700DF03E9 /* ModuleTypeTest.cpp */; };
 		C95C66381B0A85E800DA394D /* USBFirmwareVersionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C66371B0A85E800DA394D /* USBFirmwareVersionTest.cpp */; };
 		C95C663D1B0A94CC00DA394D /* ErrorCodes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C663B1B0A94CC00DA394D /* ErrorCodes.cpp */; };
 		C95C663F1B0AA26E00DA394D /* FlashMemoryTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C663E1B0AA26E00DA394D /* FlashMemoryTest.cpp */; };
@@ -201,7 +203,7 @@
 		C9ED3C441B684274004A76CE /* SawtoothAudioSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629F8919423F871C8337CBCC /* SawtoothAudioSource.cpp */; };
 		C9ED3C451B684274004A76CE /* TEDSTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E761E1D0BFE22C3B9D07F25 /* TEDSTest.cpp */; };
 		C9ED3C461B684274004A76CE /* Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9B94D8A26A077F11C86494B /* Test.cpp */; };
-		C9ED3C471B684274004A76CE /* ModuleTypeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9495EEF1B62DD05008474CE /* ModuleTypeTest.cpp */; };
+		C9ED3C471B684274004A76CE /* PowerSupplyResetTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9495EEF1B62DD05008474CE /* PowerSupplyResetTest.cpp */; };
 		C9ED3C481B684274004A76CE /* TestManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F405D5E5D6C0E97F71211C83 /* TestManager.cpp */; };
 		C9ED3C491B684274004A76CE /* CalibrationAudioIOCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6AD1B29415B00CEC3BF /* CalibrationAudioIOCallback.cpp */; };
 		C9ED3C4A1B684274004A76CE /* TestPrompt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D218ABCF456C886AB5867EB0 /* TestPrompt.cpp */; };
@@ -935,7 +937,7 @@
 		C92197B51B18FAB700D4AD6B /* FrequencySweepAudioSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FrequencySweepAudioSource.cpp; path = ../../Source/FrequencySweepAudioSource.cpp; sourceTree = "<group>"; };
 		C92197B61B18FAB700D4AD6B /* FrequencySweepAudioSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FrequencySweepAudioSource.h; path = ../../Source/FrequencySweepAudioSource.h; sourceTree = "<group>"; };
 		C93528841B66F86C00723FA7 /* CalibrationVerificationTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalibrationVerificationTest.cpp; path = ../../Source/CalibrationVerificationTest.cpp; sourceTree = "<group>"; };
-		C9495EEF1B62DD05008474CE /* ModuleTypeTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ModuleTypeTest.cpp; path = ../../Source/ModuleTypeTest.cpp; sourceTree = "<group>"; };
+		C9495EEF1B62DD05008474CE /* PowerSupplyResetTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PowerSupplyResetTest.cpp; path = ../../Source/PowerSupplyResetTest.cpp; sourceTree = "<group>"; };
 		C94CC6951B293C9100CEC3BF /* CalibrationAudioIOCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalibrationAudioIOCallback.h; path = ../../Source/calibration/CalibrationAudioIOCallback.h; sourceTree = "<group>"; };
 		C94CC6961B293C9100CEC3BF /* CalibrationData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalibrationData.cpp; path = ../../Source/calibration/CalibrationData.cpp; sourceTree = "<group>"; };
 		C94CC6971B293C9100CEC3BF /* CalibrationData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalibrationData.h; path = ../../Source/calibration/CalibrationData.h; sourceTree = "<group>"; };
@@ -954,6 +956,7 @@
 		C94CC6A81B293DE300CEC3BF /* DescriptionAMB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DescriptionAMB.cpp; path = ../../Source/DescriptionAMB.cpp; sourceTree = "<group>"; };
 		C94CC6A91B293DE300CEC3BF /* DescriptionAMB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DescriptionAMB.h; path = ../../Source/DescriptionAMB.h; sourceTree = "<group>"; };
 		C94CC6AD1B29415B00CEC3BF /* CalibrationAudioIOCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalibrationAudioIOCallback.cpp; path = ../../Source/calibration/CalibrationAudioIOCallback.cpp; sourceTree = "<group>"; };
+		C94D94D11B6C2D0700DF03E9 /* ModuleTypeTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ModuleTypeTest.cpp; path = ../../Source/ModuleTypeTest.cpp; sourceTree = "<group>"; };
 		C952CE141B40FFEA00C96FA3 /* AIO Printer Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO Printer Test.xml"; path = "../../scripts/AIO Printer Test.xml"; sourceTree = "<group>"; };
 		C95C662C1B0A765000DA394D /* AIO-2 Full Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Full Test.xml"; path = "../../scripts/AIO-2 Full Test.xml"; sourceTree = "<group>"; };
 		C95C662D1B0A765000DA394D /* AIO-2 Module 1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Module 1.xml"; path = "../../scripts/AIO-2 Module 1.xml"; sourceTree = "<group>"; };
@@ -1598,7 +1601,8 @@
 				873A2AA908695E9CBC5508FC /* MIDILoopTest.cpp */,
 				D2F42CAE0003D3B3BF95A718 /* MIDILoopTest.h */,
 				C4A2073CA9745A2D42194614 /* MidiTest.cpp */,
-				C9495EEF1B62DD05008474CE /* ModuleTypeTest.cpp */,
+				C9495EEF1B62DD05008474CE /* PowerSupplyResetTest.cpp */,
+				C94D94D11B6C2D0700DF03E9 /* ModuleTypeTest.cpp */,
 				F9D4468B9A7AE0EB04C7F28D /* OldMessage.h */,
 				84A59D38186369A5A2401E4B /* osx */,
 				CB73351F390727926CFA6980 /* PhaseTest.cpp */,
@@ -3021,6 +3025,7 @@
 				EFAAC4844240D6CAA98D6870 /* FilterCoeff.cpp in Sources */,
 				191A73BAF7183EEF6875C97C /* FrequencyResponseTest.cpp in Sources */,
 				89E194B44FB27B0172EDBD47 /* Images.cpp in Sources */,
+				C94D94D21B6C2D0700DF03E9 /* ModuleTypeTest.cpp in Sources */,
 				244D348923B6345434917D24 /* LevelCheckTest.cpp in Sources */,
 				C95C66381B0A85E800DA394D /* USBFirmwareVersionTest.cpp in Sources */,
 				8B2957DE532055E139687AB1 /* MeterWindow.cpp in Sources */,
@@ -3031,7 +3036,7 @@
 				451D5F52A92AC63DEE22CEC4 /* SawtoothAudioSource.cpp in Sources */,
 				3B7907AE0426D3E46FB7B0F8 /* TEDSTest.cpp in Sources */,
 				B7D6C59A744D56E2B14115BF /* Test.cpp in Sources */,
-				C9495EF01B62DD05008474CE /* ModuleTypeTest.cpp in Sources */,
+				C9495EF01B62DD05008474CE /* PowerSupplyResetTest.cpp in Sources */,
 				862E3DFF5961E394963F34F4 /* TestManager.cpp in Sources */,
 				C94CC6AE1B29415B00CEC3BF /* CalibrationAudioIOCallback.cpp in Sources */,
 				C56E0875FF2EF880984F9194 /* TestPrompt.cpp in Sources */,
@@ -3103,7 +3108,7 @@
 				C920FF231B62F68E009CC653 /* SawtoothAudioSource.cpp in Sources */,
 				C920FF241B62F68E009CC653 /* TEDSTest.cpp in Sources */,
 				C920FF251B62F68E009CC653 /* Test.cpp in Sources */,
-				C920FF261B62F68E009CC653 /* ModuleTypeTest.cpp in Sources */,
+				C920FF261B62F68E009CC653 /* PowerSupplyResetTest.cpp in Sources */,
 				C920FF271B62F68E009CC653 /* TestManager.cpp in Sources */,
 				C920FF281B62F68E009CC653 /* CalibrationAudioIOCallback.cpp in Sources */,
 				C920FF291B62F68E009CC653 /* TestPrompt.cpp in Sources */,
@@ -3165,6 +3170,7 @@
 				C9ED3C3A1B684274004A76CE /* FilterCoeff.cpp in Sources */,
 				C9ED3C3B1B684274004A76CE /* FrequencyResponseTest.cpp in Sources */,
 				C9ED3C3C1B684274004A76CE /* Images.cpp in Sources */,
+				C94D94D31B6C2D0700DF03E9 /* ModuleTypeTest.cpp in Sources */,
 				C9ED3C3D1B684274004A76CE /* LevelCheckTest.cpp in Sources */,
 				C9ED3C3E1B684274004A76CE /* USBFirmwareVersionTest.cpp in Sources */,
 				C9ED3C3F1B684274004A76CE /* MeterWindow.cpp in Sources */,
@@ -3175,7 +3181,7 @@
 				C9ED3C441B684274004A76CE /* SawtoothAudioSource.cpp in Sources */,
 				C9ED3C451B684274004A76CE /* TEDSTest.cpp in Sources */,
 				C9ED3C461B684274004A76CE /* Test.cpp in Sources */,
-				C9ED3C471B684274004A76CE /* ModuleTypeTest.cpp in Sources */,
+				C9ED3C471B684274004A76CE /* PowerSupplyResetTest.cpp in Sources */,
 				C9ED3C481B684274004A76CE /* TestManager.cpp in Sources */,
 				C9ED3C491B684274004A76CE /* CalibrationAudioIOCallback.cpp in Sources */,
 				C9ED3C4A1B684274004A76CE /* TestPrompt.cpp in Sources */,

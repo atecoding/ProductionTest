@@ -1789,7 +1789,8 @@ void CalibrationManager::analyzeResistanceMeasurement()
     
     if (shipToEcho)
     {
-        results += newLine + newLine + "====== Please ship this unit to Echo ======" + newLine + newLine;
+        results += newLine + newLine + "====== Please set aside for further testing" + newLine +
+        "====== Do not ship to customer" + newLine + newLine;
     }
 
 	state = STATE_RESISTANCE_MEASUREMENT_DONE;

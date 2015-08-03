@@ -118,6 +118,12 @@
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
     </test>
+    
+    <AIO_power_supply_reset_test>
+        <text> - Module 2</text>
+        <first_channel>4</first_channel>
+        <last_channel>7</last_channel>
+    </AIO_power_supply_reset_test>
 
     <AIO_set_mic_gain input="4" gain="100" />
     <AIO_set_mic_gain input="5" gain="100" />
