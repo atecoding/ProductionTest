@@ -52,8 +52,6 @@ enum
 // Returns a single byte:
 //    Bit 0: PRESENT1n - Module 1 is present when low
 //    Bit 1: PRESENT2n - Module 2 is present when low
-//    Bit 2: AMPERR1n - Module 1 amplifier error (voltage, temp) when low
-//    Bit 3: AMPERR2n - Module 2 amplifier error (voltage, temp) when low
 //
 
 
