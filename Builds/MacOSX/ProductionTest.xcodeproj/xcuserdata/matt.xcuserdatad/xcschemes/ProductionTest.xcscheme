@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BA1D034141381BA1469F20A9"
-               BuildableName = "ProductionTest.app"
-               BlueprintName = "ProductionTest"
+               BuildableName = "AF12 Test.app"
+               BlueprintName = "AF12 Test"
                ReferencedContainer = "container:ProductionTest.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BA1D034141381BA1469F20A9"
-            BuildableName = "ProductionTest.app"
-            BlueprintName = "ProductionTest"
+            BuildableName = "AF12 Test.app"
+            BlueprintName = "AF12 Test"
             ReferencedContainer = "container:ProductionTest.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -48,12 +48,13 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BA1D034141381BA1469F20A9"
-            BuildableName = "ProductionTest.app"
-            BlueprintName = "ProductionTest"
+            BuildableName = "AF12 Test.app"
+            BlueprintName = "AF12 Test"
             ReferencedContainer = "container:ProductionTest.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -72,12 +73,13 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BA1D034141381BA1469F20A9"
-            BuildableName = "ProductionTest.app"
-            BlueprintName = "ProductionTest"
+            BuildableName = "AF12 Test.app"
+            BlueprintName = "AF12 Test"
             ReferencedContainer = "container:ProductionTest.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

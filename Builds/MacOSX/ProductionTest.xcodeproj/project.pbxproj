@@ -429,7 +429,7 @@
 		6655CECFE267B437259C71D7 /* juce_audio_basics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_audio_basics.h; path = ../../JuceLibraryCode/modules/juce_audio_basics/juce_audio_basics.h; sourceTree = SOURCE_ROOT; };
 		66C6C4A0D78C8CF106EB6E4B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		6715EBF5AA659AC2CB48365E /* juce_LiveConstantEditor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_LiveConstantEditor.cpp; path = ../../JuceLibraryCode/modules/juce_gui_extra/misc/juce_LiveConstantEditor.cpp; sourceTree = SOURCE_ROOT; };
-		6763390C4B987A4428528DAD /* ProductionTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProductionTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6763390C4B987A4428528DAD /* AF12 Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AF12 Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		678B7A7E5DAC9BED3C460759 /* juce_LowLevelGraphicsPostScriptRenderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_LowLevelGraphicsPostScriptRenderer.cpp; path = ../../JuceLibraryCode/modules/juce_graphics/contexts/juce_LowLevelGraphicsPostScriptRenderer.cpp; sourceTree = SOURCE_ROOT; };
 		67B87EDC32D32511708F443C /* juce_ComboBox.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_ComboBox.cpp; path = ../../JuceLibraryCode/modules/juce_gui_basics/widgets/juce_ComboBox.cpp; sourceTree = SOURCE_ROOT; };
 		680E771DC62CC44C5685AD43 /* juce_DragAndDropTarget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_DragAndDropTarget.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/mouse/juce_DragAndDropTarget.h; sourceTree = SOURCE_ROOT; };
@@ -2315,7 +2315,7 @@
 		CD4331855354F30041FC94C6 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				6763390C4B987A4428528DAD /* ProductionTest.app */,
+				6763390C4B987A4428528DAD /* AF12 Test.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2637,7 +2637,7 @@
 			name = "AF12 Test";
 			productInstallPath = "$(HOME)/Applications";
 			productName = ProductionTest;
-			productReference = 6763390C4B987A4428528DAD /* ProductionTest.app */;
+			productReference = 6763390C4B987A4428528DAD /* AF12 Test.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
