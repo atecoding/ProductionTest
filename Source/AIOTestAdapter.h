@@ -39,7 +39,7 @@ protected:
 	enum
 	{
 		ECHO_VENDOR_ID = 0x40f,
-		ECHO_HID_TESTER_PRODUCT_ID = 0x200
+		ECHO_HID_TESTER_PRODUCT_ID = 0x210		// 0x100 = original, 0x200 = 2nd version in case,  0x210 = calibration version
 	};
 };
 

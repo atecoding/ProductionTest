@@ -8,7 +8,7 @@
   <device>
     Acoustic AIO
     <Require_AIO_Test_Adapter>true</Require_AIO_Test_Adapter>
-    <ASIO_driver>ASIO Echo Acoustic AIO</ASIO_driver>
+    <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO</CoreAudio_driver>
 
     <AIOS_clear_RAM_calibration />

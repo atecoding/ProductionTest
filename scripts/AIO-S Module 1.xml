@@ -7,7 +7,7 @@
   <device>
     Acoustic AIO
     <Require_AIO_Test_Adapter>true</Require_AIO_Test_Adapter>
-    <ASIO_driver>ASIO Echo Acoustic AIO</ASIO_driver>
+    <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO</CoreAudio_driver>
 
     <message_box>
@@ -146,6 +146,20 @@
     <AIO_set_mic_gain input="2" gain="10" />
     <AIO_set_mic_gain input="3" gain="10" />
     <Delay_msec>2000</Delay_msec>
+
+    <prompt>
+      Input and Output Gains 1-4
+      <text>Check levels for gain settings 1-2</text>
+      <output_amplitude_db>-20.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-200.0</min_input_db>
+      <max_input_db>0.0</max_input_db>
+      <wait_for_user>0</wait_for_user>
+      <start_group>1</start_group>
+    </prompt>
 
     <test>
       10x Input Level Check 1-2

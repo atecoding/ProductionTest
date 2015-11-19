@@ -466,13 +466,18 @@ void Content::DevArrived(ehw *dev)
 	DBG("Content::DevArrived - button enabled");
 
 	startButton.setEnabled(true);
-    startButton.setState(Button::buttonNormal);
-    stopButton.setEnabled(false);
+	startButton.setState(Button::buttonNormal);
+	stopButton.setEnabled(false);
 #if ALLOW_USER_SCRIPT_SELECT
-    scriptCombo.setEnabled(true);
+	scriptCombo.setEnabled(true);
 #endif
 	startButton.grabKeyboardFocus();
 #endif
+
+	if (application->testManager->getAutostart())
+	{
+		startButton.triggerClick();
+	}
 
 	repaint();
 }
@@ -516,6 +521,7 @@ void DevChangeListener::handleMessage(const Message &message)
 	{
 		case (int)EHW_DEVICE_ARRIVAL :
 #if defined(ECHOUSB) && defined(_WIN32)
+			_content->_unit = nullptr;
 			_content->_devlist->Cleanup();
 			_content->_devlist->BuildDeviceList(nullptr);
 			dev = _content->_devlist->GetNthDevice(0);

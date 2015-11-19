@@ -203,7 +203,7 @@ Result CalibrationManager::createIODevice()
     DBG("CalibrationManager::createIODevice()");
 
 #ifdef JUCE_WIN32
-    String deviceName("ASIO Echo Acoustic AIO");
+    String deviceName("ASIO Echo AIO");
 
     ioDeviceType = AudioIODeviceType::createAudioIODeviceType_ASIO();
 #endif

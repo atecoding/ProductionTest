@@ -8,7 +8,7 @@
   <device>
     Acoustic AIO
     <Require_AIO_Test_Adapter>true</Require_AIO_Test_Adapter>
-    <ASIO_driver>ASIO Echo Acoustic AIO</ASIO_driver>
+    <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO</CoreAudio_driver>
 
     <message_box>
@@ -173,7 +173,7 @@
       <input>4</input>
       <output>2</output>
       <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
+      <sample_rate>96000</sample_rate>
       <min_level_db>-25.0</min_level_db>
       <max_level_db>-20.0</max_level_db>
     </test>
@@ -185,7 +185,7 @@
       <input>6</input>
       <output>2</output>
       <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
+      <sample_rate>96000</sample_rate>
       <min_level_db>-25.0</min_level_db>
       <max_level_db>-20.0</max_level_db>
     </test>
@@ -205,7 +205,7 @@
       <input>4</input>
       <output>2</output>
       <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
+      <sample_rate>192000</sample_rate>
       <min_level_db>-15.0</min_level_db>
       <max_level_db>-11.0</max_level_db>
     </test>
@@ -217,7 +217,7 @@
       <input>6</input>
       <output>2</output>
       <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
+      <sample_rate>192000</sample_rate>
       <min_level_db>-15.0</min_level_db>
       <max_level_db>-11.0</max_level_db>
     </test>

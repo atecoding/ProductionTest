@@ -7,23 +7,9 @@
   
   <device>
     Acoustic AIO
-    <ASIO_driver>ASIO Echo AIO</ASIO_driver>
+    <ASIO_driver>ASIO Echo Acoustic AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO</CoreAudio_driver>
-
-    <AIO_firmware_version_test min_version="0x71" />
-    
-    <AIO_module_type_test>
-        <slot>0</slot>  <!-- slot 0 == center slot -->
-        <type>2</type>  <!-- type 2 == speaker monitor module -->
-    </AIO_module_type_test>
-    
-    <AIO_module_type_test>
-        <slot>1</slot>  <!-- slot 1 == outer slot -->
-        <type>1</type>  <!-- type 1 == TEDS microphone + class D amp analog module -->
-    </AIO_module_type_test>
-    
-    <AIO_calibration_verification_test/>
-    
+  
     <AIOS_set_reference_voltage enabled="1" /> <!-- Enable reference voltage -->
     <Delay_msec>500</Delay_msec>
 
@@ -51,53 +37,21 @@
       <sample_rate>48000</sample_rate>
     </test>
 
-    <prompt>
-      AIO-S Calibration reference voltage
-      <text>AIO-S Calibration reference voltage</text>
-      <output_amplitude_db>-6.0</output_amplitude_db>
-      <input>2</input>
+     <prompt>
+      Group End Prompt
+      <text>Force printing of last result</text>
+      <output_amplitude_db>-0.0</output_amplitude_db>
+      <input>0</input>
       <output>0</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
       <min_input_db>-200.0</min_input_db>
       <max_input_db>0.0</max_input_db>
       <wait_for_user>0</wait_for_user>
-      <start_group>0</start_group>
+      <stop_group>1</stop_group>
     </prompt>
 
     <AIOS_set_reference_voltage enabled="0" /> <!-- Disable reference voltage -->
-
-    <AIO_set_mic_gain input="0" gain="10" />
-    <AIO_set_mic_gain input="1" gain="10" />
-    <AIO_set_mic_gain input="2" gain="10" />
-    <AIO_set_mic_gain input="3" gain="10" />
-    <Delay_msec>2000</Delay_msec>
-
-    <test>
-      10x Input Level Check 1-2
-      <type>Relative level check</type>
-      <output_amplitude_db>-144.0</output_amplitude_db>
-      <input>0</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-    </test>
-
-    <test>
-      10x Input Level Check 3-4
-      <type>Relative level check</type>
-      <output_amplitude_db>-144.0</output_amplitude_db>
-      <input>2</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-    </test>
-
-    <AIO_power_supply_reset_test>
-      <text>module 1</text>
-      <first_channel>0</first_channel>
-      <last_channel>1</last_channel>
-    </AIO_power_supply_reset_test>
 
     <AIO_set_mic_gain input="4" gain="10" />
     <AIO_set_mic_gain input="5" gain="10" />
@@ -145,10 +99,8 @@
       <last_channel>7</last_channel>
     </AIO_power_supply_reset_test>
 
-    <message_box>Insert the Reference Resistor Adapter.</message_box>
-
-    <AIOS_measure_resistance/>
-
+    <quit/>
+ 
   </device>
 
 </root>

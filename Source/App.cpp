@@ -27,6 +27,8 @@ String ProductionTestsXmlFileName("ABRProductionTests.xml");
 
 void App::initialise (const String& commandLine)
 {
+	bool autostart = false;
+
     //DBG("App::initialise " << commandLine);
     
 	application = this;
@@ -45,7 +47,7 @@ void App::initialise (const String& commandLine)
 	//
 	if (commandLine.isNotEmpty())
 	{
-		parseCommandLine(commandLine);
+		parseCommandLine(commandLine, autostart);
 	}
     
     //
@@ -72,6 +74,7 @@ void App::initialise (const String& commandLine)
 	props = new PropertiesFile (options);
     
     testManager->load(props);
+	testManager->setAutostart(autostart);
 
 	//
 	// For the PCI test, disable all the PCI cards
@@ -186,23 +189,23 @@ void App::systemRequestedQuit()
 	JUCEApplication::systemRequestedQuit();
 }
 
-void App::parseCommandLine(const String& commandLine)
+void App::parseCommandLine(const String& commandLine, bool &autostart)
 {
-#if 0
     StringArray tokens;
     
     tokens.addTokens(commandLine,true);
-    
-    String script("-script");
-    for (int i =0; i < tokens.size(); ++i)
+
+	autostart = false;
+   
+    String const autostartString("-autostart");
+    for (int i = 0; i < tokens.size(); ++i)
     {
-        if (tokens[i] == script)
+		if (tokens[i] == autostartString)
         {
-            ProductionTestsXmlFileName = tokens[i+1];
-            break;
+			autostart = true;
+			continue;
         }
     }
-#endif
 }
 
 //==============================================================================

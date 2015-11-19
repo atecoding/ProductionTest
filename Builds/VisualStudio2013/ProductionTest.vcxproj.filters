@@ -2855,5 +2855,8 @@
     <Xml Include="..\..\scripts\AIO Offline Test.xml">
       <Filter>Scripts</Filter>
     </Xml>
+    <Xml Include="..\..\scripts\AIO-S Resistance Check.xml">
+      <Filter>Scripts</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

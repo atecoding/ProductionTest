@@ -3,7 +3,8 @@
 
 const char *CurrentTestProperty = "CurrentTest";
 
-TestManager::TestManager()
+TestManager::TestManager() :
+autostart(false)
 {
 #ifdef JUCE_MAC
     File bundle(File::getSpecialLocation(File::currentApplicationFile));

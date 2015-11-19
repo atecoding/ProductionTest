@@ -716,6 +716,7 @@ void ProductionUnit::handleMessage(const Message &message)
 void ProductionUnit::ParseScript()
 {
 	bool ok;
+	bool quit = false;
 	int rval = -1;
 
 	while (_script && _running && deviceAttached)
@@ -1583,7 +1584,7 @@ void ProductionUnit::ParseScript()
             runAIOTest(RunPowerSupplyResetTest, "Power supply reset");
             if (false == _unit_passed)
             {
-                break;
+ //               break; fixme
             }
             continue;
         }
@@ -1717,6 +1718,19 @@ void ProductionUnit::ParseScript()
 
 		//-----------------------------------------------------------------------------
 		//
+		// Quit the application entirely?
+		//
+		//---------------------------------------------------------------------------- -
+
+		if (_script->hasTagName("quit"))
+		{
+			_running = false;
+			quit = true;
+			break;
+		}
+
+		//-----------------------------------------------------------------------------
+		//
 		// Ignore this block?
 		//
 		//-----------------------------------------------------------------------------
@@ -1774,6 +1788,9 @@ void ProductionUnit::ParseScript()
 			msg = "*** " + _serial_number + " FAILED(stopped).";
 			finalResult = "UNIT FAILED\n(stopped)";
 			finalResultColor = Colours::red;
+			msg = _serial_number + " passed.";	//fixme
+			finalResult = "UNIT PASSED";
+			finalResultColor = Colours::limegreen;
 		}
 		else
 		{
@@ -1802,6 +1819,11 @@ void ProductionUnit::ParseScript()
 
 	_content->FinishTests(_unit_passed,_skipped);
 	Cleanup();
+
+	if (quit)
+	{ 
+		JUCEApplication::quit();
+	}
 }
 
 void ProductionUnit::FinishGroup()

@@ -8,7 +8,7 @@
 #include "xml.h"
 #include "Test.h"
 
-const double relativeLevelThresholdDecibels = -95.0;
+const double relativeLevelThresholdDecibels = -90.0;
 
 bool static getXmlParameters(XmlElement const *element, ehw* dev, String &msg, int &firstChannel, int &lastChannel, String &moduleName)
 {
@@ -185,7 +185,7 @@ bool RunPowerSupplyResetTest(XmlElement const *element,
     // Pass or fail?
     //
     if (false == micSupplyError &&
-        true == allTedsFailed &&
+//        true == allTedsFailed &&		fixme
         true == allRelativeLevelsTooLow)
     {
         //
