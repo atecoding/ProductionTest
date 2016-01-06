@@ -9,7 +9,7 @@
 bool RunTEDSTest(XmlElement const *element,
                  ehw *dev,
                  String &msg,
-                 int &displayedInput,
+                 String &displayedChannel,
                  AIOTestAdapter &testAdapter,
                  Content *content,
                  ErrorCodes &errorCodes,
@@ -20,8 +20,6 @@ bool RunTEDSTest(XmlElement const *element,
 	uint8 data[ACOUSTICIO_TEDS_DATA_BYTES];
 	uint8 expectedValue;
 	bool ok = true, chan_ok;
-
-	displayedInput = -1;
 
 	if (false == element->hasAttribute("input"))
 	{
@@ -46,7 +44,6 @@ bool RunTEDSTest(XmlElement const *element,
 	{
 		chan_ok = true;
 		channel = (uint8)(j + attribute);
-		displayedInput = channel + 1;
 
         int retries = 3;
         while (retries > 0)
@@ -54,9 +51,9 @@ bool RunTEDSTest(XmlElement const *element,
             Result status(dev->readTEDSData(channel, data, sizeof(data)));
             if (status.failed())
             {
-                msg = "Could not read TEDS data for input " + String(displayedInput) + "\n" +
+                msg = "Could not read TEDS data for input " + String(channel + 1) + "\n" +
                     status.getErrorMessage();
-                errorCodes.add(ErrorCodes::TEDS, displayedInput);
+                errorCodes.add(ErrorCodes::TEDS, channel + 1);
                 
                 return false;
             }
@@ -66,7 +63,7 @@ bool RunTEDSTest(XmlElement const *element,
                 break;
             }
             
-            DBG("Read 0xff for TEDS channel " << displayedInput);
+            DBG("Read 0xff for TEDS channel " << (channel + 1));
             retries--;
         }
 
@@ -77,9 +74,9 @@ bool RunTEDSTest(XmlElement const *element,
 		{
 			if (data[i] != expectedValue)
 			{
-				msg = "*** Read unexpected TEDS data for input " + String(displayedInput) + " (value of 0x" + String::toHexString(data[i]) + " at offset " + String(i) + ")";
+				msg = "*** Read unexpected TEDS data for input " + String(channel + 1) + " (value of 0x" + String::toHexString(data[i]) + " at offset " + String(i) + ")";
 				ok = false;
-                errorCodes.add(ErrorCodes::TEDS, displayedInput);
+                errorCodes.add(ErrorCodes::TEDS, channel + 1);
                 chan_ok = false;
                 
 				break;
@@ -87,15 +84,15 @@ bool RunTEDSTest(XmlElement const *element,
 		}
 
 		if (chan_ok)
-			msg = "Read expected TEDS data for input " + String(displayedInput);
+			msg = "Read expected TEDS data for input " + String(channel + 1);
 		if (((numInputs == 2) && (j < 1)) || ((numInputs == 4) && (j < 3)))
 			content->log(msg);
 	}
     
 	if (numInputs == 2)
-		displayedInput = -255;
+		displayedChannel = "1-2";
 	else
-		displayedInput -= 3;
+		displayedChannel = "Fix this";
 
 	if (!ok)
 		Thread::sleep(50);		// delay so things don't get hosed

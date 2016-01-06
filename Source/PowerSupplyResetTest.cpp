@@ -53,7 +53,7 @@ bool static getXmlParameters(XmlElement const *element, ehw* dev, String &msg, i
 bool RunPowerSupplyResetTest(XmlElement const *element,
                        ehw *dev,
                        String &msg,
-                       int &displayedInput,
+                       String &displayedChannel,
                        AIOTestAdapter &testAdapter,
                        Content *content,
                        ErrorCodes &errorCodes,
@@ -61,8 +61,6 @@ bool RunPowerSupplyResetTest(XmlElement const *element,
 {
     int firstChannel,lastChannel;
 	String moduleName;
-    
-    displayedInput = -1;
     
     msg = newLine + "Power supply reset check: " + newLine;
     

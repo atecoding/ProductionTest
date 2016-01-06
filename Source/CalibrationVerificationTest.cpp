@@ -12,14 +12,12 @@
 bool RunCalibrationVerificationTest(XmlElement const *element,
                         ehw *dev,
                         String &msg,
-                        int &displayedInput,
+                        String &displayedChannel,
                         AIOTestAdapter &testAdapter,
                         Content *content,
                         ErrorCodes &errorCodes,
                         ValueTree &unitTree)
 {
-    displayedInput = -1;
-    
     msg = String("Calibration verification: ") + newLine;
     
     //

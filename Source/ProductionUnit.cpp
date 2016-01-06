@@ -26,7 +26,7 @@
 bool RunTEDSTest(XmlElement const *element,
                  ehw *dev,
                  String &msg,
-                 int &displayedInput,
+                 String &displayedChannel,
                  AIOTestAdapter &testAdapter,
                  Content *content,
                  ErrorCodes &errorCodes,
@@ -34,7 +34,7 @@ bool RunTEDSTest(XmlElement const *element,
 bool RunCCVoltageTest(XmlElement const *element,
                       ehw *dev,
                       String &msg,
-                      int &displayedInput,
+                      String &displayedChannel,
                       AIOTestAdapter &testAdapter,
                       Content *content,
                       ErrorCodes &errorCodes,
@@ -42,7 +42,7 @@ bool RunCCVoltageTest(XmlElement const *element,
 bool RunCCCurrentTest(XmlElement const *element,
                       ehw *dev,
                       String &msg,
-                      int &displayedInput,
+                      String &displayedChannel,
                       AIOTestAdapter &testAdapter,
                       Content *content,
                       ErrorCodes &errorCodes,
@@ -50,7 +50,7 @@ bool RunCCCurrentTest(XmlElement const *element,
 bool RunUSBFirmwareVersionTest(XmlElement const *element,
                         ehw *dev,
                         String &msg,
-                        int &displayedInput,
+                        String &displayedChannel,
                         AIOTestAdapter &testAdapter,
                         Content *content,
                         ErrorCodes &errorCodes,
@@ -58,7 +58,7 @@ bool RunUSBFirmwareVersionTest(XmlElement const *element,
 bool RunFlashMemoryTest(XmlElement const *element,
                         ehw *dev,
                         String &msg,
-                        int &displayedInput,
+                        String &displayedChannel,
                         AIOTestAdapter &testAdapter,
                         Content *content,
                         ErrorCodes &errorCodes,
@@ -66,7 +66,7 @@ bool RunFlashMemoryTest(XmlElement const *element,
 bool RunModuleTypeTest(XmlElement const *element,
                        ehw *dev,
                        String &msg,
-                       int &displayedInput,
+                       String &displayedChannel,
                        AIOTestAdapter &testAdapter,
                        Content *content,
                        ErrorCodes &errorCodes,
@@ -74,7 +74,7 @@ bool RunModuleTypeTest(XmlElement const *element,
 bool RunCalibrationVerificationTest(XmlElement const *element,
                         ehw *dev,
                         String &msg,
-                        int &displayedInput,
+                        String &displayedChannel,
                         AIOTestAdapter &testAdapter,
                         Content *content,
                         ErrorCodes &errorCodes,
@@ -82,11 +82,27 @@ bool RunCalibrationVerificationTest(XmlElement const *element,
 bool RunPowerSupplyResetTest(XmlElement const *element,
                                 ehw *dev,
                                 String &msg,
-                                int &displayedInput,
+                                String &displayedChannel,
                                 AIOTestAdapter &testAdapter,
                                 Content *content,
                                 ErrorCodes &errorCodes,
                                 ValueTree &unitTree);
+bool MikeyBusRead(XmlElement const *element,
+                  ehw *dev,
+                  String &msg,
+                  String &displayedChannel,
+                  AIOTestAdapter &testAdapter,
+                  Content *content,
+                  ErrorCodes &errorCodes,
+                  ValueTree &unitTree);
+bool MikeyBusWrite(XmlElement const *element,
+                  ehw *dev,
+                  String &msg,
+                  String &displayedChannel,
+                  AIOTestAdapter &testAdapter,
+                  Content *content,
+                  ErrorCodes &errorCodes,
+                   ValueTree &unitTree);
 #endif
 
 //extern String ProductionTestsXmlFileName;
@@ -1634,28 +1650,6 @@ void ProductionUnit::ParseScript()
 			continue;
         }
         
-        if (_script->hasTagName("AIOS_calibrate"))
-        {
-            _script = _script->getNextElement();
-            
-            if (_unit_passed)
-            {
-                //
-                // Destroy this object's AudioIODevice - this means that the
-                // calibration has to be the last stage of the test
-                //
-                _asio = nullptr;
-                
-                //
-                // Start the calibration
-                //
-                calibrationManager.startIntegratedSpeakerMonitorCalibration(_dev);
-                return;
-            }
-            
-            continue;
-        }
-        
         if (_script->hasTagName("AIOS_measure_resistance"))
         {
             _script = _script->getNextElement();
@@ -1676,6 +1670,18 @@ void ProductionUnit::ParseScript()
                 return;
             }
             
+            continue;
+        }
+        
+        if (_script->hasTagName("AIO_mikeybus_read"))
+        {
+            runAIOTest(MikeyBusRead, "MikeyBus read");
+            continue;
+        }
+        
+        if (_script->hasTagName("AIO_mikeybus_write"))
+        {
+            runAIOTest(MikeyBusWrite, "MikeyBus write");
             continue;
         }
         
@@ -2033,11 +2039,11 @@ void ProductionUnit::deviceRemoved()
 void ProductionUnit::runAIOTest(AIOTestVector function, String const groupName)
 {
     String msg;
-    int displayedInput;
+    String displayedChannel;
     bool ok = function(_script,
                        _dev,
                        msg,
-                       displayedInput,
+                       displayedChannel,
                        aioTestAdapter,
                        _content,
                        errorCodes,
@@ -2050,14 +2056,11 @@ void ProductionUnit::runAIOTest(AIOTestVector function, String const groupName)
     _num_tests++;
     
     _channel_group_name = groupName;
-    if (displayedInput >= 0)
+    
+    if (displayedChannel.isNotEmpty())
     {
-        _channel_group_name += " " + String(displayedInput) + "-" + String(displayedInput + 3);
+        _channel_group_name += " " + displayedChannel;
     }
-	if (displayedInput == -255)
-	{
-		_channel_group_name += " 1-2";
-	}
 	_channel_group_passed = ok;
     
     FinishGroup();

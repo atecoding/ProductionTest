@@ -33,6 +33,8 @@
       <!-- type 3 == MB module -->
     </AIO_module_type_test>
     
+    <AIO_mikeybus_read module="1" page="0x01" address="0x24" value="0xcc"/>
+    
     <AIO_mikeybus_write module="1" page="0x00" address="0x01" value="0x01"/>
     <AIO_mikeybus_write module="1" page="0x00" address="0x06" value="0x00"/>
     <AIO_mikeybus_write module="1" page="0x02" address="0x01" value="0xe0"/>

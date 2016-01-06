@@ -11,7 +11,7 @@ class Content;
 typedef bool (*AIOTestVector)(  XmlElement const *element,
                                 ehw *dev,
                                 String &msg,
-                                int &displayedInput,
+                                String &displayedChannel,
                                 AIOTestAdapter &testAdapter,
                                 Content *content,
                                 ErrorCodes &errorCodes,

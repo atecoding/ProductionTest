@@ -10,7 +10,7 @@ class Content;
 bool RunCCVoltageTest(XmlElement const *element,
                       ehw *dev,
                       String &msg,
-                      int &displayedInput,
+                      String &displayedChannel,
                       AIOTestAdapter &testAdapter,
                       Content *content,
                       ErrorCodes &errorCodes,
@@ -25,8 +25,6 @@ bool RunCCVoltageTest(XmlElement const *element,
 	//
 	// Read XML parameters
 	//
-	displayedInput = -1;
-
 	if (false == element->hasAttribute("input"))
 	{
 		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
@@ -42,7 +40,7 @@ bool RunCCVoltageTest(XmlElement const *element,
 	}
 	channel = (uint8)attribute;
 	channel &= ~3;
-	displayedInput = channel + 1;
+	displayedChannel = String(channel + 1);
     
     numInputs = element->getIntAttribute("num_chanels", AIOTestAdapter::NUM_INPUTS);
 	if (true == element->hasAttribute("short"))
@@ -90,9 +88,9 @@ bool RunCCVoltageTest(XmlElement const *element,
 	bool pass = true;
 
 	if(maximum < 2.0f)
-		msg = "Mic Supply off voltage test, channels " + String(displayedInput) + "-" + String(displayedInput + 3) + "\n";
+		msg = "Mic Supply off voltage test, channels " + String(channel + 1) + "-" + String(channel + 4) + "\n";
 	else
-		msg = "Mic Supply on voltage test, channels " + String(displayedInput) + "-" + String(displayedInput + 3) + "\n";
+		msg = "Mic Supply on voltage test, channels " + String(channel + 1) + "-" + String(channel + 4) + "\n";
 
 	for (int i = 0; i < numInputs; i++)
 	{
@@ -100,14 +98,14 @@ bool RunCCVoltageTest(XmlElement const *element,
 		volts = 0.6f + (float)value / 1966.0f;
 		if (volts < minimum || volts > maximum)
 		{
-			msg += "    Channel " + String(i + displayedInput) + ": " + String(volts,1) + "V out of range\n";
+			msg += "    Channel " + String(i + channel + 1) + ": " + String(volts,1) + "V out of range\n";
 			pass = false;
             
-            errorCodes.add( ErrorCodes::MIC_SUPPLY_VOLTAGE, displayedInput + i);
+            errorCodes.add( ErrorCodes::MIC_SUPPLY_VOLTAGE, channel + 1 + i);
 		}
 		else
 		{
-			msg += "    Channel " + String(i + displayedInput) + ": " + String(volts,1) + "V OK\n";
+			msg += "    Channel " + String(i + channel + 1) + ": " + String(volts,1) + "V OK\n";
 		}
 	}
 
@@ -117,7 +115,7 @@ bool RunCCVoltageTest(XmlElement const *element,
 bool RunCCCurrentTest(XmlElement const *element,
                       ehw *dev,
                       String &msg,
-                      int &displayedInput,
+                      String &displayedChannel,
                       AIOTestAdapter &testAdapter,
                       Content *content,
                       ErrorCodes &errorCodes,
@@ -131,8 +129,6 @@ bool RunCCCurrentTest(XmlElement const *element,
 	//
 	// Read XML parameters
 	//
-	displayedInput = -1;
-
 	if (false == element->hasAttribute("input"))
 	{
 		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
@@ -148,7 +144,7 @@ bool RunCCCurrentTest(XmlElement const *element,
 	}
 	channel = (uint8)attribute;
 	channel &= ~3;
-	displayedInput = channel + 1;
+	displayedChannel = String(channel + 1);
     
     int numInputs = element->getIntAttribute("num_chanels", AIOTestAdapter::NUM_INPUTS);
 	if (true == element->hasAttribute("short"))
@@ -195,7 +191,7 @@ bool RunCCCurrentTest(XmlElement const *element,
 	//
 	bool pass = true;
 
-	msg = "Mic Supply current test, channels " + String(displayedInput) + "-" + String(displayedInput + 3) + "\n";
+	msg = "Mic Supply current test, channels " + String(channel + 1) + "-" + String(channel + 4) + "\n";
 	for (int i = 0; i < numInputs; i++)
 	{
 		uint16 value = values[i];
@@ -203,13 +199,13 @@ bool RunCCCurrentTest(XmlElement const *element,
 
 		if (current < minimum || current > maximum)
 		{
-			msg += "    Channel " + String(i + displayedInput) + ": " + String(current,1) + "ma out of range\n";
+			msg += "    Channel " + String(i + channel + 1) + ": " + String(current,1) + "ma out of range\n";
 			pass = false;
-			errorCodes.add( ErrorCodes::MIC_SUPPLY_CURRENT, displayedInput + i);
+			errorCodes.add( ErrorCodes::MIC_SUPPLY_CURRENT, channel + 1 + i);
 		}
 		else
 		{
-			msg += "    Channel " + String(i + displayedInput) + ": " + String(current,1) + "ma OK\n";
+			msg += "    Channel " + String(i + channel + 1) + ": " + String(current,1) + "ma OK\n";
 		}
 	}
 

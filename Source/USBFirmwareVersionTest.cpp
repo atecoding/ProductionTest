@@ -9,7 +9,7 @@
 bool RunUSBFirmwareVersionTest(XmlElement const *element,
                     ehw *dev,
                     String &msg,
-                    int &displayedInput,
+                    String &displayedChannel,
                     AIOTestAdapter &testAdapter,
                     Content *content,
                     ErrorCodes &errorCodes,
@@ -24,8 +24,6 @@ bool RunUSBFirmwareVersionTest(XmlElement const *element,
 	if (0 == max_version)
 		max_version = 0xffffffff;
 
-    displayedInput = -1;
-    
     msg = "Device firmware version " + String::toHexString((int32)deviceFirmwareVersion).getLastCharacters(4);
 	if (deviceFirmwareVersion >= min_version && deviceFirmwareVersion <= max_version)
     {

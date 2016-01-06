@@ -86,15 +86,13 @@ protected:
 bool RunFlashMemoryTest(XmlElement const *element,
                 ehw *dev,
                 String &msg,
-                int &displayedInput,
+                String &displayedChannel,
                 AIOTestAdapter &testAdapter,
                 Content *content,
                 ErrorCodes &errorCodes,
                 ValueTree &unitTree)
 {
     msg = "Flash memory test: ";
-    
-    displayedInput = -1;
     
     FlashMemoryTask task(dev);
 	if (task.runThread())

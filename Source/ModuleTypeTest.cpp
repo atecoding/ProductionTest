@@ -24,7 +24,7 @@ const char *slotNames[] =
 bool RunModuleTypeTest(XmlElement const *element,
                        ehw *dev,
                        String &msg,
-                       int &displayedInput,
+                       String &displayedChannel,
                        AIOTestAdapter &testAdapter,
                        Content *content,
                        ErrorCodes &errorCodes,
@@ -32,8 +32,6 @@ bool RunModuleTypeTest(XmlElement const *element,
 {
     int slot;
     int expectedModuleType,detectedModuleType;
-    
-    displayedInput = -1;
     
     msg = "Module type: ";
     

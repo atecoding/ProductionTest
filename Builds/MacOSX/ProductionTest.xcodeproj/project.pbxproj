@@ -154,6 +154,8 @@
 		C95C663D1B0A94CC00DA394D /* ErrorCodes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C663B1B0A94CC00DA394D /* ErrorCodes.cpp */; };
 		C95C663F1B0AA26E00DA394D /* FlashMemoryTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C663E1B0AA26E00DA394D /* FlashMemoryTest.cpp */; };
 		C97C795A1C3DBF98004BF5BF /* AIO-M1 MB Module.xml in Resources */ = {isa = PBXBuildFile; fileRef = C97C79591C3DBF98004BF5BF /* AIO-M1 MB Module.xml */; };
+		C97C795C1C3DC791004BF5BF /* MikeyBusRead.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C97C795B1C3DC791004BF5BF /* MikeyBusRead.cpp */; };
+		C97C795E1C3DC7BE004BF5BF /* MikeyBusWrite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C97C795D1C3DC7BE004BF5BF /* MikeyBusWrite.cpp */; };
 		C9BA91F51B63158200BEE902 /* aios.icns in Resources */ = {isa = PBXBuildFile; fileRef = C9BA91F31B63156E00BEE902 /* aios.icns */; };
 		C9BBBF801B322CC600766B48 /* Printer_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BBBF7F1B322CC600766B48 /* Printer_osx.cpp */; };
 		C9BBBF821B322CDF00766B48 /* Printer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BBBF811B322CDF00766B48 /* Printer.cpp */; };
@@ -975,6 +977,8 @@
 		C9679FCD1B0D58A1001DDDB7 /* AIOTestAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIOTestAdapter.h; path = ../../Source/AIOTestAdapter.h; sourceTree = "<group>"; };
 		C96E48811B3D0ED900FD566E /* AIO Offline Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO Offline Test.xml"; path = "../../scripts/AIO Offline Test.xml"; sourceTree = "<group>"; };
 		C97C79591C3DBF98004BF5BF /* AIO-M1 MB Module.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-M1 MB Module.xml"; path = "../../scripts/AIO-M1 MB Module.xml"; sourceTree = "<group>"; };
+		C97C795B1C3DC791004BF5BF /* MikeyBusRead.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MikeyBusRead.cpp; path = ../../Source/MikeyBusRead.cpp; sourceTree = "<group>"; };
+		C97C795D1C3DC7BE004BF5BF /* MikeyBusWrite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MikeyBusWrite.cpp; sourceTree = "<group>"; };
 		C99B4EC01B62E6F000B28545 /* AIO-S Resistance Check.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Resistance Check.xml"; path = "../../scripts/AIO-S Resistance Check.xml"; sourceTree = "<group>"; };
 		C9AE36321B312B8F00911FE2 /* AIO-S Full Test (small inductor).xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Full Test (small inductor).xml"; path = "../../scripts/AIO-S Full Test (small inductor).xml"; sourceTree = "<group>"; };
 		C9AE36331B312B8F00911FE2 /* AIO-S Module 1 (small inductor).xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Module 1 (small inductor).xml"; path = "../../scripts/AIO-S Module 1 (small inductor).xml"; sourceTree = "<group>"; };
@@ -1618,6 +1622,8 @@
 				629F8919423F871C8337CBCC /* SawtoothAudioSource.cpp */,
 				FFD7A9576AE4F303272E58C0 /* SawtoothAudioSource.h */,
 				2E761E1D0BFE22C3B9D07F25 /* TEDSTest.cpp */,
+				C97C795B1C3DC791004BF5BF /* MikeyBusRead.cpp */,
+				C97C795D1C3DC7BE004BF5BF /* MikeyBusWrite.cpp */,
 				D9B94D8A26A077F11C86494B /* Test.cpp */,
 				9A5EBEAE26483857426AEB87 /* Test.h */,
 				F405D5E5D6C0E97F71211C83 /* TestManager.cpp */,
@@ -3037,6 +3043,7 @@
 				244D348923B6345434917D24 /* LevelCheckTest.cpp in Sources */,
 				C95C66381B0A85E800DA394D /* USBFirmwareVersionTest.cpp in Sources */,
 				8B2957DE532055E139687AB1 /* MeterWindow.cpp in Sources */,
+				C97C795E1C3DC7BE004BF5BF /* MikeyBusWrite.cpp in Sources */,
 				CE54B4FA36345C53CCB60912 /* MIDILoopTest.cpp in Sources */,
 				68FE50DCD04B08BC51650971 /* MidiTest.cpp in Sources */,
 				E98D739A35227DDFAAD6AFF7 /* PhaseTest.cpp in Sources */,
@@ -3054,6 +3061,7 @@
 				FC26D5067E3C105E655889CB /* xml.cpp in Sources */,
 				C95C663D1B0A94CC00DA394D /* ErrorCodes.cpp in Sources */,
 				EEBEAF6E4EAC455D4E392244 /* juce_audio_basics.mm in Sources */,
+				C97C795C1C3DC791004BF5BF /* MikeyBusRead.cpp in Sources */,
 				C92197B71B18FAB700D4AD6B /* FrequencySweepAudioSource.cpp in Sources */,
 				00D74F3F0EA9EB3AFE475B88 /* juce_audio_devices.mm in Sources */,
 				13CC2FD6F41783BEF4701829 /* juce_audio_formats.mm in Sources */,

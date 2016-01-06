@@ -31,6 +31,7 @@ public:
         MODULE_TYPE,
         RESISTANCE_MEASUREMENT,
         CALIBRATION_VERIFICATION,
+        MIKEY_BUS,
         
         LAST
     };
