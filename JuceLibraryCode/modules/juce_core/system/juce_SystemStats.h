@@ -2,7 +2,7 @@
   ==============================================================================
 
    This file is part of the juce_core module of the JUCE library.
-   Copyright (c) 2013 - Raw Material Software Ltd.
+   Copyright (c) 2015 - ROLI Ltd.
 
    Permission to use, copy, modify, and/or distribute this software for any purpose with
    or without fee is hereby granted, provided that the above copyright notice and this
@@ -64,6 +64,7 @@ public:
         MacOSX_10_8     = MacOSX | 8,
         MacOSX_10_9     = MacOSX | 9,
         MacOSX_10_10    = MacOSX | 10,
+        MacOSX_10_11    = MacOSX | 11,
 
         Win2000         = Windows | 1,
         WinXP           = Windows | 2,

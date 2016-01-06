@@ -967,12 +967,12 @@ String CalibrationManager::getHistory()
 		entry.validateChecksum();
 		if (false == entry.isChecksumOK())
 		{
-			text += "Found invalid checksum" + newLine;
+			text += String("Found invalid checksum") + newLine;
 			break;
 		}
 		if (0 == entry.data.time)
 		{
-			text += "Found invalid time" + newLine;
+			text += String("Found invalid time") + newLine;
 			break;
 		}
         
@@ -1170,11 +1170,11 @@ void CalibrationManager::analyzeVoltageInput()
     results += "     Uncalibrated voltage input ratio: " + String(voltage, 4);
     if (analysisResult.wasOk())
     {
-        results += " OK" + newLine;
+        results += String(" OK") + newLine;
     }
     else
     {
-        results += " FAIL" + newLine;
+        results += String(" FAIL") + newLine;
     }
     
 	if (analysisResult.wasOk())
@@ -1354,11 +1354,11 @@ void CalibrationManager::analyzeVoltageOutput()
     results += "     Uncalibrated voltage output ratio: " + String(voltage, 4);
     if (analysisResult.wasOk())
     {
-        results += " OK" + newLine;
+        results += String(" OK") + newLine;
     }
     else
     {
-        results += " FAIL" + newLine;
+        results += String(" FAIL") + newLine;
     }
     
 	if (analysisResult.wasOk())
@@ -1463,21 +1463,21 @@ void CalibrationManager::analyzeCurrentInput()
             results += "     Calibrated voltage input ratio: " + String(voltage, 4);
             if (voltageAnalysisResult.wasOk())
             {
-                results += " OK" + newLine;
+                results += String(" OK") + newLine;
             }
             else
             {
-                results += " FAIL" + newLine;
+                results += String(" FAIL") + newLine;
             }
             
             results += "     Uncalibrated current input ratio: " + String(current, 4);
             if (currentAnalysisResult.wasOk())
             {
-                results += " OK" + newLine;
+                results += String(" OK") + newLine;
             }
             else
             {
-                results += " FAIL" + newLine;
+                results += String(" FAIL") + newLine;
             }
 
 			if (voltageAnalysisResult.wasOk() && currentAnalysisResult.wasOk())
@@ -1608,7 +1608,7 @@ void CalibrationManager::startResistanceMeasurement()
     calibrationDataAIOS.validateChecksum();
     if (false == calibrationDataAIOS.isChecksumOK())
     {
-        results = "Invalid RAM calibration" + newLine;
+        results = String("Invalid RAM calibration")+ newLine;
         state = STATE_RESISTANCE_MEASUREMENT_DONE;
         finish(MESSAGE_AIOS_RESISTANCE_MEASUREMENT_DONE);
         return;
@@ -1771,11 +1771,11 @@ void CalibrationManager::analyzeResistanceMeasurement()
     
     if (pass)
     {
-        results += " - PASS" + newLine;
+        results += String(" - PASS") + newLine;
     }
     else
     {
-        results += " - FAIL" + newLine;
+        results += String(" - FAIL") + newLine;
         
         BigInteger channelMask;
         channelMask.setBit(AIOS_VOLTAGE_INPUT_CHANNEL);

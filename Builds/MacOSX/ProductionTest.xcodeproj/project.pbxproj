@@ -2921,7 +2921,7 @@
 		AE4D6B0F2E2BCC1D0FBDC151 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0440;
+				LastUpgradeCheck = 0720;
 				TargetAttributes = {
 					BA1D034141381BA1469F20A9 = {
 						DevelopmentTeam = 78L5JU47MH;
@@ -3241,6 +3241,7 @@
 				INFOPLIST_FILE = ProductionTest.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.echoaudio.ProductionTest;
 				SDKROOT_ppc = macosx10.5;
 			};
 			name = Release;
@@ -3250,6 +3251,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_MODEL_TUNING = G5;
@@ -3316,6 +3318,7 @@
 				INFOPLIST_FILE = ProductionTest.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.echoaudio.ProductionTest;
 				SDKROOT_ppc = macosx10.5;
 			};
 			name = Debug;
@@ -3351,6 +3354,7 @@
 				INFOPLIST_FILE = "AIO-S_Final_Test.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.echoaudio.AIOSFinalTest;
 				PRODUCT_NAME = "AIO-S Final Test";
 				SDKROOT_ppc = macosx10.5;
 			};
@@ -3388,6 +3392,7 @@
 				INFOPLIST_FILE = "AIO-S_Final_Test.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.echoaudio.AIOSFinalTest;
 				PRODUCT_NAME = "AIO-S Final Test";
 				SDKROOT_ppc = macosx10.5;
 			};
@@ -3422,6 +3427,7 @@
 				INFOPLIST_FILE = AIO_field_test.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.echoaudio.FieldTest;
 				PRODUCT_NAME = "AIO Field Test";
 				SDKROOT_ppc = macosx10.5;
 			};
@@ -3457,6 +3463,7 @@
 				INFOPLIST_FILE = AIO_field_test.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
+				PRODUCT_BUNDLE_IDENTIFIER = com.echoaudio.FieldTest;
 				PRODUCT_NAME = "AIO Field Test";
 				SDKROOT_ppc = macosx10.5;
 			};

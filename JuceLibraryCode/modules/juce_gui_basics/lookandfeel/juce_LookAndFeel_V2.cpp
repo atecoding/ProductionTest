@@ -2,7 +2,7 @@
   ==============================================================================
 
    This file is part of the JUCE library.
-   Copyright (c) 2013 - Raw Material Software Ltd.
+   Copyright (c) 2015 - ROLI Ltd.
 
    Permission is granted to use this software under the terms of either:
    a) the GPL v2 (or any later version)
@@ -488,6 +488,12 @@ int LookAndFeel_V2::getAlertBoxWindowFlags()
 int LookAndFeel_V2::getAlertWindowButtonHeight()
 {
     return 28;
+}
+
+Font LookAndFeel_V2::getAlertWindowTitleFont()
+{
+    Font messageFont = getAlertWindowMessageFont();
+    return messageFont.withHeight (messageFont.getHeight() * 1.1f).boldened();
 }
 
 Font LookAndFeel_V2::getAlertWindowMessageFont()
@@ -1599,7 +1605,7 @@ void LookAndFeel_V2::layoutFilenameComponent (FilenameComponent& filenameComp,
 {
     browseButton->setSize (80, filenameComp.getHeight());
 
-    if (TextButton* const tb = dynamic_cast <TextButton*> (browseButton))
+    if (TextButton* const tb = dynamic_cast<TextButton*> (browseButton))
         tb->changeWidthToFitText();
 
     browseButton->setTopRightPosition (filenameComp.getWidth(), 0);
@@ -2569,7 +2575,7 @@ void LookAndFeel_V2::layoutFileBrowserComponent (FileBrowserComponent& browserCo
 
     y += controlsHeight + 4;
 
-    if (Component* const listAsComp = dynamic_cast <Component*> (fileListComponent))
+    if (Component* const listAsComp = dynamic_cast<Component*> (fileListComponent))
     {
         listAsComp->setBounds (x, y, w, browserComp.getHeight() - y - bottomSectionHeight);
         y = listAsComp->getBottom() + 4;

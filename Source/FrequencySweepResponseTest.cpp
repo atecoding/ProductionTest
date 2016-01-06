@@ -63,7 +63,7 @@ bool FrequencySweepResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs, Stri
 {
 	bool pass[4] = { TRUE, TRUE, TRUE, TRUE };
 
-	msg = "Frequency Response (20Hz-20kHz):" + newLine;
+	msg = String("Frequency Response (20Hz-20kHz):") + newLine;
 
 	for (int channel = 0; channel < num_channels; channel++)
 	{
@@ -95,7 +95,7 @@ bool FrequencySweepResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs, Stri
 		{
 			pass[channel] = FALSE;
 			msg += "    *** Input " + String(physicalInput + 1) + ":";
-			msg += "Invalid Waveform!" + newLine;
+			msg += String("Invalid Waveform!") + newLine;
 
 			errorCodes.add(ErrorCodes::LEVEL, physicalInput + 1);
 		}
@@ -112,7 +112,7 @@ bool FrequencySweepResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs, Stri
 			{
 				pass[channel] = FALSE;
 				msg += "    *** Input " + String(physicalInput + 1) + ":";
-				msg += "Invalid Waveform!" + newLine;
+				msg += String("Invalid Waveform!") + newLine;
 				errorCodes.add(ErrorCodes::LEVEL, physicalInput + 1);
 				break;
 			}
@@ -135,7 +135,7 @@ bool FrequencySweepResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs, Stri
 			{
 				pass[channel] = FALSE;
 				msg += "    *** Input " + String(physicalInput + 1) + ":";
-				msg += "Invalid Waveform!" + newLine;
+				msg += String("Invalid Waveform!") + newLine;
 				errorCodes.add(ErrorCodes::LEVEL, physicalInput + 1);
 				break;
 			}
@@ -167,7 +167,7 @@ bool FrequencySweepResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs, Stri
 			{
 				pass[channel] = FALSE;
 				msg += "    *** Input " + String(physicalInput + 1) + ":";
-				msg += "Invalid Waveform!" + newLine;
+				msg += String("Invalid Waveform!") + newLine;
 				errorCodes.add(ErrorCodes::LEVEL, physicalInput + 1);
 				break;
 			}
@@ -212,7 +212,7 @@ bool FrequencySweepResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs, Stri
 			{
 				pass[channel] = FALSE;
 				msg += "    *** Input " + String(physicalInput + 1) + ":";
-				msg += " Invalid Waveform!" + newLine;
+				msg += String(" Invalid Waveform!") + newLine;
 				errorCodes.add(ErrorCodes::LEVEL, physicalInput + 1);
 			}
 		}

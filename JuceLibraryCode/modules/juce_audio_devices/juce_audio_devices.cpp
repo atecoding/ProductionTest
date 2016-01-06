@@ -2,7 +2,7 @@
   ==============================================================================
 
    This file is part of the JUCE library.
-   Copyright (c) 2013 - Raw Material Software Ltd.
+   Copyright (c) 2015 - ROLI Ltd.
 
    Permission is granted to use this software under the terms of either:
    a) the GPL v2 (or any later version)
@@ -22,7 +22,7 @@
   ==============================================================================
 */
 
-#if defined (JUCE_AUDIO_DEVICES_H_INCLUDED) && ! JUCE_AMALGAMATED_INCLUDE
+#ifdef JUCE_AUDIO_DEVICES_H_INCLUDED
  /* When you add this cpp file to your project, you mustn't include it in a file where you've
     already included any other headers - just put it inside a file on its own, possibly with your config
     flags preceding it, but don't include anything else. That also includes avoiding any automatic prefix
@@ -30,10 +30,6 @@
  */
  #error "Incorrect use of JUCE cpp file"
 #endif
-
-// Your project must contain an AppConfig.h file with your project-specific settings in it,
-// and your header search path must make it accessible to the module's files.
-#include "AppConfig.h"
 
 #include "../juce_core/native/juce_BasicNativeHeaders.h"
 #include "juce_audio_devices.h"
@@ -80,7 +76,7 @@
         comes with the SDK. (Only about a handful of the SDK header files are actually
         needed - so to simplify things, you could just copy these into your JUCE directory).
   */
-  #include "iasiodrv.h"
+  #include <iasiodrv.h>
  #endif
 
  #if JUCE_USE_CDBURNER

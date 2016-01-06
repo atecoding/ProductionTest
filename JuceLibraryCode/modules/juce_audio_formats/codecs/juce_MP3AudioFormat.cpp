@@ -2,7 +2,7 @@
   ==============================================================================
 
    This file is part of the JUCE library.
-   Copyright (c) 2013 - Raw Material Software Ltd.
+   Copyright (c) 2015 - ROLI Ltd.
 
    Permission is granted to use this software under the terms of either:
    a) the GPL v2 (or any later version)
@@ -25,8 +25,8 @@
 /*
     IMPORTANT DISCLAIMER: By choosing to enable the JUCE_USE_MP3AUDIOFORMAT flag and
     to compile this MP3 code into your software, you do so AT YOUR OWN RISK! By doing so,
-    you are agreeing that Raw Material Software is in no way responsible for any patent,
-    copyright, or other legal issues that you may suffer as a result.
+    you are agreeing that ROLI Ltd. is in no way responsible for any patent, copyright,
+    or other legal issues that you may suffer as a result.
 
     The code in juce_MP3AudioFormat.cpp is NOT guaranteed to be free from infringements of 3rd-party
     intellectual property. If you wish to use it, please seek your own independent advice about the
@@ -695,7 +695,7 @@ private:
             win[0][i + 18] = win[3][i + 18] = (float) (0.5 * std::sin (double_Pi / 72.0 * (2 * (i + 18) + 1)) / std::cos (double_Pi * (2 * (i + 18) + 19) / 72.0));
         }
 
-        const double piOver72 = double_Pi;
+        const double piOver72 = double_Pi / 72.0;
 
         for (i = 0; i < 6; ++i)
         {
@@ -1613,7 +1613,7 @@ private:
         headerParsed = sideParsed = dataParsed = isFreeFormat = wasFreeFormat = false;
         lastFrameSize = -1;
         needToSyncBitStream = true;
-        frameSize = sideInfoSize = dataSize = frameSize = bitIndex = 0;
+        frameSize = sideInfoSize = dataSize = bitIndex = 0;
         lastFrameSizeNoPadding = bufferSpaceIndex = 0;
         bufferPointer = bufferSpace[bufferSpaceIndex] + 512;
         synthBo = 1;
@@ -3020,7 +3020,7 @@ public:
             }
 
             const int numToCopy = jmin (decodedEnd - decodedStart, numSamples);
-            float* const* const dst = reinterpret_cast <float**> (destSamples);
+            float* const* const dst = reinterpret_cast<float**> (destSamples);
             memcpy (dst[0] + startOffsetInDestBuffer, decoded0 + decodedStart, sizeof (float) * (size_t) numToCopy);
 
             if (numDestChannels > 1 && dst[1] != nullptr)

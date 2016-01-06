@@ -2,7 +2,7 @@
   ==============================================================================
 
    This file is part of the juce_core module of the JUCE library.
-   Copyright (c) 2013 - Raw Material Software Ltd.
+   Copyright (c) 2015 - ROLI Ltd.
 
    Permission to use, copy, modify, and/or distribute this software for any purpose with
    or without fee is hereby granted, provided that the above copyright notice and this
@@ -60,10 +60,10 @@ namespace
     template <typename RectangleType>
     static NSRect makeNSRect (const RectangleType& r) noexcept
     {
-        return NSMakeRect (static_cast <CGFloat> (r.getX()),
-                           static_cast <CGFloat> (r.getY()),
-                           static_cast <CGFloat> (r.getWidth()),
-                           static_cast <CGFloat> (r.getHeight()));
+        return NSMakeRect (static_cast<CGFloat> (r.getX()),
+                           static_cast<CGFloat> (r.getY()),
+                           static_cast<CGFloat> (r.getWidth()),
+                           static_cast<CGFloat> (r.getHeight()));
     }
 
     // These hacks are a workaround for newer Xcode builds which by default prevent calls to these objc functions..
@@ -115,14 +115,14 @@ struct ObjCClass
     void addIvar (const char* name)
     {
         BOOL b = class_addIvar (cls, name, sizeof (Type), (uint8_t) rint (log2 (sizeof (Type))), @encode (Type));
-        jassert (b); (void) b;
+        jassert (b); ignoreUnused (b);
     }
 
     template <typename FunctionType>
     void addMethod (SEL selector, FunctionType callbackFn, const char* signature)
     {
         BOOL b = class_addMethod (cls, selector, (IMP) callbackFn, signature);
-        jassert (b); (void) b;
+        jassert (b); ignoreUnused (b);
     }
 
     template <typename FunctionType>
@@ -146,7 +146,7 @@ struct ObjCClass
     void addProtocol (Protocol* protocol)
     {
         BOOL b = class_addProtocol (cls, protocol);
-        jassert (b); (void) b;
+        jassert (b); ignoreUnused (b);
     }
 
    #if JUCE_MAC
@@ -162,7 +162,7 @@ struct ObjCClass
     {
         void* v = nullptr;
         object_getInstanceVariable (self, name, &v);
-        return static_cast <Type> (v);
+        return static_cast<Type> (v);
     }
 
     Class cls;

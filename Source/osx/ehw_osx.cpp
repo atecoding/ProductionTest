@@ -505,3 +505,42 @@ Result ehw::getCalibrationData(AcousticIOCalibrationData * const data)
     error += " - error " + String::toHexString(rc);
     return Result::fail(error);
 }
+
+static uint8 getUnitForModule(uint8 const module)
+{
+    switch (module & 1)
+    {
+        case 0:
+            return MIKEY_EXTENSION_UNIT0;
+            
+        case 1:
+            return MIKEY_EXTENSION_UNIT1;
+    }
+    
+    return 0;
+}
+
+Result ehw::readMikey(uint8 module, uint32 page, uint32 address, uint8 &value)
+{
+    uint8 unit = getUnitForModule(module);
+    IOReturn rc = getRequest(unit, page, address, &value, sizeof(value));
+    if (kIOReturnSuccess == rc)
+    {
+        return Result::ok();
+    }
+
+    value = 0;
+    return Result::fail("Failed to read MikeyBus register");
+}
+
+Result ehw::writeMikey(uint8 module, uint32 page, uint32 address, uint8 data)
+{
+    uint8 unit = getUnitForModule(module);
+    IOReturn rc = setRequest(unit, page, address, &data, sizeof(data));
+    if (kIOReturnSuccess == rc)
+    {
+        return Result::ok();
+    }
+    return Result::fail("Failed to write MikeyBus register");
+}
+

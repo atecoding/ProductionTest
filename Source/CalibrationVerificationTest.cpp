@@ -20,7 +20,7 @@ bool RunCalibrationVerificationTest(XmlElement const *element,
 {
     displayedInput = -1;
     
-    msg = "Calibration verification: " + newLine;
+    msg = String("Calibration verification: ") + newLine;
     
     //
     // Read calibration index from flash
@@ -40,7 +40,7 @@ bool RunCalibrationVerificationTest(XmlElement const *element,
         bool checksumOK = checksum == calibrationIndex.checksum;
         if (!checksumOK)
         {
-            msg += " Calibration index invalid checksum" + newLine;
+            msg += String(" Calibration index invalid checksum") + newLine;
             msg += " numCalibrations: " + String(calibrationIndex.numCalibrations) + newLine;
             for (int i = 0; i < numElementsInArray(calibrationIndex.reserved); ++i)
             {
@@ -52,7 +52,7 @@ bool RunCalibrationVerificationTest(XmlElement const *element,
             return false;
         }
         
-        msg += "Flash index OK" + newLine;
+        msg += String("Flash index OK") + newLine;
     }
     
     //
@@ -74,7 +74,7 @@ bool RunCalibrationVerificationTest(XmlElement const *element,
         calibrationDataFlash.validateChecksum();
         if (false == calibrationDataFlash.isChecksumOK())
         {
-            msg += " Flash calibration data invalid checksum - FAIL" + newLine;
+            msg += String(" Flash calibration data invalid checksum - FAIL") + newLine;
             uint32 const *data = (uint32 const *)&calibrationDataFlash.data;
             for (int i = 0; i < sizeof(AcousticIOCalibrationData)/sizeof(uint32); ++i)
             {
@@ -86,7 +86,7 @@ bool RunCalibrationVerificationTest(XmlElement const *element,
             return false;
         }
         
-        msg += "Flash data OK" + newLine;
+        msg += String("Flash data OK") + newLine;
     }
     
     //
@@ -105,16 +105,16 @@ bool RunCalibrationVerificationTest(XmlElement const *element,
         
         if (0 != memcmp(&calibrationDataRAM.data, &calibrationDataFlash.data, sizeof(AcousticIOCalibrationData)))
         {
-            msg += "RAM calibration data does not match flash calibration data - FAIL" + newLine;
+            msg += String("RAM calibration data does not match flash calibration data - FAIL") + newLine;
             errorCodes.add(ErrorCodes::CALIBRATION_VERIFICATION);
             return false;
         }
         
-        msg += "RAM data OK" + newLine;
+        msg += String("RAM data OK") + newLine;
     }
     
     msg += calibrationDataRAM.toString();
-    msg += "PASS" + newLine;
+    msg += String("PASS") + newLine;
     
     return true;
 }

@@ -231,6 +231,8 @@ public:
     Result clearRAMCalibrationData();
     Result setCalibrationData(AcousticIOCalibrationData const * const data);
     Result getCalibrationData(AcousticIOCalibrationData * const data);
+    Result readMikey(uint8 module, uint32 page, uint32 address, uint8 &value);
+    Result writeMikey(uint8 module, uint32 page, uint32 address, uint8 value);
     
 #endif
 

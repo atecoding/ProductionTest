@@ -102,11 +102,11 @@ bool RunPowerSupplyResetTest(XmlElement const *element,
     
     if (micSupplyError)
     {
-		msg += "   Found at least one mic supply current or voltage error" + newLine;
+		msg += String("   Found at least one mic supply current or voltage error") + newLine;
 	}
     else
     {
-		msg += "   No mic supply current or voltage errors" + newLine;
+		msg += String("   No mic supply current or voltage errors") + newLine;
 	}
     
     //
@@ -193,7 +193,7 @@ bool RunPowerSupplyResetTest(XmlElement const *element,
         //
         msg += newLine + "====== Please set aside " + moduleName + " for further testing" + newLine +
         "====== Do not ship to customer" + newLine + newLine;
-        msg += "FAIL" + newLine;
+        msg += String("FAIL") + newLine;
         return false;
     }
 

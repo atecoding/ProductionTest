@@ -2,7 +2,8 @@
 #define _ACOUSTICIO_COMMON_H_
 
 #define ACOUSTICIO_EXTENSION_UNIT 0xa1
-
+#define MIKEY_EXTENSION_UNIT0 0xa3  // m0
+#define MIKEY_EXTENSION_UNIT1 0xa2  // m1
 
 //======================================================================================
 //

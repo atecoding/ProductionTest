@@ -2,7 +2,7 @@
   ==============================================================================
 
    This file is part of the JUCE library.
-   Copyright (c) 2013 - Raw Material Software Ltd.
+   Copyright (c) 2015 - ROLI Ltd.
 
    Permission is granted to use this software under the terms of either:
    a) the GPL v2 (or any later version)
@@ -679,6 +679,8 @@ void CodeEditorComponent::scrollToLineInternal (int newFirstLineOnScreen)
         updateCachedIterators (firstLineOnScreen);
         rebuildLineTokensAsync();
         pimpl->handleUpdateNowIfNeeded();
+
+        editorViewportPositionChanged();
     }
 }
 
@@ -868,7 +870,7 @@ void CodeEditorComponent::indentSelectedLines (const int spacesToAdd)
 
 void CodeEditorComponent::cut()
 {
-    insertText (String::empty);
+    insertText (String());
 }
 
 bool CodeEditorComponent::copyToClipboard()
@@ -1227,6 +1229,10 @@ void CodeEditorComponent::handleTabKey()
 void CodeEditorComponent::handleEscapeKey()
 {
     newTransaction();
+}
+
+void CodeEditorComponent::editorViewportPositionChanged()
+{
 }
 
 //==============================================================================

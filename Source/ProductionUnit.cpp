@@ -2216,7 +2216,8 @@ void ProductionUnit::printErrorCodes(XmlElement *xe)
         selectedCodes.add(code);
     }
     
-    String output(newLine + _serial_number + headerText + newLine);
+    String output(NewLine::getDefault());
+    output += _serial_number + headerText + NewLine::getDefault();
     output += testStartTime.toString(true,true) + newLine;
     
     Array<int> printedCodes;

@@ -2,7 +2,7 @@
   ==============================================================================
 
    This file is part of the juce_core module of the JUCE library.
-   Copyright (c) 2013 - Raw Material Software Ltd.
+   Copyright (c) 2015 - ROLI Ltd.
 
    Permission to use, copy, modify, and/or distribute this software for any purpose with
    or without fee is hereby granted, provided that the above copyright notice and this
@@ -226,7 +226,7 @@ int GZIPDecompressorInputStream::read (void* destBuffer, int howMany)
     if (howMany > 0 && ! isEof)
     {
         int numRead = 0;
-        uint8* d = static_cast <uint8*> (destBuffer);
+        uint8* d = static_cast<uint8*> (destBuffer);
 
         while (! helper->error)
         {
