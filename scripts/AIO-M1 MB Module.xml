@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  
+    <!-- **************************************************** -->
+	<!-- Echo Acoustic AIO                                    -->
+	<!-- **************************************************** -->
+    
+	<device>
+    AIO-M1
+    <Require_AIO_Test_Adapter>false</Require_AIO_Test_Adapter>
+    <ASIO_driver>ASIO Echo Acoustic AIO</ASIO_driver>
+    <CoreAudio_driver>EchoAIO-M1</CoreAudio_driver>
+
+    <message_box>
+	Is the blue LED lit?
+	<show_yes_no>1</show_yes_no>
+	<log>LED Test</log>
+    </message_box>
+
+    <AIO_firmware_version_test max_version="0x1000" />
+
+    <AIO_module_type_test>
+      <slot>0</slot>
+      <!-- slot 0 == center slot -->
+      <type>1</type>
+      <!-- type 1 == TEDS microphone + class D amp analog module -->
+    </AIO_module_type_test>
+
+    <AIO_module_type_test>
+      <slot>1</slot>
+      <!-- slot 1 == outer slot -->
+      <type>3</type>
+      <!-- type 3 == MB module -->
+    </AIO_module_type_test>
+    
+    
+    <AIO_mikeybus_write module="1" 0x00 0x01 0x01
+    <AIO_mikeybus_write module="1" 0x00 0x06 0x00
+    <AIO_mikeybus_write module="1" 0x02 0x01 0xe0
+    <AIO_mikeybus_write module="1" 0x01 0x07 0x19
+    <AIO_mikeybus_write module="1" 0x01 0x09 0x1a
+    <AIO_mikeybus_write module="1" 0x01 0x01 0x00
+    <AIO_mikeybus_write module="1" 0x01 0x03 0x00
+    <AIO_mikeybus_write module="1" 0x01 0x15 0x28
+    <AIO_mikeybus_write module="1" 0x01 0x16 0x2c
+    <AIO_mikeybus_write module="1" 0x01 0x17 0x28
+    <AIO_mikeybus_write module="1" 0x01 0x18 0x2c
+    <AIO_mikeybus_write module="1" 0x01 0x19 0x28
+    <AIO_mikeybus_write module="1" 0x01 0x1a 0x2c
+    <AIO_mikeybus_write module="1" 0x01 0x1b 0x28
+    <AIO_mikeybus_write module="1" 0x01 0x1c 0x2c
+    <AIO_mikeybus_write module="1" 0x01 0x1d 0x28
+    <AIO_mikeybus_write module="1" 0x01 0x1e 0x2c
+    
+    <AIO_mikeybus_write module="1" 0x00 0x14 0x00
+    <AIO_mikeybus_write module="1" 0x00 0x15 0x03
+    <AIO_mikeybus_write module="1" 0x00 0x16 0x06
+    <AIO_mikeybus_write module="1" 0x00 0x17 0x09
+    <AIO_mikeybus_write module="1" 0x00 0x18 0x0c
+    <AIO_mikeybus_write module="1" 0x00 0x19 0x0f
+    <AIO_mikeybus_write module="1" 0x00 0x1a 0x12
+    <AIO_mikeybus_write module="1" 0x00 0x1b 0x15
+    <AIO_mikeybus_write module="1" 0x00 0x1c 0x18
+    <AIO_mikeybus_write module="1" 0x00 0x1d 0x1b
+    <AIO_mikeybus_write module="1" 0x00 0x1e 0x3f
+    <AIO_mikeybus_write module="1" 0x00 0x1f 0xff
+    <AIO_mikeybus_write module="1" 0x00 0x20 0xff
+    <AIO_mikeybus_write module="1" 0x00 0x21 0xff
+    <AIO_mikeybus_write module="1" 0x00 0x22 0x40
+    <AIO_mikeybus_write module="1" 0x00 0x23 0x43
+    <AIO_mikeybus_write module="1" 0x00 0x24 0x46
+    <AIO_mikeybus_write module="1" 0x00 0x25 0x49
+    <AIO_mikeybus_write module="1" 0x00 0x26 0x4c
+    <AIO_mikeybus_write module="1" 0x00 0x27 0x4f
+    <AIO_mikeybus_write module="1" 0x00 0x28 0x52
+    <AIO_mikeybus_write module="1" 0x00 0x29 0x55
+    <AIO_mikeybus_write module="1" 0x00 0x2a 0x58
+    <AIO_mikeybus_write module="1" 0x00 0x2b 0x59
+    <AIO_mikeybus_write module="1" 0x00 0x11 0xc0
+    <AIO_mikeybus_write module="1" 0x00 0x12 0x0c
+    
+    <AIO_mikeybus_write module="1" page="0x2" address="3" value="4"/>
+ 
+ 
+  </device>
+
+</root>
+
