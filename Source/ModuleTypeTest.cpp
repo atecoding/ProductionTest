@@ -11,7 +11,8 @@ const char *moduleTypeNames[] =
 {
     "No module detected",
     "TEDS + Class-D AMP module",
-    "AIO-S module"
+    "AIO-S module",
+    "MB module"
 };
 
 const char *slotNames[] =
@@ -63,7 +64,7 @@ bool RunModuleTypeTest(XmlElement const *element,
     
     expectedModuleType = -1;
     getIntValue(element, "type", expectedModuleType);
-    if (expectedModuleType < ACOUSTICIO_MODULE_NOT_PRESENT || expectedModuleType > ACOUSTICIO_SPKRMON_MODULE)
+    if (expectedModuleType < ACOUSTICIO_MODULE_NOT_PRESENT || expectedModuleType > ACOUSTICIO_MIKEYBUS_MODULE)
     {
         msg += "Invalid module type specified in script";
         return false;

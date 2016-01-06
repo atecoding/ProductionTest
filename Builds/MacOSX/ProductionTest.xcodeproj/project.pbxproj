@@ -50,6 +50,7 @@
 		B7D6C59A744D56E2B14115BF /* Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9B94D8A26A077F11C86494B /* Test.cpp */; };
 		C56E0875FF2EF880984F9194 /* TestPrompt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D218ABCF456C886AB5867EB0 /* TestPrompt.cpp */; };
 		C631329AE2D0578BC6027732 /* ConstantCurrentTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5DF22E869AFB1C87D3E5AED2 /* ConstantCurrentTest.cpp */; };
+		C906DB961B8D102000F65743 /* AIO-M1 Module 1.xml in Resources */ = {isa = PBXBuildFile; fileRef = C906DB951B8D102000F65743 /* AIO-M1 Module 1.xml */; };
 		C90ED0311B09337F000D0950 /* AIOSReferenceVoltageTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C90ED0301B09337F000D0950 /* AIOSReferenceVoltageTest.cpp */; };
 		C920FEF01B62F68E009CC653 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7DDFE4DA407C0FE8084B8C5D /* RecentFilesMenuTemplate.nib */; };
 		C920FEF71B62F68E009CC653 /* AIO-S Resistance Check.xml in Resources */ = {isa = PBXBuildFile; fileRef = C99B4EC01B62E6F000B28545 /* AIO-S Resistance Check.xml */; };
@@ -931,6 +932,7 @@
 		C7DA469913E1E9C3F517E69A /* juce_BufferingAudioSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_BufferingAudioSource.h; path = ../../JuceLibraryCode/modules/juce_audio_basics/sources/juce_BufferingAudioSource.h; sourceTree = SOURCE_ROOT; };
 		C8280C66AC1F920421C72B99 /* juce_BorderSize.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_BorderSize.h; path = ../../JuceLibraryCode/modules/juce_graphics/geometry/juce_BorderSize.h; sourceTree = SOURCE_ROOT; };
 		C89D009A31D6F0311854919A /* juce_ComponentBoundsConstrainer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ComponentBoundsConstrainer.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/layout/juce_ComponentBoundsConstrainer.h; sourceTree = SOURCE_ROOT; };
+		C906DB951B8D102000F65743 /* AIO-M1 Module 1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-M1 Module 1.xml"; path = "../../scripts/AIO-M1 Module 1.xml"; sourceTree = "<group>"; };
 		C90ED0301B09337F000D0950 /* AIOSReferenceVoltageTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIOSReferenceVoltageTest.cpp; path = ../../Source/AIOSReferenceVoltageTest.cpp; sourceTree = "<group>"; };
 		C920FF491B62F68E009CC653 /* AIO-S Final Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AIO-S Final Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C920FF4A1B62F68F009CC653 /* AIO-S_Final_Test.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AIO-S_Final_Test.plist"; path = "/Users/matt/proj/ProductionTest/Builds/MacOSX/AIO-S_Final_Test.plist"; sourceTree = "<absolute>"; };
@@ -2094,6 +2096,7 @@
 				C95C662C1B0A765000DA394D /* AIO-2 Full Test.xml */,
 				C9ED3C711B6843A1004A76CE /* AIO-2 Field Test.xml */,
 				C95C662D1B0A765000DA394D /* AIO-2 Module 1.xml */,
+				C906DB951B8D102000F65743 /* AIO-M1 Module 1.xml */,
 				C96E48811B3D0ED900FD566E /* AIO Offline Test.xml */,
 				C9F4CF761B631E600060D6CD /* AIO-S calibration test.xml */,
 				C952CE141B40FFEA00C96FA3 /* AIO Printer Test.xml */,
@@ -2960,6 +2963,7 @@
 				C920FF601B62FEE0009CC653 /* AIO-2 Full Test.xml in Resources */,
 				C920FF621B62FEE0009CC653 /* AIO-2 Module 2.xml in Resources */,
 				C920FF521B62FE80009CC653 /* factory.icns in Resources */,
+				C906DB961B8D102000F65743 /* AIO-M1 Module 1.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

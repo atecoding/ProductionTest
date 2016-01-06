@@ -20,6 +20,7 @@ deviceInterface(deviceInterface_)
             break;
             
         case hwcaps::ACOUSTICIO_MB_PRODUCT_ID:
+            moduleTypes = (ACOUSTICIO_MIKEYBUS_MODULE << 4) | ACOUSTICIO_ANALOG_MODULE;
             description = new DescriptionAMB(moduleTypes);
             break;
             
