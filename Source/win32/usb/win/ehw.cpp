@@ -131,8 +131,12 @@ ehw::ehw
 			description = new DescriptionAIO(moduleTypes);
 			break;
 
-		case hwcaps::ACOUSTICIO_MB_PRODUCT_ID:
-			description = new DescriptionAMB(moduleTypes);
+		case hwcaps::ACOUSTICIO_M1_PRODUCT_ID:
+			description = new DescriptionAM1(moduleTypes);
+			break;
+
+		case hwcaps::ACOUSTICIO_M2_PRODUCT_ID:
+			description = new DescriptionAM2(moduleTypes);
 			break;
 
 		default:
@@ -1870,4 +1874,63 @@ Result ehw::getCalibrationData(AcousticIOCalibrationData * const data)
 	error += " - error " + String::toHexString((int32)status);
 	return Result::fail(error);
 }
+
+static uint8 getUnitForModule(uint8 const module)
+{
+	switch (module & 1)
+	{
+	case 0:
+		return MIKEY_EXTENSION_UNIT0;
+
+	case 1:
+		return MIKEY_EXTENSION_UNIT1;
+	}
+
+	return 0;
+}
+
+Result ehw::readMikey(uint8 module, uint8 page, uint8 address, uint8 &value)
+{
+	TUsbAudioStatus status;
+	uint8 unit = getUnitForModule(module);
+
+	status = TUSBAUDIO_AudioControlRequestGet(handle,
+		unit,	// unit ID
+		CUR,
+		page,
+		address,
+		(void *)&value,
+		sizeof(value),
+		NULL,
+		COMMAND_TIMEOUT_MSEC);
+	if (TSTATUS_SUCCESS == status)
+		return Result::ok();
+
+	String error("Failed to read MikeyBus");
+	error += " - error " + String::toHexString((int32)status);
+	return Result::fail(error);
+}
+
+Result ehw::writeMikey(uint8 module, uint8 page, uint8 address, uint8 value)
+{
+	TUsbAudioStatus status;
+	uint8 unit = getUnitForModule(module);
+
+	status = TUSBAUDIO_AudioControlRequestSet(handle,
+		unit,	// unit ID
+		CUR,
+		page,
+		address,
+		(void *)&value,
+		sizeof(value),
+		NULL,
+		COMMAND_TIMEOUT_MSEC);
+	if (TSTATUS_SUCCESS == status)
+		return Result::ok();
+
+	String error("Failed to write MikeyBus");
+	error += " - error " + String::toHexString((int32)status);
+	return Result::fail(error);
+}
+
 #endif

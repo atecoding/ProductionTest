@@ -525,7 +525,7 @@ static uint8 getUnitForModule(uint8 const module)
     return 0;
 }
 
-Result ehw::readMikey(uint8 module, uint32 page, uint32 address, uint8 &value)
+Result ehw::readMikey(uint8 module, uint8 page, uint8 address, uint8 &value)
 {
     uint8 unit = getUnitForModule(module);
     IOReturn rc = getRequest(unit, page, address, &value, sizeof(value));
@@ -539,10 +539,10 @@ Result ehw::readMikey(uint8 module, uint32 page, uint32 address, uint8 &value)
     return Result::fail("Failed to read MikeyBus register");
 }
 
-Result ehw::writeMikey(uint8 module, uint32 page, uint32 address, uint8 data)
+Result ehw::writeMikey(uint8 module, uint32 page, uint32 address, uint8 value)
 {
     uint8 unit = getUnitForModule(module);
-    IOReturn rc = setRequest(unit, page, address, &data, sizeof(data));
+    IOReturn rc = setRequest(unit, page, address, &value, sizeof(value));
     if (kIOReturnSuccess == rc)
     {
         DBG(String::formatted("writeMikey module:%d  page:%04x  address:%04x  data:%02x",module,page,address,data));

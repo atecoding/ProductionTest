@@ -40,6 +40,7 @@ int32 hwcaps::numbusin()
 		return 6;
 	}
 
+	jassertfalse;
 	return 2;
 }
 
@@ -66,6 +67,7 @@ int32 hwcaps::numbusout()
 		return 6;
 	}
 
+	jassertfalse;
 	return 2;
 }
 
@@ -187,9 +189,6 @@ int hwcaps::MixInGroupSize(int /*group*/)
             
         case 1:
             return 10;
-            
-        default:
-            return 0;
         }
     
     case ACOUSTICIO_M2_PRODUCT_ID:
@@ -205,6 +204,7 @@ int hwcaps::MixInGroupSize(int /*group*/)
 		return 2;
 	}
 
+	jassertfalse;
 	return 2;
 }
 

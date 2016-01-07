@@ -25,35 +25,35 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{498A5E7A-69BC-9F52-F361-A970D485F629}</ProjectGuid>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug AIO|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug AnalyzerBR|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release AIO|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings" />
@@ -61,7 +61,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros">
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
@@ -323,7 +323,8 @@
     <ClCompile Include="..\..\Source\DelayTask.cpp" />
     <ClCompile Include="..\..\Source\Description.cpp" />
     <ClCompile Include="..\..\Source\DescriptionAIO.cpp" />
-    <ClCompile Include="..\..\Source\DescriptionAMB.cpp" />
+    <ClCompile Include="..\..\Source\DescriptionAM1.cpp" />
+    <ClCompile Include="..\..\Source\DescriptionAM2.cpp" />
     <ClCompile Include="..\..\Source\DynRangeTest.cpp" />
     <ClCompile Include="..\..\Source\ErrorCodes.cpp" />
     <ClCompile Include="..\..\Source\FilterCoeff.cpp" />
@@ -336,6 +337,7 @@
     <ClCompile Include="..\..\Source\MeterWindow.cpp" />
     <ClCompile Include="..\..\Source\MIDILoopTest.cpp" />
     <ClCompile Include="..\..\Source\MidiTest.cpp" />
+    <ClCompile Include="..\..\Source\MikeyBusRegisters.cpp" />
     <ClCompile Include="..\..\Source\ModuleTypeTest.cpp" />
     <ClCompile Include="..\..\Source\PhaseTest.cpp" />
     <ClCompile Include="..\..\Source\PowerSupplyResetTest.cpp" />
@@ -1372,7 +1374,8 @@
     <ClInclude Include="..\..\Source\calibration\SquareWaveAnalysisResult.h" />
     <ClInclude Include="..\..\Source\Description.h" />
     <ClInclude Include="..\..\Source\DescriptionAIO.h" />
-    <ClInclude Include="..\..\Source\DescriptionAMB.h" />
+    <ClInclude Include="..\..\Source\DescriptionAM1.h" />
+    <ClInclude Include="..\..\Source\DescriptionAM2.h" />
     <ClInclude Include="..\..\Source\ehw\win\NotificationWindow.h" />
     <ClInclude Include="..\..\Source\ehw\win\CDevChange.h" />
     <ClInclude Include="..\..\Source\ehw\win\ehwlist.h" />
@@ -1830,6 +1833,9 @@
     <Xml Include="..\..\scripts\AIO-2 Module 2.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="..\..\scripts\AIO-M1 Final Test.xml" />
+    <Xml Include="..\..\scripts\AIO-M1 Module 1.xml" />
+    <Xml Include="..\..\scripts\AIO-M2 Final Test.xml" />
     <Xml Include="..\..\scripts\AIO-S Full Test (small inductor).xml" />
     <Xml Include="..\..\scripts\AIO-S Full Test.xml">
       <SubType>Designer</SubType>

@@ -26,13 +26,13 @@ bool MikeyBusRegisters(XmlElement const *element,
     String const valueString("value");
     String const readString("read");
     String const writeString("write");
-    int32 module = element->getIntAttribute("module") & 1;
+    uint8 module = (uint8)(element->getIntAttribute("module") & 1);
     String moduleName(String(slotNames[module]) + " module");
     
     forEachXmlChildElement (*element, child)
     {
-        int32 page = child->getStringAttribute(pageString).getHexValue32();
-        int32 address = child->getStringAttribute(addressString).getHexValue32();
+		uint8 page = (uint8) child->getStringAttribute(pageString).getHexValue32();
+		uint8 address = (uint8) child->getStringAttribute(addressString).getHexValue32();
         uint8 value = (uint8) child->getStringAttribute(valueString).getHexValue32();
         
         if (child->hasTagName (readString))
@@ -42,14 +42,14 @@ bool MikeyBusRegisters(XmlElement const *element,
             if (result.failed())
             {
                 msg = "*** Could not read MikeyBus register for " + moduleName + " - FAIL";
-                errorCodes.add(ErrorCodes::MIKEY_BUS, -1);
+                errorCodes.add(ErrorCodes::MIKEY_BUS, module);
                 return false;
             }
             
             if (value != readValue)
             {
                 msg = "*** MikeyBus read test mismatch for " + moduleName + " page " + String::toHexString(page) + ", address " + String::toHexString(address) + " value:" + String::toHexString(readValue) + " - FAIL";
-                errorCodes.add(ErrorCodes::MIKEY_BUS, -1);
+				errorCodes.add(ErrorCodes::MIKEY_BUS, module);
                 return false;
             }
             
@@ -62,7 +62,7 @@ bool MikeyBusRegisters(XmlElement const *element,
             if (result.failed())
             {
                 msg = "*** Could not write MikeyBus register " + moduleName + " - FAIL";
-                errorCodes.add(ErrorCodes::MIKEY_BUS, -1);
+                errorCodes.add(ErrorCodes::MIKEY_BUS, module);
                 return false;
             }
             

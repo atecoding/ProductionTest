@@ -1431,9 +1431,6 @@
     <ClCompile Include="..\..\Source\DescriptionAIO.cpp">
       <Filter>ProductionTest\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\DescriptionAMB.cpp">
-      <Filter>ProductionTest\Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\printer\Printer.cpp">
       <Filter>ProductionTest\Source\printer</Filter>
     </ClCompile>
@@ -1448,6 +1445,15 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\ModuleTypeTest.cpp">
       <Filter>ProductionTest\Source\AIO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MikeyBusRegisters.cpp">
+      <Filter>ProductionTest\Source\AIO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\DescriptionAM1.cpp">
+      <Filter>ProductionTest\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\DescriptionAM2.cpp">
+      <Filter>ProductionTest\Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -2783,11 +2789,14 @@
     <ClInclude Include="..\..\Source\DescriptionAIO.h">
       <Filter>ProductionTest\Source</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\DescriptionAMB.h">
-      <Filter>ProductionTest\Source</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\Source\printer\Printer.h">
       <Filter>ProductionTest\Source\printer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\DescriptionAM2.h">
+      <Filter>ProductionTest\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\DescriptionAM1.h">
+      <Filter>ProductionTest\Source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -2856,6 +2865,15 @@
       <Filter>Scripts</Filter>
     </Xml>
     <Xml Include="..\..\scripts\AIO-S Resistance Check.xml">
+      <Filter>Scripts</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO-M1 Final Test.xml">
+      <Filter>Scripts</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO-M1 Module 1.xml">
+      <Filter>Scripts</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO-M2 Final Test.xml">
       <Filter>Scripts</Filter>
     </Xml>
   </ItemGroup>
