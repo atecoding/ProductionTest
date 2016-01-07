@@ -64,78 +64,7 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, Erro
 
 			max_db = -144.0f;
 		}
-#if 0
-		else
-		{
 
-			max = 0.0f;
-			min = 2.0f;
-			max_db = -144.0f;
-			min_db = -144.0f;
-			//rms_db = -144.0f;
-
-			idx = 0;
-			while (idx < num_samples)
-			{
-				last = 0.0f;
-				for (zc = idx; zc < num_samples; zc++)
-				{
-					if (((data[zc] * last) < 0) || (0.0f == data[zc]))
-					{
-						if (idx != 0)
-						{
-							peak = 0.0f;
-							for (temp = idx; temp < zc; temp++)
-							{
-								s = fabs(data[temp]);
-								if (s > peak)
-									peak = s;
-							}
-
-							if (peak > max)
-								max = peak;
-
-							if (peak < min)
-								min = peak;
-						}
-
-						break;
-					}
-
-					last = data[zc];
-				}
-
-				if (zc == idx)
-				{
-					break;
-				}
-
-				idx = zc;
-			}
-
-			/*
-			rms = 0.0f;
-			for (idx = 0; idx < num_samples; idx++)
-			{
-			rms += data[idx] * data[idx];
-			}
-			rms /= num_samples;
-			rms = sqrt(rms);
-			*/
-
-			if (max != 0.0f)
-				max_db = 20.0f * log10(max);
-
-			if (max != 0.0f)
-				min_db = 20.0f * log10(min);
-
-			/*
-			if (rms != 0.0f)
-			rms_db = 20.0f * log10(rms);
-			*/
-
-		}
-#endif
 		if (max_delta > max_delta_level)	// glitch?
 		{
 			max_db = max_level_db + 0.5f;	// force failure
@@ -157,7 +86,7 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, Erro
                 String name(title);
                 
                 name += String::formatted(" (out%02d-in%02d).wav", output, input + channel);
-                WriteWaveFile(unit, name, sample_rate, buffs[input], getSamplesRequired());
+                WriteWaveFile(unit, name, sample_rate, buffs[input + channel], getSamplesRequired());
             }
 #endif
         }

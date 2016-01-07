@@ -1,24 +1,24 @@
 #include "base.h"
 #include "Description.h"
-#include "DescriptionAMB.h"
+#include "DescriptionAM1.h"
 
-DescriptionAMB::DescriptionAMB(uint8 moduleTypes_) :
+DescriptionAM1::DescriptionAM1(uint8 moduleTypes_) :
 Description(moduleTypes_)
 {
 
 }
 
-int DescriptionAMB::getNumInputs() const
+int DescriptionAM1::getNumInputs() const
 {
 	return 14;
 }
 
-int DescriptionAMB::getNumOutputs() const
+int DescriptionAM1::getNumOutputs() const
 {
 	return 12;
 }
 
-String DescriptionAMB::getInputName(const int input) const
+String DescriptionAM1::getInputName(const int input) const
 {
 	if (input < 4)
 		return analogString + String(input + 1);
@@ -26,7 +26,7 @@ String DescriptionAMB::getInputName(const int input) const
 	return mbString + String(input - 3);
 }
 
-String DescriptionAMB::getOutputName(const int output) const
+String DescriptionAM1::getOutputName(const int output) const
 {
 	if (output < 2)
 		return analogString + String(output + 1);
@@ -34,7 +34,7 @@ String DescriptionAMB::getOutputName(const int output) const
 	return mbString + String(output - 1);
 }
 
-int DescriptionAMB::getInputType(int const input) const
+int DescriptionAM1::getInputType(int const input) const
 {
 	if (input < 4)
 		return TEDS_IN;
@@ -42,7 +42,7 @@ int DescriptionAMB::getInputType(int const input) const
 	return MIKEYBUS_IN;
 }
 
-int DescriptionAMB::getOutputType(int const output) const
+int DescriptionAM1::getOutputType(int const output) const
 {
 	if (output < 2)
 		return AMP_OUT;
@@ -50,7 +50,7 @@ int DescriptionAMB::getOutputType(int const output) const
 	return MIKEYBUS_OUT;
 }
 
-int DescriptionAMB::getModuleForInput(int const input) const
+int DescriptionAM1::getModuleForInput(int const input) const
 {
 	if (input < 4)
 		return 0;
@@ -58,7 +58,7 @@ int DescriptionAMB::getModuleForInput(int const input) const
 	return 1;
 }
 
-int DescriptionAMB::getModuleForOutput(int const output) const
+int DescriptionAM1::getModuleForOutput(int const output) const
 {
 	if (output < 2)
 		return 0;

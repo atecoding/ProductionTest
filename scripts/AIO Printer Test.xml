@@ -2,11 +2,11 @@
 <root>
   
   <!-- **************************************************** -->
-	<!-- Echo Acoustic AIO                                    -->
+	<!-- Echo AIO                                    -->
 	<!-- **************************************************** -->
 	<device>
     Acoustic AIO
-    <ASIO_driver>ASIO Echo Acoustic AIO</ASIO_driver>
+    <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO</CoreAudio_driver>
 
     <Print_error_codes/>

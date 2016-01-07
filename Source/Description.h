@@ -81,5 +81,6 @@ protected:
 };
 
 #include "DescriptionAIO.h"
-#include "DescriptionAMB.h"
+#include "DescriptionAM1.h"
+#include "DescriptionAM2.h"
 

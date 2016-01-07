@@ -150,7 +150,8 @@ void ehwlist::serviceTerminated(void *context,io_iterator_t iterator)
 ehw *ehwlist::BuildDeviceList(char *pnpid)
 {
     types.add(new Type(this, hwcaps::ACOUSTICIO_PRODUCT_ID));
-    types.add(new Type(this, hwcaps::ACOUSTICIO_MB_PRODUCT_ID));
+    types.add(new Type(this, hwcaps::ACOUSTICIO_M1_PRODUCT_ID));
+    types.add(new Type(this, hwcaps::ACOUSTICIO_M2_PRODUCT_ID));
     
     return nullptr;
 }

@@ -1,9 +1,9 @@
 #pragma once
 
-class DescriptionAMB : public Description
+class DescriptionAM2 : public Description
 {
 public:
-	DescriptionAMB(uint8 moduleTypes_);
+	DescriptionAM2(uint8 moduleTypes_);
 
 	virtual int getNumInputs() const;
 	virtual int getNumOutputs() const;

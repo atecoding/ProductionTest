@@ -19,9 +19,14 @@ deviceInterface(deviceInterface_)
             description = new DescriptionAIO(moduleTypes);
             break;
             
-        case hwcaps::ACOUSTICIO_MB_PRODUCT_ID:
+        case hwcaps::ACOUSTICIO_M1_PRODUCT_ID:
             moduleTypes = (ACOUSTICIO_MIKEYBUS_MODULE << 4) | ACOUSTICIO_ANALOG_MODULE;
-            description = new DescriptionAMB(moduleTypes);
+            description = new DescriptionAM1(moduleTypes);
+            break;
+            
+        case hwcaps::ACOUSTICIO_M2_PRODUCT_ID:
+            moduleTypes = (ACOUSTICIO_MIKEYBUS_MODULE << 4) | ACOUSTICIO_MIKEYBUS_MODULE;
+            description = new DescriptionAM2(moduleTypes);
             break;
             
         default:
@@ -526,6 +531,7 @@ Result ehw::readMikey(uint8 module, uint32 page, uint32 address, uint8 &value)
     IOReturn rc = getRequest(unit, page, address, &value, sizeof(value));
     if (kIOReturnSuccess == rc)
     {
+        DBG(String::formatted("readMikey module:%d  page:%04x  address:%04x  data:%02x",module,page,address,value));
         return Result::ok();
     }
 
@@ -539,6 +545,7 @@ Result ehw::writeMikey(uint8 module, uint32 page, uint32 address, uint8 data)
     IOReturn rc = setRequest(unit, page, address, &data, sizeof(data));
     if (kIOReturnSuccess == rc)
     {
+        DBG(String::formatted("writeMikey module:%d  page:%04x  address:%04x  data:%02x",module,page,address,data));
         return Result::ok();
     }
     return Result::fail("Failed to write MikeyBus register");

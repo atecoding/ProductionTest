@@ -18,7 +18,7 @@ void WriteWaveFile(ProductionUnit* unit, String filename, int rate, AudioSampleB
 	f.deleteFile();
 
 	stream = f.createOutputStream();
-	writer = waf.createWriterFor(stream,rate,1,32,meta,0);
+	writer = waf.createWriterFor(stream,rate,asb->getNumChannels(),32,meta,0);
 	if (writer)
 	{
 		writer->writeFromAudioSampleBuffer(*asb, 0, samples);

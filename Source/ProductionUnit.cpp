@@ -87,7 +87,7 @@ bool RunPowerSupplyResetTest(XmlElement const *element,
                                 Content *content,
                                 ErrorCodes &errorCodes,
                                 ValueTree &unitTree);
-bool MikeyBusRead(XmlElement const *element,
+bool MikeyBusRegisters(XmlElement const *element,
                   ehw *dev,
                   String &msg,
                   String &displayedChannel,
@@ -95,14 +95,7 @@ bool MikeyBusRead(XmlElement const *element,
                   Content *content,
                   ErrorCodes &errorCodes,
                   ValueTree &unitTree);
-bool MikeyBusWrite(XmlElement const *element,
-                  ehw *dev,
-                  String &msg,
-                  String &displayedChannel,
-                  AIOTestAdapter &testAdapter,
-                  Content *content,
-                  ErrorCodes &errorCodes,
-                   ValueTree &unitTree);
+
 #endif
 
 //extern String ProductionTestsXmlFileName;
@@ -1673,18 +1666,12 @@ void ProductionUnit::ParseScript()
             continue;
         }
         
-        if (_script->hasTagName("AIO_mikeybus_read"))
+        if (_script->hasTagName("AIO_mikeybus"))
         {
-            runAIOTest(MikeyBusRead, "MikeyBus read");
+            runAIOTest(MikeyBusRegisters, "MikeyBus registers");
             continue;
         }
-        
-        if (_script->hasTagName("AIO_mikeybus_write"))
-        {
-            runAIOTest(MikeyBusWrite, "MikeyBus write");
-            continue;
-        }
-        
+    
         if (_script->hasTagName("Print_error_codes"))
         {
             printErrorCodes(_script);

@@ -57,7 +57,8 @@ public:
 		ECHO4 = 0x40,
 		ANALYZERBR = 0x80,
         ACOUSTICIO_PRODUCT_ID = 0xa0,
-        ACOUSTICIO_MB_PRODUCT_ID = 0xa1
+        ACOUSTICIO_M1_PRODUCT_ID = 0xa1,
+        ACOUSTICIO_M2_PRODUCT_ID = 0xa2
 	};
 	
 	void init(unsigned product_id);
