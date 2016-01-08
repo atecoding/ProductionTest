@@ -156,7 +156,7 @@
 		C97C795A1C3DBF98004BF5BF /* AIO-M1 Final Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C97C79591C3DBF98004BF5BF /* AIO-M1 Final Test.xml */; };
 		C97C795C1C3DC791004BF5BF /* MikeyBusRegisters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C97C795B1C3DC791004BF5BF /* MikeyBusRegisters.cpp */; };
 		C9948BAE1C3DF75900DEECD0 /* AIO-M2 Final Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9948BAD1C3DF75900DEECD0 /* AIO-M2 Final Test.xml */; };
-		C9948BB11C3DF9A000DEECD0 /* DescriptionAM2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9948BB01C3DF9A000DEECD0 /* DescriptionAM2.cpp */; };
+		C9AD8B321C3F336700518F8B /* DescriptionAM2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9AD8B311C3F336700518F8B /* DescriptionAM2.cpp */; };
 		C9BA91F51B63158200BEE902 /* aios.icns in Resources */ = {isa = PBXBuildFile; fileRef = C9BA91F31B63156E00BEE902 /* aios.icns */; };
 		C9BBBF801B322CC600766B48 /* Printer_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BBBF7F1B322CC600766B48 /* Printer_osx.cpp */; };
 		C9BBBF821B322CDF00766B48 /* Printer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BBBF811B322CDF00766B48 /* Printer.cpp */; };
@@ -981,8 +981,8 @@
 		C97C795B1C3DC791004BF5BF /* MikeyBusRegisters.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MikeyBusRegisters.cpp; path = ../../Source/MikeyBusRegisters.cpp; sourceTree = "<group>"; };
 		C9948BAD1C3DF75900DEECD0 /* AIO-M2 Final Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-M2 Final Test.xml"; path = "../../scripts/AIO-M2 Final Test.xml"; sourceTree = "<group>"; };
 		C9948BAF1C3DF99000DEECD0 /* DescriptionAM2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DescriptionAM2.h; path = ../../Source/DescriptionAM2.h; sourceTree = "<group>"; };
-		C9948BB01C3DF9A000DEECD0 /* DescriptionAM2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DescriptionAM2.cpp; sourceTree = "<group>"; };
 		C99B4EC01B62E6F000B28545 /* AIO-S Resistance Check.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Resistance Check.xml"; path = "../../scripts/AIO-S Resistance Check.xml"; sourceTree = "<group>"; };
+		C9AD8B311C3F336700518F8B /* DescriptionAM2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DescriptionAM2.cpp; path = ../../Source/DescriptionAM2.cpp; sourceTree = "<group>"; };
 		C9AE36321B312B8F00911FE2 /* AIO-S Full Test (small inductor).xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Full Test (small inductor).xml"; path = "../../scripts/AIO-S Full Test (small inductor).xml"; sourceTree = "<group>"; };
 		C9AE36331B312B8F00911FE2 /* AIO-S Module 1 (small inductor).xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Module 1 (small inductor).xml"; path = "../../scripts/AIO-S Module 1 (small inductor).xml"; sourceTree = "<group>"; };
 		C9AE92851B3E0E4700A1D0A3 /* CoreAudio.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CoreAudio.cpp; path = ../../Source/osx/CoreAudio.cpp; sourceTree = "<group>"; };
@@ -1567,6 +1567,7 @@
 		36EE07E9B35589CE09BF7113 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				C9AD8B311C3F336700518F8B /* DescriptionAM2.cpp */,
 				E27290DC8B5B776949030F7F /* AcousticIO.h */,
 				C90ED0301B09337F000D0950 /* AIOSReferenceVoltageTest.cpp */,
 				C9679FCD1B0D58A1001DDDB7 /* AIOTestAdapter.h */,
@@ -1593,7 +1594,6 @@
 				C94CC6A71B293DE300CEC3BF /* DescriptionAIO.h */,
 				C94CC6A81B293DE300CEC3BF /* DescriptionAM1.cpp */,
 				C94CC6A91B293DE300CEC3BF /* DescriptionAM1.h */,
-				C9948BB01C3DF9A000DEECD0 /* DescriptionAM2.cpp */,
 				C9948BAF1C3DF99000DEECD0 /* DescriptionAM2.h */,
 				8AC445681610839BDFD81496 /* DynRangeTest.cpp */,
 				C95C663B1B0A94CC00DA394D /* ErrorCodes.cpp */,
@@ -3018,7 +3018,7 @@
 				49B01C4FB969B1DFCBC6DC74 /* ehw_osx.cpp in Sources */,
 				C930C6D11B40BF10000296E8 /* ProductionUnit.cpp in Sources */,
 				FC173C46665CB00C03A910ED /* ehwlist_osx.cpp in Sources */,
-				C9948BB11C3DF9A000DEECD0 /* DescriptionAM2.cpp in Sources */,
+				C9AD8B321C3F336700518F8B /* DescriptionAM2.cpp in Sources */,
 				24081D1FE12683761CF9E2B3 /* hwcaps.cpp in Sources */,
 				1CC29A9C4CC271D5665D6D32 /* osx.cpp in Sources */,
 				F4F1F0EC2B165D83AB331FFE /* AIODevice_win.cpp in Sources */,

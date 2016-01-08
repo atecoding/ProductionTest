@@ -539,13 +539,13 @@ Result ehw::readMikey(uint8 module, uint8 page, uint8 address, uint8 &value)
     return Result::fail("Failed to read MikeyBus register");
 }
 
-Result ehw::writeMikey(uint8 module, uint32 page, uint32 address, uint8 value)
+Result ehw::writeMikey(uint8 module, uint8 page, uint8 address, uint8 value)
 {
     uint8 unit = getUnitForModule(module);
     IOReturn rc = setRequest(unit, page, address, &value, sizeof(value));
     if (kIOReturnSuccess == rc)
     {
-        DBG(String::formatted("writeMikey module:%d  page:%04x  address:%04x  data:%02x",module,page,address,data));
+        DBG(String::formatted("writeMikey module:%d  page:%04x  address:%04x  data:%02x",module,page,address,value));
         return Result::ok();
     }
     return Result::fail("Failed to write MikeyBus register");
