@@ -68,6 +68,8 @@ bool MikeyBusRegisters(XmlElement const *element,
             
             continue;
         }
+        
+        //Thread::sleep(1);
     }
 
     msg = "MikeyBus " + moduleName + " register test - PASS";

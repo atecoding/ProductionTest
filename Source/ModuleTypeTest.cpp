@@ -12,7 +12,7 @@ const char *moduleTypeNames[] =
     "No module detected",
     "TEDS + Class-D AMP module",
     "AIO-S module",
-    "MB module"
+    "AMB module"
 };
 
 const char *slotNames[] =

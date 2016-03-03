@@ -29,7 +29,7 @@
       <slot>1</slot>
       <!-- slot 1 == outer slot -->
       <type>3</type>
-      <!-- type 3 == MB module -->
+      <!-- type 3 == AMB module -->
     </AIO_module_type_test>
  
     <message_box>Connect the Test Adapter to Inputs 1-4</message_box>

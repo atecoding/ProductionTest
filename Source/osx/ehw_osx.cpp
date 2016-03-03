@@ -531,7 +531,7 @@ Result ehw::readMikey(uint8 module, uint8 page, uint8 address, uint8 &value)
     IOReturn rc = getRequest(unit, page, address, &value, sizeof(value));
     if (kIOReturnSuccess == rc)
     {
-        DBG(String::formatted("readMikey module:%d  page:%04x  address:%04x  data:%02x",module,page,address,value));
+        //DBG(String::formatted("readMikey module:%d  page:%04x  address:%04x  data:%02x",module,page,address,value));
         return Result::ok();
     }
 
@@ -545,7 +545,7 @@ Result ehw::writeMikey(uint8 module, uint8 page, uint8 address, uint8 value)
     IOReturn rc = setRequest(unit, page, address, &value, sizeof(value));
     if (kIOReturnSuccess == rc)
     {
-        DBG(String::formatted("writeMikey module:%d  page:%04x  address:%04x  data:%02x",module,page,address,value));
+        //DBG(String::formatted("writeMikey module:%d  page:%04x  address:%04x  data:%02x",module,page,address,value));
         return Result::ok();
     }
     return Result::fail("Failed to write MikeyBus register");

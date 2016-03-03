@@ -17,23 +17,23 @@
 	<log>LED Test</log>
     </message_box>
 
-    <AIO_firmware_version_test max_version="0x2000" />
+    <AIO_firmware_version_test max_version="0x2001" />
 
     <AIO_module_type_test>
       <slot>0</slot>
       <!-- slot 0 == center slot -->
       <type>3</type>
-      <!-- type 1 == MB module -->
+      <!-- type 1 == AMB module -->
     </AIO_module_type_test>
 
     <AIO_module_type_test>
       <slot>1</slot>
       <!-- slot 1 == outer slot -->
       <type>3</type>
-      <!-- type 3 == MB module -->
+      <!-- type 3 == AMB module -->
     </AIO_module_type_test>
     
-    <AIO_mikeybus module="0">
+    <AIO_mikeybus module="1">
         <read page="0x01" address="0x24" value="0xcc"/>
         
         <write page="0x00" address="0x01" value="0x01"/>
@@ -82,7 +82,7 @@
         <write page="0x00" address="0x12" value="0x0c"/>
     </AIO_mikeybus>
 
-    <AIO_mikeybus module="1">
+    <AIO_mikeybus module="0">
         <read page="0x01" address="0x24" value="0xcc"/>
         
         <write page="0x00" address="0x01" value="0x01"/>
