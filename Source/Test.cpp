@@ -108,6 +108,9 @@ Test *Test::Create(XmlElement *xe, int input, int output, bool &ok, ProductionUn
         
         if (typeString == "AIOS Reference voltage check")
             test = new AIOSReferenceVoltageTest(xe, ok, unit_);
+        
+        if (typeString == "Silence")
+            test = new SilenceTest(xe, ok, unit_);
 	}
 
 	if (test)

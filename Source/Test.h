@@ -131,6 +131,7 @@ public:
 
 	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg, ErrorCodes &errorCodes);
 
+    float peakRejectThresholdDb;
 };
 
 class RelativeLevelTest : public Test
@@ -171,6 +172,15 @@ public:
 	PhaseTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
 	~PhaseTest();
 
+    bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorCodes &errorCodes);
+};
+
+class SilenceTest : public Test
+{
+public:
+    SilenceTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
+    ~SilenceTest();
+    
     bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorCodes &errorCodes);
 };
 

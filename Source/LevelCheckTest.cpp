@@ -6,12 +6,14 @@
 #include "ProductionUnit.h"
 
 LevelCheckTest::LevelCheckTest(XmlElement *xe,bool &ok, ProductionUnit *unit_) :
-	Test(xe,ok,unit_)
+	Test(xe,ok,unit_),
+    peakRejectThresholdDb(-80) // Reject any peaks below -80 dB by default
 {
 	ok &= getFloatValue(xe, T("min_level_db"), min_level_db);
 	ok &= getFloatValue(xe, T("max_level_db"), max_level_db);
     getFloatValue(xe, "Glitch_threshold", glitchThreshold);
     getFloatValue(xe, "output_frequency", output_frequency);
+    getFloatValue(xe, "peak_reject_threshold_db", peakRejectThresholdDb);
 }
 
 
@@ -54,9 +56,9 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, Erro
 //            max_delta = jmax(max_delta, delta);
 		}
 
-		max_db = 20.0f * log10(peak);
+        max_db = Decibels::gainToDecibels(peak, -144.0f);
 
-		if (peak < 0.0001)
+		if (max_db < peakRejectThresholdDb)
 		{
 			msg = String::formatted(T("Level check at "));
 			msg += MsgSampleRate();
