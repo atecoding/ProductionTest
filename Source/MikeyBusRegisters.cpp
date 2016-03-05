@@ -126,6 +126,8 @@ bool MikeyBusRegisters(XmlElement const *element,
                 return false;
             }
             
+            Thread::sleep(10);
+            
             continue;
         }
         

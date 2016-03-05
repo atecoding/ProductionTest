@@ -11,7 +11,9 @@ public:
 	Upsampler(double inputSampleRate_, double outputSampleRate_);
 	~Upsampler();
     
-	void upsample(AudioSampleBuffer *inputBuffer);
+    void upsample(AudioSampleBuffer *inputBuffer);
+	Result upsample(AudioBuffer<float> const &inputBuffer, int const inputChannel, AudioBuffer<float> &outputBuffer, int const outputChannel, int &outputSampleCount);
+    
 	void setOutputBufferSize(double seconds);
 
 	HeapBlock<double> outputBuffer;
@@ -19,6 +21,15 @@ public:
     
     static void test();
     
+    double getInputSampleRate() const
+    {
+        return inputSampleRate;
+    }
+    
+    double getOutputSampleRate() const
+    {
+        return outputSampleRate;
+    }
 protected:
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(Upsampler)
 

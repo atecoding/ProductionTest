@@ -130,6 +130,112 @@ void Upsampler::upsample(AudioSampleBuffer *inputBuffer)
     //DBG("   outputSampleCount:" << outputSampleCount);
 }
 
+Result Upsampler::upsample(AudioBuffer<float> const &inputBuffer, int const inputChannel, AudioBuffer<float> &outputBuffer, int const outputChannel, int &outputSampleCount)
+{
+    int outputSamplesNeeded = roundDoubleToInt( (outputSampleRate * inputBuffer.getNumSamples())/ inputSampleRate);
+    
+    if (outputBuffer.getNumSamples() < outputSamplesNeeded)
+        return Result::fail("Output buffer too small");
+    
+    //DBG("upsample inputSampleCount:" << inputSampleCount);
+    
+    if (nullptr == resampler)
+        return Result::fail("No resampler object");
+    
+    //
+    // Clear the resample and pump some initial zeros into it
+    //
+    resampler->clear();
+    
+#if 0
+    int preloadSamples = resampler->getInLenBeforeOutStart(MAX_RESAMPLER_INPUT_SAMPLES);
+    inputBlockBuffer.clear(MAX_RESAMPLER_INPUT_SAMPLES);
+    while (preloadSamples > 0)
+    {
+        int count = jmin((int)MAX_RESAMPLER_INPUT_SAMPLES, preloadSamples);
+        double* outputBlock = nullptr;
+        resampler->process(inputBlockBuffer, count, outputBlock);
+        
+        preloadSamples -= count;
+    }
+#endif
+    
+    //
+    // Flush the output buffer
+    //
+    outputBuffer.clear();
+    
+    //
+    // Do the actual upsample
+    //
+    outputSampleCount = 0;
+    
+    int inputSampleCount = inputBuffer.getNumSamples();
+    const float * source = inputBuffer.getReadPointer(inputChannel);
+    while (inputSampleCount > 0)
+    {
+        //
+        // Convert float to double
+        //
+        int inputConvertCount = jmin(inputSampleCount, (int)MAX_RESAMPLER_INPUT_SAMPLES);
+        for (int i = 0; i < inputConvertCount; ++i)
+        {
+            inputBlockBuffer[i] = *source;
+            source++;
+        }
+        inputSampleCount -= inputConvertCount;
+        
+        //
+        // Run the SRC
+        //
+        double* outputBlock = nullptr;
+        
+        int outputBlockSampleCount = resampler->process(inputBlockBuffer, inputConvertCount, outputBlock);
+        int outputSpaceRemaining = outputBuffer.getNumSamples() - outputSampleCount;
+        int outputCopyCount = jmin( outputSpaceRemaining, outputBlockSampleCount);
+        float *destination = outputBuffer.getWritePointer(outputChannel, outputSampleCount);
+        
+        for (int i = 0; i < outputCopyCount; ++i)
+        {
+            *destination = outputBlock[i];
+            destination++;
+        }
+        
+        outputSampleCount += outputCopyCount;
+    }
+    
+    //
+    // Keep filling the output buffer
+    //
+    inputBlockBuffer.clear(MAX_RESAMPLER_INPUT_SAMPLES);
+    
+    while (outputSampleCount < outputBuffer.getNumSamples())
+    {
+        //
+        // Run the SRC
+        //
+        double* outputBlock = nullptr;
+        
+        int outputBlockSampleCount = resampler->process(inputBlockBuffer, MAX_RESAMPLER_INPUT_SAMPLES, outputBlock);
+        int outputSpaceRemaining = outputBuffer.getNumSamples() - outputSampleCount;
+        int outputCopyCount = jmin( outputSpaceRemaining, outputBlockSampleCount);
+        float *destination = outputBuffer.getWritePointer(outputChannel, outputSampleCount);
+        
+        for (int i = 0; i < outputCopyCount; ++i)
+        {
+            *destination = outputBlock[i];
+            destination++;
+        }
+        
+        outputSampleCount += outputCopyCount;
+    }
+    
+    //DBG("   outputSampleCount:" << outputSampleCount);
+    
+    return Result::ok();
+}
+
+
 void Upsampler::setOutputBufferSize(double seconds)
 {
 	maxOutputSampleCount = roundDoubleToInt(seconds * outputSampleRate);

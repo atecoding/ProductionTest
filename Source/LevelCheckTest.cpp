@@ -74,7 +74,15 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, Erro
 		}
 		else
 		{
-			msg += String::formatted(T("  level %.1f dB"), max_db);
+            if (num_channels <= 2)
+            {
+                msg += String::formatted(T("  level %.1f dB"), max_db);
+            }
+            else
+            {
+                msg += newLine;
+                msg += String::formatted(T("  Channel %d: level %.1f dB"), channel + input + 1, max_db);
+            }
 		}
 
         bool channelOK = (max_db >= min_level_db) && (max_db <= max_level_db);
@@ -93,6 +101,11 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, Erro
 #endif
         }
 	}
+    
+    if (num_channels > 2)
+    {
+        msg += newLine;
+    }
 
 	return pass;
 }

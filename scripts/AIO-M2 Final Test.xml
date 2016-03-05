@@ -175,6 +175,8 @@
         <max_level_db>-2.0</max_level_db>
     </test>
     
+    <Finish_group/>
+    
     <!-- Outer module - TDM loopback test -->
     <prompt>
         TDM Loopback Outer Module
@@ -213,15 +215,19 @@
         <max_level_db>-2.0</max_level_db>
     </test>
     
+    <Finish_group/>
+    
     <!-- *************************************************
      
-     External MikeyBus test
+     External MB test - center module
      
      Configure MB host chip and AIO-M test adapter
      
      ****************************************************** -->
     
     <message_box>Connect the AIO-M Tester to INPUT on the center module.</message_box>
+    
+    <Delay_msec>1000</Delay_msec>
     
     <AIO_mikeybus module="0">
         <write page="0x99" address="0x01" value="0xA5"/>
@@ -395,10 +401,10 @@
         <write page="0x04" address="0x01" value="0x12"/>
     </AIO_mikeybus>
     
-    <!-- Center module - External MikeyBus test -->
+    <!-- Center module - External MB test -->
     <prompt>
-        TDM Loopback Center Module
-        <text>Level check for TDM loopback</text>
+        MB External Test Center Module
+        <text>Level check for exernal MB</text>
         <output_amplitude_db>-20.0</output_amplitude_db>
         <input>0</input>
         <output>0</output>
@@ -411,39 +417,31 @@
     </prompt>
     
     <test>
-        <type>THD+N</type>
+        <type>Frequency isolation</type>
         <input>0</input>
         <output>0</output>
         <num_channels>2</num_channels>
         <sample_rate>48000</sample_rate>
-        <output_frequency>997.0</output_frequency>
-        <output_amplitude_db>-3.0</output_amplitude_db>
-        <pass_threshold_db>-40.0</pass_threshold_db>
+        <output_frequency>984.375</output_frequency>
+        <output_amplitude_db>-6.0</output_amplitude_db>
+        <min_level_db>-12.0</min_level_db>
+        <max_level_db>-8.0</max_level_db>
     </test>
     
-    <test> <!-- Should only have input on the first 2 channels for this module -->
-        <type>Level check</type>
-        <input>0</input>
-        <output>0</output>
-        <num_channels>2</num_channels>
-        <sample_rate>48000</sample_rate>
-        <output_frequency>997.0</output_frequency>
-        <output_amplitude_db>-3.0</output_amplitude_db>
-        <min_level_db>-9.0</min_level_db>
-        <max_level_db>-6.0</max_level_db>
-    </test>
+    <Finish_group/>
     
-    <test> <!-- Should only have no input on the last 8 channels for this module -->
-        <type>Silence</type>
-        <input>0</input>
-        <output>0</output>
-        <num_channels>10</num_channels>
-        <sample_rate>48000</sample_rate>
-        <output_frequency>997.0</output_frequency>
-        <output_amplitude_db>-3.0</output_amplitude_db>
-    </test>
+    <!-- *************************************************
+     
+     External MB test - outer module
+     
+     Configure MB host chip and AIO-M test adapter
+     
+     ****************************************************** -->
     
     <message_box>Connect the AIO-M Tester to INPUT on the outer module.</message_box>
+    
+    <Delay_msec>1000</Delay_msec>
+    
     <AIO_mikeybus module="1">
         <write page="0x99" address="0x01" value="0xA5"/>
         <write page="0x99" address="0x01" value="0x00"/>
@@ -616,13 +614,13 @@
         <write page="0x04" address="0x01" value="0x12"/>
     </AIO_mikeybus>
     
-    <!-- Outer module - External MikeyBus test -->
+    <!-- Center module - External MB test -->
     <prompt>
-        TDM Loopback Outer Module
-        <text>Level check for TDM loopback</text>
+        MB External Test Outer Module
+        <text>Level check for exernal MB</text>
         <output_amplitude_db>-20.0</output_amplitude_db>
-        <input>0</input>
-        <output>0</output>
+        <input>10</input>
+        <output>10</output>
         <num_channels>2</num_channels>
         <sample_rate>48000</sample_rate>
         <min_input_db>-22.0</min_input_db>
@@ -632,38 +630,19 @@
     </prompt>
     
     <test>
-        <type>THD+N</type>
-        <input>0</input>
-        <output>0</output>
+        <type>Frequency isolation</type>
+        <input>10</input>
+        <output>10</output>
         <num_channels>2</num_channels>
         <sample_rate>48000</sample_rate>
-        <output_frequency>997.0</output_frequency>
-        <output_amplitude_db>-3.0</output_amplitude_db>
-        <pass_threshold_db>-40.0</pass_threshold_db>
+        <output_frequency>984.375</output_frequency>
+        <output_amplitude_db>-6.0</output_amplitude_db>
+        <min_level_db>-12.0</min_level_db>
+        <max_level_db>-8.0</max_level_db>
     </test>
-    
-    <test> <!-- Should only have input on the first 2 channels for this module -->
-        <type>Level check</type>
-        <input>0</input>
-        <output>0</output>
-        <num_channels>2</num_channels>
-        <sample_rate>48000</sample_rate>
-        <output_frequency>997.0</output_frequency>
-        <output_amplitude_db>-3.0</output_amplitude_db>
-        <min_level_db>-9.0</min_level_db>
-        <max_level_db>-6.0</max_level_db>
-    </test>
-    
-    <test> <!-- Should only have no input on the last 8 channels for this module -->
-        <type>Silence</type>
-        <input>0</input>
-        <output>0</output>
-        <num_channels>10</num_channels>
-        <sample_rate>48000</sample_rate>
-        <output_frequency>997.0</output_frequency>
-        <output_amplitude_db>-3.0</output_amplitude_db>
-    </test>
-    
+
+    <Finish_group/>
+
   </device>
 
 </root>

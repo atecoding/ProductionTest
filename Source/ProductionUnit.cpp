@@ -1668,7 +1668,7 @@ void ProductionUnit::ParseScript()
         
         if (_script->hasTagName("AIO_mikeybus"))
         {
-            runAIOTest(MikeyBusRegisters, "MikeyBus registers");
+            runAIOTest(MikeyBusRegisters, "MB registers");
             continue;
         }
     
@@ -1691,6 +1691,20 @@ void ProductionUnit::ParseScript()
             Result runDelayTask(XmlElement *element, bool& running_);
             
             Result result(runDelayTask(_script, _running));
+            
+            _script = _script->getNextElement();
+            continue;
+        }
+        
+        //-----------------------------------------------------------------------------
+        //
+        // Finish this group of tests and display the pass/fail on the left?
+        //
+        //-----------------------------------------------------------------------------
+        
+        if (_script->hasTagName("Finish_group"))
+        {
+            FinishGroup();
             
             _script = _script->getNextElement();
             continue;

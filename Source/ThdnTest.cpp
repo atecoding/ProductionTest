@@ -29,7 +29,16 @@ bool ThdnTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorCodes
 	for (channel = 0; channel < num_channels; channel++)
 	{
 		result = computeTHDN(buffs[input + channel]->getReadPointer(0),sample_rate);
-		msg += String::formatted(T("  %.1f dB"),result);
+        
+        if (num_channels <= 2)
+        {
+            msg += String::formatted("  %.1f dB",result);
+        }
+        else
+        {
+            msg += newLine;
+            msg += String::formatted("  Channel %d: %.1f dB", channel + input + 1, result);
+        }
 
 	#if WRITE_WAVE_FILES
 		if (result > pass_threshold_db)	// only write wave file on failure
@@ -45,6 +54,11 @@ bool ThdnTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorCodes
 
 		pass &= result <= pass_threshold_db;
 	}
+    
+    if (num_channels > 2)
+    {
+        msg += newLine;
+    }
 
 	return pass;
 }

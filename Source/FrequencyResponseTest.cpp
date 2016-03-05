@@ -8,8 +8,8 @@
 FrequencyResponseTest::FrequencyResponseTest(XmlElement *xe,bool &ok, ProductionUnit *unit_) :
 	Test(xe,ok,unit_)
 {
-	ok &= getFloatValue(xe, T("pass_threshold_db"), pass_threshold_db);
-	ok &= getFloatValue(xe, T("output_frequency"), output_frequency);
+	ok &= getFloatValue(xe, "pass_threshold_db", pass_threshold_db);
+	ok &= getFloatValue(xe, "output_frequency", output_frequency);
     getFloatValue(xe, "Glitch_threshold", glitchThreshold);
 }
 
@@ -27,7 +27,7 @@ bool FrequencyResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &ms
 	float peak, max_db, max_delta, max_delta_level, max_level_linear;//,rms;//,rms_db;
 	bool pass = true;
 
-	msg = String::formatted(T("%.0f Hz freq. response at "),output_frequency);
+	msg = String::formatted("%.0f Hz freq. response at ",output_frequency);
 	msg += MsgSampleRate();
 	msg += ": ";
 

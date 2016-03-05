@@ -6,6 +6,7 @@ class ProductionUnit;
 #include "ErrorCodes.h"
 #include "FrequencySweepAudioSource.h"
 #include "Upsampler.h"
+#include "SpectrumAnalyzer.h"
 
 class Test
 {
@@ -182,6 +183,23 @@ public:
     ~SilenceTest();
     
     bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorCodes &errorCodes);
+};
+
+class FrequencyIsolationTest : public Test
+{
+public:
+    FrequencyIsolationTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
+    ~FrequencyIsolationTest();
+    
+    bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorCodes &errorCodes);
+    
+    virtual int getSamplesRequired()
+    {
+        return sample_rate;
+    }
+    
+protected:
+    SpectrumAnalyzer analyzer;
 };
 
 class AIOSReferenceVoltageTest : public Test

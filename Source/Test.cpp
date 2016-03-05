@@ -111,6 +111,9 @@ Test *Test::Create(XmlElement *xe, int input, int output, bool &ok, ProductionUn
         
         if (typeString == "Silence")
             test = new SilenceTest(xe, ok, unit_);
+        
+        if (typeString == "Frequency isolation")
+            test = new FrequencyIsolationTest(xe, ok, unit_);
 	}
 
 	if (test)
