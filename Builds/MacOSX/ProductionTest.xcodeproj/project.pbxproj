@@ -50,6 +50,7 @@
 		B7D6C59A744D56E2B14115BF /* Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9B94D8A26A077F11C86494B /* Test.cpp */; };
 		C56E0875FF2EF880984F9194 /* TestPrompt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D218ABCF456C886AB5867EB0 /* TestPrompt.cpp */; };
 		C631329AE2D0578BC6027732 /* ConstantCurrentTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5DF22E869AFB1C87D3E5AED2 /* ConstantCurrentTest.cpp */; };
+		C90CC3711C8A43CF001DA8C9 /* SilenceTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C90CC3701C8A43CF001DA8C9 /* SilenceTest.cpp */; };
 		C90CC3741C8A44FF001DA8C9 /* WindowedFFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C90CC3721C8A44FE001DA8C9 /* WindowedFFT.cpp */; };
 		C90CC3751C8A463D001DA8C9 /* Spectrum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D4D771C8A1FAE0001DACC /* Spectrum.cpp */; };
 		C90CC3761C8A463D001DA8C9 /* SpectrumAnalyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D4D791C8A1FAE0001DACC /* SpectrumAnalyzer.cpp */; };
@@ -65,6 +66,16 @@
 		C91579AD1C88DE6C00822D0E /* FrequencyIsolationTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C91579AB1C88DE6C00822D0E /* FrequencyIsolationTest.cpp */; };
 		C91579AE1C88DE6C00822D0E /* FrequencyIsolationTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C91579AB1C88DE6C00822D0E /* FrequencyIsolationTest.cpp */; };
 		C91579AF1C88DE6C00822D0E /* FrequencyIsolationTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C91579AB1C88DE6C00822D0E /* FrequencyIsolationTest.cpp */; };
+		C91969271C8A6F0300C06E9A /* mb_bulk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9538B181C88C4C2005D344B /* mb_bulk.cpp */; };
+		C91969281C8A6F0E00C06E9A /* SilenceTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C90CC3701C8A43CF001DA8C9 /* SilenceTest.cpp */; };
+		C91969291C8A6F0E00C06E9A /* SilenceTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C90CC3701C8A43CF001DA8C9 /* SilenceTest.cpp */; };
+		C919692A1C8A6F0F00C06E9A /* SilenceTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C90CC3701C8A43CF001DA8C9 /* SilenceTest.cpp */; };
+		C919692B1C8A6F2500C06E9A /* mb_bulk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9538B181C88C4C2005D344B /* mb_bulk.cpp */; };
+		C919692C1C8A6F2500C06E9A /* MikeyBusRegisters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C97C795B1C3DC791004BF5BF /* MikeyBusRegisters.cpp */; };
+		C919692D1C8A6F2600C06E9A /* mb_bulk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9538B181C88C4C2005D344B /* mb_bulk.cpp */; };
+		C919692E1C8A6F2600C06E9A /* MikeyBusRegisters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C97C795B1C3DC791004BF5BF /* MikeyBusRegisters.cpp */; };
+		C919692F1C8A6F2700C06E9A /* mb_bulk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9538B181C88C4C2005D344B /* mb_bulk.cpp */; };
+		C91969301C8A6F2700C06E9A /* MikeyBusRegisters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C97C795B1C3DC791004BF5BF /* MikeyBusRegisters.cpp */; };
 		C920FEF01B62F68E009CC653 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7DDFE4DA407C0FE8084B8C5D /* RecentFilesMenuTemplate.nib */; };
 		C920FEFB1B62F68E009CC653 /* FrequencySweepResponseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F48E9D1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp */; };
 		C920FEFC1B62F68E009CC653 /* AIODevice_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BF116500005F0508D31630E /* AIODevice_osx.cpp */; };
@@ -162,13 +173,11 @@
 		C94CC6AE1B29415B00CEC3BF /* CalibrationAudioIOCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6AD1B29415B00CEC3BF /* CalibrationAudioIOCallback.cpp */; };
 		C94D94D21B6C2D0700DF03E9 /* ModuleTypeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94D94D11B6C2D0700DF03E9 /* ModuleTypeTest.cpp */; };
 		C94D94D31B6C2D0700DF03E9 /* ModuleTypeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94D94D11B6C2D0700DF03E9 /* ModuleTypeTest.cpp */; };
-		C9538B1B1C88CB9E005D344B /* mb_bulk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9538B181C88C4C2005D344B /* mb_bulk.cpp */; };
 		C95C66381B0A85E800DA394D /* USBFirmwareVersionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C66371B0A85E800DA394D /* USBFirmwareVersionTest.cpp */; };
 		C95C663D1B0A94CC00DA394D /* ErrorCodes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C663B1B0A94CC00DA394D /* ErrorCodes.cpp */; };
 		C95C663F1B0AA26E00DA394D /* FlashMemoryTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C663E1B0AA26E00DA394D /* FlashMemoryTest.cpp */; };
 		C96D4D7B1C8A1FAE0001DACC /* Spectrum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D4D771C8A1FAE0001DACC /* Spectrum.cpp */; };
 		C96D4D7C1C8A1FAE0001DACC /* SpectrumAnalyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D4D791C8A1FAE0001DACC /* SpectrumAnalyzer.cpp */; };
-		C97C795C1C3DC791004BF5BF /* MikeyBusRegisters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C97C795B1C3DC791004BF5BF /* MikeyBusRegisters.cpp */; };
 		C97C87921C431D950059995D /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7DDFE4DA407C0FE8084B8C5D /* RecentFilesMenuTemplate.nib */; };
 		C97C87961C431D950059995D /* FrequencySweepResponseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F48E9D1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp */; };
 		C97C87971C431D950059995D /* AIODevice_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BF116500005F0508D31630E /* AIODevice_osx.cpp */; };
@@ -1691,92 +1700,92 @@
 		36EE07E9B35589CE09BF7113 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				E27290DC8B5B776949030F7F /* AcousticIO.h */,
 				C90ED0301B09337F000D0950 /* AIOSReferenceVoltageTest.cpp */,
+				C9679FCD1B0D58A1001DDDB7 /* AIOTestAdapter.h */,
 				2B0110162BDE8AC0AAC824EF /* Analysis.cpp */,
+				86B7076CFA310F35A73A56A2 /* Analysis.h */,
 				818009283030A757CA4EDD82 /* App.cpp */,
+				72ED304FFE481AC3D9CE8CDD /* App.h */,
 				83F9F8AAD4DF4B12467CC60B /* AppWindow.cpp */,
+				895B581243357D64963C725B /* AppWindow.h */,
+				CC3ABAD05E41382FB8DF947B /* asio.h */,
+				563BEB04B8366285076CF29A /* asiosys.h */,
 				ED5F20575F9BCA07E5949DDD /* AudioOutput.cpp */,
+				E441075086F64FDEC37BA460 /* AudioOutput.h */,
+				9329E694F7DB706A82C7B948 /* base.h */,
+				C94CC6941B293C6B00CEC3BF /* calibration */,
 				C93528841B66F86C00723FA7 /* CalibrationVerificationTest.cpp */,
 				5DF22E869AFB1C87D3E5AED2 /* ConstantCurrentTest.cpp */,
 				CA8D1ABF1507CEBD321ABD1D /* Content.cpp */,
+				4EC1FEBE7F71D4A47DED1905 /* Content.h */,
 				F442BFDA33FE19F5E05246E3 /* DelayTask.cpp */,
 				C94CC6A41B293DE300CEC3BF /* Description.cpp */,
+				C94CC6A51B293DE300CEC3BF /* Description.h */,
 				C94CC6A61B293DE300CEC3BF /* DescriptionAIO.cpp */,
+				C94CC6A71B293DE300CEC3BF /* DescriptionAIO.h */,
 				C94CC6A81B293DE300CEC3BF /* DescriptionAM1.cpp */,
+				C94CC6A91B293DE300CEC3BF /* DescriptionAM1.h */,
 				C9AD8B311C3F336700518F8B /* DescriptionAM2.cpp */,
+				C9948BAF1C3DF99000DEECD0 /* DescriptionAM2.h */,
 				8AC445681610839BDFD81496 /* DynRangeTest.cpp */,
 				C95C663B1B0A94CC00DA394D /* ErrorCodes.cpp */,
+				C95C663C1B0A94CC00DA394D /* ErrorCodes.h */,
 				35C9A04904D8DEC1FD542AA1 /* FilterCoeff.cpp */,
+				D4C10367F74DCC5719695E1C /* FilterCoeff.h */,
 				C95C663E1B0AA26E00DA394D /* FlashMemoryTest.cpp */,
 				C91579AB1C88DE6C00822D0E /* FrequencyIsolationTest.cpp */,
 				4638F066B539886F6C07C35F /* FrequencyResponseTest.cpp */,
 				C92197B51B18FAB700D4AD6B /* FrequencySweepAudioSource.cpp */,
+				C92197B61B18FAB700D4AD6B /* FrequencySweepAudioSource.h */,
 				C9F48E9D1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp */,
+				973EDC157DA4DBA0518D16B6 /* iasiodrv.h */,
 				EF06525877011F9E0F3BF63E /* Images.cpp */,
+				B5EE1507D4FD62B032C80007 /* Images.h */,
 				DD6ADE3B2A3EACD856348D6D /* LevelCheckTest.cpp */,
 				C9538B181C88C4C2005D344B /* mb_bulk.cpp */,
+				C9538B191C88C4C2005D344B /* mb_bulk.h */,
 				EED30B6667A5C9A7320CDD46 /* MeterWindow.cpp */,
+				96173F5215E216B6F996EBE3 /* MeterWindow.h */,
 				873A2AA908695E9CBC5508FC /* MIDILoopTest.cpp */,
+				D2F42CAE0003D3B3BF95A718 /* MIDILoopTest.h */,
 				C4A2073CA9745A2D42194614 /* MidiTest.cpp */,
 				C97C795B1C3DC791004BF5BF /* MikeyBusRegisters.cpp */,
 				C94D94D11B6C2D0700DF03E9 /* ModuleTypeTest.cpp */,
+				F9D4468B9A7AE0EB04C7F28D /* OldMessage.h */,
+				84A59D38186369A5A2401E4B /* osx */,
 				CB73351F390727926CFA6980 /* PhaseTest.cpp */,
 				C9495EEF1B62DD05008474CE /* PowerSupplyResetTest.cpp */,
+				C9BBBF7B1B322BD200766B48 /* printer */,
 				51932B8BE722EA8393CBEB8C /* ProductionUnit.cpp */,
+				BA44F5DAC27A9BDED2E15E88 /* ProductionUnit.h */,
+				C9BC4A461B1E505C009736B7 /* r8brain */,
 				20453085BE26C5F0A8DF9175 /* RelativeLevelTest.cpp */,
 				629F8919423F871C8337CBCC /* SawtoothAudioSource.cpp */,
+				FFD7A9576AE4F303272E58C0 /* SawtoothAudioSource.h */,
 				C90CC3701C8A43CF001DA8C9 /* SilenceTest.cpp */,
 				C96D4D771C8A1FAE0001DACC /* Spectrum.cpp */,
+				C96D4D781C8A1FAE0001DACC /* Spectrum.h */,
 				C96D4D791C8A1FAE0001DACC /* SpectrumAnalyzer.cpp */,
+				C96D4D7A1C8A1FAE0001DACC /* SpectrumAnalyzer.h */,
 				2E761E1D0BFE22C3B9D07F25 /* TEDSTest.cpp */,
 				D9B94D8A26A077F11C86494B /* Test.cpp */,
+				9A5EBEAE26483857426AEB87 /* Test.h */,
 				F405D5E5D6C0E97F71211C83 /* TestManager.cpp */,
+				A280248C8ECA8BDF4BACDF34 /* TestManager.h */,
 				D218ABCF456C886AB5867EB0 /* TestPrompt.cpp */,
+				FB1872A4EC7008AEF2F1E237 /* TestPrompt.h */,
 				2C357906C758CAE751E9D992 /* ThdnTest.cpp */,
 				C9BC4A431B1E4E7C009736B7 /* Upsampler.cpp */,
+				C9BC4A441B1E4E7C009736B7 /* Upsampler.h */,
 				C95C66371B0A85E800DA394D /* USBFirmwareVersionTest.cpp */,
 				AAABABBE36DBD2C8C7E97D17 /* wavefile.cpp */,
-				C90CC3721C8A44FE001DA8C9 /* WindowedFFT.cpp */,
-				D953EC808550D9DA4B37A9F8 /* xml.cpp */,
-				E27290DC8B5B776949030F7F /* AcousticIO.h */,
-				C9679FCD1B0D58A1001DDDB7 /* AIOTestAdapter.h */,
-				86B7076CFA310F35A73A56A2 /* Analysis.h */,
-				72ED304FFE481AC3D9CE8CDD /* App.h */,
-				895B581243357D64963C725B /* AppWindow.h */,
-				CC3ABAD05E41382FB8DF947B /* asio.h */,
-				563BEB04B8366285076CF29A /* asiosys.h */,
-				E441075086F64FDEC37BA460 /* AudioOutput.h */,
-				9329E694F7DB706A82C7B948 /* base.h */,
-				4EC1FEBE7F71D4A47DED1905 /* Content.h */,
-				C94CC6A51B293DE300CEC3BF /* Description.h */,
-				C94CC6A71B293DE300CEC3BF /* DescriptionAIO.h */,
-				C94CC6A91B293DE300CEC3BF /* DescriptionAM1.h */,
-				C9948BAF1C3DF99000DEECD0 /* DescriptionAM2.h */,
-				C95C663C1B0A94CC00DA394D /* ErrorCodes.h */,
-				D4C10367F74DCC5719695E1C /* FilterCoeff.h */,
-				C92197B61B18FAB700D4AD6B /* FrequencySweepAudioSource.h */,
-				973EDC157DA4DBA0518D16B6 /* iasiodrv.h */,
-				B5EE1507D4FD62B032C80007 /* Images.h */,
-				C9538B191C88C4C2005D344B /* mb_bulk.h */,
-				96173F5215E216B6F996EBE3 /* MeterWindow.h */,
-				D2F42CAE0003D3B3BF95A718 /* MIDILoopTest.h */,
-				F9D4468B9A7AE0EB04C7F28D /* OldMessage.h */,
-				BA44F5DAC27A9BDED2E15E88 /* ProductionUnit.h */,
-				FFD7A9576AE4F303272E58C0 /* SawtoothAudioSource.h */,
-				C96D4D781C8A1FAE0001DACC /* Spectrum.h */,
-				C96D4D7A1C8A1FAE0001DACC /* SpectrumAnalyzer.h */,
-				9A5EBEAE26483857426AEB87 /* Test.h */,
-				A280248C8ECA8BDF4BACDF34 /* TestManager.h */,
-				FB1872A4EC7008AEF2F1E237 /* TestPrompt.h */,
-				C9BC4A441B1E4E7C009736B7 /* Upsampler.h */,
 				021E3310204BE0747376AB8E /* wavefile.h */,
-				C90CC3731C8A44FE001DA8C9 /* WindowedFFT.h */,
-				B043F4EE1B876DBAFD7DAE0D /* xml.h */,
-				C94CC6941B293C6B00CEC3BF /* calibration */,
-				84A59D38186369A5A2401E4B /* osx */,
-				C9BBBF7B1B322BD200766B48 /* printer */,
-				C9BC4A461B1E505C009736B7 /* r8brain */,
 				BC7A4B13B072DB1B88BD596B /* win32 */,
+				C90CC3721C8A44FE001DA8C9 /* WindowedFFT.cpp */,
+				C90CC3731C8A44FE001DA8C9 /* WindowedFFT.h */,
+				D953EC808550D9DA4B37A9F8 /* xml.cpp */,
+				B043F4EE1B876DBAFD7DAE0D /* xml.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -3215,6 +3224,7 @@
 				89E194B44FB27B0172EDBD47 /* Images.cpp in Sources */,
 				C94D94D21B6C2D0700DF03E9 /* ModuleTypeTest.cpp in Sources */,
 				244D348923B6345434917D24 /* LevelCheckTest.cpp in Sources */,
+				C919692F1C8A6F2700C06E9A /* mb_bulk.cpp in Sources */,
 				C95C66381B0A85E800DA394D /* USBFirmwareVersionTest.cpp in Sources */,
 				8B2957DE532055E139687AB1 /* MeterWindow.cpp in Sources */,
 				CE54B4FA36345C53CCB60912 /* MIDILoopTest.cpp in Sources */,
@@ -3235,7 +3245,6 @@
 				FC26D5067E3C105E655889CB /* xml.cpp in Sources */,
 				C95C663D1B0A94CC00DA394D /* ErrorCodes.cpp in Sources */,
 				EEBEAF6E4EAC455D4E392244 /* juce_audio_basics.mm in Sources */,
-				C97C795C1C3DC791004BF5BF /* MikeyBusRegisters.cpp in Sources */,
 				C92197B71B18FAB700D4AD6B /* FrequencySweepAudioSource.cpp in Sources */,
 				00D74F3F0EA9EB3AFE475B88 /* juce_audio_devices.mm in Sources */,
 				13CC2FD6F41783BEF4701829 /* juce_audio_formats.mm in Sources */,
@@ -3243,7 +3252,9 @@
 				C91579AC1C88DE6C00822D0E /* FrequencyIsolationTest.cpp in Sources */,
 				3402F306C0167E7CD364209F /* juce_data_structures.mm in Sources */,
 				C94CC6A11B293C9100CEC3BF /* CalibrationDialogComponent.cpp in Sources */,
+				C91969301C8A6F2700C06E9A /* MikeyBusRegisters.cpp in Sources */,
 				CCAFCFE69CB697A6CF6F0058 /* juce_events.mm in Sources */,
+				C91969281C8A6F0E00C06E9A /* SilenceTest.cpp in Sources */,
 				F7D24D5D3060A361C436B312 /* juce_graphics.mm in Sources */,
 				53051920DB479C24751709B0 /* juce_gui_basics.mm in Sources */,
 				161DA06812D46B89A9505900 /* juce_gui_extra.mm in Sources */,
@@ -3294,8 +3305,10 @@
 				C920FF1C1B62F68E009CC653 /* LevelCheckTest.cpp in Sources */,
 				C920FF1D1B62F68E009CC653 /* USBFirmwareVersionTest.cpp in Sources */,
 				C920FF1E1B62F68E009CC653 /* MeterWindow.cpp in Sources */,
+				C919692E1C8A6F2600C06E9A /* MikeyBusRegisters.cpp in Sources */,
 				C920FF1F1B62F68E009CC653 /* MIDILoopTest.cpp in Sources */,
 				C920FF201B62F68E009CC653 /* MidiTest.cpp in Sources */,
+				C91969291C8A6F0E00C06E9A /* SilenceTest.cpp in Sources */,
 				C920FF211B62F68E009CC653 /* PhaseTest.cpp in Sources */,
 				C920FF221B62F68E009CC653 /* RelativeLevelTest.cpp in Sources */,
 				C920FF231B62F68E009CC653 /* SawtoothAudioSource.cpp in Sources */,
@@ -3318,6 +3331,7 @@
 				C90CC37A1C8A463F001DA8C9 /* WindowedFFT.cpp in Sources */,
 				C920FF331B62F68E009CC653 /* juce_core.mm in Sources */,
 				C920FF341B62F68E009CC653 /* juce_data_structures.mm in Sources */,
+				C919692D1C8A6F2600C06E9A /* mb_bulk.cpp in Sources */,
 				C920FF351B62F68E009CC653 /* CalibrationDialogComponent.cpp in Sources */,
 				C920FF361B62F68E009CC653 /* juce_events.mm in Sources */,
 				C920FF371B62F68E009CC653 /* juce_graphics.mm in Sources */,
@@ -3403,8 +3417,8 @@
 				C97C87D31C431D950059995D /* juce_graphics.mm in Sources */,
 				C97C87D41C431D950059995D /* juce_gui_basics.mm in Sources */,
 				C97C87D51C431D950059995D /* juce_gui_extra.mm in Sources */,
+				C91969271C8A6F0300C06E9A /* mb_bulk.cpp in Sources */,
 				C97C87D61C431D950059995D /* FlashMemoryTest.cpp in Sources */,
-				C9538B1B1C88CB9E005D344B /* mb_bulk.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3420,6 +3434,7 @@
 				C90CC3781C8A463E001DA8C9 /* Spectrum.cpp in Sources */,
 				C9ED3C201B684274004A76CE /* ProductionUnit.cpp in Sources */,
 				C9ED3C211B684274004A76CE /* ehwlist_osx.cpp in Sources */,
+				C919692B1C8A6F2500C06E9A /* mb_bulk.cpp in Sources */,
 				C9ED3C221B684274004A76CE /* hwcaps.cpp in Sources */,
 				C9ED3C231B684274004A76CE /* osx.cpp in Sources */,
 				C90CC3771C8A463E001DA8C9 /* WindowedFFT.cpp in Sources */,
@@ -3432,6 +3447,7 @@
 				C9ED3C2A1B684274004A76CE /* AIOSReferenceVoltageTest.cpp in Sources */,
 				C9ED3C2B1B684274004A76CE /* App.cpp in Sources */,
 				C9ED3C2C1B684274004A76CE /* Upsampler.cpp in Sources */,
+				C919692A1C8A6F0F00C06E9A /* SilenceTest.cpp in Sources */,
 				C9ED3C2D1B684274004A76CE /* AppWindow.cpp in Sources */,
 				C9ED3C2E1B684274004A76CE /* AudioOutput.cpp in Sources */,
 				C9ED3C2F1B684274004A76CE /* DescriptionAIO.cpp in Sources */,
@@ -3472,6 +3488,7 @@
 				C9ED3C4F1B684274004A76CE /* ErrorCodes.cpp in Sources */,
 				C9ED3C501B684274004A76CE /* juce_audio_basics.mm in Sources */,
 				C9ED3C511B684274004A76CE /* FrequencySweepAudioSource.cpp in Sources */,
+				C919692C1C8A6F2500C06E9A /* MikeyBusRegisters.cpp in Sources */,
 				C9ED3C521B684274004A76CE /* juce_audio_devices.mm in Sources */,
 				C9ED3C531B684274004A76CE /* juce_audio_formats.mm in Sources */,
 				C9ED3C541B684274004A76CE /* juce_core.mm in Sources */,

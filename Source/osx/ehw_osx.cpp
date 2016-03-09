@@ -536,7 +536,7 @@ Result ehw::readMikey(uint8 module, uint8 page, uint8 address, uint8 &value)
     }
 
     value = 0;
-    return Result::fail("Failed to read MikeyBus register");
+    return Result::fail("Failed to read MB register");
 }
 
 Result ehw::writeMikey(uint8 module, uint8 page, uint8 address, uint8 value)
@@ -548,6 +548,6 @@ Result ehw::writeMikey(uint8 module, uint8 page, uint8 address, uint8 value)
         //DBG(String::formatted("writeMikey module:%d  page:%04x  address:%04x  data:%02x",module,page,address,value));
         return Result::ok();
     }
-    return Result::fail("Failed to write MikeyBus register");
+    return Result::fail("Failed to write MB register");
 }
 

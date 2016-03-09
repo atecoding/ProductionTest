@@ -38,8 +38,8 @@ bool FrequencyIsolationTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &m
                                       0, numSpectrumSamples);
         
         analyzer.calculate(tempBuffer, 0, sample_rate);
-        Spectrum const *spectrum( analyzer.getSpectrum());
-        analyzer.dump();
+        Spectrum const *spectrum( analyzer.getAverageSpectrum());
+        //analyzer.dump();
         int bin = spectrum->getBinForFrequency(output_frequency);
         float amplitude = spectrum->getBin(bin);
         float dB = Decibels::gainToDecibels(amplitude, minusInfinityDB);

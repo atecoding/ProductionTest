@@ -16,12 +16,12 @@ void mb_bulk_payload_tx(ehw* dev, uint8 module, uint8 funcID, uint8 *payload, ui
 
 //--------------------------------------------------------------------------
 //
-// Handle MikeyBus bulk writes
+// Handle MB bulk writes
 //
 // mikey b %1 0xff 0x06 0x53 0x0a 0x0d 0x0e 0x0f
 //
 // %1 is the module number (m0 or m1)
-// 0xff is the MikeyBus function number
+// 0xff is the MB function number
 // 0x06 is the length of the bulk transfer, including this length byte
 // 0x53 0x0a 0x0d 0x0e 0x0f is the remaining data
 //
@@ -58,7 +58,7 @@ static Result MikeyBusBulkWrite(XmlElement const *element,
     
     if (length != actualLength - 1)
     {
-        Result result(Result::fail(String::formatted("MikeyBus bulk mismatch - length byte is 0x%x, should be 0x%x", length, actualLength - 1)));
+        Result result(Result::fail(String::formatted("MB bulk mismatch - length byte is 0x%x, should be 0x%x", length, actualLength - 1)));
         return result;
     }
     
@@ -69,7 +69,7 @@ static Result MikeyBusBulkWrite(XmlElement const *element,
 
 //--------------------------------------------------------------------------
 //
-// Main MikeyBus test function
+// Main MB test function
 //
 bool MikeyBusRegisters(XmlElement const *element,
                  ehw *dev,
@@ -101,14 +101,14 @@ bool MikeyBusRegisters(XmlElement const *element,
             Result result( dev->readMikey(moduleNumber, page, address, readValue));
             if (result.failed())
             {
-                msg = "*** Could not read MikeyBus register for " + moduleName + " - FAIL";
+                msg = "*** Could not read MB register for " + moduleName + " - FAIL";
                 errorCodes.add(ErrorCodes::MIKEY_BUS, moduleNumber);
                 return false;
             }
             
             if (value != readValue)
             {
-                msg = "*** MikeyBus read test mismatch for " + moduleName + " page " + String::toHexString(page) + ", address " + String::toHexString(address) + " value:" + String::toHexString(readValue) + " - FAIL";
+                msg = "*** MB read test mismatch for " + moduleName + " page " + String::toHexString(page) + ", address " + String::toHexString(address) + " value:" + String::toHexString(readValue) + " - FAIL";
 				errorCodes.add(ErrorCodes::MIKEY_BUS, moduleNumber);
                 return false;
             }
@@ -121,7 +121,7 @@ bool MikeyBusRegisters(XmlElement const *element,
             Result result( dev->writeMikey(moduleNumber, page, address, value));
             if (result.failed())
             {
-                msg = "*** Could not write MikeyBus register " + moduleName + " - FAIL";
+                msg = "*** Could not write MB register " + moduleName + " - FAIL";
                 errorCodes.add(ErrorCodes::MIKEY_BUS, moduleNumber);
                 return false;
             }
@@ -136,7 +136,7 @@ bool MikeyBusRegisters(XmlElement const *element,
             Result result(MikeyBusBulkWrite(child, dev, moduleNumber));
             if (result.failed())
             {
-                msg = "*** Could not perform MikeyBus bulk write for " + moduleName + " - FAIL";
+                msg = "*** Could not perform MB bulk write for " + moduleName + " - FAIL";
                 errorCodes.add(ErrorCodes::MIKEY_BUS, moduleNumber);
                 return false;
             }
@@ -145,7 +145,7 @@ bool MikeyBusRegisters(XmlElement const *element,
         }
     }
 
-    msg = "MikeyBus " + moduleName + " register test - PASS";
+    msg = "MB " + moduleName + " register test - PASS";
     
     return true;
 }

@@ -151,9 +151,9 @@ void SpectrumAnalyzer::calculate(AudioBuffer<float> const &inputData, int const 
     // Reset any previously created spectrum containers
     //
     int spectrumIndex;
-    for (spectrumIndex = 0; spectrumIndex < spectrums.size(); ++spectrumIndex)
+    for (spectrumIndex = 0; spectrumIndex < spectra.size(); ++spectrumIndex)
     {
-        spectrums[spectrumIndex]->clear();
+        spectra[spectrumIndex]->clear();
     }
     
     //
@@ -163,7 +163,7 @@ void SpectrumAnalyzer::calculate(AudioBuffer<float> const &inputData, int const 
     spectrumIndex = 0;
     while (position < (inputData.getNumSamples() - windowLengthSamples))
     {
-        Spectrum* spectrum = spectrums[spectrumIndex];
+        Spectrum* spectrum = spectra[spectrumIndex];
         
         if (nullptr == spectrum)
         {
@@ -171,7 +171,7 @@ void SpectrumAnalyzer::calculate(AudioBuffer<float> const &inputData, int const 
         }
         
         spectrum->calculate(fft, window, inputData.getReadPointer(channel, position));
-        spectrums.set(spectrumIndex, spectrum);
+        spectra.set(spectrumIndex, spectrum);
         
         position += windowOverlapSamples;
         spectrumIndex++;
@@ -186,12 +186,12 @@ void SpectrumAnalyzer::calculate(AudioBuffer<float> const &inputData, int const 
     }
     
     //
-    // Average the spectrums
+    // Average the spectra
     //
     averageSpectrum->clear();
-    for (int spectrumIndex = 0; spectrumIndex < spectrums.size(); ++spectrumIndex)
+    for (int spectrumIndex = 0; spectrumIndex < spectra.size(); ++spectrumIndex)
     {
-        Spectrum* spectrum = spectrums[spectrumIndex];
+        Spectrum* spectrum = spectra[spectrumIndex];
         for (int bin = 0; bin < windowLengthSamples * 2; ++bin)
         {
             float binValue = averageSpectrum->getBin(bin);
@@ -199,7 +199,7 @@ void SpectrumAnalyzer::calculate(AudioBuffer<float> const &inputData, int const 
         }
     }
     
-    float const reciprocal = 1.0f / spectrums.size();
+    float const reciprocal = 1.0f / spectra.size();
     for (int bin = 0; bin < windowLengthSamples * 2; ++bin)
     {
         float binValue = averageSpectrum->getBin(bin);
@@ -226,7 +226,7 @@ SpectrumWindow* SpectrumAnalyzer::createWindow(int const order)
 
 void SpectrumAnalyzer::dump()
 {
-    DBG("Spectrum count:" << spectrums.size());
+    DBG("Spectrum count:" << spectra.size());
     DBG("Sample rate:" << sampleRate);
     
     /*
@@ -237,10 +237,10 @@ void SpectrumAnalyzer::dump()
     }
     */
     
-    for (int i = 0; i < spectrums.size(); ++i)
+    for (int i = 0; i < spectra.size(); ++i)
     {
         DBG("\nSpectrum " << i);
-        Spectrum* spectrum = spectrums[i];
+        Spectrum* spectrum = spectra[i];
         if (spectrum)
             spectrum->dump();
     }
@@ -341,7 +341,7 @@ void SpectrumAnalyzer::testSteppedSweep(var const analyzerConfiguration_, var co
 
 void SpectrumAnalyzer::exportCSV(File csvFile)
 {
-    Spectrum* spectrum = spectrums[0];
+    Spectrum* spectrum = spectra[0];
     if (nullptr == spectrum)
         return;
 
@@ -351,10 +351,10 @@ void SpectrumAnalyzer::exportCSV(File csvFile)
     
     {
         String line(comma + comma);
-        for (int spectrumIndex = 0; spectrumIndex < spectrums.size(); ++spectrumIndex)
+        for (int spectrumIndex = 0; spectrumIndex < spectra.size(); ++spectrumIndex)
         {
             line += String(spectrumIndex);
-            if (spectrumIndex < (spectrums.size() - 1))
+            if (spectrumIndex < (spectra.size() - 1))
                 line += comma + comma;
         }
         
@@ -371,9 +371,9 @@ void SpectrumAnalyzer::exportCSV(File csvFile)
         line += comma;
         
         float const minusInfinityDb = -100.0f;
-        for (int spectrumIndex = 0; spectrumIndex < spectrums.size(); ++spectrumIndex)
+        for (int spectrumIndex = 0; spectrumIndex < spectra.size(); ++spectrumIndex)
         {
-            spectrum = spectrums[spectrumIndex];
+            spectrum = spectra[spectrumIndex];
             float binValue = spectrum->getBin(bin);
             float binDb = Decibels::gainToDecibels(binValue, minusInfinityDb);
             line += String(binValue, 8) + comma;

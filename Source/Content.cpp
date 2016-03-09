@@ -157,7 +157,7 @@ void Content::paint(Graphics &g)
 		g.drawText(_unit_name,x,y,w,h,Justification::centred,false);
 #if ACOUSTICIO_BUILD
 	else
-		g.drawText("Acoustic AIO", x, y, w, h, Justification::centred, false);
+		g.drawText("Echo AIO", x, y, w, h, Justification::centred, false);
 #endif
 
 	result_w = roundFloatToInt(getWidth() * 0.05f);

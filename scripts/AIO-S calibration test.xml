@@ -5,7 +5,7 @@
 	<!-- Echo AIO                                    -->
 	<!-- **************************************************** -->
 	<device>
-    Acoustic AIO
+    Echo AIO
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO</CoreAudio_driver>
 

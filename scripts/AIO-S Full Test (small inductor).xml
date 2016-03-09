@@ -6,7 +6,7 @@
 	<!-- **************************************************** -->
     
 	<device>
-    Acoustic AIO
+    Echo AIO
     <Require_AIO_Test_Adapter>true</Require_AIO_Test_Adapter>
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO</CoreAudio_driver>

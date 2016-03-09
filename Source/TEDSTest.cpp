@@ -15,7 +15,7 @@ bool RunTEDSTest(XmlElement const *element,
                  ErrorCodes &errorCodes,
                  ValueTree &unitTree)
 {
-	int attribute;
+	int input;
 	uint8 channel;
 	uint8 data[ACOUSTICIO_TEDS_DATA_BYTES];
 	uint8 expectedValue;
@@ -28,22 +28,24 @@ bool RunTEDSTest(XmlElement const *element,
 		return false;
 	}
 
-	attribute = element->getIntAttribute("input", -1);
-	if (attribute < 0 || attribute > 7)
+	input = element->getIntAttribute("input", -1);
+	if (input < 0 || input > 7)
 	{
 		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
-			"AIO_TEDS_test - input " + String(attribute) + " out of range", false);
+			"AIO_TEDS_test - input " + String(input) + " out of range", false);
 		return false;
 	}
     
-    int numInputs = element->getIntAttribute("num_chanels", AIOTestAdapter::NUM_INPUTS);
+    int numInputs = element->getIntAttribute("num_channels", AIOTestAdapter::NUM_INPUTS);
 	if (true == element->hasAttribute("short"))
 		numInputs = 2;
 
+    displayedChannel = String::formatted("%d-%d", input + 1, input + numInputs);
+    
 	for (int j = 0; j < numInputs; j++)
 	{
 		chan_ok = true;
-		channel = (uint8)(j + attribute);
+		channel = (uint8)(j + input);
 
         int retries = 3;
         while (retries > 0)
@@ -89,12 +91,7 @@ bool RunTEDSTest(XmlElement const *element,
 			content->log(msg);
 	}
     
-	if (numInputs == 2)
-		displayedChannel = "1-2";
-	else
-		displayedChannel = "Fix this";
-
-	if (!ok)
+    if (!ok)
 		Thread::sleep(50);		// delay so things don't get hosed
 	return ok;
 }

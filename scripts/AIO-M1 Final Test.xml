@@ -7,7 +7,7 @@
     
 	<device>
     AIO-M1
-    <Require_AIO_Test_Adapter>false</Require_AIO_Test_Adapter>
+    <Require_AIO_Test_Adapter>true</Require_AIO_Test_Adapter>
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO-M1</CoreAudio_driver>
 
@@ -135,6 +135,7 @@
     <last_channel>3</last_channel>
 </AIO_power_supply_reset_test>
 
+<ignore>
 <AIO_set_mic_gain input="0" gain="100" />
 <AIO_set_mic_gain input="1" gain="100" />
 <AIO_set_mic_gain input="2" gain="100" />
@@ -163,6 +164,7 @@
     <min_level_db>17.5</min_level_db>
     <max_level_db>22.5</max_level_db>
 </test>
+</ignore>
 
 <!-- Test gain settings for inputs and outputs -->
 
@@ -264,6 +266,38 @@
     <max_level_db>-11.0</max_level_db>
 </test>
 
+<AIO_set_mic_gain input="0" gain="100" />
+<AIO_set_mic_gain input="1" gain="100" />
+<AIO_set_mic_gain input="2" gain="100" />
+<AIO_set_mic_gain input="3" gain="100" />
+
+<AIO_set_amp_gain output="0" gain="1" />
+<AIO_set_amp_gain output="1" gain="1" />
+
+<test>
+    100x Input - 1x Output Level Check 1-2
+    <type>Level check</type>
+    <output_amplitude_db>-30.0</output_amplitude_db>
+    <input>0</input>
+    <output>0</output>
+    <num_channels>2</num_channels>
+    <sample_rate>48000</sample_rate>
+    <min_level_db>-12.0</min_level_db>
+    <max_level_db>-8.0</max_level_db>
+</test>
+
+<test>
+    100x Input - 1x Output Level Check 3-4
+    <type>Level check</type>
+    <output_amplitude_db>-30.0</output_amplitude_db>
+    <input>2</input>
+    <output>0</output>
+    <num_channels>2</num_channels>
+    <sample_rate>48000</sample_rate>
+    <min_level_db>-12.0</min_level_db>
+    <max_level_db>-8.0</max_level_db>
+</test>
+
 <!-- Audio Quality Tests 1-4 -->
 
 <AIO_set_mic_gain input="0" gain="1" />
@@ -329,12 +363,12 @@
     <input>0</input>
     <output>0</output>
     <num_channels>2</num_channels>
-    <sample_rate>96000</sample_rate>
+    <sample_rate>48000</sample_rate>
     <output_amplitude_db>-10.0</output_amplitude_db>
     <output_frequency>20.0</output_frequency>
     <pass_threshold_db>0.49</pass_threshold_db>
     <sweep_time_seconds>2.0</sweep_time_seconds>
-    <sweep_delay_seconds>0.4</sweep_delay_seconds>
+    <sweep_delay_seconds>0.75</sweep_delay_seconds>
     <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
     <sweep_fadeout_seconds>0.1</sweep_fadeout_seconds>
     <sweep_record_seconds>4.0</sweep_record_seconds>
@@ -382,12 +416,12 @@
     <input>2</input>
     <output>0</output>
     <num_channels>2</num_channels>
-    <sample_rate>96000</sample_rate>
+    <sample_rate>48000</sample_rate>
     <output_amplitude_db>-10.0</output_amplitude_db>
     <output_frequency>20.0</output_frequency>
     <pass_threshold_db>0.49</pass_threshold_db>
     <sweep_time_seconds>2.0</sweep_time_seconds>
-    <sweep_delay_seconds>0.4</sweep_delay_seconds>
+    <sweep_delay_seconds>0.75</sweep_delay_seconds>
     <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
     <sweep_fadeout_seconds>0.1</sweep_fadeout_seconds>
     <sweep_record_seconds>4.0</sweep_record_seconds>
@@ -415,95 +449,113 @@
 </Print_error_codes>
 
 
-    <AIO_mikeybus module="1">
-      <read page="0x01" address="0x24" value="0xcc"/>
+<!-- *************************************************
+ 
+ MB host chip - local TDM loopback mode
+ 
+ ****************************************************** -->
 
-      <write page="0x00" address="0x01" value="0x01"/>
-      <write page="0x00" address="0x06" value="0x00"/>
-      <write page="0x02" address="0x01" value="0xe0"/>
-      <write page="0x01" address="0x07" value="0x19"/>
-      <write page="0x01" address="0x09" value="0x1a"/>
-      <write page="0x01" address="0x01" value="0x00"/>
-      <write page="0x01" address="0x03" value="0x00"/>
-      <write page="0x01" address="0x15" value="0x28"/>
-      <write page="0x01" address="0x16" value="0x2c"/>
-      <write page="0x01" address="0x17" value="0x28"/>
-      <write page="0x01" address="0x18" value="0x2c"/>
-      <write page="0x01" address="0x19" value="0x28"/>
-      <write page="0x01" address="0x1a" value="0x2c"/>
-      <write page="0x01" address="0x1b" value="0x28"/>
-      <write page="0x01" address="0x1c" value="0x2c"/>
-      <write page="0x01" address="0x1d" value="0x28"/>
-      <write page="0x01" address="0x1e" value="0x2c"/>
+<AIO_mikeybus module="1">
+    <read page="0x01" address="0x24" value="0xcc"/>
+    
+    <write page="0x00" address="0x01" value="0x01"/>
+    <write page="0x00" address="0x06" value="0x00"/>
+    <write page="0x02" address="0x01" value="0xe0"/>
+    <write page="0x01" address="0x07" value="0x19"/>
+    <write page="0x01" address="0x09" value="0x1a"/>
+    <write page="0x01" address="0x01" value="0x00"/>
+    <write page="0x01" address="0x03" value="0x00"/>
+    <write page="0x01" address="0x15" value="0x28"/>
+    <write page="0x01" address="0x16" value="0x2c"/>
+    <write page="0x01" address="0x17" value="0x28"/>
+    <write page="0x01" address="0x18" value="0x2c"/>
+    <write page="0x01" address="0x19" value="0x28"/>
+    <write page="0x01" address="0x1a" value="0x2c"/>
+    <write page="0x01" address="0x1b" value="0x28"/>
+    <write page="0x01" address="0x1c" value="0x2c"/>
+    <write page="0x01" address="0x1d" value="0x28"/>
+    <write page="0x01" address="0x1e" value="0x2c"/>
+    
+    <write page="0x00" address="0x14" value="0x00"/>
+    <write page="0x00" address="0x15" value="0x03"/>
+    <write page="0x00" address="0x16" value="0x06"/>
+    <write page="0x00" address="0x17" value="0x09"/>
+    <write page="0x00" address="0x18" value="0x0c"/>
+    <write page="0x00" address="0x19" value="0x0f"/>
+    <write page="0x00" address="0x1a" value="0x12"/>
+    <write page="0x00" address="0x1b" value="0x15"/>
+    <write page="0x00" address="0x1c" value="0x18"/>
+    <write page="0x00" address="0x1d" value="0x1b"/>
+    <write page="0x00" address="0x1e" value="0x3f"/>
+    <write page="0x00" address="0x1f" value="0xff"/>
+    <write page="0x00" address="0x20" value="0xff"/>
+    <write page="0x00" address="0x21" value="0xff"/>
+    <write page="0x00" address="0x22" value="0x40"/>
+    <write page="0x00" address="0x23" value="0x43"/>
+    <write page="0x00" address="0x24" value="0x46"/>
+    <write page="0x00" address="0x25" value="0x49"/>
+    <write page="0x00" address="0x26" value="0x4c"/>
+    <write page="0x00" address="0x27" value="0x4f"/>
+    <write page="0x00" address="0x28" value="0x52"/>
+    <write page="0x00" address="0x29" value="0x55"/>
+    <write page="0x00" address="0x2a" value="0x58"/>
+    <write page="0x00" address="0x2b" value="0x59"/>
+    <write page="0x00" address="0x11" value="0xc0"/>
+    <write page="0x00" address="0x12" value="0x0c"/>
+</AIO_mikeybus>
 
-      <write page="0x00" address="0x14" value="0x00"/>
-      <write page="0x00" address="0x15" value="0x03"/>
-      <write page="0x00" address="0x16" value="0x06"/>
-      <write page="0x00" address="0x17" value="0x09"/>
-      <write page="0x00" address="0x18" value="0x0c"/>
-      <write page="0x00" address="0x19" value="0x0f"/>
-      <write page="0x00" address="0x1a" value="0x12"/>
-      <write page="0x00" address="0x1b" value="0x15"/>
-      <write page="0x00" address="0x1c" value="0x18"/>
-      <write page="0x00" address="0x1d" value="0x1b"/>
-      <write page="0x00" address="0x1e" value="0x3f"/>
-      <write page="0x00" address="0x1f" value="0xff"/>
-      <write page="0x00" address="0x20" value="0xff"/>
-      <write page="0x00" address="0x21" value="0xff"/>
-      <write page="0x00" address="0x22" value="0x40"/>
-      <write page="0x00" address="0x23" value="0x43"/>
-      <write page="0x00" address="0x24" value="0x46"/>
-      <write page="0x00" address="0x25" value="0x49"/>
-      <write page="0x00" address="0x26" value="0x4c"/>
-      <write page="0x00" address="0x27" value="0x4f"/>
-      <write page="0x00" address="0x28" value="0x52"/>
-      <write page="0x00" address="0x29" value="0x55"/>
-      <write page="0x00" address="0x2a" value="0x58"/>
-      <write page="0x00" address="0x2b" value="0x59"/>
-      <write page="0x00" address="0x11" value="0xc0"/>
-      <write page="0x00" address="0x12" value="0x0c"/>
-    </AIO_mikeybus>
-    
-    <prompt>
-        TDM Loopback
-        <text>Level check for TDM loopback</text>
-        <output_amplitude_db>-20.0</output_amplitude_db>
-        <input>4</input>
-        <output>4</output>
-        <num_channels>2</num_channels>
-        <sample_rate>48000</sample_rate>
-        <min_input_db>-22.0</min_input_db>
-        <max_input_db>18.0</max_input_db>
-        <wait_for_user>0</wait_for_user>
-        <start_group>1</start_group>
-    </prompt>
-    
-    <test>
-        <type>THD+N</type>
-        <input>4</input>
-        <output>4</output>
-        <num_channels>10</num_channels>
-        <sample_rate>48000</sample_rate>
-        <output_frequency>997.0</output_frequency>
-        <output_amplitude_db>-3.0</output_amplitude_db>
-        <pass_threshold_db>-128.0</pass_threshold_db>
-    </test>
-    
-    <ignore>
-    <test>
-        <type>Level check</type>
-        <input>4</input>
-        <output>4</output>
-        <num_channels>10</num_channels>
-        <sample_rate>48000</sample_rate>
-        <output_frequency>997.0</output_frequency>
-        <output_amplitude_db>-3.0</output_amplitude_db>
-        <min_level_db>-4.0</min_level_db>
-        <max_level_db>-2.0</max_level_db>
-    </test>
-    </ignore>
+<!-- Outer module - TDM loopback test -->
+<prompt>
+    TDM Loopback Outer Module
+    <text>Level check for TDM loopback</text>
+    <output_amplitude_db>-20.0</output_amplitude_db>
+    <input>4</input>
+    <output>2</output>
+    <num_channels>2</num_channels>
+    <sample_rate>48000</sample_rate>
+    <min_input_db>-22.0</min_input_db>
+    <max_input_db>18.0</max_input_db>
+    <wait_for_user>0</wait_for_user>
+    <start_group>1</start_group>
+</prompt>
+
+<test>
+    <type>THD+N</type>
+    <input>4</input>
+    <output>2</output>
+    <num_channels>10</num_channels>
+    <sample_rate>48000</sample_rate>
+    <output_frequency>997.0</output_frequency>
+    <output_amplitude_db>-3.0</output_amplitude_db>
+    <pass_threshold_db>-128.0</pass_threshold_db>
+</test>
+
+<test>
+    <type>Level check</type>
+    <input>4</input>
+    <output>2</output>
+    <num_channels>10</num_channels>
+    <sample_rate>48000</sample_rate>
+    <output_frequency>997.0</output_frequency>
+    <output_amplitude_db>-3.0</output_amplitude_db>
+    <min_level_db>-4.0</min_level_db>
+    <max_level_db>-2.0</max_level_db>
+</test>
+
+<Finish_group/>
+
+<!-- *************************************************
+ 
+ External MB test - outer module
+ 
+ Configure MB host chip and AIO-M test adapter
+ 
+ ****************************************************** -->
 
 <message_box>Connect the AIO-M Tester to INPUT on the outer module.</message_box>
+
+<Delay_msec>1000</Delay_msec>
+
 <AIO_mikeybus module="1">
     <write page="0x99" address="0x01" value="0xA5"/>
     <write page="0x99" address="0x01" value="0x00"/>
@@ -676,13 +728,13 @@
     <write page="0x04" address="0x01" value="0x12"/>
 </AIO_mikeybus>
 
-<!-- Outer module - External MikeyBus test -->
+<!-- Center module - External MB test -->
 <prompt>
-    TDM Loopback Outer Module
-    <text>Level check for TDM loopback</text>
+    MB External Test Outer Module
+    <text>Level check for exernal MB</text>
     <output_amplitude_db>-20.0</output_amplitude_db>
-    <input>0</input>
-    <output>0</output>
+    <input>4</input>
+    <output>2</output>
     <num_channels>2</num_channels>
     <sample_rate>48000</sample_rate>
     <min_input_db>-22.0</min_input_db>
@@ -692,38 +744,18 @@
 </prompt>
 
 <test>
-    <type>THD+N</type>
-    <input>0</input>
-    <output>0</output>
+    <type>Frequency isolation</type>
+    <input>4</input>
+    <output>2</output>
     <num_channels>2</num_channels>
     <sample_rate>48000</sample_rate>
-    <output_frequency>997.0</output_frequency>
-    <output_amplitude_db>-3.0</output_amplitude_db>
-    <pass_threshold_db>-40.0</pass_threshold_db>
+    <output_frequency>984.375</output_frequency>
+    <output_amplitude_db>-6.0</output_amplitude_db>
+    <min_level_db>-12.0</min_level_db>
+    <max_level_db>-8.0</max_level_db>
 </test>
 
-<test> <!-- Should only have input on the first 2 channels for this module -->
-    <type>Level check</type>
-    <input>0</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-    <output_frequency>997.0</output_frequency>
-    <output_amplitude_db>-3.0</output_amplitude_db>
-    <min_level_db>-9.0</min_level_db>
-    <max_level_db>-6.0</max_level_db>
-</test>
-
-<test> <!-- Should only have no input on the last 8 channels for this module -->
-    <type>Silence</type>
-    <input>0</input>
-    <output>0</output>
-    <num_channels>10</num_channels>
-    <sample_rate>48000</sample_rate>
-    <output_frequency>997.0</output_frequency>
-    <output_amplitude_db>-3.0</output_amplitude_db>
-</test>
-
+<Finish_group/>
 
   </device>
 

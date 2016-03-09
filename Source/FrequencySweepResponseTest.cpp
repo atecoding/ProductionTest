@@ -5,8 +5,7 @@
 #include "xml.h"
 #include "ProductionUnit.h"
 
-#define UPSAMPLE_FACTOR 4
-
+static const double upsamplerOutputRate = 384000.0;
 static const double minusInfinity = -144.0f;
 
 FrequencySweepResponseTest::FrequencySweepResponseTest(XmlElement *xe, bool &ok, ProductionUnit *unit_) :
@@ -16,7 +15,7 @@ sweep_delay_seconds(0.5f),
 sweep_fadein_seconds(0.3f),
 sweep_fadeout_seconds(0.1f),
 sweep_record_seconds(2.9f),
-upsampler(sample_rate, sample_rate * UPSAMPLE_FACTOR)
+upsampler(sample_rate, upsamplerOutputRate)
 {
 	ok &= getFloatValue(xe, "pass_threshold_db", pass_threshold_db);
 	ok &= getFloatValue(xe, "output_frequency"
@@ -73,7 +72,7 @@ bool FrequencySweepResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs, Stri
 		upsampler.upsample(buffs[physicalInput]);
 
 		bool result;
-		int period = sample_rate * UPSAMPLE_FACTOR / 18;
+		int period = upsamplerOutputRate / 18;
 		double amplitude = 0.0;
 		double max_db, min_db;
 		int period_start = 0;
@@ -105,7 +104,7 @@ bool FrequencySweepResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs, Stri
 
 		// Scan output buffer to find 20Hz frequency
 
-		while (period > sample_rate * UPSAMPLE_FACTOR / 20)
+		while (period > upsamplerOutputRate / 20)
 		{
 			result = getFreq(period_start, period, amplitude);
 			if (FALSE == result)
@@ -128,7 +127,7 @@ bool FrequencySweepResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs, Stri
 
 		// Scan output buffer up to 1kHz
 
-		while (pass[channel] == TRUE && period > sample_rate * UPSAMPLE_FACTOR / 1000)
+		while (pass[channel] == TRUE && period > upsamplerOutputRate / 1000)
 		{
 			result = getFreq(period_start, period, amplitude);
 			if (FALSE == result)
@@ -160,7 +159,7 @@ bool FrequencySweepResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs, Stri
 
 		// Scan output buffer up to 20kHz
 
-		while (pass[channel] == TRUE && period > sample_rate * UPSAMPLE_FACTOR / 20000)
+		while (pass[channel] == TRUE && period > upsamplerOutputRate / 20000)
 		{
 			result = getFreq(period_start, period, amplitude);
 			if (FALSE == result)
@@ -227,8 +226,8 @@ bool FrequencySweepResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs, Stri
 				name = String::formatted("Frequency sweep out%02d-in%02d at %d Hz.wav", output, physicalInput, sample_rate);
 				WriteWaveFile(unit, name, sample_rate, buffs[physicalInput], getSamplesRequired());
 
-				name = String::formatted("Upsampled out%02d-in%02d at %d Hz.wav", output, physicalInput, sample_rate * UPSAMPLE_FACTOR);
-				int upsampleWaveFileCount = jmin(upsampler.outputSampleCount, getSamplesRequired() * UPSAMPLE_FACTOR);
+				name = String::formatted("Upsampled out%02d-in%02d at %d Hz.wav", output, physicalInput, upsamplerOutputRate);
+				int upsampleWaveFileCount = jmin(upsampler.outputSampleCount, getSamplesRequired() * roundDoubleToInt(upsamplerOutputRate));
 				WriteWaveFile(unit, name, sample_rate, upsampler.outputBuffer, upsampleWaveFileCount);
 			}
 		}

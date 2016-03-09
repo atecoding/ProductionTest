@@ -36,7 +36,12 @@ public:
     static void testSteppedSweep(var const analyzerConfiguration_, var const sweepConfiguration_, double sampleRate, double toneFrequency);
     void dump();
     
-    Spectrum * const getSpectrum() const
+    OwnedArray<Spectrum> const &getSpectra() const
+    {
+        return spectra;
+    }
+    
+    Spectrum * const getAverageSpectrum() const
     {
         return averageSpectrum;
     }
@@ -54,7 +59,7 @@ private:
     ScopedPointer<FFT> fft;
 #endif
     ScopedPointer<SpectrumWindow> window;
-    OwnedArray<Spectrum> spectrums;
+    OwnedArray<Spectrum> spectra;
     ScopedPointer<Spectrum> averageSpectrum;
     
     Result validate(NamedValueSet &values);
