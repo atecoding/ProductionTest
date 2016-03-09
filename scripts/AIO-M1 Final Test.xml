@@ -546,13 +546,25 @@
 
 <!-- *************************************************
  
+ MB power supply check
+ 
+ ****************************************************** -->
+
+<message_box>
+    Plug the USB test cable in to the INPUT connector on the outer module.  Is there 3.3 volts DC between the two wires on the test cable?
+    <show_yes_no>1</show_yes_no>
+    <log>MB power supply check</log>
+</message_box>
+
+<!-- *************************************************
+ 
  External MB test - outer module
  
  Configure MB host chip and AIO-M test adapter
  
  ****************************************************** -->
 
-<message_box>Connect the AIO-M Tester to INPUT on the outer module.</message_box>
+<message_box>Connect the AIO-M Tester to INPUT connector on the outer module.</message_box>
 
 <Delay_msec>1000</Delay_msec>
 
@@ -728,7 +740,7 @@
     <write page="0x04" address="0x01" value="0x12"/>
 </AIO_mikeybus>
 
-<!-- Center module - External MB test -->
+<!-- Outer module - External MB test -->
 <prompt>
     MB External Test Outer Module
     <text>Level check for exernal MB</text>

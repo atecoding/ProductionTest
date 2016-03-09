@@ -35,6 +35,30 @@
     
     <!-- *************************************************
      
+     MB power supply check
+     
+     ****************************************************** -->
+    
+    <message_box>
+        Plug the USB test cable in to the INPUT connector on the center module.  Is there 3.3 volts DC between the two wires on the test cable?
+        <show_yes_no>1</show_yes_no>
+        <log>MB power supply check (center)</log>
+    </message_box>
+    
+    <!-- *************************************************
+     
+     MB power supply check
+     
+     ****************************************************** -->
+    
+    <message_box>
+        Plug the USB test cable in to the INPUT connector on the outer module.  Is there 3.3 volts DC between the two wires on the test cable?
+        <show_yes_no>1</show_yes_no>
+        <log>MB power supply check (outer)</log>
+    </message_box>
+    
+    <!-- *************************************************
+     
      MB host chip - local TDM loopback mode
      
     ****************************************************** -->
@@ -216,6 +240,8 @@
     </test>
     
     <Finish_group/>
+    
+
     
     <!-- *************************************************
      
