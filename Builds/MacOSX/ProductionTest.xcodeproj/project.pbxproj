@@ -42,6 +42,7 @@
 		9B946F2291161703334ECA87 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C88942FD6DAB4EA55CB6794 /* Cocoa.framework */; };
 		A60C4C4CF820892F5C39A733 /* AIOTestAdapter_win.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADABD406FED66B8D12FB01C9 /* AIOTestAdapter_win.cpp */; };
 		AC48DC3904F5F2901024E938 /* App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 818009283030A757CA4EDD82 /* App.cpp */; };
+		B649E6061B47557D00D461FA /* AudioFire 12 Test (TRS).xml in Resources */ = {isa = PBXBuildFile; fileRef = B649E6051B47557D00D461FA /* AudioFire 12 Test (TRS).xml */; };
 		B7D6C59A744D56E2B14115BF /* Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D9B94D8A26A077F11C86494B /* Test.cpp */; };
 		C56E0875FF2EF880984F9194 /* TestPrompt.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D218ABCF456C886AB5867EB0 /* TestPrompt.cpp */; };
 		C631329AE2D0578BC6027732 /* ConstantCurrentTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5DF22E869AFB1C87D3E5AED2 /* ConstantCurrentTest.cpp */; };
@@ -704,6 +705,7 @@
 		B573BFEA5291DCE58C46C5B4 /* juce_RectanglePlacement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_RectanglePlacement.h; path = ../../JuceLibraryCode/modules/juce_graphics/placement/juce_RectanglePlacement.h; sourceTree = SOURCE_ROOT; };
 		B5EE1507D4FD62B032C80007 /* Images.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Images.h; path = ../../Source/Images.h; sourceTree = SOURCE_ROOT; };
 		B5FC257CAA0EBBF9AFA0DA64 /* juce_CodeEditorComponent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_CodeEditorComponent.cpp; path = ../../JuceLibraryCode/modules/juce_gui_extra/code_editor/juce_CodeEditorComponent.cpp; sourceTree = SOURCE_ROOT; };
+		B649E6051B47557D00D461FA /* AudioFire 12 Test (TRS).xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AudioFire 12 Test (TRS).xml"; path = "../../scripts/AudioFire 12 Test (TRS).xml"; sourceTree = "<group>"; };
 		B6537099E26D0643148614F9 /* juce_mac_CarbonViewWrapperComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_mac_CarbonViewWrapperComponent.h; path = ../../JuceLibraryCode/modules/juce_gui_extra/native/juce_mac_CarbonViewWrapperComponent.h; sourceTree = SOURCE_ROOT; };
 		B68605A086FF7AB1722376B7 /* juce_TooltipWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_TooltipWindow.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/windows/juce_TooltipWindow.h; sourceTree = SOURCE_ROOT; };
 		B738221F104910324756D5D0 /* juce_android_Misc.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_android_Misc.cpp; path = ../../JuceLibraryCode/modules/juce_core/native/juce_android_Misc.cpp; sourceTree = SOURCE_ROOT; };
@@ -1864,6 +1866,7 @@
 		93C619DBF455E2A537DD75BE /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B649E6051B47557D00D461FA /* AudioFire 12 Test (TRS).xml */,
 				C9D4FB491B4333FF006D0607 /* AudioFire 12 Test.xml */,
 				C95C66341B0A787300DA394D /* factory.icns */,
 				ECB33092A73D580039E20E87 /* Info.plist */,
@@ -2672,6 +2675,7 @@
 				C9D4FB4A1B4333FF006D0607 /* AudioFire 12 Test.xml in Resources */,
 				6E32B1E6B0A50AF4474A55D8 /* RecentFilesMenuTemplate.nib in Resources */,
 				C95C66351B0A787300DA394D /* factory.icns in Resources */,
+				B649E6061B47557D00D461FA /* AudioFire 12 Test (TRS).xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

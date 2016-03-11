@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <root>
   
-  	<!-- **************************************************** -->
+  <!-- **************************************************** -->
 	<!-- Echo AudioFire 12                                    -->
 	<!-- **************************************************** -->
 	<device>
@@ -16,7 +16,7 @@
 
     <prompt>
       	Analog Out 1/2 to Analog In 1/2
-      	<output_amplitude_db>-6.0</output_amplitude_db>
+      	<output_amplitude_db>-10.0</output_amplitude_db>
       	<input>0</input>
       	<output>0</output>
       	<num_channels>2</num_channels>
@@ -27,13 +27,13 @@
     </prompt>
 
     <test>
-      Analog Out 1/2 to Analog In 1/2
+      Analog Out 1/2 => Analog In 1/2
       <type>THD+N</type>
       	<input>0</input>
       	<output>0</output>
       	<num_channels>2</num_channels>
       	<sample_rate>48000</sample_rate>
-      	<output_amplitude_db>-3.0</output_amplitude_db>
+      	<output_amplitude_db>-7.0</output_amplitude_db>
       	<pass_threshold_db>-90.0</pass_threshold_db>
     </test>
     <test>
@@ -42,7 +42,7 @@
       	<output>0</output>
       	<num_channels>2</num_channels>
       	<sample_rate>48000</sample_rate>
-      	<output_amplitude_db>-55.0</output_amplitude_db>
+      	<output_amplitude_db>-59.0</output_amplitude_db>
       	<pass_threshold_db>102.0</pass_threshold_db>
     </test>
 
@@ -69,8 +69,8 @@
     <!-- ===================================== -->
 
     <prompt>
-      Analog Out 3/4 to Analog In 3/4
-      <output_amplitude_db>-6.0</output_amplitude_db>
+      Analog Out 3/4 => Analog In 3/4
+      <output_amplitude_db>-10.0</output_amplitude_db>
       <input>2</input>
       <output>2</output>
       <num_channels>2</num_channels>
@@ -81,13 +81,13 @@
     </prompt>
 
     <test>
-      Analog Out 3/4 to Analog In 3/4
+      Analog Out 3/4 => Analog In 3/4
       <type>THD+N</type>
       <input>2</input>
       <output>2</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_amplitude_db>-7.0</output_amplitude_db>
       <pass_threshold_db>-90.0</pass_threshold_db>
     </test>
     <test>
@@ -96,7 +96,7 @@
       <output>2</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-55.0</output_amplitude_db>
+      <output_amplitude_db>-59.0</output_amplitude_db>
       <pass_threshold_db>102.0</pass_threshold_db>
     </test>
 
@@ -123,8 +123,8 @@
     <!-- ===================================== -->
 
     <prompt>
-      Analog Out 5/6 to Analog In 5/6
-      <output_amplitude_db>-6.0</output_amplitude_db>
+      Analog Out 5/6 => Analog In 5/6
+      <output_amplitude_db>-10.0</output_amplitude_db>
       <input>4</input>
       <output>4</output>
       <num_channels>2</num_channels>
@@ -135,13 +135,13 @@
     </prompt>
 
     <test>
-      Analog Out 5/6 to Analog In 5/6
+      Analog Out 5/6 => Analog In 5/6
       <type>THD+N</type>
       <input>4</input>
       <output>4</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_amplitude_db>-7.0</output_amplitude_db>
       <pass_threshold_db>-90.0</pass_threshold_db>
     </test>
     <test>
@@ -150,7 +150,7 @@
       <output>4</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-55.0</output_amplitude_db>
+      <output_amplitude_db>-59.0</output_amplitude_db>
       <pass_threshold_db>102.0</pass_threshold_db>
     </test>
 
@@ -178,7 +178,7 @@
 
     <prompt>
       Analog Out 7/8 => Analog In 7/8
-      <output_amplitude_db>-6.0</output_amplitude_db>
+      <output_amplitude_db>-10.0</output_amplitude_db>
       <input>6</input>
       <output>6</output>
       <num_channels>2</num_channels>
@@ -195,7 +195,7 @@
       <output>6</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_amplitude_db>-7.0</output_amplitude_db>
       <pass_threshold_db>-90.0</pass_threshold_db>
     </test>
     <test>
@@ -204,7 +204,7 @@
       <output>6</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-55.0</output_amplitude_db>
+      <output_amplitude_db>-59.0</output_amplitude_db>
       <pass_threshold_db>102.0</pass_threshold_db>
     </test>
 
@@ -232,7 +232,7 @@
 
     <prompt>
       Analog Out 9/10 => Analog In 9/10
-      <output_amplitude_db>-6.0</output_amplitude_db>
+      <output_amplitude_db>-10.0</output_amplitude_db>
       <input>8</input>
       <output>8</output>
       <num_channels>2</num_channels>
@@ -249,7 +249,7 @@
       <output>8</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_amplitude_db>-7.0</output_amplitude_db>
       <pass_threshold_db>-90.0</pass_threshold_db>
     </test>
     <test>
@@ -258,7 +258,7 @@
       <output>8</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-55.0</output_amplitude_db>
+      <output_amplitude_db>-59.0</output_amplitude_db>
       <pass_threshold_db>102.0</pass_threshold_db>
     </test>
 
@@ -286,7 +286,7 @@
 
     <prompt>
       Analog Out 11/12 => Analog In 11/12
-      <output_amplitude_db>-6.0</output_amplitude_db>
+      <output_amplitude_db>-10.0</output_amplitude_db>
       <input>10</input>
       <output>10</output>
       <num_channels>2</num_channels>
@@ -303,7 +303,7 @@
       <output>10</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-3.0</output_amplitude_db>
+      <output_amplitude_db>-7.0</output_amplitude_db>
       <pass_threshold_db>-90.0</pass_threshold_db>
     </test>
     <test>
@@ -312,7 +312,7 @@
       <output>10</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
-      <output_amplitude_db>-55.0</output_amplitude_db>
+      <output_amplitude_db>-59.0</output_amplitude_db>
       <pass_threshold_db>102.0</pass_threshold_db>
     </test>
 
