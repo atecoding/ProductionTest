@@ -152,6 +152,9 @@ ehw *ehwlist::BuildDeviceList(char *pnpid)
     types.add(new Type(this, hwcaps::ACOUSTICIO_PRODUCT_ID));
     types.add(new Type(this, hwcaps::ACOUSTICIO_M1_PRODUCT_ID));
     types.add(new Type(this, hwcaps::ACOUSTICIO_M2_PRODUCT_ID));
+    types.add(new Type(this, hwcaps::ACOUSTICIO_XE216_PRODUCT_ID));
+    types.add(new Type(this, hwcaps::ACOUSTICIO_MA_PRODUCT_ID));
+    types.add(new Type(this, hwcaps::ACOUSTICIO_MM_PRODUCT_ID));
     
     return nullptr;
 }

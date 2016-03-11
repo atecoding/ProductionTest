@@ -16,15 +16,18 @@ deviceInterface(deviceInterface_)
     switch (productID)
     {
         case hwcaps::ACOUSTICIO_PRODUCT_ID:
+        case hwcaps::ACOUSTICIO_XE216_PRODUCT_ID:
             description = new DescriptionAIO(moduleTypes);
             break;
             
         case hwcaps::ACOUSTICIO_M1_PRODUCT_ID:
+        case hwcaps::ACOUSTICIO_MA_PRODUCT_ID:
             moduleTypes = (ACOUSTICIO_MIKEYBUS_MODULE << 4) | ACOUSTICIO_ANALOG_MODULE;
             description = new DescriptionAM1(moduleTypes);
             break;
             
         case hwcaps::ACOUSTICIO_M2_PRODUCT_ID:
+        case hwcaps::ACOUSTICIO_MM_PRODUCT_ID:
             moduleTypes = (ACOUSTICIO_MIKEYBUS_MODULE << 4) | ACOUSTICIO_MIKEYBUS_MODULE;
             description = new DescriptionAM2(moduleTypes);
             break;

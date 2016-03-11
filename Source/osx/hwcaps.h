@@ -58,7 +58,10 @@ public:
 		ANALYZERBR = 0x80,
         ACOUSTICIO_PRODUCT_ID = 0xa0,
         ACOUSTICIO_M1_PRODUCT_ID = 0xa1,
-        ACOUSTICIO_M2_PRODUCT_ID = 0xa2
+        ACOUSTICIO_M2_PRODUCT_ID = 0xa2,
+        ACOUSTICIO_XE216_PRODUCT_ID = 0xb0,
+        ACOUSTICIO_MA_PRODUCT_ID = 0xb1,
+        ACOUSTICIO_MM_PRODUCT_ID = 0xb2
 	};
 	
 	void init(unsigned product_id);
