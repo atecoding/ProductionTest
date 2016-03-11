@@ -35,6 +35,13 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
+#undef DBG
+#define DBG(textToWrite)
+
+#if defined(JUCE_MAC) && !defined(JUCE_DEBUG)
+#pragma message "Release build doesn't work on the Mac"
+#endif
+
 #define WRITE_WAVE_FILES 1
 
 #ifndef ALLOW_USER_SCRIPT_SELECT
