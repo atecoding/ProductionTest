@@ -7,7 +7,7 @@
 
 LevelCheckTest::LevelCheckTest(XmlElement *xe,bool &ok, ProductionUnit *unit_) :
 	Test(xe,ok,unit_),
-    peakRejectThresholdDb(-80) // Reject any peaks below -80 dB by default
+    peakRejectThresholdDb(-80) // Reject any peaks below -80 dB by default,
 {
 	ok &= getFloatValue(xe, T("min_level_db"), min_level_db);
 	ok &= getFloatValue(xe, T("max_level_db"), max_level_db);

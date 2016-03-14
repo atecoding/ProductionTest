@@ -87,7 +87,8 @@
 
     <!-- Test 100x gain settings for inputs -->
     <!-- Leave test adapter in mic mode so inputs are disconnected from amp outputs -->
-
+    <!-- First measure the level at 10x gain to check the relative difference -->
+    
     <AIO_set_mic_gain input="0" gain="10" />
     <AIO_set_mic_gain input="1" gain="10" />
     <AIO_set_mic_gain input="2" gain="10" />
@@ -134,6 +135,7 @@
         <last_channel>3</last_channel>
     </AIO_power_supply_reset_test>
 
+    <!-- Second, get the level at 100x and see if the difference is about 20 dB -->
     <AIO_set_mic_gain input="0" gain="100" />
     <AIO_set_mic_gain input="1" gain="100" />
     <AIO_set_mic_gain input="2" gain="100" />

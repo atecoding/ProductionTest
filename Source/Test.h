@@ -39,6 +39,7 @@ public:
 	float maxSampleRate;
     float glitchThreshold;
 	ProductionUnit* unit;
+    uint32 requiredTestAdapterProductId;
 
 protected:
 	String MsgSampleRate();

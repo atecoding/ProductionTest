@@ -11,7 +11,8 @@ Test::Test(XmlElement *xe,bool &ok, ProductionUnit* unit_) :
 	output (-1),
 	num_channels(1),
     glitchThreshold(4.0f),
-	unit(unit_)
+	unit(unit_),
+    requiredTestAdapterProductId(0) // Most tests do not require a specific product ID
 {
 	XmlElement *temp;
 
@@ -33,6 +34,8 @@ Test::Test(XmlElement *xe,bool &ok, ProductionUnit* unit_) :
 	maxSampleRate = sample_rate * 1.04f;
 	getFloatValue(xe, "min_sample_rate", minSampleRate);
 	getFloatValue(xe, "max_sample_rate", maxSampleRate);
+    
+    getHexValue(xe, "required_test_adapter_product_id", requiredTestAdapterProductId); // Not required
 
 	output_frequency = 1000.0f;
 }

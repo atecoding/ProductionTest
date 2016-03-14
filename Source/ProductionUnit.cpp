@@ -646,7 +646,7 @@ void ProductionUnit::handleMessage(const Message &message)
 
 			Result sampleRateResult(CheckSampleRate());
 
-			result = _test->calc(_inbuffs,msg, errorCodes);
+			result = _test->calc(_inbuffs, msg, errorCodes);
 			result &= sampleRateResult.wasOk();
 			_unit_passed &= result;
             
@@ -973,6 +973,18 @@ void ProductionUnit::ParseScript()
 													false);
 				return;
 			}
+            
+            if (0 != _test->requiredTestAdapterProductId &&
+                _test->requiredTestAdapterProductId != aioTestAdapter.getProductId())
+            {
+                //
+                // Ignore this test
+                //
+                _content->log(String::empty);
+                _content->log("Not running test " + _test->title + " - not supported by this adapter");
+                _script = _script->getNextElement();
+                continue;
+            }
 
 			_num_tests++;
 

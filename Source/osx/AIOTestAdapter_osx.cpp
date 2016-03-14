@@ -95,18 +95,27 @@ void AIOTestAdapter::findAdapter(IOHIDManagerRef &managerRef, CFSetRef &deviceCF
                     {
                         if (CFNumberGetTypeID() == CFGetTypeID(productIDTypeRef.object))
                         {
-                            int32 productID;
-                            result = CFNumberGetValue((CFNumberRef) productIDTypeRef.object, kCFNumberSInt32Type, &productID);
-                            if (result && ECHO_HID_TESTER_PRODUCT_ID == productID)
+                            int32 productID_;
+                            result = CFNumberGetValue((CFNumberRef) productIDTypeRef.object, kCFNumberSInt32Type, &productID_);
+                            if (result)
                             {
-                                DBG("Test adapter found");
+                                bool match = false;
+                                switch (productID_)
+                                {
+                                    case ECHO_HID_TESTER_PRODUCT_ID_V100:
+                                    case ECHO_HID_TESTER_PRODUCT_ID_V200:
+                                    case ECHO_HID_TESTER_PRODUCT_ID_V210:
+                                        DBG("Test adapter found");
+                                        
+                                        deviceRef.object = deviceRefs[i];
+                                        CFRetain(deviceRef.object);
+                                        productId = productID_;
+                                        match = true;
+                                        break;
+                                }
                                 
-                                deviceRef.object = deviceRefs[i];
-                                CFRetain(deviceRef.object);
-                                
-                                //CFShow(deviceRef.object);
-                                
-                                break;
+                                if (match)
+                                    break;
                             }
                         }
                     }
@@ -117,7 +126,8 @@ void AIOTestAdapter::findAdapter(IOHIDManagerRef &managerRef, CFSetRef &deviceCF
     }
 }
 
-AIOTestAdapter::AIOTestAdapter()
+AIOTestAdapter::AIOTestAdapter() :
+productId(0)
 {
 }
 
