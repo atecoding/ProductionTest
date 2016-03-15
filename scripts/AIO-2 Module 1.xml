@@ -16,7 +16,7 @@
 	<log>LED Test</log>
     </message_box>
 
-    <AIO_firmware_version_test max_version="0x71" />
+    <AIO_firmware_version_test max_version="0x75" />
 
     <AIO_module_type_test>
       <slot>0</slot>

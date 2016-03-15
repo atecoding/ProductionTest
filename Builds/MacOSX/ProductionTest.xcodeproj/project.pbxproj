@@ -61,7 +61,7 @@
 		C90CC37B1C8A463F001DA8C9 /* Spectrum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D4D771C8A1FAE0001DACC /* Spectrum.cpp */; };
 		C90CC37C1C8A463F001DA8C9 /* SpectrumAnalyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D4D791C8A1FAE0001DACC /* SpectrumAnalyzer.cpp */; };
 		C90CC37D1C8A4640001DA8C9 /* WindowedFFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C90CC3721C8A44FE001DA8C9 /* WindowedFFT.cpp */; };
-		C90ED0311B09337F000D0950 /* AIOSReferenceVoltageTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C90ED0301B09337F000D0950 /* AIOSReferenceVoltageTest.cpp */; };
+		C90ED0311B09337F000D0950 /* ReferenceVoltageTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C90ED0301B09337F000D0950 /* ReferenceVoltageTest.cpp */; };
 		C91579AC1C88DE6C00822D0E /* FrequencyIsolationTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C91579AB1C88DE6C00822D0E /* FrequencyIsolationTest.cpp */; };
 		C91579AD1C88DE6C00822D0E /* FrequencyIsolationTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C91579AB1C88DE6C00822D0E /* FrequencyIsolationTest.cpp */; };
 		C91579AE1C88DE6C00822D0E /* FrequencyIsolationTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C91579AB1C88DE6C00822D0E /* FrequencyIsolationTest.cpp */; };
@@ -92,7 +92,7 @@
 		C920FF071B62F68E009CC653 /* Printer_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BBBF7F1B322CC600766B48 /* Printer_osx.cpp */; };
 		C920FF081B62F68E009CC653 /* DescriptionAM1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6A81B293DE300CEC3BF /* DescriptionAM1.cpp */; };
 		C920FF091B62F68E009CC653 /* Analysis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B0110162BDE8AC0AAC824EF /* Analysis.cpp */; };
-		C920FF0A1B62F68E009CC653 /* AIOSReferenceVoltageTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C90ED0301B09337F000D0950 /* AIOSReferenceVoltageTest.cpp */; };
+		C920FF0A1B62F68E009CC653 /* ReferenceVoltageTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C90ED0301B09337F000D0950 /* ReferenceVoltageTest.cpp */; };
 		C920FF0B1B62F68E009CC653 /* App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 818009283030A757CA4EDD82 /* App.cpp */; };
 		C920FF0C1B62F68E009CC653 /* Upsampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BC4A431B1E4E7C009736B7 /* Upsampler.cpp */; };
 		C920FF0D1B62F68E009CC653 /* AppWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83F9F8AAD4DF4B12467CC60B /* AppWindow.cpp */; };
@@ -194,7 +194,7 @@
 		C97C87A21C431D950059995D /* Printer_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BBBF7F1B322CC600766B48 /* Printer_osx.cpp */; };
 		C97C87A31C431D950059995D /* DescriptionAM1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6A81B293DE300CEC3BF /* DescriptionAM1.cpp */; };
 		C97C87A41C431D950059995D /* Analysis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B0110162BDE8AC0AAC824EF /* Analysis.cpp */; };
-		C97C87A51C431D950059995D /* AIOSReferenceVoltageTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C90ED0301B09337F000D0950 /* AIOSReferenceVoltageTest.cpp */; };
+		C97C87A51C431D950059995D /* ReferenceVoltageTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C90ED0301B09337F000D0950 /* ReferenceVoltageTest.cpp */; };
 		C97C87A61C431D950059995D /* App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 818009283030A757CA4EDD82 /* App.cpp */; };
 		C97C87A71C431D950059995D /* Upsampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BC4A431B1E4E7C009736B7 /* Upsampler.cpp */; };
 		C97C87A81C431D950059995D /* AppWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83F9F8AAD4DF4B12467CC60B /* AppWindow.cpp */; };
@@ -260,6 +260,7 @@
 		C97C87EF1C431EFC0059995D /* ModuleTypeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94D94D11B6C2D0700DF03E9 /* ModuleTypeTest.cpp */; };
 		C97C87F01C431F100059995D /* DescriptionAM2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9AD8B311C3F336700518F8B /* DescriptionAM2.cpp */; };
 		C97C87F31C4320510059995D /* check.icns in Resources */ = {isa = PBXBuildFile; fileRef = C97C87F11C4320470059995D /* check.icns */; };
+		C981CA1B1C978A3E007346AD /* Test Adapter Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C981CA1A1C978A3E007346AD /* Test Adapter Test.xml */; };
 		C9AD8B321C3F336700518F8B /* DescriptionAM2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9AD8B311C3F336700518F8B /* DescriptionAM2.cpp */; };
 		C9BA91F51B63158200BEE902 /* aios.icns in Resources */ = {isa = PBXBuildFile; fileRef = C9BA91F31B63156E00BEE902 /* aios.icns */; };
 		C9BBBF801B322CC600766B48 /* Printer_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BBBF7F1B322CC600766B48 /* Printer_osx.cpp */; };
@@ -283,7 +284,7 @@
 		C9ED3C271B684274004A76CE /* Printer_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BBBF7F1B322CC600766B48 /* Printer_osx.cpp */; };
 		C9ED3C281B684274004A76CE /* DescriptionAM1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6A81B293DE300CEC3BF /* DescriptionAM1.cpp */; };
 		C9ED3C291B684274004A76CE /* Analysis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B0110162BDE8AC0AAC824EF /* Analysis.cpp */; };
-		C9ED3C2A1B684274004A76CE /* AIOSReferenceVoltageTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C90ED0301B09337F000D0950 /* AIOSReferenceVoltageTest.cpp */; };
+		C9ED3C2A1B684274004A76CE /* ReferenceVoltageTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C90ED0301B09337F000D0950 /* ReferenceVoltageTest.cpp */; };
 		C9ED3C2B1B684274004A76CE /* App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 818009283030A757CA4EDD82 /* App.cpp */; };
 		C9ED3C2C1B684274004A76CE /* Upsampler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BC4A431B1E4E7C009736B7 /* Upsampler.cpp */; };
 		C9ED3C2D1B684274004A76CE /* AppWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 83F9F8AAD4DF4B12467CC60B /* AppWindow.cpp */; };
@@ -1043,7 +1044,7 @@
 		C90CC3701C8A43CF001DA8C9 /* SilenceTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SilenceTest.cpp; path = ../../Source/SilenceTest.cpp; sourceTree = "<group>"; };
 		C90CC3721C8A44FE001DA8C9 /* WindowedFFT.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WindowedFFT.cpp; path = ../../Source/WindowedFFT.cpp; sourceTree = "<group>"; };
 		C90CC3731C8A44FE001DA8C9 /* WindowedFFT.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WindowedFFT.h; path = ../../Source/WindowedFFT.h; sourceTree = "<group>"; };
-		C90ED0301B09337F000D0950 /* AIOSReferenceVoltageTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIOSReferenceVoltageTest.cpp; path = ../../Source/AIOSReferenceVoltageTest.cpp; sourceTree = "<group>"; };
+		C90ED0301B09337F000D0950 /* ReferenceVoltageTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ReferenceVoltageTest.cpp; path = ../../Source/ReferenceVoltageTest.cpp; sourceTree = "<group>"; };
 		C91579AB1C88DE6C00822D0E /* FrequencyIsolationTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FrequencyIsolationTest.cpp; path = ../../Source/FrequencyIsolationTest.cpp; sourceTree = "<group>"; };
 		C920FF491B62F68E009CC653 /* AIO-S Final Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AIO-S Final Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C920FF4A1B62F68F009CC653 /* AIO-S_Final_Test.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AIO-S_Final_Test.plist"; path = "/Users/matt/proj/ProductionTest/Builds/MacOSX/AIO-S_Final_Test.plist"; sourceTree = "<absolute>"; };
@@ -1095,6 +1096,7 @@
 		C97C87E51C431D950059995D /* AIO-M Final Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AIO-M Final Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C97C87E71C431DF70059995D /* AIO-M_Final_Test.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AIO-M_Final_Test.plist"; sourceTree = "<group>"; };
 		C97C87F11C4320470059995D /* check.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = check.icns; sourceTree = "<group>"; };
+		C981CA1A1C978A3E007346AD /* Test Adapter Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Test Adapter Test.xml"; path = "../../scripts/Test Adapter Test.xml"; sourceTree = "<group>"; };
 		C9948BAD1C3DF75900DEECD0 /* AIO-M2 Final Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-M2 Final Test.xml"; path = "../../scripts/AIO-M2 Final Test.xml"; sourceTree = "<group>"; };
 		C9948BAF1C3DF99000DEECD0 /* DescriptionAM2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DescriptionAM2.h; path = ../../Source/DescriptionAM2.h; sourceTree = "<group>"; };
 		C99B4EC01B62E6F000B28545 /* AIO-S Resistance Check.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Resistance Check.xml"; path = "../../scripts/AIO-S Resistance Check.xml"; sourceTree = "<group>"; };
@@ -1701,7 +1703,7 @@
 			isa = PBXGroup;
 			children = (
 				E27290DC8B5B776949030F7F /* AcousticIO.h */,
-				C90ED0301B09337F000D0950 /* AIOSReferenceVoltageTest.cpp */,
+				C90ED0301B09337F000D0950 /* ReferenceVoltageTest.cpp */,
 				C9679FCD1B0D58A1001DDDB7 /* AIOTestAdapter.h */,
 				2B0110162BDE8AC0AAC824EF /* Analysis.cpp */,
 				86B7076CFA310F35A73A56A2 /* Analysis.h */,
@@ -2252,6 +2254,7 @@
 				C95C662C1B0A765000DA394D /* AIO-2 Full Test.xml */,
 				C9ED3C711B6843A1004A76CE /* AIO-2 Field Test.xml */,
 				C95C662D1B0A765000DA394D /* AIO-2 Module 1.xml */,
+				C981CA1A1C978A3E007346AD /* Test Adapter Test.xml */,
 				C906DB951B8D102000F65743 /* AIO-M1 Module 1.xml */,
 				C97C79591C3DBF98004BF5BF /* AIO-M1 Final Test.xml */,
 				C9948BAD1C3DF75900DEECD0 /* AIO-M2 Final Test.xml */,
@@ -3140,6 +3143,7 @@
 				C920FF611B62FEE0009CC653 /* AIO-2 Module 1.xml in Resources */,
 				6E32B1E6B0A50AF4474A55D8 /* RecentFilesMenuTemplate.nib in Resources */,
 				C920FF5D1B62FEE0009CC653 /* AIO-S Full Test.xml in Resources */,
+				C981CA1B1C978A3E007346AD /* Test Adapter Test.xml in Resources */,
 				C920FF5E1B62FEE0009CC653 /* AIO-S Module 1.xml in Resources */,
 				C920FF601B62FEE0009CC653 /* AIO-2 Full Test.xml in Resources */,
 				C920FF621B62FEE0009CC653 /* AIO-2 Module 2.xml in Resources */,
@@ -3203,7 +3207,7 @@
 				C9BBBF801B322CC600766B48 /* Printer_osx.cpp in Sources */,
 				C94CC6AC1B293DE300CEC3BF /* DescriptionAM1.cpp in Sources */,
 				83C40D4365D9E1E3BC1B2C9E /* Analysis.cpp in Sources */,
-				C90ED0311B09337F000D0950 /* AIOSReferenceVoltageTest.cpp in Sources */,
+				C90ED0311B09337F000D0950 /* ReferenceVoltageTest.cpp in Sources */,
 				AC48DC3904F5F2901024E938 /* App.cpp in Sources */,
 				C9BC4A451B1E4E7C009736B7 /* Upsampler.cpp in Sources */,
 				5A0EDE2FC4B914EFB4EAFC75 /* AppWindow.cpp in Sources */,
@@ -3281,7 +3285,7 @@
 				C920FF071B62F68E009CC653 /* Printer_osx.cpp in Sources */,
 				C920FF081B62F68E009CC653 /* DescriptionAM1.cpp in Sources */,
 				C920FF091B62F68E009CC653 /* Analysis.cpp in Sources */,
-				C920FF0A1B62F68E009CC653 /* AIOSReferenceVoltageTest.cpp in Sources */,
+				C920FF0A1B62F68E009CC653 /* ReferenceVoltageTest.cpp in Sources */,
 				C920FF0B1B62F68E009CC653 /* App.cpp in Sources */,
 				C920FF0C1B62F68E009CC653 /* Upsampler.cpp in Sources */,
 				C920FF0D1B62F68E009CC653 /* AppWindow.cpp in Sources */,
@@ -3363,7 +3367,7 @@
 				C97C87A21C431D950059995D /* Printer_osx.cpp in Sources */,
 				C97C87A31C431D950059995D /* DescriptionAM1.cpp in Sources */,
 				C97C87A41C431D950059995D /* Analysis.cpp in Sources */,
-				C97C87A51C431D950059995D /* AIOSReferenceVoltageTest.cpp in Sources */,
+				C97C87A51C431D950059995D /* ReferenceVoltageTest.cpp in Sources */,
 				C97C87A61C431D950059995D /* App.cpp in Sources */,
 				C97C87A71C431D950059995D /* Upsampler.cpp in Sources */,
 				C97C87A81C431D950059995D /* AppWindow.cpp in Sources */,
@@ -3444,7 +3448,7 @@
 				C9ED3C271B684274004A76CE /* Printer_osx.cpp in Sources */,
 				C9ED3C281B684274004A76CE /* DescriptionAM1.cpp in Sources */,
 				C9ED3C291B684274004A76CE /* Analysis.cpp in Sources */,
-				C9ED3C2A1B684274004A76CE /* AIOSReferenceVoltageTest.cpp in Sources */,
+				C9ED3C2A1B684274004A76CE /* ReferenceVoltageTest.cpp in Sources */,
 				C9ED3C2B1B684274004A76CE /* App.cpp in Sources */,
 				C9ED3C2C1B684274004A76CE /* Upsampler.cpp in Sources */,
 				C919692A1C8A6F0F00C06E9A /* SilenceTest.cpp in Sources */,

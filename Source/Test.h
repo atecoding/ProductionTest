@@ -203,12 +203,13 @@ protected:
     SpectrumAnalyzer analyzer;
 };
 
-class AIOSReferenceVoltageTest : public Test
+class ReferenceVoltageTest : public Test
 {
 public:
-    AIOSReferenceVoltageTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
+    ReferenceVoltageTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
     
     virtual void fillAudioOutputs(AudioSampleBuffer &buffer, ToneGeneratorAudioSource &tone) override;
+    virtual int getSamplesRequired() override;
     virtual bool calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorCodes &errorCodes) override;
     
 protected:

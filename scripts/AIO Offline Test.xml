@@ -10,7 +10,7 @@
     <CoreAudio_driver>EchoAIO</CoreAudio_driver>
 
     <Offline_test>
-      <type>AIOS Reference voltage check</type>
+      <type>Reference voltage test</type>
       <output_amplitude_db>-6.0</output_amplitude_db>
       <input>0</input>
       <output>0</output>

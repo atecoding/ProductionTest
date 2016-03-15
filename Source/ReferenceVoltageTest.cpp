@@ -13,7 +13,7 @@ const float ratioTolerancePercent = 25.0f;
 const float minDutyCycle = 0.45f;
 const float maxDutyCycle = 0.55f;
 
-AIOSReferenceVoltageTest::AIOSReferenceVoltageTest(XmlElement *xe,bool &ok, ProductionUnit *unit_) :
+ReferenceVoltageTest::ReferenceVoltageTest(XmlElement *xe,bool &ok, ProductionUnit *unit_) :
 Test(xe,ok,unit_)
 {
     DBG(title);
@@ -21,11 +21,19 @@ Test(xe,ok,unit_)
     squareWavePosition = 0;
     squareWaveMaxAmplitude = 0.5f;
     squareWaveMinAmplitude = -0.5f;
+    
     squareWaveFrequency = 500.0f;
+    getFloatValue(xe, "square_wave_frequency", squareWaveFrequency);
+    
     squareWavePeriodSamples = roundDoubleToInt( double(sample_rate) / squareWaveFrequency);
 }
 
-void AIOSReferenceVoltageTest::fillAudioOutputs(AudioSampleBuffer &buffer, ToneGeneratorAudioSource &tone)
+int ReferenceVoltageTest::getSamplesRequired()
+{
+    return sample_rate * 2;
+}
+
+void ReferenceVoltageTest::fillAudioOutputs(AudioSampleBuffer &buffer, ToneGeneratorAudioSource &tone)
 {
     int squareWavePositionThisChannel = squareWavePosition;
     int halfPeriodSamples = squareWavePeriodSamples >> 1;
@@ -56,43 +64,49 @@ void AIOSReferenceVoltageTest::fillAudioOutputs(AudioSampleBuffer &buffer, ToneG
 }
 
 
-bool AIOSReferenceVoltageTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorCodes &errorCodes)
+bool ReferenceVoltageTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorCodes &errorCodes)
 {
-    int channel = 0; // this is AIOS_VOLTAGE_INPUT_CHANNEL
-    int physicalInput = input + channel;
-    AudioSampleBuffer *sourceBuffer = buffs[physicalInput];
-    Range<float> allowed(expectedAIOSVoltageInputResult * (1.0f - tolerancePercent * 0.01f),
-                         expectedAIOSVoltageInputResult * (1.0f + tolerancePercent * 0.01f));
+    bool pass = true;
     
-    float totalResult = 0.0f;
-    Result rangeResult(analyze("Reference voltage",
-            sourceBuffer->getReadPointer(0),
-            sourceBuffer->getNumSamples(),
-            totalResult,allowed));
+    for (int channel = 0; channel < num_channels; ++channel)
+    {
+        int physicalInput = input + channel;
+        AudioSampleBuffer *sourceBuffer = buffs[physicalInput];
+        Range<float> allowed(expectedAIOSVoltageInputResult * (1.0f - tolerancePercent * 0.01f),
+                             expectedAIOSVoltageInputResult * (1.0f + tolerancePercent * 0.01f));
+        
+        float totalResult = 0.0f;
+        Result rangeResult(analyze("Reference voltage",
+                sourceBuffer->getReadPointer(0),
+                sourceBuffer->getNumSamples(),
+                totalResult, allowed));
 
-    msg = "     ";
-    msg += String(totalResult * voltageInputPeakVolts, 6) + " V";
-    if (rangeResult.failed())
-    {
-        msg += " FAIL - " + rangeResult.getErrorMessage();
+        msg += String::formatted("     Input %d: ", physicalInput + 1);
+        msg += String(totalResult * voltageInputPeakVolts, 2) + " V";
+        if (rangeResult.failed())
+        {
+            msg += " FAIL - " + rangeResult.getErrorMessage();
+            
+            String filename(title);
+            filename += String::formatted(" (in%02d).wav", output, physicalInput);
+            WriteWaveFile(unit, filename, sample_rate, sourceBuffer, getSamplesRequired());
+            
+            errorCodes.add(ErrorCodes::AIOS_REFERENCE_VOLTAGE, channel);
+        }
+        else
+        {
+            msg += " OK";
+        }
         
-        String filename(title);
-        filename += String::formatted(" (out%02d-in%02d).wav", output, physicalInput);
-        WriteWaveFile(unit, filename, sample_rate, sourceBuffer, getSamplesRequired());
+        msg += newLine;
         
-        errorCodes.add(ErrorCodes::AIOS_REFERENCE_VOLTAGE);
-    }
-    else
-    {
-        msg += " OK";
+        pass &= rangeResult.wasOk();
     }
     
-    msg += newLine;
-    
-    return rangeResult.wasOk();
+    return pass;
 }
 
-Result AIOSReferenceVoltageTest::analyze(
+Result ReferenceVoltageTest::analyze(
                                          String const name,
                                          const float *data,
                                          int numSamples,
@@ -134,7 +148,6 @@ Result AIOSReferenceVoltageTest::analyze(
     
     while (numSamples > 0)
     {
-        
         findZeroCrossing(data, numSamples, zeroCrossing1, zeroCrossing2);
         if (zeroCrossing2 < 0)
             break;
@@ -145,12 +158,12 @@ Result AIOSReferenceVoltageTest::analyze(
             return Result::fail(name + " signal too noisy");
         }
         
-        //DBG("Zero crossing at " << zeroCrossing2);
+        DBG("Zero crossing at " << zeroCrossing2);
         
         length = zeroCrossing2 - zeroCrossing1;
         float sample = data[length / 2];
         
-        //DBG("  Center sample " << sample);
+        DBG("  Center sample " << sample);
         
         if (sample < 0.0f)
         {
@@ -214,9 +227,8 @@ Result AIOSReferenceVoltageTest::analyze(
 }
 
 
-void AIOSReferenceVoltageTest::findZeroCrossing(const float * data, int numSamples, int startIndex, int &zeroCrossingIndex)
+void ReferenceVoltageTest::findZeroCrossing(const float * data, int numSamples, int startIndex, int &zeroCrossingIndex)
 {
-    
 	int const periodThreshold = roundFloatToInt(squareWavePeriodSamples * 0.4f);
 
     if (numSamples < 2)

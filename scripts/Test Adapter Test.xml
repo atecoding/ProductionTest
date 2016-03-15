@@ -1,131 +1,98 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <root>
-
-  <!-- **************************************************** -->
-  <!-- Echo AIO-S                                  -->
-  <!-- **************************************************** -->
-
-  <device>
+  
+    <!-- **************************************************** -->
+	<!-- Echo AIO                                    -->
+	<!-- **************************************************** -->
+	<device>
     Echo AIO
     <Require_AIO_Test_Adapter>true</Require_AIO_Test_Adapter>
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO</CoreAudio_driver>
 
-    <AIOS_clear_RAM_calibration />
-
-    <message_box>
-      Is the blue LED lit?
-      <show_yes_no>1</show_yes_no>
-      <log>LED Test</log>
-    </message_box>
-
-    <AIO_firmware_version_test min_version="0x71" />
+    <AIO_firmware_version_test max_version="0x75" />
     
     <AIO_module_type_test>
-        <slot>0</slot>  <!-- slot 0 == center slot -->
-        <type>2</type>  <!-- type 2 == speaker monitor module -->
+      <slot>0</slot>
+      <!-- slot 0 == center slot -->
+      <type>1</type>
+      <!-- type 1 == TEDS microphone + class D amp analog module -->
     </AIO_module_type_test>
 
-    <!-- <AIO_flash_memory_test /> -->
+    <AIO_module_type_test>
+      <slot>1</slot>
+      <!-- slot 1 == outer slot -->
+      <type>1</type>
+      <!-- type 1 == TEDS microphone + class D amp analog module -->
+    </AIO_module_type_test>
+ 
+    <message_box>Connect the Test Adapter to Inputs 1-4</message_box>
 
-    <message_box>Connect the Test Adapter to Inputs 1-2 and AMP1 and insert the Reference Resistor Adapter.</message_box>
-
-    <!-- Check AIO-S calibration reference voltage -->
-
-    <AIO_set_mic_gain input="2" gain="1" />
-    <AIOS_set_reference_voltage enabled="1" /> <!-- Enable reference voltage -->
-    <Delay_msec>500</Delay_msec>
-
-    <prompt>
-      AIO-S Calibration reference voltage
-      <text>AIO-S Calibration reference voltage</text>
-      <output_amplitude_db>-6.0</output_amplitude_db>
-      <input>2</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <min_input_db>-200.0</min_input_db>
-      <max_input_db>0.0</max_input_db>
-      <wait_for_user>0</wait_for_user>
-      <start_group>0</start_group>
-    </prompt>
-
-    <test>
-      AIO-S Calibration reference voltage
-      <type>Reference voltage test</type>
-      <output_amplitude_db>-6.0</output_amplitude_db>
-      <input>0</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-    </test>
-
-    <prompt>
-      AIO-S Calibration reference voltage
-      <text>AIO-S Calibration reference voltage</text>
-      <output_amplitude_db>-6.0</output_amplitude_db>
-      <input>2</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <min_input_db>-200.0</min_input_db>
-      <max_input_db>0.0</max_input_db>
-      <wait_for_user>0</wait_for_user>
-      <start_group>0</start_group>
-    </prompt>
-
-    <AIOS_set_reference_voltage enabled="0" /> <!-- Disable reference voltage -->
-
-
-    <!-- Check constant current voltage and current for inputs 1 & 2-->
+    <!-- Check constant current voltage and current -->
 
     <AIO_set_constant_current input="0" enabled="0" /> <!-- turn off constant current for input 1 -->
     <AIO_set_constant_current input="1" enabled="0" /> <!-- turn off constant current for input 2 -->
-    <AIO_set_constant_current input="2" enabled="0" /> <!-- turn on constant current for input 3 -->
-    <AIO_set_constant_current input="3" enabled="0" /> <!-- turn on constant current for input 4 -->
+    <AIO_set_constant_current input="2" enabled="0" /> <!-- turn off constant current for input 3 -->
+    <AIO_set_constant_current input="3" enabled="0" /> <!-- turn off constant current for input 4 -->
     <AIO_set_constant_current input="4" enabled="1" /> <!-- turn on constant current for input 5 -->
     <AIO_set_constant_current input="5" enabled="1" /> <!-- turn on constant current for input 6 -->
     <AIO_set_constant_current input="6" enabled="1" /> <!-- turn on constant current for input 7 -->
     <AIO_set_constant_current input="7" enabled="1" /> <!-- turn on constant current for input 8 -->
     <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
-    <AIO_mic_supply_off_voltage_test input="0" short="1">
-      <minimum>0.0</minimum>
+    <AIO_mic_supply_off_voltage_test input="0">
+      <minimum>0.0</minimum> 
       <!-- minimum and maximum are in volts -->
       <maximum>1.0</maximum>
     </AIO_mic_supply_off_voltage_test>
 
     <AIO_set_constant_current input="0" enabled="1" /> <!-- turn on constant current for input 1 -->
     <AIO_set_constant_current input="1" enabled="1" /> <!-- turn on constant current for input 2 -->
+    <AIO_set_constant_current input="2" enabled="1" /> <!-- turn on constant current for input 3 -->
+    <AIO_set_constant_current input="3" enabled="1" /> <!-- turn on constant current for input 4 -->
+    <AIO_set_constant_current input="4" enabled="0" /> <!-- turn off constant current for input 5 -->
+    <AIO_set_constant_current input="5" enabled="0" /> <!-- turn off constant current for input 6 -->
+    <AIO_set_constant_current input="6" enabled="0" /> <!-- turn off constant current for input 7 -->
+    <AIO_set_constant_current input="7" enabled="0" /> <!-- turn off constant current for input 8 -->
     <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
     <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
-    <AIO_mic_supply_on_voltage_test input="0" short="1">
-      <minimum>19.0</minimum>
+    <AIO_mic_supply_on_voltage_test input="0">
+      <minimum>19.0</minimum> 
       <!-- minimum and maximum are in volts -->
       <maximum>21.0</maximum>
     </AIO_mic_supply_on_voltage_test>
 
     <AIO_write_test_adapter byte="0x0f"/> <!-- set adapter for Mic Supply current measurement and read ADCs-->
     <AIO_write_test_adapter byte="0x0f"/> <!-- second time to allow capacitor discharge-->
-    <AIO_mic_supply_current_test input="0" short="1">
-      <minimum>4.0</minimum>
+    <AIO_mic_supply_current_test input="0">
+      <minimum>4.0</minimum> 
       <!-- minimum and maximum are in volts -->
       <maximum>4.4</maximum>
     </AIO_mic_supply_current_test>
 
     <AIO_set_constant_current input="0" enabled="0" /> <!-- turn off constant current for input 1 -->
     <AIO_set_constant_current input="1" enabled="0" /> <!-- turn off constant current for input 2 -->
+    <AIO_set_constant_current input="2" enabled="0" /> <!-- turn off constant current for input 3 -->
+    <AIO_set_constant_current input="3" enabled="0" /> <!-- turn off constant current for input 4 -->
     <Delay_msec>500</Delay_msec>
 
     <!-- Check TEDS read circuits - do this after disabling constant current -->
 
-    <AIO_TEDS_test input="0" short="1"/>
+    <AIO_TEDS_test input="0" />
 
+    <ignore>
     <!-- Test 100x gain settings for inputs -->
     <!-- Leave test adapter in mic mode so inputs are disconnected from amp outputs -->
+    <!-- First measure the level at 10x gain to check the relative difference -->
+    
+    <AIO_set_mic_gain input="0" gain="10" />
+    <AIO_set_mic_gain input="1" gain="10" />
+    <AIO_set_mic_gain input="2" gain="10" />
+    <AIO_set_mic_gain input="3" gain="10" />
+    <Delay_msec>2000</Delay_msec>
 
     <prompt>
       Input and Output Gains 1-4
-      <text>Check levels for gain settings 1-2</text>
+      <text>Check levels for gain settings 1-4</text>
       <output_amplitude_db>-20.0</output_amplitude_db>
       <input>0</input>
       <output>0</output>
@@ -134,14 +101,8 @@
       <min_input_db>-200.0</min_input_db>
       <max_input_db>0.0</max_input_db>
       <wait_for_user>0</wait_for_user>
-      <start_group>0</start_group>
+      <start_group>1</start_group>
     </prompt>
-
-    <AIO_set_mic_gain input="0" gain="10" />
-    <AIO_set_mic_gain input="1" gain="10" />
-    <AIO_set_mic_gain input="2" gain="10" />
-    <AIO_set_mic_gain input="3" gain="10" />
-    <Delay_msec>2000</Delay_msec>
 
     <test>
       10x Input Level Check 1-2
@@ -162,7 +123,14 @@
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
     </test>
+    
+    <AIO_power_supply_reset_test>
+        <text>module 1</text>
+        <first_channel>0</first_channel>
+        <last_channel>3</last_channel>
+    </AIO_power_supply_reset_test>
 
+    <!-- Second, get the level at 100x and see if the difference is about 20 dB -->
     <AIO_set_mic_gain input="0" gain="100" />
     <AIO_set_mic_gain input="1" gain="100" />
     <AIO_set_mic_gain input="2" gain="100" />
@@ -191,15 +159,17 @@
       <min_level_db>17.5</min_level_db>
       <max_level_db>22.5</max_level_db>
     </test>
+    </ignore>
 
     <!-- Test gain settings for inputs and outputs -->
-
+    
     <AIO_write_test_adapter byte="0x30"/> <!-- set adapter for audio measurements-->
-
+    
     <AIO_set_mic_gain input="0" gain="1" />
     <AIO_set_mic_gain input="1" gain="1" />
     <AIO_set_mic_gain input="2" gain="1" />
     <AIO_set_mic_gain input="3" gain="1" />
+
     <AIO_set_amp_gain output="0" gain="1" />
     <AIO_set_amp_gain output="1" gain="1" />
 
@@ -216,27 +186,15 @@
     </test>
 
     <test>
-      1x Input - 1x Output Level Check 3
+      1x Input - 1x Output Level Check 3-4
       <type>Level check</type>
       <output_amplitude_db>-0.0</output_amplitude_db>
       <input>2</input>
       <output>0</output>
-      <num_channels>1</num_channels>
+      <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
       <min_level_db>-25.0</min_level_db>
       <max_level_db>-20.0</max_level_db>
-    </test>
-
-    <test>
-      1x Input - 1x Output Level Check 4
-      <type>Level check</type>
-      <output_amplitude_db>-0.0</output_amplitude_db>
-      <input>3</input>
-      <output>0</output>
-      <num_channels>1</num_channels>
-      <sample_rate>48000</sample_rate>
-      <min_level_db>-39.0</min_level_db>
-      <max_level_db>-34.0</max_level_db>
     </test>
 
     <AIO_set_mic_gain input="0" gain="1" />
@@ -260,27 +218,15 @@
     </test>
 
     <test>
-      1x Input - 10x Output Level Check 3
+      1x Input - 10x Output Level Check 3-4
       <type>Level check</type>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <input>2</input>
       <output>0</output>
-      <num_channels>1</num_channels>
+      <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
       <min_level_db>-15.0</min_level_db>
       <max_level_db>-11.0</max_level_db>
-    </test>
-
-    <test>
-      1x Input - 10x Output Level Check 4
-      <type>Level check</type>
-      <output_amplitude_db>-10.0</output_amplitude_db>
-      <input>3</input>
-      <output>0</output>
-      <num_channels>1</num_channels>
-      <sample_rate>48000</sample_rate>
-      <min_level_db>-29.0</min_level_db>
-      <max_level_db>-25.0</max_level_db>
     </test>
 
     <AIO_set_mic_gain input="0" gain="10" />
@@ -304,27 +250,15 @@
     </test>
 
     <test>
-      10x Input - 10x Output Level Check 3
+      10x Input - 10x Output Level Check 3-4
       <type>Level check</type>
       <output_amplitude_db>-30.0</output_amplitude_db>
       <input>2</input>
       <output>0</output>
-      <num_channels>1</num_channels>
+      <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
       <min_level_db>-15.0</min_level_db>
       <max_level_db>-11.0</max_level_db>
-    </test>
-
-    <test>
-      10x Input - 10x Output Level Check 4
-      <type>Level check</type>
-      <output_amplitude_db>-30.0</output_amplitude_db>
-      <input>3</input>
-      <output>0</output>
-      <num_channels>1</num_channels>
-      <sample_rate>48000</sample_rate>
-      <min_level_db>-29.0</min_level_db>
-      <max_level_db>-25.0</max_level_db>
     </test>
 
     <!-- Audio Quality Tests 1-4 -->
@@ -361,7 +295,7 @@
       <sample_rate>48000</sample_rate>
       <output_frequency>1000.0</output_frequency>
       <output_amplitude_db>-2.0</output_amplitude_db>
-      <pass_threshold_db>-60.0</pass_threshold_db>
+      <pass_threshold_db>-66.0</pass_threshold_db>
     </test>
 
     <test>
@@ -395,7 +329,7 @@
       <sample_rate>96000</sample_rate>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
-      <pass_threshold_db>0.4</pass_threshold_db>
+      <pass_threshold_db>0.49</pass_threshold_db>
       <sweep_time_seconds>2.0</sweep_time_seconds>
       <sweep_delay_seconds>0.4</sweep_delay_seconds>
       <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
@@ -414,7 +348,7 @@
       <sample_rate>48000</sample_rate>
       <output_frequency>1000.0</output_frequency>
       <output_amplitude_db>-2.0</output_amplitude_db>
-      <pass_threshold_db>-60.0</pass_threshold_db>
+      <pass_threshold_db>-66.0</pass_threshold_db>
     </test>
 
     <test>
@@ -435,7 +369,7 @@
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
       <output_amplitude_db>-60.0</output_amplitude_db>
-      <pass_threshold_db>90.0</pass_threshold_db>
+      <pass_threshold_db>100.0</pass_threshold_db>
     </test>
 
     <!-- Frequency response tests for 3-4 -->
@@ -448,19 +382,72 @@
       <sample_rate>96000</sample_rate>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
-      <pass_threshold_db>0.4</pass_threshold_db>
+      <pass_threshold_db>0.49</pass_threshold_db>
       <sweep_time_seconds>2.0</sweep_time_seconds>
       <sweep_delay_seconds>0.4</sweep_delay_seconds>
       <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
       <sweep_fadeout_seconds>0.1</sweep_fadeout_seconds>
       <sweep_record_seconds>4.0</sweep_record_seconds>
     </test>
-    
-    <!-- Final calibration -->
-    <!-- This must be the last stage of the test or the CalibrationManager doesn't get CoreAudio callbacks -->
-    
-     <!-- <AIOS_calibrate/> -->
 
+    <prompt>
+      Group End Prompt
+      <text>Force printing of last result</text>
+      <output_amplitude_db>-0.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-200.0</min_input_db>
+      <max_input_db>0.0</max_input_db>
+      <wait_for_user>0</wait_for_user>
+      <stop_group>1</stop_group>
+    </prompt>
+    
+    <!-- Check test adapter calibration reference voltage -->
+    
+    <AIO_set_mic_gain input="0" gain="1" />
+    <AIO_set_mic_gain input="1" gain="1" />
+    <AIO_set_mic_gain input="2" gain="1" />
+    <AIO_set_mic_gain input="3" gain="1" />
+    <AIO_write_test_adapter byte="0x40"/> <!-- set adapter for no loopback, calibration voltage on (2016 v210 AIO test adapter only) -->
+
+    <Delay_msec>500</Delay_msec>
+    
+    <prompt>
+        Test adapter calibration reference voltage
+        <text>Calibration reference voltage</text>
+        <output_amplitude_db>-200.0</output_amplitude_db>
+        <input>0</input>
+        <output>0</output>
+        <num_channels>2</num_channels>
+        <sample_rate>48000</sample_rate>
+        <min_input_db>-200.0</min_input_db>
+        <max_input_db>0.0</max_input_db>
+        <wait_for_user>0</wait_for_user>
+        <start_group>0</start_group>
+    </prompt>
+    
+    <test>
+        Calibration reference voltage
+        <type>Reference voltage test</type>
+        <output_amplitude_db>-200.0</output_amplitude_db>
+        <input>0</input>
+        <output>0</output>
+        <num_channels>4</num_channels>
+        <sample_rate>48000</sample_rate>
+        <square_wave_frequency>1000.0</square_wave_frequency>
+    </test>
+    
+    <Finish_group/>
+
+    <Print_error_codes>
+      <text> - Module 1</text>
+      <first_channel>0</first_channel>
+      <last_channel>3</last_channel>
+      <codes>0 1 2 4 5 6</codes>
+    </Print_error_codes>
+    
   </device>
 
 </root>

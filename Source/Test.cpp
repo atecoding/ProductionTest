@@ -109,8 +109,8 @@ Test *Test::Create(XmlElement *xe, int input, int output, bool &ok, ProductionUn
 		if (typeString == "Phase")
 			test = new PhaseTest(xe, ok, unit_);
         
-        if (typeString == "AIOS Reference voltage check")
-            test = new AIOSReferenceVoltageTest(xe, ok, unit_);
+        if (typeString == "Reference voltage test")
+            test = new ReferenceVoltageTest(xe, ok, unit_);
         
         if (typeString == "Silence")
             test = new SilenceTest(xe, ok, unit_);
