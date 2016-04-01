@@ -439,7 +439,7 @@ Result ehw::setAIOSReferenceVoltage(XmlElement const *element)
 Result ehw::setAIOSReferenceVoltage(int const module, bool const enabled)
 {
     IOReturn rc = setRequest(ACOUSTICIO_EXTENSION_UNIT, ACOUSTICIO_CALIBRATION_VOLTAGE_CONTROL, module, (uint8 *)&enabled, 1);
-    
+    DBG(String::formatted("ehw::setAIOSReferenceVoltage  module:%d  enabled:%d  rc:%x", module, enabled, rc ));
     if (kIOReturnSuccess == rc)
     {
         return Result::ok();

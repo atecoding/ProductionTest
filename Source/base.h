@@ -35,8 +35,8 @@
 
 #include "../JuceLibraryCode/JuceHeader.h"
 
-#undef DBG
-#define DBG(textToWrite)
+//#undef DBG
+//#define DBG(textToWrite)
 
 #if defined(JUCE_MAC) && !defined(JUCE_DEBUG)
 #pragma message "Release build doesn't work on the Mac"
