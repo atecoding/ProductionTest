@@ -59,7 +59,6 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, Erro
 			if (delta > max_delta)
             {
 				max_delta = delta;
-                maxDeltaPosition = idx;
             }
             
 //            max_delta = jmax(max_delta, delta);
