@@ -59,7 +59,7 @@
         AIO-S Calibration reference voltage
         <type>Reference voltage test</type>
         <output_amplitude_db>-6.0</output_amplitude_db>
-        <input>0</input>
+        <input>2</input>
         <output>0</output>
         <num_channels>2</num_channels>
         <sample_rate>48000</sample_rate>
@@ -281,7 +281,7 @@
       <input>0</input>
       <output>0</output>
       <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
+      <sample_rate>96000</sample_rate>
       <min_level_db>-15.0</min_level_db>
       <max_level_db>-11.0</max_level_db>
     </test>
@@ -293,7 +293,7 @@
       <input>2</input>
       <output>0</output>
       <num_channels>1</num_channels>
-      <sample_rate>48000</sample_rate>
+      <sample_rate>96000</sample_rate>
       <min_level_db>-15.0</min_level_db>
       <max_level_db>-11.0</max_level_db>
     </test>
@@ -305,7 +305,7 @@
       <input>3</input>
       <output>0</output>
       <num_channels>1</num_channels>
-      <sample_rate>48000</sample_rate>
+      <sample_rate>96000</sample_rate>
       <min_level_db>-29.0</min_level_db>
       <max_level_db>-25.0</max_level_db>
     </test>
@@ -322,10 +322,11 @@
       10x Input - 10x Output Level Check 1-2
       <type>Level check</type>
       <output_amplitude_db>-30.0</output_amplitude_db>
+      <output_frequency>4000</output_frequency>
       <input>0</input>
       <output>0</output>
       <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
+      <sample_rate>192000</sample_rate>
       <min_level_db>-15.0</min_level_db>
       <max_level_db>-11.0</max_level_db>
     </test>
@@ -337,7 +338,7 @@
       <input>2</input>
       <output>0</output>
       <num_channels>1</num_channels>
-      <sample_rate>48000</sample_rate>
+      <sample_rate>192000</sample_rate>
       <min_level_db>-15.0</min_level_db>
       <max_level_db>-11.0</max_level_db>
     </test>
@@ -349,7 +350,7 @@
       <input>3</input>
       <output>0</output>
       <num_channels>1</num_channels>
-      <sample_rate>48000</sample_rate>
+      <sample_rate>192000</sample_rate>
       <min_level_db>-29.0</min_level_db>
       <max_level_db>-25.0</max_level_db>
     </test>
@@ -684,7 +685,7 @@
       <input>4</input>
       <output>2</output>
       <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
+      <sample_rate>96000</sample_rate>
       <min_level_db>-15.0</min_level_db>
       <max_level_db>-11.0</max_level_db>
     </test>
@@ -696,7 +697,7 @@
       <input>6</input>
       <output>2</output>
       <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
+      <sample_rate>96000</sample_rate>
       <min_level_db>-15.0</min_level_db>
       <max_level_db>-11.0</max_level_db>
     </test>
@@ -716,7 +717,7 @@
       <input>4</input>
       <output>2</output>
       <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
+      <sample_rate>192000</sample_rate>
       <min_level_db>-15.0</min_level_db>
       <max_level_db>-11.0</max_level_db>
     </test>
@@ -728,7 +729,7 @@
       <input>6</input>
       <output>2</output>
       <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
+      <sample_rate>192000</sample_rate>
       <min_level_db>-15.0</min_level_db>
       <max_level_db>-11.0</max_level_db>
     </test>

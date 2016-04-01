@@ -54,7 +54,7 @@
       AIO-S Calibration reference voltage
       <type>Reference voltage test</type>
       <output_amplitude_db>-6.0</output_amplitude_db>
-      <input>0</input>
+      <input>2</input>
       <output>0</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
