@@ -307,7 +307,6 @@
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\Source\AIOSReferenceVoltageTest.cpp" />
     <ClCompile Include="..\..\Source\CalibrationVerificationTest.cpp" />
     <ClCompile Include="..\..\Source\calibration\CalibrationAudioIOCallback.cpp" />
     <ClCompile Include="..\..\Source\calibration\CalibrationData.cpp" />
@@ -329,11 +328,13 @@
     <ClCompile Include="..\..\Source\ErrorCodes.cpp" />
     <ClCompile Include="..\..\Source\FilterCoeff.cpp" />
     <ClCompile Include="..\..\Source\FlashMemoryTest.cpp" />
+    <ClCompile Include="..\..\Source\FrequencyIsolationTest.cpp" />
     <ClCompile Include="..\..\Source\FrequencyResponseTest.cpp" />
     <ClCompile Include="..\..\Source\FrequencySweepAudioSource.cpp" />
     <ClCompile Include="..\..\Source\FrequencySweepResponseTest.cpp" />
     <ClCompile Include="..\..\Source\Images.cpp" />
     <ClCompile Include="..\..\Source\LevelCheckTest.cpp" />
+    <ClCompile Include="..\..\Source\mb_bulk.cpp" />
     <ClCompile Include="..\..\Source\MeterWindow.cpp" />
     <ClCompile Include="..\..\Source\MIDILoopTest.cpp" />
     <ClCompile Include="..\..\Source\MidiTest.cpp" />
@@ -344,8 +345,12 @@
     <ClCompile Include="..\..\Source\printer\Printer.cpp" />
     <ClCompile Include="..\..\Source\ProductionUnit.cpp" />
     <ClCompile Include="..\..\Source\r8brain\r8bbase.cpp" />
+    <ClCompile Include="..\..\Source\ReferenceVoltageTest.cpp" />
     <ClCompile Include="..\..\Source\RelativeLevelTest.cpp" />
     <ClCompile Include="..\..\Source\SawtoothAudioSource.cpp" />
+    <ClCompile Include="..\..\Source\SilenceTest.cpp" />
+    <ClCompile Include="..\..\Source\Spectrum.cpp" />
+    <ClCompile Include="..\..\Source\SpectrumAnalyzer.cpp" />
     <ClCompile Include="..\..\Source\TEDSTest.cpp" />
     <ClCompile Include="..\..\Source\Test.cpp" />
     <ClCompile Include="..\..\Source\TestManager.cpp" />
@@ -363,6 +368,7 @@
     <ClCompile Include="..\..\Source\win32\usb\win\ehw.cpp" />
     <ClCompile Include="..\..\Source\win32\win\CDevChange.cpp" />
     <ClCompile Include="..\..\Source\win32\win\NotificationWindow.cpp" />
+    <ClCompile Include="..\..\Source\WindowedFFT.cpp" />
     <ClCompile Include="..\..\Source\xml.cpp" />
     <ClCompile Include="..\..\JuceLibraryCode\modules\juce_audio_basics\buffers\juce_AudioDataConverters.cpp">
       <ExcludedFromBuild>true</ExcludedFromBuild>
@@ -1414,6 +1420,8 @@
     <ClInclude Include="..\..\Source\r8brain\r8bbase.h" />
     <ClInclude Include="..\..\Source\r8brain\r8bconf.h" />
     <ClInclude Include="..\..\Source\SawtoothAudioSource.h" />
+    <ClInclude Include="..\..\Source\Spectrum.h" />
+    <ClInclude Include="..\..\Source\SpectrumAnalyzer.h" />
     <ClInclude Include="..\..\Source\Test.h" />
     <ClInclude Include="..\..\Source\TestManager.h" />
     <ClInclude Include="..\..\Source\TestPrompt.h" />
@@ -1422,6 +1430,7 @@
     <ClInclude Include="..\..\Source\wavefile.h" />
     <ClInclude Include="..\..\Source\win32\usb\win\AcousticIO.h" />
     <ClInclude Include="..\..\Source\win32\usb\win\ehw.h" />
+    <ClInclude Include="..\..\Source\WindowedFFT.h" />
     <ClInclude Include="..\..\Source\xml.h" />
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h" />
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_basics\buffers\juce_AudioSampleBuffer.h" />

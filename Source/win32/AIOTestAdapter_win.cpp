@@ -94,26 +94,41 @@ bool AIOTestAdapter::open()
 				zerostruct(attributes);
 				attributes.Size = sizeof(attributes);
 				BOOL attributes_result = HidD_GetAttributes(deviceHandle,&attributes);
-				if (attributes_result && ECHO_VENDOR_ID == attributes.VendorID && ECHO_HID_TESTER_PRODUCT_ID == attributes.ProductID)
+				if (attributes_result && ECHO_VENDOR_ID == attributes.VendorID)
 				{
-					readHandle = CreateFile
-						(detailData->DevicePath,
-						GENERIC_READ,
-						FILE_SHARE_READ | FILE_SHARE_WRITE,
-						(LPSECURITY_ATTRIBUTES)NULL,
-						OPEN_EXISTING,
-						FILE_FLAG_OVERLAPPED,
-						NULL);
+					bool match = false;
 
-					writeHandle = CreateFile
-						(detailData->DevicePath,
-						GENERIC_WRITE,
-						FILE_SHARE_READ | FILE_SHARE_WRITE,
-						(LPSECURITY_ATTRIBUTES)NULL,
-						OPEN_EXISTING,
-						FILE_FLAG_OVERLAPPED,
-						NULL);
-					break;
+					switch (attributes.ProductID)
+					{
+					case ECHO_HID_TESTER_PRODUCT_ID_V100:
+					case ECHO_HID_TESTER_PRODUCT_ID_V200:
+					case ECHO_HID_TESTER_PRODUCT_ID_V210:
+						DBG("Test adapter found");
+						match = true;
+						break;
+					}
+
+					if (match)
+					{
+						readHandle = CreateFile
+							(detailData->DevicePath,
+							GENERIC_READ,
+							FILE_SHARE_READ | FILE_SHARE_WRITE,
+							(LPSECURITY_ATTRIBUTES)NULL,
+							OPEN_EXISTING,
+							FILE_FLAG_OVERLAPPED,
+							NULL);
+
+						writeHandle = CreateFile
+							(detailData->DevicePath,
+							GENERIC_WRITE,
+							FILE_SHARE_READ | FILE_SHARE_WRITE,
+							(LPSECURITY_ATTRIBUTES)NULL,
+							OPEN_EXISTING,
+							FILE_FLAG_OVERLAPPED,
+							NULL);
+						break;
+					}
 				}
 
 				CloseHandle(deviceHandle);

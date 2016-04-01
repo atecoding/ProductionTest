@@ -68,11 +68,10 @@ bool FrequencySweepResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs, Stri
 	{
 		int physicalInput = input + channel;
 
-
 		upsampler.upsample(buffs[physicalInput]);
 
 		bool result;
-		int period = upsamplerOutputRate / 18;
+		int period = roundDoubleToInt( upsamplerOutputRate / 18 );
 		double amplitude = 0.0;
 		double max_db, min_db;
 		int period_start = 0;

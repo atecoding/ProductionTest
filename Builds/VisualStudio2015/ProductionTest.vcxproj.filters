@@ -1395,9 +1395,6 @@
     <ClCompile Include="..\..\Source\USBFirmwareVersionTest.cpp">
       <Filter>ProductionTest\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\AIOSReferenceVoltageTest.cpp">
-      <Filter>ProductionTest\Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\FrequencySweepAudioSource.cpp">
       <Filter>ProductionTest\Source</Filter>
     </ClCompile>
@@ -1453,6 +1450,27 @@
       <Filter>ProductionTest\Source</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\DescriptionAM2.cpp">
+      <Filter>ProductionTest\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ReferenceVoltageTest.cpp">
+      <Filter>ProductionTest\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\FrequencyIsolationTest.cpp">
+      <Filter>ProductionTest\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Spectrum.cpp">
+      <Filter>ProductionTest\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SpectrumAnalyzer.cpp">
+      <Filter>ProductionTest\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\mb_bulk.cpp">
+      <Filter>ProductionTest\Source\AIO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SilenceTest.cpp">
+      <Filter>ProductionTest\Source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\WindowedFFT.cpp">
       <Filter>ProductionTest\Source</Filter>
     </ClCompile>
   </ItemGroup>
@@ -2796,6 +2814,15 @@
       <Filter>ProductionTest\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\DescriptionAM1.h">
+      <Filter>ProductionTest\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\Spectrum.h">
+      <Filter>ProductionTest\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\SpectrumAnalyzer.h">
+      <Filter>ProductionTest\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\WindowedFFT.h">
       <Filter>ProductionTest\Source</Filter>
     </ClInclude>
   </ItemGroup>
