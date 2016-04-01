@@ -137,7 +137,7 @@ bool FrequencyResponseTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &ms
 		if (max_delta > max_delta_level)	// glitch?
 		{
 			max_db = max_level_db + 0.5f;	// force failure
-			msg += String::formatted(T("  GLITCH"));
+			msg += String::formatted("  GLITCH");
 		}
 		else
 		{

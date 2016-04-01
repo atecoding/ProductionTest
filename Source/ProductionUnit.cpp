@@ -588,34 +588,6 @@ void ProductionUnit::audioDeviceIOCallback
     {
         asb.clear();
     }
-
-#if 0
-	for (out = 0; out < numOutputChannels; out++)
-	{
-		if (active_outputs & (1 << out)) 
-		{
-			for(int i = 0; i < numSamples; i++)
-			{
-				if(sawtooth)
-					outputChannelData[out][i] = 0.5f * (float) i / (float) numSamples;
-				else if (pulsate)
-				{
-					if(i < 40)
-						if(passes < 50)
-							outputChannelData[out][i] = 0.5f;
-						else
-							outputChannelData[out][i] = -0.5f;
-					else
-						outputChannelData[out][i] = 0.0f;
-				}
-			}
-		}
-		else
-		{
-			memset(outputChannelData[out], 0, numSamples*sizeof(float));
-		}
-	}
-#endif
     
 	passes++;
 	if(passes >= 100)

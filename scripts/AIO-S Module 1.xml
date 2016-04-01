@@ -10,6 +10,7 @@
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO</CoreAudio_driver>
 
+    <ignore>
     <message_box>
       Is the blue LED lit?
       <show_yes_no>1</show_yes_no>
@@ -31,6 +32,8 @@
 
     <!-- Check AIO-S calibration reference voltage -->
 
+    <AIO_set_mic_gain input="0" gain="1" />
+    <AIO_set_mic_gain input="1" gain="1" />
     <AIO_set_mic_gain input="2" gain="1" />
     <AIO_set_mic_gain input="3" gain="1" />
     <AIOS_set_reference_voltage enabled="1" /> <!-- Enable reference voltage -->
@@ -54,7 +57,7 @@
       AIO-S Calibration reference voltage
       <type>Reference voltage test</type>
       <output_amplitude_db>-6.0</output_amplitude_db>
-      <input>0</input>
+      <input>2</input>
       <output>0</output>
       <num_channels>2</num_channels>
       <sample_rate>48000</sample_rate>
@@ -75,7 +78,6 @@
     </prompt>
 
     <AIOS_set_reference_voltage enabled="0" /> <!-- Disable reference voltage -->
-
 
     <!-- Check constant current voltage and current for inputs 1 & 2-->
 
@@ -215,6 +217,7 @@
       <min_level_db>17.5</min_level_db>
       <max_level_db>22.5</max_level_db>
     </test>
+    </ignore>
 
     <!-- Test gain settings for inputs and outputs -->
 
@@ -231,7 +234,7 @@
     <test>
       1x Input - 1x Output Level Check 1-2
       <type>Level check</type>
-      <output_amplitude_db>-0.0</output_amplitude_db>
+      <output_amplitude_db>-3.0</output_amplitude_db>
       <input>0</input>
       <output>0</output>
       <num_channels>2</num_channels>
@@ -240,6 +243,7 @@
       <max_level_db>-20.0</max_level_db>
     </test>
 
+    <ignore>
     <test>
       1x Input - 1x Output Level Check 3
       <type>Level check</type>
@@ -501,7 +505,7 @@
       <last_channel>3</last_channel>
       <codes>0 1 2 4 5 6</codes>
     </Print_error_codes>
-
+    </ignore>
 
   </device>
 
