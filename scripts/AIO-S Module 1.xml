@@ -10,7 +10,6 @@
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO</CoreAudio_driver>
 
-    <ignore>
     <message_box>
       Is the blue LED lit?
       <show_yes_no>1</show_yes_no>
@@ -217,7 +216,6 @@
       <min_level_db>17.5</min_level_db>
       <max_level_db>22.5</max_level_db>
     </test>
-    </ignore>
 
     <!-- Test gain settings for inputs and outputs -->
 
@@ -243,7 +241,6 @@
       <max_level_db>-20.0</max_level_db>
     </test>
 
-    <ignore>
     <test>
       1x Input - 1x Output Level Check 3
       <type>Level check</type>
@@ -505,7 +502,6 @@
       <last_channel>3</last_channel>
       <codes>0 1 2 4 5 6</codes>
     </Print_error_codes>
-    </ignore>
 
   </device>
 

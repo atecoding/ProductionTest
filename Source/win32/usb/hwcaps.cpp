@@ -134,7 +134,7 @@ char const *hwcaps::BoxTypeName()
 		return "Echo4";
 
 	case ACOUSTICIO_PRODUCT_ID:
-		return "Acoustic AIO";
+		return "Echo AIO";
 
     case ACOUSTICIO_M1_PRODUCT_ID:
         return "AIO-M1";

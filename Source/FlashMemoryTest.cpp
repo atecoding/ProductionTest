@@ -97,8 +97,16 @@ bool RunFlashMemoryTest(XmlElement const *element,
     FlashMemoryTask task(dev);
 	if (task.runThread())
 	{
-		msg += " PASS";
-		return true;
+		if (task.result.failed())
+		{
+			msg += " FAIL";
+			return false;
+		}
+		else
+		{
+			msg += " PASS";
+			return true;
+		}
 	}
         
     errorCodes.add(ErrorCodes::FLASH);
