@@ -1916,7 +1916,11 @@ bool ProductionUnit::OpenASIO(int sample_rate)
 	if (false == _asio->isOpen())
 	{
 		DBG("configuring _asio");
-		err = _asio->open(inputs,outputs,sample_rate,_asio->getDefaultBufferSize());
+        
+        Array<int> availableBufferSizes(_asio->getAvailableBufferSizes());
+        int bufferSize = availableBufferSizes.getLast();
+
+		err = _asio->open(inputs,outputs,sample_rate,bufferSize);
 		if (err.isNotEmpty())
 		{
 			AlertWindow::showNativeDialogBox(	"Production Test",
