@@ -1838,10 +1838,13 @@
     <Xml Include="..\..\scripts\AIO-2 Full Test.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="..\..\scripts\AIO-2 Module 1 Validation Test.xml" />
     <Xml Include="..\..\scripts\AIO-2 Module 1.xml" />
+    <Xml Include="..\..\scripts\AIO-2 Module 2 Validation Test.xml" />
     <Xml Include="..\..\scripts\AIO-2 Module 2.xml">
       <SubType>Designer</SubType>
     </Xml>
+    <Xml Include="..\..\scripts\AIO-2 Validation Test.xml" />
     <Xml Include="..\..\scripts\AIO-M1 Final Test.xml" />
     <Xml Include="..\..\scripts\AIO-M1 Module 1.xml" />
     <Xml Include="..\..\scripts\AIO-M2 Final Test.xml" />

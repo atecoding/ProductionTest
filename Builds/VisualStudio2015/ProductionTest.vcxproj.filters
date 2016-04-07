@@ -2903,5 +2903,14 @@
     <Xml Include="..\..\scripts\AIO-M2 Final Test.xml">
       <Filter>Scripts</Filter>
     </Xml>
+    <Xml Include="..\..\scripts\AIO-2 Validation Test.xml">
+      <Filter>Scripts</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO-2 Module 1 Validation Test.xml">
+      <Filter>Scripts</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO-2 Module 2 Validation Test.xml">
+      <Filter>Scripts</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

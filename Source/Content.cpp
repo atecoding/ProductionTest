@@ -434,6 +434,19 @@ void Content::FinishTests(bool pass,bool skipped)
 	}
 	_devlist->RegisterMessageListener(&_dev_listener);
 #endif
+
+	if (application->testManager->getLoop())
+	{
+		int loopCount = application->testManager->getLoopCount();
+		if (loopCount > 0)
+		{
+			loopCount--;
+			application->testManager->setLoopCount(loopCount);
+			startButton.triggerClick();
+		}
+		else 
+			application->quit();
+	}
 }
 
 void Content::Reset()

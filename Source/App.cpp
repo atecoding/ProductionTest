@@ -28,6 +28,8 @@ String ProductionTestsXmlFileName("ABRProductionTests.xml");
 void App::initialise (const String& commandLine)
 {
 	bool autostart = false;
+	bool loop = false;
+	int loopcount = 0;
 
     //DBG("App::initialise " << commandLine);
     
@@ -47,7 +49,7 @@ void App::initialise (const String& commandLine)
 	//
 	if (commandLine.isNotEmpty())
 	{
-		parseCommandLine(commandLine, autostart);
+		parseCommandLine(commandLine, autostart, loop, loopcount);
 	}
     
     //
@@ -75,6 +77,8 @@ void App::initialise (const String& commandLine)
     
     testManager->load(props);
 	testManager->setAutostart(autostart);
+	testManager->setLoop(loop);
+	testManager->setLoopCount(loopcount);
 
 	//
 	// For the PCI test, disable all the PCI cards
@@ -189,7 +193,7 @@ void App::systemRequestedQuit()
 	JUCEApplication::systemRequestedQuit();
 }
 
-void App::parseCommandLine(const String& commandLine, bool &autostart)
+void App::parseCommandLine(const String& commandLine, bool &autostart, bool &loop, int &loopcount)
 {
     StringArray tokens;
     
@@ -206,6 +210,22 @@ void App::parseCommandLine(const String& commandLine, bool &autostart)
 			continue;
         }
     }
+
+	String const loopString("-loop");
+	for (int i = 0; i < tokens.size(); ++i)
+	{
+		if (tokens[i] == loopString)
+		{
+			if (i != tokens.size() - 1)
+			{
+				loop = true;
+				autostart = true;
+				loopcount = tokens[i + 1].getIntValue();
+			}
+			continue;
+		}
+	}
+
 }
 
 //==============================================================================

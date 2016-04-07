@@ -38,7 +38,7 @@ public:
     //==============================================================================
     
     void initialise (const String& commandLine);
-	void parseCommandLine(const String& commandLine, bool &autostart);
+	void parseCommandLine(const String& commandLine, bool &autostart, bool &loop, int &loopcount);
     void shutdown();
     
 
