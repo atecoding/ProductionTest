@@ -17,7 +17,7 @@
 	<log>LED Test</log>
     </message_box>
 
-    <AIO_firmware_version_test max_version="0x3000" />
+    <AIO_firmware_version_test min_version="0x3000" />
 
     <AIO_module_type_test>
       <slot>0</slot>
@@ -33,520 +33,330 @@
       <!-- type 3 == AMB module -->
     </AIO_module_type_test>
 
-<message_box>Connect the Test Adapter to Inputs 1-4</message_box>
+    <message_box>Connect the Test Adapter to Inputs 1-4</message_box>
 
-<!-- Check constant current voltage and current -->
+    <AIOS_clear_RAM_calibration />
 
-<AIO_set_constant_current input="0" enabled="0" /> <!-- turn off constant current for input 1 -->
-<AIO_set_constant_current input="1" enabled="0" /> <!-- turn off constant current for input 2 -->
-<AIO_set_constant_current input="2" enabled="0" /> <!-- turn off constant current for input 3 -->
-<AIO_set_constant_current input="3" enabled="0" /> <!-- turn off constant current for input 4 -->
-<AIO_set_constant_current input="4" enabled="1" /> <!-- turn on constant current for input 5 -->
-<AIO_set_constant_current input="5" enabled="1" /> <!-- turn on constant current for input 6 -->
-<AIO_set_constant_current input="6" enabled="1" /> <!-- turn on constant current for input 7 -->
-<AIO_set_constant_current input="7" enabled="1" /> <!-- turn on constant current for input 8 -->
-<AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
-<AIO_mic_supply_off_voltage_test input="0">
-    <minimum>0.0</minimum>
-    <!-- minimum and maximum are in volts -->
-    <maximum>1.0</maximum>
-</AIO_mic_supply_off_voltage_test>
+    <!-- Check constant current voltage and current -->
 
-<AIO_set_constant_current input="0" enabled="1" /> <!-- turn on constant current for input 1 -->
-<AIO_set_constant_current input="1" enabled="1" /> <!-- turn on constant current for input 2 -->
-<AIO_set_constant_current input="2" enabled="1" /> <!-- turn on constant current for input 3 -->
-<AIO_set_constant_current input="3" enabled="1" /> <!-- turn on constant current for input 4 -->
-<AIO_set_constant_current input="4" enabled="0" /> <!-- turn off constant current for input 5 -->
-<AIO_set_constant_current input="5" enabled="0" /> <!-- turn off constant current for input 6 -->
-<AIO_set_constant_current input="6" enabled="0" /> <!-- turn off constant current for input 7 -->
-<AIO_set_constant_current input="7" enabled="0" /> <!-- turn off constant current for input 8 -->
-<AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
-<AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
-<AIO_mic_supply_on_voltage_test input="0">
-    <minimum>19.0</minimum>
-    <!-- minimum and maximum are in volts -->
-    <maximum>21.0</maximum>
-</AIO_mic_supply_on_voltage_test>
+    <AIO_set_constant_current input="0" enabled="0" /> <!-- turn off constant current for input 1 -->
+    <AIO_set_constant_current input="1" enabled="0" /> <!-- turn off constant current for input 2 -->
+    <AIO_set_constant_current input="2" enabled="0" /> <!-- turn off constant current for input 3 -->
+    <AIO_set_constant_current input="3" enabled="0" /> <!-- turn off constant current for input 4 -->
+    <AIO_set_constant_current input="4" enabled="1" /> <!-- turn on constant current for input 5 -->
+    <AIO_set_constant_current input="5" enabled="1" /> <!-- turn on constant current for input 6 -->
+    <AIO_set_constant_current input="6" enabled="1" /> <!-- turn on constant current for input 7 -->
+    <AIO_set_constant_current input="7" enabled="1" /> <!-- turn on constant current for input 8 -->
+    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
+    <AIO_mic_supply_off_voltage_test input="0">
+      <minimum>0.0</minimum>
+      <!-- minimum and maximum are in volts -->
+      <maximum>1.0</maximum>
+    </AIO_mic_supply_off_voltage_test>
 
-<AIO_write_test_adapter byte="0x0f"/> <!-- set adapter for Mic Supply current measurement and read ADCs-->
-<AIO_write_test_adapter byte="0x0f"/> <!-- second time to allow capacitor discharge-->
-<AIO_mic_supply_current_test input="0">
-    <minimum>4.0</minimum>
-    <!-- minimum and maximum are in volts -->
-    <maximum>4.4</maximum>
-</AIO_mic_supply_current_test>
+    <AIO_set_constant_current input="0" enabled="1" /> <!-- turn on constant current for input 1 -->
+    <AIO_set_constant_current input="1" enabled="1" /> <!-- turn on constant current for input 2 -->
+    <AIO_set_constant_current input="2" enabled="1" /> <!-- turn on constant current for input 3 -->
+    <AIO_set_constant_current input="3" enabled="1" /> <!-- turn on constant current for input 4 -->
+    <AIO_set_constant_current input="4" enabled="0" /> <!-- turn off constant current for input 5 -->
+    <AIO_set_constant_current input="5" enabled="0" /> <!-- turn off constant current for input 6 -->
+    <AIO_set_constant_current input="6" enabled="0" /> <!-- turn off constant current for input 7 -->
+    <AIO_set_constant_current input="7" enabled="0" /> <!-- turn off constant current for input 8 -->
+    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
+    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
+    <AIO_mic_supply_on_voltage_test input="0">
+      <minimum>19.0</minimum>
+      <!-- minimum and maximum are in volts -->
+      <maximum>21.0</maximum>
+    </AIO_mic_supply_on_voltage_test>
 
-<AIO_set_constant_current input="0" enabled="0" /> <!-- turn off constant current for input 1 -->
-<AIO_set_constant_current input="1" enabled="0" /> <!-- turn off constant current for input 2 -->
-<AIO_set_constant_current input="2" enabled="0" /> <!-- turn off constant current for input 3 -->
-<AIO_set_constant_current input="3" enabled="0" /> <!-- turn off constant current for input 4 -->
-<Delay_msec>500</Delay_msec>
+    <AIO_write_test_adapter byte="0x0f"/> <!-- set adapter for Mic Supply current measurement and read ADCs-->
+    <AIO_write_test_adapter byte="0x0f"/> <!-- second time to allow capacitor discharge-->
+    <AIO_mic_supply_current_test input="0">
+      <minimum>4.0</minimum>
+      <!-- minimum and maximum are in volts -->
+      <maximum>4.4</maximum>
+    </AIO_mic_supply_current_test>
 
-<!-- Check TEDS read circuits - do this after disabling constant current -->
+    <AIO_set_constant_current input="0" enabled="0" /> <!-- turn off constant current for input 1 -->
+    <AIO_set_constant_current input="1" enabled="0" /> <!-- turn off constant current for input 2 -->
+    <AIO_set_constant_current input="2" enabled="0" /> <!-- turn off constant current for input 3 -->
+    <AIO_set_constant_current input="3" enabled="0" /> <!-- turn off constant current for input 4 -->
+    <Delay_msec>500</Delay_msec>
 
-<AIO_TEDS_test input="0" />
+    <!-- Check TEDS read circuits - do this after disabling constant current -->
 
-<!-- Test 100x gain settings for inputs -->
-<!-- Leave test adapter in mic mode so inputs are disconnected from amp outputs -->
-<!-- First measure the level at 10x gain since this is a relative difference test -->
+    <AIO_TEDS_test input="0" />
 
-<AIO_set_mic_gain input="0" gain="10" />
-<AIO_set_mic_gain input="1" gain="10" />
-<AIO_set_mic_gain input="2" gain="10" />
-<AIO_set_mic_gain input="3" gain="10" />
-<Delay_msec>2000</Delay_msec>
+    <!-- Test gain settings for inputs and outputs -->
 
-<prompt>
-    Input and Output Gains 1-4
-    <text>Check levels for gain settings 1-4</text>
-    <output_amplitude_db>-20.0</output_amplitude_db>
-    <input>0</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-    <min_input_db>-200.0</min_input_db>
-    <max_input_db>0.0</max_input_db>
-    <wait_for_user>0</wait_for_user>
-    <start_group>1</start_group>
-</prompt>
+    <AIO_write_test_adapter byte="0x30"/> <!-- set adapter for audio measurements-->
 
-<test>
-    10x Input Level Check 1-2
-    <type>Relative level check</type>
-    <output_amplitude_db>-144.0</output_amplitude_db>
-    <input>0</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-</test>
+    <AIO_set_mic_gain input="0" gain="1" />
+    <AIO_set_mic_gain input="1" gain="1" />
+    <AIO_set_mic_gain input="2" gain="1" />
+    <AIO_set_mic_gain input="3" gain="1" />
 
-<test>
-    10x Input Level Check 3-4
-    <type>Relative level check</type>
-    <output_amplitude_db>-144.0</output_amplitude_db>
-    <input>2</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-</test>
+    <AIO_set_amp_gain output="0" gain="1" />
+    <AIO_set_amp_gain output="1" gain="1" />
 
-<AIO_power_supply_reset_test>
-    <text>module 1</text>
-    <first_channel>0</first_channel>
-    <last_channel>3</last_channel>
-</AIO_power_supply_reset_test>
+    <test>
+      1x Input - 1x Output Level Check 1-2
+      <type>Level check</type>
+      <output_amplitude_db>-0.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_level_db>-25.0</min_level_db>
+      <max_level_db>-20.0</max_level_db>
+    </test>
 
-<!-- Second, get the level at 100x and see if the difference is about 20 dB -->
-<AIO_set_mic_gain input="0" gain="100" />
-<AIO_set_mic_gain input="1" gain="100" />
-<AIO_set_mic_gain input="2" gain="100" />
-<AIO_set_mic_gain input="3" gain="100" />
+    <test>
+      1x Input - 1x Output Level Check 3-4
+      <type>Level check</type>
+      <output_amplitude_db>-0.0</output_amplitude_db>
+      <input>2</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_level_db>-25.0</min_level_db>
+      <max_level_db>-20.0</max_level_db>
+    </test>
 
-<test>
-    100x Input Level Check 1-2
-    <type>Relative level check</type>
-    <output_amplitude_db>-144.0</output_amplitude_db>
-    <input>0</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-    <min_level_db>17.5</min_level_db>
-    <max_level_db>22.5</max_level_db>
-    <required_test_adapter_product_id>0x200</required_test_adapter_product_id> <!-- Only with the 2015 test adapter -->
-</test>
+    <AIO_set_mic_gain input="0" gain="10" />
+    <AIO_set_mic_gain input="1" gain="10" />
+    <AIO_set_mic_gain input="2" gain="10" />
+    <AIO_set_mic_gain input="3" gain="10" />
 
-<test>
-    100x Input Level Check 3-4
-    <type>Relative level check</type>
-    <output_amplitude_db>-144.0</output_amplitude_db>
-    <input>2</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-    <min_level_db>17.5</min_level_db>
-    <max_level_db>22.5</max_level_db>
-    <required_test_adapter_product_id>0x200</required_test_adapter_product_id> <!-- Only with the 2015 test adapter -->
-</test>
+    <AIO_set_amp_gain output="0" gain="1" />
+    <AIO_set_amp_gain output="1" gain="1" />
 
-<!-- Test gain settings for inputs and outputs -->
+    <test>
+      10x Input - 1x Output Level Check 1-2
+      <type>Level check</type>
+      <output_amplitude_db>-0.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_level_db>-5.0</min_level_db>
+      <max_level_db>-1.0</max_level_db>
+    </test>
 
-<AIO_write_test_adapter byte="0x30"/> <!-- set adapter for audio measurements-->
+    <test>
+      10x Input - 1x Output Level Check 3-4
+      <type>Level check</type>
+      <output_amplitude_db>-0.0</output_amplitude_db>
+      <input>2</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_level_db>-5.0</min_level_db>
+      <max_level_db>-1.0</max_level_db>
+    </test>
 
-<AIO_set_mic_gain input="0" gain="1" />
-<AIO_set_mic_gain input="1" gain="1" />
-<AIO_set_mic_gain input="2" gain="1" />
-<AIO_set_mic_gain input="3" gain="1" />
+    <AIO_set_mic_gain input="0" gain="100" />
+    <AIO_set_mic_gain input="1" gain="100" />
+    <AIO_set_mic_gain input="2" gain="100" />
+    <AIO_set_mic_gain input="3" gain="100" />
 
-<AIO_set_amp_gain output="0" gain="1" />
-<AIO_set_amp_gain output="1" gain="1" />
+    <AIO_set_amp_gain output="0" gain="1" />
+    <AIO_set_amp_gain output="1" gain="1" />
 
-<test>
-    1x Input - 1x Output Level Check 1-2
-    <type>Level check</type>
-    <output_amplitude_db>-0.0</output_amplitude_db>
-    <input>0</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-    <min_level_db>-25.0</min_level_db>
-    <max_level_db>-20.0</max_level_db>
-</test>
+    <test>
+      100x Input - 1x Output Level Check 1-2
+      <type>Level check</type>
+      <output_amplitude_db>-20.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_level_db>-5.0</min_level_db>
+      <max_level_db>-1.0</max_level_db>
+    </test>
 
-<test>
-    1x Input - 1x Output Level Check 3-4
-    <type>Level check</type>
-    <output_amplitude_db>-0.0</output_amplitude_db>
-    <input>2</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-    <min_level_db>-25.0</min_level_db>
-    <max_level_db>-20.0</max_level_db>
-</test>
+    <test>
+      100x Input - 1x Output Level Check 3-4
+      <type>Level check</type>
+      <output_amplitude_db>-20.0</output_amplitude_db>
+      <input>2</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_level_db>-5.0</min_level_db>
+      <max_level_db>-1.0</max_level_db>
+    </test>
 
-<AIO_set_mic_gain input="0" gain="1" />
-<AIO_set_mic_gain input="1" gain="1" />
-<AIO_set_mic_gain input="2" gain="1" />
-<AIO_set_mic_gain input="3" gain="1" />
+    <AIO_set_mic_gain input="0" gain="1" />
+    <AIO_set_mic_gain input="1" gain="1" />
+    <AIO_set_mic_gain input="2" gain="1" />
+    <AIO_set_mic_gain input="3" gain="1" />
 
-<AIO_set_amp_gain output="0" gain="10" />
-<AIO_set_amp_gain output="1" gain="10" />
+    <AIO_set_amp_gain output="0" gain="10" />
+    <AIO_set_amp_gain output="1" gain="10" />
 
-<test>
-    1x Input - 10x Output Level Check 1-2
-    <type>Level check</type>
-    <output_amplitude_db>-10.0</output_amplitude_db>
-    <input>0</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-    <min_level_db>-15.0</min_level_db>
-    <max_level_db>-11.0</max_level_db>
-</test>
+    <test>
+      1x Input - 10x Output Level Check 1-2
+      <type>Level check</type>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_level_db>-8.0</min_level_db>
+      <max_level_db>-4.0</max_level_db>
+    </test>
 
-<test>
-    1x Input - 10x Output Level Check 3-4
-    <type>Level check</type>
-    <output_amplitude_db>-10.0</output_amplitude_db>
-    <input>2</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-    <min_level_db>-15.0</min_level_db>
-    <max_level_db>-11.0</max_level_db>
-</test>
+    <test>
+      1x Input - 10x Output Level Check 3-4
+      <type>Level check</type>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <input>2</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_level_db>-8.0</min_level_db>
+      <max_level_db>-4.0</max_level_db>
+    </test>
 
-<AIO_set_mic_gain input="0" gain="10" />
-<AIO_set_mic_gain input="1" gain="10" />
-<AIO_set_mic_gain input="2" gain="10" />
-<AIO_set_mic_gain input="3" gain="10" />
+    <!-- Audio Quality Tests 1-4 -->
 
-<AIO_set_amp_gain output="0" gain="10" />
-<AIO_set_amp_gain output="1" gain="10" />
+    <AIO_set_mic_gain input="0" gain="1" />
+    <AIO_set_mic_gain input="1" gain="1" />
+    <AIO_set_mic_gain input="2" gain="1" />
+    <AIO_set_mic_gain input="3" gain="1" />
 
-<test>
-    10x Input - 10x Output Level Check 1-2
-    <type>Level check</type>
-    <output_amplitude_db>-30.0</output_amplitude_db>
-    <input>0</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-    <min_level_db>-15.0</min_level_db>
-    <max_level_db>-11.0</max_level_db>
-</test>
+    <AIO_set_amp_gain output="0" gain="10" />
+    <AIO_set_amp_gain output="1" gain="10" />
 
-<test>
-    10x Input - 10x Output Level Check 3-4
-    <type>Level check</type>
-    <output_amplitude_db>-30.0</output_amplitude_db>
-    <input>2</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-    <min_level_db>-15.0</min_level_db>
-    <max_level_db>-11.0</max_level_db>
-</test>
+    <prompt>
+      Audio Quality 1-4
+      <text>Test Audio Quality 1-4</text>
+      <output_amplitude_db>-20.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-200.0</min_input_db>
+      <max_input_db>0.0</max_input_db>
+      <wait_for_user>0</wait_for_user>
+    </prompt>
 
-<AIO_set_mic_gain input="0" gain="100" />
-<AIO_set_mic_gain input="1" gain="100" />
-<AIO_set_mic_gain input="2" gain="100" />
-<AIO_set_mic_gain input="3" gain="100" />
+    <!-- THD+N and DNR Channels 1-2 -->
 
-<AIO_set_amp_gain output="0" gain="1" />
-<AIO_set_amp_gain output="1" gain="1" />
+    <test>
+      Output 1 to Inputs 1 and 2
+      <type>Differential THD+N</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_frequency>1000.0</output_frequency>
+      <output_amplitude_db>-2.0</output_amplitude_db>
+      <pass_threshold_db>-66.0</pass_threshold_db>
+    </test>
 
-<test>
-    100x Input - 1x Output Level Check 1-2
-    <type>Level check</type>
-    <output_amplitude_db>-30.0</output_amplitude_db>
-    <input>0</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-    <min_level_db>-12.0</min_level_db>
-    <max_level_db>-8.0</max_level_db>
-    <required_test_adapter_product_id>0x210</required_test_adapter_product_id> <!-- Only with the 2016 calibration test adapter -->
-</test>
+    <test>
+      <type>Differential THD+N</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_frequency>7200.0</output_frequency>
+      <output_amplitude_db>-2.0</output_amplitude_db>
+      <pass_threshold_db>-46.0</pass_threshold_db>
+    </test>
 
-<test>
-    100x Input - 1x Output Level Check 3-4
-    <type>Level check</type>
-    <output_amplitude_db>-30.0</output_amplitude_db>
-    <input>2</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-    <min_level_db>-12.0</min_level_db>
-    <max_level_db>-8.0</max_level_db>
-    <required_test_adapter_product_id>0x210</required_test_adapter_product_id> <!-- Only with the 2016 calibration test adapter -->
-</test>
+    <test>
+      <type>Differential Dynamic range</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-60.0</output_amplitude_db>
+      <pass_threshold_db>100.0</pass_threshold_db>
+    </test>
 
-<!-- Audio Quality Tests 1-4 -->
+    <!-- Frequency response tests for 1-2 -->
 
-<AIO_set_mic_gain input="0" gain="1" />
-<AIO_set_mic_gain input="1" gain="1" />
-<AIO_set_mic_gain input="2" gain="1" />
-<AIO_set_mic_gain input="3" gain="1" />
+    <test>
+      <type>Frequency sweep response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-10.0</output_amplitude_db>
+      <output_frequency>20.0</output_frequency>
+      <pass_threshold_db>0.49</pass_threshold_db>
+      <sweep_time_seconds>2.0</sweep_time_seconds>
+      <sweep_delay_seconds>0.4</sweep_delay_seconds>
+      <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
+      <sweep_fadeout_seconds>0.1</sweep_fadeout_seconds>
+      <sweep_record_seconds>4.0</sweep_record_seconds>
+    </test>
 
-<AIO_set_amp_gain output="0" gain="10" />
-<AIO_set_amp_gain output="1" gain="10" />
+    <!-- THD+N and DNR Channels 3-4 -->
 
-<prompt>
-    Audio Quality 1-4
-    <text>Test Audio Quality 1-4</text>
-    <output_amplitude_db>-20.0</output_amplitude_db>
-    <input>0</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-    <min_input_db>-200.0</min_input_db>
-    <max_input_db>0.0</max_input_db>
-    <wait_for_user>0</wait_for_user>
-</prompt>
+    <test>
+      Output 2 to Inputs 3 and 4
+      <type>Differential THD+N</type>
+      <input>2</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_frequency>1000.0</output_frequency>
+      <output_amplitude_db>-2.0</output_amplitude_db>
+      <pass_threshold_db>-66.0</pass_threshold_db>
+    </test>
 
-<!-- THD+N and DNR Channels 1-2 -->
+    <test>
+      <type>Differential THD+N</type>
+      <input>2</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_frequency>7200.0</output_frequency>
+      <output_amplitude_db>-2.0</output_amplitude_db>
+      <pass_threshold_db>-46.0</pass_threshold_db>
+    </test>
 
-<test>
-    Output 1 to Inputs 1 and 2
-    <type>Differential THD+N</type>
-    <input>0</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-    <output_frequency>1000.0</output_frequency>
-    <output_amplitude_db>-2.0</output_amplitude_db>
-    <pass_threshold_db>-66.0</pass_threshold_db>
-</test>
+    <test>
+      <type>Differential Dynamic range</type>
+      <input>2</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-60.0</output_amplitude_db>
+      <pass_threshold_db>100.0</pass_threshold_db>
+    </test>
 
-<test>
-    <type>Differential THD+N</type>
-    <input>0</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-    <output_frequency>7200.0</output_frequency>
-    <output_amplitude_db>-2.0</output_amplitude_db>
-    <pass_threshold_db>-46.0</pass_threshold_db>
-</test>
+    <!-- Frequency response tests for 3-4 -->
 
-<test>
-    <type>Differential Dynamic range</type>
-    <input>0</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-    <output_amplitude_db>-60.0</output_amplitude_db>
-    <pass_threshold_db>100.0</pass_threshold_db>
-</test>
+    <test>
+      <type>Frequency sweep response</type>
+      <input>2</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-10.0</output_amplitude_db>
+      <output_frequency>20.0</output_frequency>
+      <pass_threshold_db>0.49</pass_threshold_db>
+      <sweep_time_seconds>2.0</sweep_time_seconds>
+      <sweep_delay_seconds>0.4</sweep_delay_seconds>
+      <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
+      <sweep_fadeout_seconds>0.1</sweep_fadeout_seconds>
+      <sweep_record_seconds>4.0</sweep_record_seconds>
+    </test>
 
-<!-- Frequency response tests for 1-2 -->
+    <Print_error_codes>
+      <text> - Module 1</text>
+      <first_channel>0</first_channel>
+      <last_channel>3</last_channel>
+      <codes>0 1 2 4 5 6</codes>
+    </Print_error_codes>
 
-<test>
-    <type>Frequency sweep response</type>
-    <input>0</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-    <output_amplitude_db>-10.0</output_amplitude_db>
-    <output_frequency>20.0</output_frequency>
-    <pass_threshold_db>0.49</pass_threshold_db>
-    <sweep_time_seconds>2.0</sweep_time_seconds>
-    <sweep_delay_seconds>0.75</sweep_delay_seconds>
-    <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
-    <sweep_fadeout_seconds>0.1</sweep_fadeout_seconds>
-    <sweep_record_seconds>4.0</sweep_record_seconds>
-</test>
-
-<!-- THD+N and DNR Channels 3-4 -->
-
-<test>
-    Output 2 to Inputs 3 and 4
-    <type>Differential THD+N</type>
-    <input>2</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-    <output_frequency>1000.0</output_frequency>
-    <output_amplitude_db>-2.0</output_amplitude_db>
-    <pass_threshold_db>-66.0</pass_threshold_db>
-</test>
-
-<test>
-    <type>Differential THD+N</type>
-    <input>2</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-    <output_frequency>7200.0</output_frequency>
-    <output_amplitude_db>-2.0</output_amplitude_db>
-    <pass_threshold_db>-46.0</pass_threshold_db>
-</test>
-
-<test>
-    <type>Differential Dynamic range</type>
-    <input>2</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-    <output_amplitude_db>-60.0</output_amplitude_db>
-    <pass_threshold_db>100.0</pass_threshold_db>
-</test>
-
-<!-- Frequency response tests for 3-4 -->
-
-<test>
-    <type>Frequency sweep response</type>
-    <input>2</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-    <output_amplitude_db>-10.0</output_amplitude_db>
-    <output_frequency>20.0</output_frequency>
-    <pass_threshold_db>0.49</pass_threshold_db>
-    <sweep_time_seconds>2.0</sweep_time_seconds>
-    <sweep_delay_seconds>0.75</sweep_delay_seconds>
-    <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
-    <sweep_fadeout_seconds>0.1</sweep_fadeout_seconds>
-    <sweep_record_seconds>4.0</sweep_record_seconds>
-</test>
-
-<prompt>
-    Group End Prompt
-    <text>Force printing of last result</text>
-    <output_amplitude_db>-0.0</output_amplitude_db>
-    <input>0</input>
-    <output>0</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-    <min_input_db>-200.0</min_input_db>
-    <max_input_db>0.0</max_input_db>
-    <wait_for_user>0</wait_for_user>
-    <stop_group>1</stop_group>
-</prompt>
-
-<Print_error_codes>
-    <text> - Module 1</text>
-    <first_channel>0</first_channel>
-    <last_channel>3</last_channel>
-    <codes>0 1 2 4 5 6</codes>
-</Print_error_codes>
-
-
-<!-- *************************************************
- 
- MB host chip - local TDM loopback mode
- 
- ****************************************************** -->
-
-<AIO_mikeybus module="1">
-    <read page="0x01" address="0x24" value="0xcc"/>
-    
-    <write page="0x00" address="0x01" value="0x01"/>
-    <write page="0x00" address="0x06" value="0x00"/>
-    <write page="0x02" address="0x01" value="0xe0"/>
-    <write page="0x01" address="0x07" value="0x19"/>
-    <write page="0x01" address="0x09" value="0x1a"/>
-    <write page="0x01" address="0x01" value="0x00"/>
-    <write page="0x01" address="0x03" value="0x00"/>
-    <write page="0x01" address="0x15" value="0x28"/>
-    <write page="0x01" address="0x16" value="0x2c"/>
-    <write page="0x01" address="0x17" value="0x28"/>
-    <write page="0x01" address="0x18" value="0x2c"/>
-    <write page="0x01" address="0x19" value="0x28"/>
-    <write page="0x01" address="0x1a" value="0x2c"/>
-    <write page="0x01" address="0x1b" value="0x28"/>
-    <write page="0x01" address="0x1c" value="0x2c"/>
-    <write page="0x01" address="0x1d" value="0x28"/>
-    <write page="0x01" address="0x1e" value="0x2c"/>
-    
-    <write page="0x00" address="0x14" value="0x00"/>
-    <write page="0x00" address="0x15" value="0x03"/>
-    <write page="0x00" address="0x16" value="0x06"/>
-    <write page="0x00" address="0x17" value="0x09"/>
-    <write page="0x00" address="0x18" value="0x0c"/>
-    <write page="0x00" address="0x19" value="0x0f"/>
-    <write page="0x00" address="0x1a" value="0x12"/>
-    <write page="0x00" address="0x1b" value="0x15"/>
-    <write page="0x00" address="0x1c" value="0x18"/>
-    <write page="0x00" address="0x1d" value="0x1b"/>
-    <write page="0x00" address="0x1e" value="0x3f"/>
-    <write page="0x00" address="0x1f" value="0xff"/>
-    <write page="0x00" address="0x20" value="0xff"/>
-    <write page="0x00" address="0x21" value="0xff"/>
-    <write page="0x00" address="0x22" value="0x40"/>
-    <write page="0x00" address="0x23" value="0x43"/>
-    <write page="0x00" address="0x24" value="0x46"/>
-    <write page="0x00" address="0x25" value="0x49"/>
-    <write page="0x00" address="0x26" value="0x4c"/>
-    <write page="0x00" address="0x27" value="0x4f"/>
-    <write page="0x00" address="0x28" value="0x52"/>
-    <write page="0x00" address="0x29" value="0x55"/>
-    <write page="0x00" address="0x2a" value="0x58"/>
-    <write page="0x00" address="0x2b" value="0x59"/>
-    <write page="0x00" address="0x11" value="0xc0"/>
-    <write page="0x00" address="0x12" value="0x0c"/>
-</AIO_mikeybus>
-
-<!-- Outer module - TDM loopback test -->
-<prompt>
-    TDM Loopback Outer Module
-    <text>Level check for TDM loopback</text>
-    <output_amplitude_db>-20.0</output_amplitude_db>
-    <input>4</input>
-    <output>2</output>
-    <num_channels>2</num_channels>
-    <sample_rate>48000</sample_rate>
-    <min_input_db>-22.0</min_input_db>
-    <max_input_db>18.0</max_input_db>
-    <wait_for_user>0</wait_for_user>
-    <start_group>1</start_group>
-</prompt>
-
-<test>
-    <type>THD+N</type>
-    <input>4</input>
-    <output>2</output>
-    <num_channels>10</num_channels>
-    <sample_rate>48000</sample_rate>
-    <output_frequency>997.0</output_frequency>
-    <output_amplitude_db>-3.0</output_amplitude_db>
-    <pass_threshold_db>-128.0</pass_threshold_db>
-</test>
-
-<test>
-    <type>Level check</type>
-    <input>4</input>
-    <output>2</output>
-    <num_channels>10</num_channels>
-    <sample_rate>48000</sample_rate>
-    <output_frequency>997.0</output_frequency>
-    <output_amplitude_db>-3.0</output_amplitude_db>
-    <min_level_db>-4.0</min_level_db>
-    <max_level_db>-2.0</max_level_db>
-</test>
-
-<Finish_group/>
+    <Finish_group/>
 
 <!-- *************************************************
  

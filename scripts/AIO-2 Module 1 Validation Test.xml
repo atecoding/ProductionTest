@@ -10,7 +10,7 @@
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO</CoreAudio_driver>
 
-    <AIO_firmware_version_test min_version="0x71" />
+    <AIO_firmware_version_test min_version="0x3000" />
 
     <AIO_module_type_test>
       <slot>0</slot>
@@ -25,6 +25,8 @@
       <type>1</type>
       <!-- type 1 == TEDS microphone + class D amp analog module -->
     </AIO_module_type_test>
+
+    <AIOS_clear_RAM_calibration />
 
     <!-- Check constant current voltage and current -->
 
@@ -86,23 +88,6 @@
     <AIO_set_amp_gain output="0" gain="1" />
     <AIO_set_amp_gain output="1" gain="1" />
 
-    <Delay_msec>2000</Delay_msec>
-
-    <prompt>
-      Input and Output Gains 1-4
-      <text>Check levels for gain settings 1-4</text>
-      <output_amplitude_db>-0.5</output_amplitude_db>
-      <input>0</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <output_frequency>1000.0</output_frequency>
-      <min_input_db>-200.0</min_input_db>
-      <max_input_db>0.0</max_input_db>
-      <wait_for_user>1</wait_for_user>
-      <start_group>1</start_group>
-    </prompt>
-
     <test>
       1x Input - 1x Output Level Check 1-2
       <type>Level check</type>
@@ -125,6 +110,70 @@
       <sample_rate>48000</sample_rate>
       <min_level_db>-25.0</min_level_db>
       <max_level_db>-20.0</max_level_db>
+    </test>
+
+    <AIO_set_mic_gain input="0" gain="10" />
+    <AIO_set_mic_gain input="1" gain="10" />
+    <AIO_set_mic_gain input="2" gain="10" />
+    <AIO_set_mic_gain input="3" gain="10" />
+
+    <AIO_set_amp_gain output="0" gain="1" />
+    <AIO_set_amp_gain output="1" gain="1" />
+
+    <test>
+      10x Input - 1x Output Level Check 1-2
+      <type>Level check</type>
+      <output_amplitude_db>-0.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>96000</sample_rate>
+      <min_level_db>-5.0</min_level_db>
+      <max_level_db>-1.0</max_level_db>
+    </test>
+
+    <test>
+      10x Input - 1x Output Level Check 3-4
+      <type>Level check</type>
+      <output_amplitude_db>-0.0</output_amplitude_db>
+      <input>2</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>96000</sample_rate>
+      <min_level_db>-5.0</min_level_db>
+      <max_level_db>-1.0</max_level_db>
+    </test>
+
+    <AIO_set_mic_gain input="0" gain="100" />
+    <AIO_set_mic_gain input="1" gain="100" />
+    <AIO_set_mic_gain input="2" gain="100" />
+    <AIO_set_mic_gain input="3" gain="100" />
+
+    <AIO_set_amp_gain output="0" gain="1" />
+    <AIO_set_amp_gain output="1" gain="1" />
+
+    <test>
+      100x Input - 1x Output Level Check 1-2
+      <type>Level check</type>
+      <output_amplitude_db>-20.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_level_db>-5.0</min_level_db>
+      <max_level_db>-1.0</max_level_db>
+    </test>
+
+    <test>
+      100x Input - 1x Output Level Check 3-4
+      <type>Level check</type>
+      <output_amplitude_db>-20.0</output_amplitude_db>
+      <input>2</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_level_db>-5.0</min_level_db>
+      <max_level_db>-1.0</max_level_db>
     </test>
 
     <AIO_set_mic_gain input="0" gain="1" />
@@ -157,70 +206,6 @@
       <sample_rate>192000</sample_rate>
       <min_level_db>-8.0</min_level_db>
       <max_level_db>-4.0</max_level_db>
-    </test>
-
-    <AIO_set_mic_gain input="0" gain="10" />
-    <AIO_set_mic_gain input="1" gain="10" />
-    <AIO_set_mic_gain input="2" gain="10" />
-    <AIO_set_mic_gain input="3" gain="10" />
-
-    <AIO_set_amp_gain output="0" gain="10" />
-    <AIO_set_amp_gain output="1" gain="10" />
-
-    <test>
-      10x Input - 10x Output Level Check 1-2
-      <type>Level check</type>
-      <output_amplitude_db>-20.0</output_amplitude_db>
-      <input>0</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>96000</sample_rate>
-      <min_level_db>-5.0</min_level_db>
-      <max_level_db>-1.0</max_level_db>
-    </test>
-
-    <test>
-      10x Input - 10x Output Level Check 3-4
-      <type>Level check</type>
-      <output_amplitude_db>-20.0</output_amplitude_db>
-      <input>2</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>96000</sample_rate>
-      <min_level_db>-5.0</min_level_db>
-      <max_level_db>-1.0</max_level_db>
-    </test>
-
-    <AIO_set_mic_gain input="0" gain="100" />
-    <AIO_set_mic_gain input="1" gain="100" />
-    <AIO_set_mic_gain input="2" gain="100" />
-    <AIO_set_mic_gain input="3" gain="100" />
-
-    <AIO_set_amp_gain output="0" gain="10" />
-    <AIO_set_amp_gain output="1" gain="10" />
-
-    <test>
-      100x Input - 10x Output Level Check 1-2
-      <type>Level check</type>
-      <output_amplitude_db>-40.0</output_amplitude_db>
-      <input>0</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <min_level_db>-5.0</min_level_db>
-      <max_level_db>-1.0</max_level_db>
-    </test>
-
-    <test>
-      100x Input - 10x Output Level Check 3-4
-      <type>Level check</type>
-      <output_amplitude_db>-40.0</output_amplitude_db>
-      <input>2</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <min_level_db>-5.0</min_level_db>
-      <max_level_db>-1.0</max_level_db>
     </test>
 
     <!-- Audio Quality Tests 1-4 -->
@@ -352,27 +337,12 @@
       <sweep_record_seconds>4.0</sweep_record_seconds>
     </test>
 
-    <prompt>
-      Group End Prompt
-      <text>Force printing of last result</text>
-      <output_amplitude_db>-0.0</output_amplitude_db>
-      <input>0</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <min_input_db>-200.0</min_input_db>
-      <max_input_db>0.0</max_input_db>
-      <wait_for_user>0</wait_for_user>
-      <stop_group>1</stop_group>
-    </prompt>
-    
     <Print_error_codes>
       <text> - Module 1</text>
       <first_channel>0</first_channel>
       <last_channel>3</last_channel>
       <codes>0 1 2 4 5 6</codes>
     </Print_error_codes>
-
 
   </device>
 
