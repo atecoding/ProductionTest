@@ -10,6 +10,8 @@
 	<string>ProductionTest</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>B68DB04BE301AA9C57E94307CA4DB55EC967C34B</key>
+		<string>https://github.com/mattgonzalez/SpeakerTest.git</string>
 		<key>EB753B41288501C6777E6C5AFC3231E605DADB93</key>
 		<string>https://github.com/mattgonzalez/ProductionTest.git</string>
 	</dict>
@@ -17,6 +19,8 @@
 	<string>Builds/MacOSX/ProductionTest.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>B68DB04BE301AA9C57E94307CA4DB55EC967C34B</key>
+		<string>../../../../../SpeakerTest</string>
 		<key>EB753B41288501C6777E6C5AFC3231E605DADB93</key>
 		<string>../../../..</string>
 	</dict>
@@ -35,6 +39,14 @@
 			<string>EB753B41288501C6777E6C5AFC3231E605DADB93</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ProductionTest</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B68DB04BE301AA9C57E94307CA4DB55EC967C34B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SpeakerTest</string>
 		</dict>
 	</array>
 </dict>
