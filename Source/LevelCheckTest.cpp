@@ -78,7 +78,8 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, Erro
 		if (max_delta > max_delta_level)	// glitch?
 		{
 			max_db = max_level_db + 0.5f;	// force failure
-			msg += String::formatted("  GLITCH");
+			msg += String::formatted(T("  GLITCH (%i)"), idx);
+			
 		}
 		else
 		{
