@@ -46,6 +46,7 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, Erro
         
 		peak = 0.0f;
 		max_delta = 0.0f;
+        int maxDeltaIdx = -1;
         
         //
         // Scan through the audio buffer and look for the maximum change between samples
@@ -59,6 +60,7 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, Erro
 			if (delta > max_delta)
             {
 				max_delta = delta;
+                maxDeltaIdx = idx;
             }
             
 //            max_delta = jmax(max_delta, delta);
@@ -70,7 +72,7 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, Erro
 		{
 			msg = String::formatted(T("Level check at "));
 			msg += MsgSampleRate();
-			msg += String::formatted(T(": level too low (peak %f)"), peak);
+			msg += String::formatted(": level too low (peak %f)", peak);
 
 			max_db = -144.0f;
 		}
@@ -78,8 +80,7 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, Erro
 		if (max_delta > max_delta_level)	// glitch?
 		{
 			max_db = max_level_db + 0.5f;	// force failure
-			msg += String::formatted(T("  GLITCH (%i)"), idx);
-			
+			msg += String::formatted("  GLITCH (%d)", maxDeltaIdx);
 		}
 		else
 		{
