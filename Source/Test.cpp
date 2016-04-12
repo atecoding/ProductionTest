@@ -4,7 +4,9 @@
 #include "wavefile.h"
 #include "xml.h"
 #include "ehw.h"
+#include "ehwlist.h"
 #include "hwcaps.h"
+#include "App.h"
 
 Test::Test(XmlElement *xe,bool &ok, ProductionUnit* unit_) :
 	input (-1),
@@ -23,6 +25,12 @@ Test::Test(XmlElement *xe,bool &ok, ProductionUnit* unit_) :
 		title = title.trim();
 	}
 
+	if (application->testManager->getLoop())
+	{
+		int loopCount = application->testManager->getLoopCount();
+		title += " - loop " + String(loopCount);
+	}
+
 	getIntValue(xe,T("input"),input);
 	getIntValue(xe,T("output"),output);
 	getIntValue(xe,T("num_channels"),num_channels);
@@ -30,8 +38,8 @@ Test::Test(XmlElement *xe,bool &ok, ProductionUnit* unit_) :
 	ok = getIntValue(xe,T("sample_rate"),sample_rate);
 	ok &= getFloatValue(xe,T("output_amplitude_db"),output_amplitude_db);
 
-	minSampleRate = sample_rate * 0.96f;
-	maxSampleRate = sample_rate * 1.04f;
+	minSampleRate = sample_rate * 0.94f;
+	maxSampleRate = sample_rate * 1.06f;
 	getFloatValue(xe, "min_sample_rate", minSampleRate);
 	getFloatValue(xe, "max_sample_rate", maxSampleRate);
     
@@ -97,7 +105,7 @@ Test *Test::Create(XmlElement *xe, int input, int output, bool &ok, ProductionUn
         
         if (typeString == "Relative level check")
 			test = new RelativeLevelTest(xe, ok, unit_);
-
+		
 #if ECHO1394
 		if (typeString == "Guitar hex input crosstalk")
 			test = new HexInputCrosstalkTest(xe,ok);

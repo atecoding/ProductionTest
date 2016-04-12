@@ -456,6 +456,12 @@ void ProductionUnit::RunTests(Time const testStartTime_)
     _content->log(SystemStats::getOperatingSystemName());
 	_content->log(String::empty);
 
+	if (application->testManager->getLoop())
+	{
+		int loopCount = application->testManager->getLoopCount();
+		_content->log("Loop " + String(loopCount));
+	}
+
 	//
 	// Set up the state machine
 	//
@@ -1805,6 +1811,7 @@ void ProductionUnit::ParseScript()
             }
 		}
 		_content->log(msg);
+		_content->log(String::empty);
 		_content->setFinalResult(finalResult,finalResultColor);
 	}
 
