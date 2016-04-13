@@ -336,8 +336,6 @@
     <ClCompile Include="..\..\Source\LevelCheckTest.cpp" />
     <ClCompile Include="..\..\Source\mb_bulk.cpp" />
     <ClCompile Include="..\..\Source\MeterWindow.cpp" />
-    <ClCompile Include="..\..\Source\MIDILoopTest.cpp" />
-    <ClCompile Include="..\..\Source\MidiTest.cpp" />
     <ClCompile Include="..\..\Source\MikeyBusRegisters.cpp" />
     <ClCompile Include="..\..\Source\ModuleTypeTest.cpp" />
     <ClCompile Include="..\..\Source\PhaseTest.cpp" />
@@ -359,8 +357,6 @@
     <ClCompile Include="..\..\Source\Upsampler.cpp" />
     <ClCompile Include="..\..\Source\USBFirmwareVersionTest.cpp" />
     <ClCompile Include="..\..\Source\wavefile.cpp" />
-    <ClCompile Include="..\..\Source\win32\AIODevices_win.cpp" />
-    <ClCompile Include="..\..\Source\win32\AIODevice_win.cpp" />
     <ClCompile Include="..\..\Source\win32\AIOTestAdapter_win.cpp" />
     <ClCompile Include="..\..\Source\win32\Printer_win32.cpp" />
     <ClCompile Include="..\..\Source\win32\usb\ehwlist_usb.cpp" />
@@ -1368,8 +1364,6 @@
     <ClCompile Include="..\..\JuceLibraryCode\modules\juce_gui_extra\juce_gui_extra.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\Source\AIODevice.h" />
-    <ClInclude Include="..\..\Source\AIODevices.h" />
     <ClInclude Include="..\..\Source\AIOTestAdapter.h" />
     <ClInclude Include="..\..\Source\calibration\CalibrationAudioIOCallback.h" />
     <ClInclude Include="..\..\Source\calibration\CalibrationData.h" />
@@ -1405,7 +1399,6 @@
     <ClInclude Include="..\..\Source\iasiodrv.h" />
     <ClInclude Include="..\..\Source\Images.h" />
     <ClInclude Include="..\..\Source\MeterWindow.h" />
-    <ClInclude Include="..\..\Source\MIDILoopTest.h" />
     <ClInclude Include="..\..\Source\OldMessage.h" />
     <ClInclude Include="..\..\Source\printer\Printer.h" />
     <ClInclude Include="..\..\Source\ProductionUnit.h" />

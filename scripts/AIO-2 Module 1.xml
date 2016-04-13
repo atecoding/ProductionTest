@@ -38,6 +38,8 @@
 
     <AIOS_clear_RAM_calibration />
 
+    <AIO_flash_memory_test />
+
     <!-- Check constant current voltage and current -->
 
     <AIO_set_constant_current input="0" enabled="0" /> <!-- turn off constant current for input 1 -->
@@ -100,6 +102,20 @@
 
     <AIO_set_amp_gain output="0" gain="1" />
     <AIO_set_amp_gain output="1" gain="1" />
+
+    <prompt>
+      Input and Output Gains 1-4
+      <text>Check levels for gain settings 1-4</text>
+      <output_amplitude_db>-20.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-200.0</min_input_db>
+      <max_input_db>0.0</max_input_db>
+      <wait_for_user>0</wait_for_user>
+      <start_group>1</start_group>
+    </prompt>
 
     <test>
       1x Input - 1x Output Level Check 1-2

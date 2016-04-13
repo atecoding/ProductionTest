@@ -38,6 +38,8 @@
 
     <AIOS_clear_RAM_calibration />
 
+    <AIO_flash_memory_test />
+
     <!-- Check constant current voltage and current -->
 
     <AIO_set_constant_current input="0" enabled="1" /> <!-- turn on constant current for input 1 -->
@@ -146,6 +148,7 @@
       <wait_for_user>0</wait_for_user>
       <start_group>1</start_group>
     </prompt>
+
     <test>
       10x Input - 10x Output Level Check 5-6
       <type>Level check</type>

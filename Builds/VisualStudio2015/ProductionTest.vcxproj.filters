@@ -300,12 +300,6 @@
     <ClCompile Include="..\..\Source\MeterWindow.cpp">
       <Filter>ProductionTest\Source</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\MIDILoopTest.cpp">
-      <Filter>ProductionTest\Source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\MidiTest.cpp">
-      <Filter>ProductionTest\Source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\PhaseTest.cpp">
       <Filter>ProductionTest\Source</Filter>
     </ClCompile>
@@ -1368,12 +1362,6 @@
     <ClCompile Include="..\..\Source\win32\usb\win\ehw.cpp">
       <Filter>ProductionTest\Source\ehw</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\win32\AIODevice_win.cpp">
-      <Filter>ProductionTest\Source\AIO</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\win32\AIODevices_win.cpp">
-      <Filter>ProductionTest\Source\AIO</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\win32\AIOTestAdapter_win.cpp">
       <Filter>ProductionTest\Source\AIO</Filter>
     </ClCompile>
@@ -1536,9 +1524,6 @@
       <Filter>ProductionTest\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\MeterWindow.h">
-      <Filter>ProductionTest\Source</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\MIDILoopTest.h">
       <Filter>ProductionTest\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\OldMessage.h">
@@ -2719,12 +2704,6 @@
     </ClInclude>
     <ClInclude Include="..\..\JuceLibraryCode\JuceHeader.h">
       <Filter>Juce Library Code</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\AIODevice.h">
-      <Filter>ProductionTest\Source\AIO</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\AIODevices.h">
-      <Filter>ProductionTest\Source\AIO</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\UsbHidApi.h">
       <Filter>ProductionTest\Source\AIO</Filter>

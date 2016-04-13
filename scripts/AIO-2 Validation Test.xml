@@ -27,6 +27,8 @@
     </AIO_module_type_test>
 
     <AIOS_clear_RAM_calibration />
+
+    <AIO_flash_memory_test />
     
     <message_box>
       Connect the Test Adapter to Inputs 1-4

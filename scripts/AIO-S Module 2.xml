@@ -26,6 +26,8 @@
 
     <AIOS_clear_RAM_calibration />
 
+    <AIO_flash_memory_test />
+
     <message_box>Connect the Test Adapter to Inputs 5-8</message_box>
 
     <AIO_set_constant_current input="0" enabled="1" /> <!-- turn on constant current for input 1 -->

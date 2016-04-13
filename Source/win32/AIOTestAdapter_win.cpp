@@ -185,9 +185,11 @@ int AIOTestAdapter::write(uint8 byte)
 	return result;
 }
 
-int AIOTestAdapter::read(uint16 data[4])
+int AIOTestAdapter::read(Array<uint16> &data)
 {
-	uint8 temp[9];
+	uint8 temp[NUM_INPUTS_PER_ADAPTER * 2 + 1];
+
+	data.clearQuick();
 
 	if (INVALID_HANDLE_VALUE == readHandle)
 		return 0;
@@ -200,12 +202,12 @@ int AIOTestAdapter::read(uint16 data[4])
 	}
 
 	uint16 *source = (uint16 *)(temp + 1);
-	for (int i = 0; i < 4; ++i)
+	for (int i = 0; i < NUM_INPUTS_PER_ADAPTER; ++i)
 	{
-		data[i] = source[i];
+		data.add(source[i]);
 	}
 	
-	return 4;
+	return NUM_INPUTS_PER_ADAPTER;
 }
 
 #endif

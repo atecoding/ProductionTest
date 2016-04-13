@@ -25,7 +25,7 @@
 
     <AIOS_clear_RAM_calibration />
 
-    <!-- <AIO_flash_memory_test /> -->
+    <AIO_flash_memory_test />
 
     <message_box>Connect the Test Adapter to Inputs 1-2 and AMP1 and insert the Reference Resistor Adapter.</message_box>
 

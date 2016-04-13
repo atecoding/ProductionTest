@@ -28,7 +28,8 @@ Test::Test(XmlElement *xe,bool &ok, ProductionUnit* unit_) :
 	if (application->testManager->getLoop())
 	{
 		int loopCount = application->testManager->getLoopCount();
-		title += " - loop " + String(loopCount);
+		if(title.isNotEmpty())
+			title += " - loop " + String(loopCount);
 	}
 
 	getIntValue(xe,T("input"),input);

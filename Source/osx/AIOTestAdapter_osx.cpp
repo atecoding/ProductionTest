@@ -215,8 +215,6 @@ int AIOTestAdapter::write(uint8 byte)
 
 int AIOTestAdapter::read(Array<uint16> &data)
 {
-    int result = 1;
-    
     data.clearQuick();
 
     for (int i = 0; i < testAdapterDeviceRefs.objects.size(); ++i)
@@ -250,7 +248,7 @@ int AIOTestAdapter::read(Array<uint16> &data)
     }
     */
 
-    return result;
+    return data.size();
 }
 
 #endif

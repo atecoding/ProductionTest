@@ -28,6 +28,8 @@
 
     <AIOS_clear_RAM_calibration />
 
+    <AIO_flash_memory_test />
+
     <!-- Check constant current voltage and current -->
 
     <AIO_set_constant_current input="0" enabled="1" /> <!-- turn on constant current for input 1 -->
