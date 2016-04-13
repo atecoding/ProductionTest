@@ -255,6 +255,11 @@ public:
 	static uint32 PanFloatToEfc(float pan);
 	static float EfcToPanFloat(uint32 pan);
 	static float PanFloatToDb(float pan);
+    
+    int64 getMaxRequestTicks() const
+    {
+        return maxRequestTicks;
+    }
 
 protected:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ehw)
@@ -267,6 +272,7 @@ protected:
 	hwcaps	_caps;
 	String	_uniquename;
     uint16 firmwareVersion;
+    int64 maxRequestTicks;
 	
     int		_ok;
 	String	_error;

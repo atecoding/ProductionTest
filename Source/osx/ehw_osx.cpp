@@ -5,7 +5,8 @@
 #include "../calibration/CalibrationData.h"
 
 ehw::ehw(IOUSBDeviceInterface** deviceInterface_) :
-deviceInterface(deviceInterface_)
+deviceInterface(deviceInterface_),
+maxRequestTicks(0)
 {
     uint16 productID = 0;
     
@@ -138,7 +139,17 @@ IOReturn ehw::setRequest(uint8 unit, uint8 type, uint8 channel, uint8 *data, uin
     req.pData = data;
     req.wLenDone = 0;
     
-    return (*deviceInterface)->DeviceRequest(deviceInterface, &req);
+    int64 begin = Time::getHighResolutionTicks();
+    IOReturn status = (*deviceInterface)->DeviceRequest(deviceInterface, &req);
+    int64 end = Time::getHighResolutionTicks();
+    int64 elapsed = end - begin;
+    if (elapsed > maxRequestTicks)
+    {
+        DBG("New max AIO request time " << elapsed << " for set control " << String::toHexString(type));
+        maxRequestTicks = elapsed;
+    }
+    
+    return status;
 }
 
 IOReturn ehw::getRequest(uint8 unit, uint8 type, uint8 channel, uint8 *data, uint16 length)
@@ -152,7 +163,17 @@ IOReturn ehw::getRequest(uint8 unit, uint8 type, uint8 channel, uint8 *data, uin
     req.pData = data;
     req.wLenDone = 0;
     
-    return (*deviceInterface)->DeviceRequest(deviceInterface, &req);
+    int64 begin = Time::getHighResolutionTicks();
+    IOReturn status = (*deviceInterface)->DeviceRequest(deviceInterface, &req);
+    int64 end = Time::getHighResolutionTicks();
+    int64 elapsed = end - begin;
+    if (elapsed > maxRequestTicks)
+    {
+        DBG("New max AIO request time " << elapsed << " for get control " << String::toHexString(type));
+        maxRequestTicks = elapsed;
+    }
+    
+    return status;
 }
 
 Result ehw::setMicGain(XmlElement const *element)

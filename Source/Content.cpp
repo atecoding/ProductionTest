@@ -435,17 +435,17 @@ void Content::FinishTests(bool pass,bool skipped)
 	_devlist->RegisterMessageListener(&_dev_listener);
 #endif
 
-	if (application->testManager->getLoop())
+	if (application->testManager->getNumLoops())
 	{
-		int loopCount = application->testManager->getLoopCount();
-		if (loopCount > 0)
+		if (application->testManager->currentLoop < application->testManager->getNumLoops())
 		{
-			loopCount--;
-			application->testManager->setLoopCount(loopCount);
+            application->testManager->currentLoop++;
 			startButton.triggerClick();
 		}
-		else 
+		else
+        {
 			application->quit();
+        }
 	}
 }
 
