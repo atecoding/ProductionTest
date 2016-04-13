@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="Px9Slv" name="ProductionTest" projectType="guiapp" version="1.0.0"
-              bundleIdentifier="com.yourcompany.ProductionTest" includeBinaryInAppConfig="1"
+              bundleIdentifier="com.echoaudio.ProductionTest" includeBinaryInAppConfig="1"
               jucerVersion="4.2.0">
   <MAINGROUP id="Mk5otN" name="ProductionTest">
     <GROUP id="{E9A05292-FEF7-4257-AC75-42216E5E514F}" name="Source">
@@ -106,34 +106,12 @@
         <FILE id="GAwKUy" name="WindowedFFT.h" compile="0" resource="0" file="Source/WindowedFFT.h"/>
       </GROUP>
       <GROUP id="{5F589DF6-0F98-49F4-5FC8-CF12690887C7}" name="Tests">
-        <FILE id="GDIYlO" name="CalibrationVerificationTest.cpp" compile="1"
-              resource="0" file="Source/CalibrationVerificationTest.cpp"/>
         <FILE id="lXBny7" name="Analysis.cpp" compile="1" resource="0" file="Source/Analysis.cpp"/>
         <FILE id="zBnCtR" name="Analysis.h" compile="0" resource="0" file="Source/Analysis.h"/>
-        <FILE id="Hl3Y0g" name="ModuleTypeTest.cpp" compile="1" resource="0"
-              file="Source/ModuleTypeTest.cpp"/>
-        <FILE id="ejaeep" name="PowerSupplyResetTest.cpp" compile="1" resource="0"
-              file="Source/PowerSupplyResetTest.cpp"/>
+        <FILE id="GDIYlO" name="CalibrationVerificationTest.cpp" compile="1"
+              resource="0" file="Source/CalibrationVerificationTest.cpp"/>
         <FILE id="vtJK2w" name="ConstantCurrentTest.cpp" compile="1" resource="0"
               file="Source/ConstantCurrentTest.cpp"/>
-        <FILE id="JAlgDX" name="PhaseTest.cpp" compile="1" resource="0" file="Source/PhaseTest.cpp"/>
-        <FILE id="BqP0bJ" name="ReferenceVoltageTest.cpp" compile="1" resource="0"
-              file="Source/ReferenceVoltageTest.cpp"/>
-        <FILE id="w7xEi7" name="RelativeLevelTest.cpp" compile="1" resource="0"
-              file="Source/RelativeLevelTest.cpp"/>
-        <FILE id="wiDrHf" name="SilenceTest.cpp" compile="1" resource="0" file="Source/SilenceTest.cpp"/>
-        <FILE id="EB2DRJ" name="TEDSTest.cpp" compile="1" resource="0" file="Source/TEDSTest.cpp"/>
-        <FILE id="mFXbnT" name="Test.cpp" compile="1" resource="0" file="Source/Test.cpp"/>
-        <FILE id="jHBzVT" name="Test.h" compile="0" resource="0" file="Source/Test.h"/>
-        <FILE id="RuhkxD" name="TestManager.cpp" compile="1" resource="0" file="Source/TestManager.cpp"/>
-        <FILE id="CmgkAK" name="TestManager.h" compile="0" resource="0" file="Source/TestManager.h"/>
-        <FILE id="UjlRtR" name="ThdnTest.cpp" compile="1" resource="0" file="Source/ThdnTest.cpp"/>
-        <FILE id="fiEKWB" name="USBFirmwareVersionTest.cpp" compile="1" resource="0"
-              file="Source/USBFirmwareVersionTest.cpp"/>
-        <FILE id="Uh65Gq" name="mb_bulk.cpp" compile="1" resource="0" file="Source/mb_bulk.cpp"/>
-        <FILE id="Ms4SUF" name="mb_bulk.h" compile="0" resource="0" file="Source/mb_bulk.h"/>
-        <FILE id="x9dBK9" name="MikeyBusRegisters.cpp" compile="1" resource="0"
-              file="Source/MikeyBusRegisters.cpp"/>
         <FILE id="qKSeRV" name="DynRangeTest.cpp" compile="1" resource="0"
               file="Source/DynRangeTest.cpp"/>
         <FILE id="dWeULB" name="FilterCoeff.cpp" compile="1" resource="0" file="Source/FilterCoeff.cpp"/>
@@ -152,6 +130,28 @@
               resource="0" file="Source/FrequencySweepResponseTest.cpp"/>
         <FILE id="VYJllu" name="LevelCheckTest.cpp" compile="1" resource="0"
               file="Source/LevelCheckTest.cpp"/>
+        <FILE id="Uh65Gq" name="mb_bulk.cpp" compile="1" resource="0" file="Source/mb_bulk.cpp"/>
+        <FILE id="Ms4SUF" name="mb_bulk.h" compile="0" resource="0" file="Source/mb_bulk.h"/>
+        <FILE id="x9dBK9" name="MikeyBusRegisters.cpp" compile="1" resource="0"
+              file="Source/MikeyBusRegisters.cpp"/>
+        <FILE id="Hl3Y0g" name="ModuleTypeTest.cpp" compile="1" resource="0"
+              file="Source/ModuleTypeTest.cpp"/>
+        <FILE id="JAlgDX" name="PhaseTest.cpp" compile="1" resource="0" file="Source/PhaseTest.cpp"/>
+        <FILE id="ejaeep" name="PowerSupplyResetTest.cpp" compile="1" resource="0"
+              file="Source/PowerSupplyResetTest.cpp"/>
+        <FILE id="BqP0bJ" name="ReferenceVoltageTest.cpp" compile="1" resource="0"
+              file="Source/ReferenceVoltageTest.cpp"/>
+        <FILE id="w7xEi7" name="RelativeLevelTest.cpp" compile="1" resource="0"
+              file="Source/RelativeLevelTest.cpp"/>
+        <FILE id="wiDrHf" name="SilenceTest.cpp" compile="1" resource="0" file="Source/SilenceTest.cpp"/>
+        <FILE id="EB2DRJ" name="TEDSTest.cpp" compile="1" resource="0" file="Source/TEDSTest.cpp"/>
+        <FILE id="mFXbnT" name="Test.cpp" compile="1" resource="0" file="Source/Test.cpp"/>
+        <FILE id="jHBzVT" name="Test.h" compile="0" resource="0" file="Source/Test.h"/>
+        <FILE id="RuhkxD" name="TestManager.cpp" compile="1" resource="0" file="Source/TestManager.cpp"/>
+        <FILE id="CmgkAK" name="TestManager.h" compile="0" resource="0" file="Source/TestManager.h"/>
+        <FILE id="UjlRtR" name="ThdnTest.cpp" compile="1" resource="0" file="Source/ThdnTest.cpp"/>
+        <FILE id="fiEKWB" name="USBFirmwareVersionTest.cpp" compile="1" resource="0"
+              file="Source/USBFirmwareVersionTest.cpp"/>
       </GROUP>
       <GROUP id="{E34EA981-8E75-2D53-9D72-58E31E2EF004}" name="Utilities">
         <FILE id="RMklbe" name="wavefile.cpp" compile="1" resource="0" file="Source/wavefile.cpp"/>
@@ -164,6 +164,7 @@
       <FILE id="gPK3oZ" name="App.h" compile="0" resource="0" file="Source/App.h"/>
       <FILE id="FBppSU" name="AudioOutput.cpp" compile="1" resource="0" file="Source/AudioOutput.cpp"/>
       <FILE id="PTOYER" name="AudioOutput.h" compile="0" resource="0" file="Source/AudioOutput.h"/>
+      <FILE id="apTcZ6" name="base.h" compile="0" resource="0" file="Source/base.h"/>
       <FILE id="wuy3Lt" name="ErrorCodes.cpp" compile="1" resource="0" file="Source/ErrorCodes.cpp"/>
       <FILE id="mJrBhJ" name="ErrorCodes.h" compile="0" resource="0" file="Source/ErrorCodes.h"/>
       <FILE id="pr8iKy" name="ProductionUnit.cpp" compile="1" resource="0"
@@ -176,11 +177,9 @@
     <XCODE_MAC targetFolder="Builds/MacOSX" extraDefs="ACOUSTICIO_BUILD=1">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
-                       isDebug="1" optimisation="1" targetName="ProductionTestJUCE4"
-                       headerPath="../../Source/osx"/>
+                       isDebug="1" optimisation="1" targetName="ProductionTest" headerPath="../../Source/osx"/>
         <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
-                       isDebug="0" optimisation="3" targetName="ProductionTestJUCE4"
-                       headerPath="../../Source/osx"/>
+                       isDebug="0" optimisation="3" targetName="ProductionTest" headerPath="../../Source/osx"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../../JUCE/modules"/>
@@ -197,9 +196,9 @@
     <VS2015 targetFolder="Builds/VisualStudio2015" extraDefs="ACOUSTICIO_BUILD=1">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
-                       isDebug="1" optimisation="1" targetName="ProductionTestJUCE4"/>
+                       isDebug="1" optimisation="1" targetName="ProductionTest"/>
         <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
-                       isDebug="0" optimisation="3" targetName="ProductionTestJUCE4"/>
+                       isDebug="0" optimisation="3" targetName="ProductionTest"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../../JUCE/modules"/>

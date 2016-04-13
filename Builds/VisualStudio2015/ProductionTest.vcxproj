@@ -38,9 +38,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ProductionTestJUCE4</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">ProductionTest</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ProductionTestJUCE4</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">ProductionTest</TargetName>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
     <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
@@ -71,11 +71,11 @@
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
-      <OutputFile>$(OutDir)\ProductionTestJUCE4.exe</OutputFile>
+      <OutputFile>$(OutDir)\ProductionTest.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <IgnoreSpecificDefaultLibraries>libcmt.lib; msvcrt.lib;;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(IntDir)\ProductionTestJUCE4.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(IntDir)\ProductionTest.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
@@ -83,7 +83,7 @@
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>$(IntDir)\ProductionTestJUCE4.bsc</OutputFile>
+      <OutputFile>$(IntDir)\ProductionTest.bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -112,11 +112,11 @@
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
     <Link>
-      <OutputFile>$(OutDir)\ProductionTestJUCE4.exe</OutputFile>
+      <OutputFile>$(OutDir)\ProductionTest.exe</OutputFile>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(IntDir)\ProductionTestJUCE4.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile>$(IntDir)\ProductionTest.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
       <OptimizeReferences>true</OptimizeReferences>
@@ -125,7 +125,7 @@
     </Link>
     <Bscmake>
       <SuppressStartupBanner>true</SuppressStartupBanner>
-      <OutputFile>$(IntDir)\ProductionTestJUCE4.bsc</OutputFile>
+      <OutputFile>$(IntDir)\ProductionTest.bsc</OutputFile>
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -155,22 +155,9 @@
     <ClCompile Include="..\..\Source\Spectrum.cpp"/>
     <ClCompile Include="..\..\Source\SpectrumAnalyzer.cpp"/>
     <ClCompile Include="..\..\Source\WindowedFFT.cpp"/>
-    <ClCompile Include="..\..\Source\CalibrationVerificationTest.cpp"/>
     <ClCompile Include="..\..\Source\Analysis.cpp"/>
-    <ClCompile Include="..\..\Source\ModuleTypeTest.cpp"/>
-    <ClCompile Include="..\..\Source\PowerSupplyResetTest.cpp"/>
+    <ClCompile Include="..\..\Source\CalibrationVerificationTest.cpp"/>
     <ClCompile Include="..\..\Source\ConstantCurrentTest.cpp"/>
-    <ClCompile Include="..\..\Source\PhaseTest.cpp"/>
-    <ClCompile Include="..\..\Source\ReferenceVoltageTest.cpp"/>
-    <ClCompile Include="..\..\Source\RelativeLevelTest.cpp"/>
-    <ClCompile Include="..\..\Source\SilenceTest.cpp"/>
-    <ClCompile Include="..\..\Source\TEDSTest.cpp"/>
-    <ClCompile Include="..\..\Source\Test.cpp"/>
-    <ClCompile Include="..\..\Source\TestManager.cpp"/>
-    <ClCompile Include="..\..\Source\ThdnTest.cpp"/>
-    <ClCompile Include="..\..\Source\USBFirmwareVersionTest.cpp"/>
-    <ClCompile Include="..\..\Source\mb_bulk.cpp"/>
-    <ClCompile Include="..\..\Source\MikeyBusRegisters.cpp"/>
     <ClCompile Include="..\..\Source\DynRangeTest.cpp"/>
     <ClCompile Include="..\..\Source\FilterCoeff.cpp"/>
     <ClCompile Include="..\..\Source\FlashMemoryTest.cpp"/>
@@ -179,6 +166,19 @@
     <ClCompile Include="..\..\Source\FrequencySweepAudioSource.cpp"/>
     <ClCompile Include="..\..\Source\FrequencySweepResponseTest.cpp"/>
     <ClCompile Include="..\..\Source\LevelCheckTest.cpp"/>
+    <ClCompile Include="..\..\Source\mb_bulk.cpp"/>
+    <ClCompile Include="..\..\Source\MikeyBusRegisters.cpp"/>
+    <ClCompile Include="..\..\Source\ModuleTypeTest.cpp"/>
+    <ClCompile Include="..\..\Source\PhaseTest.cpp"/>
+    <ClCompile Include="..\..\Source\PowerSupplyResetTest.cpp"/>
+    <ClCompile Include="..\..\Source\ReferenceVoltageTest.cpp"/>
+    <ClCompile Include="..\..\Source\RelativeLevelTest.cpp"/>
+    <ClCompile Include="..\..\Source\SilenceTest.cpp"/>
+    <ClCompile Include="..\..\Source\TEDSTest.cpp"/>
+    <ClCompile Include="..\..\Source\Test.cpp"/>
+    <ClCompile Include="..\..\Source\TestManager.cpp"/>
+    <ClCompile Include="..\..\Source\ThdnTest.cpp"/>
+    <ClCompile Include="..\..\Source\USBFirmwareVersionTest.cpp"/>
     <ClCompile Include="..\..\Source\wavefile.cpp"/>
     <ClCompile Include="..\..\Source\xml.cpp"/>
     <ClCompile Include="..\..\Source\App.cpp"/>
@@ -1604,15 +1604,16 @@
     <ClInclude Include="..\..\Source\SpectrumAnalyzer.h"/>
     <ClInclude Include="..\..\Source\WindowedFFT.h"/>
     <ClInclude Include="..\..\Source\Analysis.h"/>
-    <ClInclude Include="..\..\Source\Test.h"/>
-    <ClInclude Include="..\..\Source\TestManager.h"/>
-    <ClInclude Include="..\..\Source\mb_bulk.h"/>
     <ClInclude Include="..\..\Source\FilterCoeff.h"/>
     <ClInclude Include="..\..\Source\FrequencySweepAudioSource.h"/>
+    <ClInclude Include="..\..\Source\mb_bulk.h"/>
+    <ClInclude Include="..\..\Source\Test.h"/>
+    <ClInclude Include="..\..\Source\TestManager.h"/>
     <ClInclude Include="..\..\Source\wavefile.h"/>
     <ClInclude Include="..\..\Source\xml.h"/>
     <ClInclude Include="..\..\Source\App.h"/>
     <ClInclude Include="..\..\Source\AudioOutput.h"/>
+    <ClInclude Include="..\..\Source\base.h"/>
     <ClInclude Include="..\..\Source\ErrorCodes.h"/>
     <ClInclude Include="..\..\Source\ProductionUnit.h"/>
     <ClInclude Include="..\..\JuceLibraryCode\modules\juce_audio_basics\buffers\juce_AudioDataConverters.h"/>

@@ -412,52 +412,13 @@
     <ClCompile Include="..\..\Source\WindowedFFT.cpp">
       <Filter>ProductionTest\Source\Spectrum</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\CalibrationVerificationTest.cpp">
-      <Filter>ProductionTest\Source\Tests</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Source\Analysis.cpp">
       <Filter>ProductionTest\Source\Tests</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\ModuleTypeTest.cpp">
-      <Filter>ProductionTest\Source\Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\PowerSupplyResetTest.cpp">
+    <ClCompile Include="..\..\Source\CalibrationVerificationTest.cpp">
       <Filter>ProductionTest\Source\Tests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\ConstantCurrentTest.cpp">
-      <Filter>ProductionTest\Source\Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\PhaseTest.cpp">
-      <Filter>ProductionTest\Source\Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\ReferenceVoltageTest.cpp">
-      <Filter>ProductionTest\Source\Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\RelativeLevelTest.cpp">
-      <Filter>ProductionTest\Source\Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\SilenceTest.cpp">
-      <Filter>ProductionTest\Source\Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\TEDSTest.cpp">
-      <Filter>ProductionTest\Source\Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Test.cpp">
-      <Filter>ProductionTest\Source\Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\TestManager.cpp">
-      <Filter>ProductionTest\Source\Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\ThdnTest.cpp">
-      <Filter>ProductionTest\Source\Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\USBFirmwareVersionTest.cpp">
-      <Filter>ProductionTest\Source\Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\mb_bulk.cpp">
-      <Filter>ProductionTest\Source\Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\MikeyBusRegisters.cpp">
       <Filter>ProductionTest\Source\Tests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\DynRangeTest.cpp">
@@ -482,6 +443,45 @@
       <Filter>ProductionTest\Source\Tests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\LevelCheckTest.cpp">
+      <Filter>ProductionTest\Source\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\mb_bulk.cpp">
+      <Filter>ProductionTest\Source\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\MikeyBusRegisters.cpp">
+      <Filter>ProductionTest\Source\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ModuleTypeTest.cpp">
+      <Filter>ProductionTest\Source\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\PhaseTest.cpp">
+      <Filter>ProductionTest\Source\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\PowerSupplyResetTest.cpp">
+      <Filter>ProductionTest\Source\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ReferenceVoltageTest.cpp">
+      <Filter>ProductionTest\Source\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\RelativeLevelTest.cpp">
+      <Filter>ProductionTest\Source\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\SilenceTest.cpp">
+      <Filter>ProductionTest\Source\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TEDSTest.cpp">
+      <Filter>ProductionTest\Source\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\Test.cpp">
+      <Filter>ProductionTest\Source\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\TestManager.cpp">
+      <Filter>ProductionTest\Source\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ThdnTest.cpp">
+      <Filter>ProductionTest\Source\Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\USBFirmwareVersionTest.cpp">
       <Filter>ProductionTest\Source\Tests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\wavefile.cpp">
@@ -2079,19 +2079,19 @@
     <ClInclude Include="..\..\Source\Analysis.h">
       <Filter>ProductionTest\Source\Tests</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\Test.h">
+    <ClInclude Include="..\..\Source\FilterCoeff.h">
       <Filter>ProductionTest\Source\Tests</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\TestManager.h">
+    <ClInclude Include="..\..\Source\FrequencySweepAudioSource.h">
       <Filter>ProductionTest\Source\Tests</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\mb_bulk.h">
       <Filter>ProductionTest\Source\Tests</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\FilterCoeff.h">
+    <ClInclude Include="..\..\Source\Test.h">
       <Filter>ProductionTest\Source\Tests</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\FrequencySweepAudioSource.h">
+    <ClInclude Include="..\..\Source\TestManager.h">
       <Filter>ProductionTest\Source\Tests</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\wavefile.h">
@@ -2104,6 +2104,9 @@
       <Filter>ProductionTest\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\AudioOutput.h">
+      <Filter>ProductionTest\Source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\base.h">
       <Filter>ProductionTest\Source</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\ErrorCodes.h">
