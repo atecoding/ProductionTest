@@ -5,8 +5,8 @@
 #include "../calibration/CalibrationData.h"
 
 ehw::ehw(IOUSBDeviceInterface** deviceInterface_) :
-deviceInterface(deviceInterface_),
-maxRequestTicks(0)
+maxRequestTicks(0),
+deviceInterface(deviceInterface_)
 {
     uint16 productID = 0;
     
