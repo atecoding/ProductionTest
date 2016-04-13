@@ -36,7 +36,7 @@ bool RunTEDSTest(XmlElement const *element,
 		return false;
 	}
     
-    int numInputs = element->getIntAttribute("num_channels", AIOTestAdapter::NUM_INPUTS);
+    int numInputs = element->getIntAttribute("num_channels", AIOTestAdapter::NUM_INPUTS_PER_ADAPTER);
 	if (true == element->hasAttribute("short"))
 		numInputs = 2;
 

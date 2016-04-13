@@ -1,6 +1,6 @@
 #if ACOUSTICIO_BUILD
 
-#include "base.h"
+#include "../base.h"
 #include "../AIOTestAdapter.h"
 
 // ----------------------------------------------------
@@ -53,7 +53,7 @@ static CFMutableDictionaryRef hu_CreateMatchingDictionaryUsagePageUsage( Boolean
     return result;
 }	// hu_CreateMatchingDictionaryUsagePageUsage
 
-void AIOTestAdapter::findAdapter(IOHIDManagerRef &managerRef, CFSetRef &deviceCFSetRef, HeapBlock<IOHIDDeviceRef> &deviceRefs, CFIndex &deviceCount)
+void AIOTestAdapter::findAdapters(IOHIDManagerRef &managerRef, CFSetRef &deviceCFSetRef, HeapBlock<IOHIDDeviceRef> &deviceRefs, CFIndex &deviceCount)
 {
     managerRef = IOHIDManagerCreate( kCFAllocatorDefault, kIOHIDOptionsTypeNone );
     
@@ -99,7 +99,6 @@ void AIOTestAdapter::findAdapter(IOHIDManagerRef &managerRef, CFSetRef &deviceCF
                             result = CFNumberGetValue((CFNumberRef) productIDTypeRef.object, kCFNumberSInt32Type, &productID_);
                             if (result)
                             {
-                                bool match = false;
                                 switch (productID_)
                                 {
                                     case ECHO_HID_TESTER_PRODUCT_ID_V100:
@@ -107,15 +106,10 @@ void AIOTestAdapter::findAdapter(IOHIDManagerRef &managerRef, CFSetRef &deviceCF
                                     case ECHO_HID_TESTER_PRODUCT_ID_V210:
                                         DBG("Test adapter found");
                                         
-                                        deviceRef.object = deviceRefs[i];
-                                        CFRetain(deviceRef.object);
-                                        productId = productID_;
-                                        match = true;
-                                        break;
+                                        testAdapterDeviceRefs.objects.add(deviceRefs[i]);
+                                        CFRetain(deviceRefs[i]);
+                                        productIDs.add( productID_ );
                                 }
-                                
-                                if (match)
-                                    break;
                             }
                         }
                     }
@@ -126,8 +120,7 @@ void AIOTestAdapter::findAdapter(IOHIDManagerRef &managerRef, CFSetRef &deviceCF
     }
 }
 
-AIOTestAdapter::AIOTestAdapter() :
-productId(0)
+AIOTestAdapter::AIOTestAdapter()
 {
 }
 
@@ -144,102 +137,120 @@ bool AIOTestAdapter::open()
     HeapBlock<IOHIDDeviceRef> deviceRefs;
     CFIndex deviceCount;
     
-    findAdapter(managerRef, deviceCFSetRef, deviceRefs, deviceCount);
+    findAdapters(managerRef, deviceCFSetRef, deviceRefs, deviceCount);
     
     CFRelease(deviceCFSetRef);
     CFRelease(managerRef);
     
-    if (deviceRef.object != 0)
+    int openCount = 0;
+    for (int i = 0; i < testAdapterDeviceRefs.objects.size(); ++i)
     {
-        IOReturn status = IOHIDDeviceOpen(deviceRef.object, kIOHIDOptionsTypeNone);
-        if (kIOReturnSuccess != status)
+        IOHIDDeviceRef hidDeviceRef = testAdapterDeviceRefs.objects[i];
+        if (hidDeviceRef)
         {
-            CFRelease(deviceRef.object);
-            deviceRef.object = 0;
+            IOReturn status = IOHIDDeviceOpen(testAdapterDeviceRefs.objects[i], kIOHIDOptionsTypeNone);
+            if (kIOReturnSuccess != status)
+            {
+                CFRelease(testAdapterDeviceRefs.objects[i]);
+                testAdapterDeviceRefs.objects.set(i, 0);
+            }
+            else
+            {
+                openCount++;
+            }
         }
     }
     
-    return deviceRef.object != 0;
+    return openCount != 0;
 }
 
 void AIOTestAdapter::close()
 {
-    if (deviceRef.object)
+    for (int i = 0; i < testAdapterDeviceRefs.objects.size(); ++i)
     {
-        IOHIDDeviceClose(deviceRef.object, kIOHIDOptionsTypeNone);
+        IOHIDDeviceRef hidDeviceRef = testAdapterDeviceRefs.objects[i];
         
-        CFRelease(deviceRef.object);
-        deviceRef.object = 0;
+        if (hidDeviceRef)
+        {
+            IOHIDDeviceClose(hidDeviceRef, kIOHIDOptionsTypeNone);
+            
+            CFRelease(hidDeviceRef);
+            testAdapterDeviceRefs.objects.set(i, 0);
+        }
     }
 }
 
 int AIOTestAdapter::write(uint8 byte)
 {
-#if 0
-	uint8 data[2];
-	data[0] = 0;
-	data[1] = byte;
-
-	if (INVALID_HANDLE_VALUE == writeHandle)
-		return 0;
-
-	HidD_SetOutputReport(writeHandle, data, sizeof(data));
-	Thread::sleep(100);
-	BOOLEAN result = HidD_SetOutputReport(writeHandle, data, sizeof(data));		// send twice because of buffering somewhere -- quien sabes?
-
-	return result;
-#else
+    int result = 1;
     
-    IOReturn  status = IOHIDDeviceSetReport(
-                                               deviceRef.object,          // IOHIDDeviceRef for the HID device
-                                               kIOHIDReportTypeOutput,   // IOHIDReportType for the report
-                                               0,           // CFIndex for the report ID
-                                               &byte,             // address of report buffer
-                                               sizeof(byte));      // length of the report
-    Thread::sleep(100);
-    IOReturn status2 = IOHIDDeviceSetReport(
-                                            deviceRef.object,          // IOHIDDeviceRef for the HID device
-                                            kIOHIDReportTypeOutput,   // IOHIDReportType for the report
-                                            0,           // CFIndex for the report ID
-                                            &byte,             // address of report buffer
-                                            sizeof(byte));      // length of the report
-    
-    return kIOReturnSuccess == status && kIOReturnSuccess == status2;
-#endif
+    for (int i = 0; i < testAdapterDeviceRefs.objects.size(); ++i)
+    {
+        IOHIDDeviceRef hidDeviceRef = testAdapterDeviceRefs.objects[i];
+        
+        if (0 == hidDeviceRef)
+            continue;
+        
+        IOReturn  status = IOHIDDeviceSetReport(
+                                                hidDeviceRef,          // IOHIDDeviceRef for the HID device
+                                                kIOHIDReportTypeOutput,   // IOHIDReportType for the report
+                                                0,           // CFIndex for the report ID
+                                                &byte,             // address of report buffer
+                                                sizeof(byte));      // length of the report
+        Thread::sleep(100);
+        IOReturn status2 = IOHIDDeviceSetReport(
+                                                hidDeviceRef,          // IOHIDDeviceRef for the HID device
+                                                kIOHIDReportTypeOutput,   // IOHIDReportType for the report
+                                                0,           // CFIndex for the report ID
+                                                &byte,             // address of report buffer
+                                                sizeof(byte));      // length of the report
+        
+        Thread::sleep(100);
+        
+        result &= kIOReturnSuccess == status && kIOReturnSuccess == status2;
+    }
+
+    return result;
 }
 
-int AIOTestAdapter::read(uint16 data[AIOTestAdapter::NUM_INPUTS])
+int AIOTestAdapter::read(Array<uint16> &data)
 {
-#if 0
-	uint8 temp[9];
+    int result = 1;
+    
+    data.clearQuick();
 
-	if (INVALID_HANDLE_VALUE == readHandle)
-		return 0;
+    for (int i = 0; i < testAdapterDeviceRefs.objects.size(); ++i)
+    {
+        IOHIDDeviceRef hidDeviceRef = testAdapterDeviceRefs.objects[i];
+        if (0 == hidDeviceRef)
+            continue;
+        
+        uint16 temp[NUM_INPUTS_PER_ADAPTER];
+        CFIndex length = sizeof(temp);
+        IOReturn status = IOHIDDeviceGetReport(
+                                                hidDeviceRef,          // IOHIDDeviceRef for the HID device
+                                                kIOHIDReportTypeInput,   // IOHIDReportType for the report
+                                                0,           // CFIndex for the report ID
+                                                (uint8 *)temp,             // address of report buffer
+                                                &length);       // address of length of the report
+        
+        for (int j = 0; j < NUM_INPUTS_PER_ADAPTER; ++j)
+        {
+            ///DBG(String::formatted("AIOTestAdapter::read  %d - %d", j, temp[j] ));
+            data.add(temp[j]);
+        }
+        
+        result &= kIOReturnSuccess == status;
+    }
+    
+    /*
+    for (int i = 0; i < data.size(); ++i)
+    {
+        DBG(String::formatted("    ---- %d - %d", i, data[i]));
+    }
+    */
 
-	zerostruct(temp);
-	BOOLEAN result = HidD_GetInputReport(readHandle, temp, sizeof(temp));
-	if (0 == result)
-	{
-		return 0;
-	}
-
-	uint16 *source = (uint16 *)(temp + 1);
-	for (int i = 0; i < 4; ++i)
-	{
-		data[i] = source[i];
-	}
-	
-	return 4;
-#else
-    CFIndex length = sizeof(uint16) * 4;
-    IOReturn  status = IOHIDDeviceGetReport(
-                                               deviceRef.object,          // IOHIDDeviceRef for the HID device
-                                               kIOHIDReportTypeInput,   // IOHIDReportType for the report
-                                               0,           // CFIndex for the report ID
-                                               (uint8 *)data,             // address of report buffer
-                                               &length);       // address of length of the report
-    return kIOReturnSuccess == status;
-#endif
+    return result;
 }
 
 #endif

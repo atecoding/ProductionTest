@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Test.h"
-#include "MIDILoopTest.h"
 #include "ErrorCodes.h"
 
 #if ACOUSTICIO_BUILD
@@ -93,7 +92,6 @@ protected:
 	bool record_done;
 
 	ScopedPointer<Test> _test;
-	MIDILoopTest midiLoopTest;
 
 	int _input;
 	int _output;

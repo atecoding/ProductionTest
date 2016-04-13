@@ -664,26 +664,6 @@ void ProductionUnit::handleMessage(const Message &message)
 			ParseScript();
 		}
 		break;
-
-		case MESSAGE_MIDI_TEST_DONE:
-		{
-			Result result (midiLoopTest.getResult());
-			String msg("\nMIDI loopback test OK");
-
-			midiLoopTest.stop();
-
-			_unit_passed &= result.wasOk();
-
-			if (result.failed())
-			{
-				msg = String("\n*** MIDI loopback test failed");
-			}
-			_content->log(msg);
-			_content->log(midiLoopTest.getReceivedData());
-
-			ParseScript();
-		}
-		break;
             
         case MESSAGE_AIOS_CALIBRATION_DONE:
         {
@@ -952,8 +932,7 @@ void ProductionUnit::ParseScript()
 				return;
 			}
             
-            if (0 != _test->requiredTestAdapterProductId &&
-                _test->requiredTestAdapterProductId != aioTestAdapter.getProductId())
+            if (0 != _test->requiredTestAdapterProductId && false == aioTestAdapter.checkProductID(_test->requiredTestAdapterProductId))                
             {
                 //
                 // Ignore this test
@@ -1328,22 +1307,7 @@ void ProductionUnit::ParseScript()
 			_script = _script->getNextElement();
 			continue;
 		}
-
-		//-----------------------------------------------------------------------------
-		//
-		// MIDI loopback test?
-		//
-		//-----------------------------------------------------------------------------
-
-		if (_script->hasTagName("MIDILoopTest"))
-		{
-			midiLoopTest.start(_script, this);
-
-			_num_tests++;
-
-			_script = _script->getNextElement();
-			return;
-		}
+        
 
 		//-----------------------------------------------------------------------------
 		//

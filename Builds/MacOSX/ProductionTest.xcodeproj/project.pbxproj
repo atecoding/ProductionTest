@@ -16,10 +16,8 @@
 		1B473FAFC02D1461D65FD086 /* DynRangeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8AC445681610839BDFD81496 /* DynRangeTest.cpp */; };
 		1CC29A9C4CC271D5665D6D32 /* osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C73BE9FF1818524EE8EC017B /* osx.cpp */; };
 		200F48540AF8B2B1E30A4E5E /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DC268F255627EB828E4EA47 /* Carbon.framework */; };
-		2149EA8F256156287101B888 /* AIODevices_win.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CEC36C5A10A53F771388AAB /* AIODevices_win.cpp */; };
 		24081D1FE12683761CF9E2B3 /* hwcaps.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD5027A7ACE57A808563459E /* hwcaps.cpp */; };
 		244D348923B6345434917D24 /* LevelCheckTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6ADE3B2A3EACD856348D6D /* LevelCheckTest.cpp */; };
-		2AF689AFB187BCB6AEA201A4 /* AIODevices_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15A0DD33EFA4F2075581B057 /* AIODevices_osx.cpp */; };
 		30751D5CF9986BFE72D177FA /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 386D3D79B858091C93DB9AFE /* WebKit.framework */; };
 		3402F306C0167E7CD364209F /* juce_data_structures.mm in Sources */ = {isa = PBXBuildFile; fileRef = FC337C4D1CA49ABC38D53C9E /* juce_data_structures.mm */; };
 		3B7907AE0426D3E46FB7B0F8 /* TEDSTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2E761E1D0BFE22C3B9D07F25 /* TEDSTest.cpp */; };
@@ -32,8 +30,6 @@
 		5DDA69A1675994C317F116B0 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D0553D92F0925091210BBE6 /* IOKit.framework */; };
 		5F530F66334AD6EC4DFBF622 /* Content.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CA8D1ABF1507CEBD321ABD1D /* Content.cpp */; };
 		606571CFB0D5E2E54044776E /* ThdnTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2C357906C758CAE751E9D992 /* ThdnTest.cpp */; };
-		68FE50DCD04B08BC51650971 /* MidiTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C4A2073CA9745A2D42194614 /* MidiTest.cpp */; };
-		6AD16A68E10792F0F6641691 /* AIODevice_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BF116500005F0508D31630E /* AIODevice_osx.cpp */; };
 		6E32B1E6B0A50AF4474A55D8 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7DDFE4DA407C0FE8084B8C5D /* RecentFilesMenuTemplate.nib */; };
 		706109E1465F708CB62E5368 /* DiscRecording.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6870FA5FC23ABEFCBB5F9E /* DiscRecording.framework */; };
 		83C40D4365D9E1E3BC1B2C9E /* Analysis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B0110162BDE8AC0AAC824EF /* Analysis.cpp */; };
@@ -81,16 +77,12 @@
 		C91969301C8A6F2700C06E9A /* MikeyBusRegisters.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C97C795B1C3DC791004BF5BF /* MikeyBusRegisters.cpp */; };
 		C920FEF01B62F68E009CC653 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7DDFE4DA407C0FE8084B8C5D /* RecentFilesMenuTemplate.nib */; };
 		C920FEFB1B62F68E009CC653 /* FrequencySweepResponseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F48E9D1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp */; };
-		C920FEFC1B62F68E009CC653 /* AIODevice_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BF116500005F0508D31630E /* AIODevice_osx.cpp */; };
-		C920FEFD1B62F68E009CC653 /* AIODevices_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15A0DD33EFA4F2075581B057 /* AIODevices_osx.cpp */; };
 		C920FEFE1B62F68E009CC653 /* AIOTestAdapter_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9BDF2D76AA5EA0C37980A6F5 /* AIOTestAdapter_osx.cpp */; };
 		C920FEFF1B62F68E009CC653 /* ehw_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 75199A4B45F98728E908B97C /* ehw_osx.cpp */; };
 		C920FF001B62F68E009CC653 /* ProductionUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51932B8BE722EA8393CBEB8C /* ProductionUnit.cpp */; };
 		C920FF011B62F68E009CC653 /* ehwlist_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F1DC90FFEFE44B6860FD866A /* ehwlist_osx.cpp */; };
 		C920FF021B62F68E009CC653 /* hwcaps.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD5027A7ACE57A808563459E /* hwcaps.cpp */; };
 		C920FF031B62F68E009CC653 /* osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C73BE9FF1818524EE8EC017B /* osx.cpp */; };
-		C920FF041B62F68E009CC653 /* AIODevice_win.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3B2325D1B4B9F5AFFD82E98 /* AIODevice_win.cpp */; };
-		C920FF051B62F68E009CC653 /* AIODevices_win.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CEC36C5A10A53F771388AAB /* AIODevices_win.cpp */; };
 		C920FF061B62F68E009CC653 /* AIOTestAdapter_win.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADABD406FED66B8D12FB01C9 /* AIOTestAdapter_win.cpp */; };
 		C920FF071B62F68E009CC653 /* Printer_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BBBF7F1B322CC600766B48 /* Printer_osx.cpp */; };
 		C920FF081B62F68E009CC653 /* DescriptionAM1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6A81B293DE300CEC3BF /* DescriptionAM1.cpp */; };
@@ -116,8 +108,6 @@
 		C920FF1C1B62F68E009CC653 /* LevelCheckTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6ADE3B2A3EACD856348D6D /* LevelCheckTest.cpp */; };
 		C920FF1D1B62F68E009CC653 /* USBFirmwareVersionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C66371B0A85E800DA394D /* USBFirmwareVersionTest.cpp */; };
 		C920FF1E1B62F68E009CC653 /* MeterWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EED30B6667A5C9A7320CDD46 /* MeterWindow.cpp */; };
-		C920FF1F1B62F68E009CC653 /* MIDILoopTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 873A2AA908695E9CBC5508FC /* MIDILoopTest.cpp */; };
-		C920FF201B62F68E009CC653 /* MidiTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C4A2073CA9745A2D42194614 /* MidiTest.cpp */; };
 		C920FF211B62F68E009CC653 /* PhaseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CB73351F390727926CFA6980 /* PhaseTest.cpp */; };
 		C920FF221B62F68E009CC653 /* RelativeLevelTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20453085BE26C5F0A8DF9175 /* RelativeLevelTest.cpp */; };
 		C920FF231B62F68E009CC653 /* SawtoothAudioSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629F8919423F871C8337CBCC /* SawtoothAudioSource.cpp */; };
@@ -183,16 +173,12 @@
 		C96D4D7C1C8A1FAE0001DACC /* SpectrumAnalyzer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D4D791C8A1FAE0001DACC /* SpectrumAnalyzer.cpp */; };
 		C97C87921C431D950059995D /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7DDFE4DA407C0FE8084B8C5D /* RecentFilesMenuTemplate.nib */; };
 		C97C87961C431D950059995D /* FrequencySweepResponseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F48E9D1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp */; };
-		C97C87971C431D950059995D /* AIODevice_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BF116500005F0508D31630E /* AIODevice_osx.cpp */; };
-		C97C87981C431D950059995D /* AIODevices_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15A0DD33EFA4F2075581B057 /* AIODevices_osx.cpp */; };
 		C97C87991C431D950059995D /* AIOTestAdapter_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9BDF2D76AA5EA0C37980A6F5 /* AIOTestAdapter_osx.cpp */; };
 		C97C879A1C431D950059995D /* ehw_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 75199A4B45F98728E908B97C /* ehw_osx.cpp */; };
 		C97C879B1C431D950059995D /* ProductionUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51932B8BE722EA8393CBEB8C /* ProductionUnit.cpp */; };
 		C97C879C1C431D950059995D /* ehwlist_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F1DC90FFEFE44B6860FD866A /* ehwlist_osx.cpp */; };
 		C97C879D1C431D950059995D /* hwcaps.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD5027A7ACE57A808563459E /* hwcaps.cpp */; };
 		C97C879E1C431D950059995D /* osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C73BE9FF1818524EE8EC017B /* osx.cpp */; };
-		C97C879F1C431D950059995D /* AIODevice_win.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3B2325D1B4B9F5AFFD82E98 /* AIODevice_win.cpp */; };
-		C97C87A01C431D950059995D /* AIODevices_win.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CEC36C5A10A53F771388AAB /* AIODevices_win.cpp */; };
 		C97C87A11C431D950059995D /* AIOTestAdapter_win.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADABD406FED66B8D12FB01C9 /* AIOTestAdapter_win.cpp */; };
 		C97C87A21C431D950059995D /* Printer_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BBBF7F1B322CC600766B48 /* Printer_osx.cpp */; };
 		C97C87A31C431D950059995D /* DescriptionAM1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6A81B293DE300CEC3BF /* DescriptionAM1.cpp */; };
@@ -219,8 +205,6 @@
 		C97C87B81C431D950059995D /* LevelCheckTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6ADE3B2A3EACD856348D6D /* LevelCheckTest.cpp */; };
 		C97C87B91C431D950059995D /* USBFirmwareVersionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C66371B0A85E800DA394D /* USBFirmwareVersionTest.cpp */; };
 		C97C87BA1C431D950059995D /* MeterWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EED30B6667A5C9A7320CDD46 /* MeterWindow.cpp */; };
-		C97C87BB1C431D950059995D /* MIDILoopTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 873A2AA908695E9CBC5508FC /* MIDILoopTest.cpp */; };
-		C97C87BC1C431D950059995D /* MidiTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C4A2073CA9745A2D42194614 /* MidiTest.cpp */; };
 		C97C87BD1C431D950059995D /* PhaseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CB73351F390727926CFA6980 /* PhaseTest.cpp */; };
 		C97C87BE1C431D950059995D /* RelativeLevelTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20453085BE26C5F0A8DF9175 /* RelativeLevelTest.cpp */; };
 		C97C87BF1C431D950059995D /* SawtoothAudioSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629F8919423F871C8337CBCC /* SawtoothAudioSource.cpp */; };
@@ -273,16 +257,12 @@
 		C9ED3C141B684274004A76CE /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 7DDFE4DA407C0FE8084B8C5D /* RecentFilesMenuTemplate.nib */; };
 		C9ED3C191B684274004A76CE /* factory.icns in Resources */ = {isa = PBXBuildFile; fileRef = C95C66341B0A787300DA394D /* factory.icns */; };
 		C9ED3C1B1B684274004A76CE /* FrequencySweepResponseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F48E9D1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp */; };
-		C9ED3C1C1B684274004A76CE /* AIODevice_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BF116500005F0508D31630E /* AIODevice_osx.cpp */; };
-		C9ED3C1D1B684274004A76CE /* AIODevices_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15A0DD33EFA4F2075581B057 /* AIODevices_osx.cpp */; };
 		C9ED3C1E1B684274004A76CE /* AIOTestAdapter_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9BDF2D76AA5EA0C37980A6F5 /* AIOTestAdapter_osx.cpp */; };
 		C9ED3C1F1B684274004A76CE /* ehw_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 75199A4B45F98728E908B97C /* ehw_osx.cpp */; };
 		C9ED3C201B684274004A76CE /* ProductionUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 51932B8BE722EA8393CBEB8C /* ProductionUnit.cpp */; };
 		C9ED3C211B684274004A76CE /* ehwlist_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F1DC90FFEFE44B6860FD866A /* ehwlist_osx.cpp */; };
 		C9ED3C221B684274004A76CE /* hwcaps.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BD5027A7ACE57A808563459E /* hwcaps.cpp */; };
 		C9ED3C231B684274004A76CE /* osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C73BE9FF1818524EE8EC017B /* osx.cpp */; };
-		C9ED3C241B684274004A76CE /* AIODevice_win.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3B2325D1B4B9F5AFFD82E98 /* AIODevice_win.cpp */; };
-		C9ED3C251B684274004A76CE /* AIODevices_win.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3CEC36C5A10A53F771388AAB /* AIODevices_win.cpp */; };
 		C9ED3C261B684274004A76CE /* AIOTestAdapter_win.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADABD406FED66B8D12FB01C9 /* AIOTestAdapter_win.cpp */; };
 		C9ED3C271B684274004A76CE /* Printer_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9BBBF7F1B322CC600766B48 /* Printer_osx.cpp */; };
 		C9ED3C281B684274004A76CE /* DescriptionAM1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C94CC6A81B293DE300CEC3BF /* DescriptionAM1.cpp */; };
@@ -309,8 +289,6 @@
 		C9ED3C3D1B684274004A76CE /* LevelCheckTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DD6ADE3B2A3EACD856348D6D /* LevelCheckTest.cpp */; };
 		C9ED3C3E1B684274004A76CE /* USBFirmwareVersionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C95C66371B0A85E800DA394D /* USBFirmwareVersionTest.cpp */; };
 		C9ED3C3F1B684274004A76CE /* MeterWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EED30B6667A5C9A7320CDD46 /* MeterWindow.cpp */; };
-		C9ED3C401B684274004A76CE /* MIDILoopTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 873A2AA908695E9CBC5508FC /* MIDILoopTest.cpp */; };
-		C9ED3C411B684274004A76CE /* MidiTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C4A2073CA9745A2D42194614 /* MidiTest.cpp */; };
 		C9ED3C421B684274004A76CE /* PhaseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CB73351F390727926CFA6980 /* PhaseTest.cpp */; };
 		C9ED3C431B684274004A76CE /* RelativeLevelTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20453085BE26C5F0A8DF9175 /* RelativeLevelTest.cpp */; };
 		C9ED3C441B684274004A76CE /* SawtoothAudioSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 629F8919423F871C8337CBCC /* SawtoothAudioSource.cpp */; };
@@ -351,14 +329,12 @@
 		C9ED3C721B6843A1004A76CE /* AIO-2 Field Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9ED3C711B6843A1004A76CE /* AIO-2 Field Test.xml */; };
 		C9F48E9E1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C9F48E9D1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp */; };
 		CCAFCFE69CB697A6CF6F0058 /* juce_events.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9FA5C625F428490B83F5393B /* juce_events.mm */; };
-		CE54B4FA36345C53CCB60912 /* MIDILoopTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 873A2AA908695E9CBC5508FC /* MIDILoopTest.cpp */; };
 		DCA7298221B248B21872D763 /* wavefile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AAABABBE36DBD2C8C7E97D17 /* wavefile.cpp */; };
 		E77DC74B1A115BDD4D95FD1D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE2B756DBB18DE84BA504EAD /* QuartzCore.framework */; };
 		E98D739A35227DDFAAD6AFF7 /* PhaseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CB73351F390727926CFA6980 /* PhaseTest.cpp */; };
 		EBE26A1D87AE224D4F409DE6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66C6C4A0D78C8CF106EB6E4B /* AudioToolbox.framework */; };
 		EEBEAF6E4EAC455D4E392244 /* juce_audio_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = C4731BA1E15D2872109D9A5E /* juce_audio_basics.mm */; };
 		EFAAC4844240D6CAA98D6870 /* FilterCoeff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 35C9A04904D8DEC1FD542AA1 /* FilterCoeff.cpp */; };
-		F4F1F0EC2B165D83AB331FFE /* AIODevice_win.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3B2325D1B4B9F5AFFD82E98 /* AIODevice_win.cpp */; };
 		F7D24D5D3060A361C436B312 /* juce_graphics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0DBD7B35410DB5DA55E84AB5 /* juce_graphics.mm */; };
 		FC173C46665CB00C03A910ED /* ehwlist_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F1DC90FFEFE44B6860FD866A /* ehwlist_osx.cpp */; };
 		FC26D5067E3C105E655889CB /* xml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D953EC808550D9DA4B37A9F8 /* xml.cpp */; };
@@ -432,7 +408,6 @@
 		14B82B19259295E9B43313E3 /* juce_osx_MessageQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_osx_MessageQueue.h; path = ../../JuceLibraryCode/modules/juce_events/native/juce_osx_MessageQueue.h; sourceTree = SOURCE_ROOT; };
 		1535D386C6506F1A74BBA478 /* juce_ComponentBoundsConstrainer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_ComponentBoundsConstrainer.cpp; path = ../../JuceLibraryCode/modules/juce_gui_basics/layout/juce_ComponentBoundsConstrainer.cpp; sourceTree = SOURCE_ROOT; };
 		156236D87AF62C105EE4CFF6 /* juce_Component.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_Component.cpp; path = ../../JuceLibraryCode/modules/juce_gui_basics/components/juce_Component.cpp; sourceTree = SOURCE_ROOT; };
-		15A0DD33EFA4F2075581B057 /* AIODevices_osx.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AIODevices_osx.cpp; path = ../../Source/osx/AIODevices_osx.cpp; sourceTree = SOURCE_ROOT; };
 		163D1CD1A0D6220B09048110 /* juce_AudioFormatReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_AudioFormatReader.cpp; path = ../../JuceLibraryCode/modules/juce_audio_formats/format/juce_AudioFormatReader.cpp; sourceTree = SOURCE_ROOT; };
 		1694C6D7331510A4FD0E3BB7 /* juce_ImageComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ImageComponent.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/widgets/juce_ImageComponent.h; sourceTree = SOURCE_ROOT; };
 		16FF015351C9689AE50E75F7 /* juce_SystemClipboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_SystemClipboard.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/keyboard/juce_SystemClipboard.h; sourceTree = SOURCE_ROOT; };
@@ -553,7 +528,6 @@
 		3C95BF9EC63E902D5D76DCF7 /* juce_FileInputSource.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_FileInputSource.cpp; path = ../../JuceLibraryCode/modules/juce_core/streams/juce_FileInputSource.cpp; sourceTree = SOURCE_ROOT; };
 		3CB293A73D60047940FFC2AE /* juce_FileFilter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_FileFilter.cpp; path = ../../JuceLibraryCode/modules/juce_core/files/juce_FileFilter.cpp; sourceTree = SOURCE_ROOT; };
 		3CB5DEBA55EFCB03B34AB878 /* juce_android_Fonts.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_android_Fonts.cpp; path = ../../JuceLibraryCode/modules/juce_graphics/native/juce_android_Fonts.cpp; sourceTree = SOURCE_ROOT; };
-		3CEC36C5A10A53F771388AAB /* AIODevices_win.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AIODevices_win.cpp; path = ../../Source/win32/AIODevices_win.cpp; sourceTree = SOURCE_ROOT; };
 		3D440E4FDEC4C82AEFD2C06F /* juce_PreferencesPanel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_PreferencesPanel.h; path = ../../JuceLibraryCode/modules/juce_gui_extra/misc/juce_PreferencesPanel.h; sourceTree = SOURCE_ROOT; };
 		3D56CDC2BAC3E04B8C866810 /* juce_Identifier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_Identifier.h; path = ../../JuceLibraryCode/modules/juce_core/text/juce_Identifier.h; sourceTree = SOURCE_ROOT; };
 		3DB7EDE422208C1DA2D6A522 /* juce_ios_UIViewComponentPeer.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = juce_ios_UIViewComponentPeer.mm; path = ../../JuceLibraryCode/modules/juce_gui_basics/native/juce_ios_UIViewComponentPeer.mm; sourceTree = SOURCE_ROOT; };
@@ -595,7 +569,6 @@
 		4B7230EE45BF65DF18FA4A5F /* juce_DropShadower.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_DropShadower.cpp; path = ../../JuceLibraryCode/modules/juce_gui_basics/misc/juce_DropShadower.cpp; sourceTree = SOURCE_ROOT; };
 		4B9D54967AF46B256207EAF5 /* juce_ArrayAllocationBase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ArrayAllocationBase.h; path = ../../JuceLibraryCode/modules/juce_core/containers/juce_ArrayAllocationBase.h; sourceTree = SOURCE_ROOT; };
 		4BB8290B807F0ADD769C637A /* juce_MidiOutput.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_MidiOutput.h; path = ../../JuceLibraryCode/modules/juce_audio_devices/midi_io/juce_MidiOutput.h; sourceTree = SOURCE_ROOT; };
-		4BF116500005F0508D31630E /* AIODevice_osx.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AIODevice_osx.cpp; path = ../../Source/osx/AIODevice_osx.cpp; sourceTree = SOURCE_ROOT; };
 		4C0687CF301FA46EA60D72D1 /* juce_FileBasedDocument.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_FileBasedDocument.cpp; path = ../../JuceLibraryCode/modules/juce_gui_extra/documents/juce_FileBasedDocument.cpp; sourceTree = SOURCE_ROOT; };
 		4C83BC2F57832B595A57093C /* juce_ScopedReadLock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ScopedReadLock.h; path = ../../JuceLibraryCode/modules/juce_core/threads/juce_ScopedReadLock.h; sourceTree = SOURCE_ROOT; };
 		4C9C12DA68CB6330FDE67194 /* juce_mac_AudioCDBurner.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = juce_mac_AudioCDBurner.mm; path = ../../JuceLibraryCode/modules/juce_audio_devices/native/juce_mac_AudioCDBurner.mm; sourceTree = SOURCE_ROOT; };
@@ -833,7 +806,6 @@
 		86B7076CFA310F35A73A56A2 /* Analysis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Analysis.h; path = ../../Source/Analysis.h; sourceTree = SOURCE_ROOT; };
 		86C9169335A9699F5EB32C6F /* juce_LookAndFeel_V3.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_LookAndFeel_V3.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/lookandfeel/juce_LookAndFeel_V3.h; sourceTree = SOURCE_ROOT; };
 		86E71B361AC67287BDF219EC /* juce_DropShadowEffect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_DropShadowEffect.h; path = ../../JuceLibraryCode/modules/juce_graphics/effects/juce_DropShadowEffect.h; sourceTree = SOURCE_ROOT; };
-		873A2AA908695E9CBC5508FC /* MIDILoopTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = MIDILoopTest.cpp; path = ../../Source/MIDILoopTest.cpp; sourceTree = SOURCE_ROOT; };
 		87E5AEF3E234679EBDCA0AF9 /* juce_ConcertinaPanel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ConcertinaPanel.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/layout/juce_ConcertinaPanel.h; sourceTree = SOURCE_ROOT; };
 		87F16C27AAD59E0D7FF3CD44 /* juce_AsyncUpdater.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_AsyncUpdater.h; path = ../../JuceLibraryCode/modules/juce_events/broadcasters/juce_AsyncUpdater.h; sourceTree = SOURCE_ROOT; };
 		880C10252598F6B60729ECC1 /* juce_ReverbAudioSource.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_ReverbAudioSource.cpp; path = ../../JuceLibraryCode/modules/juce_audio_basics/sources/juce_ReverbAudioSource.cpp; sourceTree = SOURCE_ROOT; };
@@ -974,7 +946,6 @@
 		B16A79C05E8F5506D443DD71 /* juce_AudioFormat.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_AudioFormat.cpp; path = ../../JuceLibraryCode/modules/juce_audio_formats/format/juce_AudioFormat.cpp; sourceTree = SOURCE_ROOT; };
 		B1D5989D9DEA90A98C11C8F8 /* juce_ComponentAnimator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ComponentAnimator.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/layout/juce_ComponentAnimator.h; sourceTree = SOURCE_ROOT; };
 		B2BC1BE6FD812E9DF05F3BA5 /* juce_LowLevelGraphicsSoftwareRenderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_LowLevelGraphicsSoftwareRenderer.h; path = ../../JuceLibraryCode/modules/juce_graphics/contexts/juce_LowLevelGraphicsSoftwareRenderer.h; sourceTree = SOURCE_ROOT; };
-		B3B2325D1B4B9F5AFFD82E98 /* AIODevice_win.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = AIODevice_win.cpp; path = ../../Source/win32/AIODevice_win.cpp; sourceTree = SOURCE_ROOT; };
 		B3FA6FC4894DCE0CC266CB9B /* juce_StringPool.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_StringPool.cpp; path = ../../JuceLibraryCode/modules/juce_core/text/juce_StringPool.cpp; sourceTree = SOURCE_ROOT; };
 		B4772DED35D9ABE82C9409C2 /* juce_MidiOutput.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_MidiOutput.cpp; path = ../../JuceLibraryCode/modules/juce_audio_devices/midi_io/juce_MidiOutput.cpp; sourceTree = SOURCE_ROOT; };
 		B491879C04D7273C1A3A83F6 /* juce_linux_WebBrowserComponent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_linux_WebBrowserComponent.cpp; path = ../../JuceLibraryCode/modules/juce_gui_extra/native/juce_linux_WebBrowserComponent.cpp; sourceTree = SOURCE_ROOT; };
@@ -1030,7 +1001,6 @@
 		C441813BBF305FB065131956 /* juce_NativeMessageBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_NativeMessageBox.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/windows/juce_NativeMessageBox.h; sourceTree = SOURCE_ROOT; };
 		C4731BA1E15D2872109D9A5E /* juce_audio_basics.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = juce_audio_basics.mm; path = ../../JuceLibraryCode/modules/juce_audio_basics/juce_audio_basics.mm; sourceTree = SOURCE_ROOT; };
 		C4801F724DFD190D320C77B8 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
-		C4A2073CA9745A2D42194614 /* MidiTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = MidiTest.cpp; path = ../../Source/MidiTest.cpp; sourceTree = SOURCE_ROOT; };
 		C4D7D35F9C0F4098F73309A3 /* juce_KeyListener.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_KeyListener.cpp; path = ../../JuceLibraryCode/modules/juce_gui_basics/keyboard/juce_KeyListener.cpp; sourceTree = SOURCE_ROOT; };
 		C4FF9D8C1100CB7500188894 /* juce_TextEditorKeyMapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_TextEditorKeyMapper.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/keyboard/juce_TextEditorKeyMapper.h; sourceTree = SOURCE_ROOT; };
 		C508EB190095953E196D6205 /* juce_ButtonPropertyComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ButtonPropertyComponent.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/properties/juce_ButtonPropertyComponent.h; sourceTree = SOURCE_ROOT; };
@@ -1164,7 +1134,6 @@
 		D2914181C25001FD41C6BD5E /* juce_CPlusPlusCodeTokeniser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_CPlusPlusCodeTokeniser.h; path = ../../JuceLibraryCode/modules/juce_gui_extra/code_editor/juce_CPlusPlusCodeTokeniser.h; sourceTree = SOURCE_ROOT; };
 		D2995EED2A0688280576489F /* juce_WaitableEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_WaitableEvent.h; path = ../../JuceLibraryCode/modules/juce_core/threads/juce_WaitableEvent.h; sourceTree = SOURCE_ROOT; };
 		D2AB884312995E0423A6A3C3 /* juce_IPAddress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_IPAddress.h; path = ../../JuceLibraryCode/modules/juce_core/network/juce_IPAddress.h; sourceTree = SOURCE_ROOT; };
-		D2F42CAE0003D3B3BF95A718 /* MIDILoopTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MIDILoopTest.h; path = ../../Source/MIDILoopTest.h; sourceTree = SOURCE_ROOT; };
 		D32B445FA201844E5D1D55F2 /* juce_TextDiff.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_TextDiff.cpp; path = ../../JuceLibraryCode/modules/juce_core/text/juce_TextDiff.cpp; sourceTree = SOURCE_ROOT; };
 		D366278D305A91D924EF63E6 /* juce_DropShadower.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_DropShadower.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/misc/juce_DropShadower.h; sourceTree = SOURCE_ROOT; };
 		D385CF02DCFE663F876F51B8 /* juce_Toolbar.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_Toolbar.cpp; path = ../../JuceLibraryCode/modules/juce_gui_basics/widgets/juce_Toolbar.cpp; sourceTree = SOURCE_ROOT; };
@@ -1755,9 +1724,6 @@
 				C9538B191C88C4C2005D344B /* mb_bulk.h */,
 				EED30B6667A5C9A7320CDD46 /* MeterWindow.cpp */,
 				96173F5215E216B6F996EBE3 /* MeterWindow.h */,
-				873A2AA908695E9CBC5508FC /* MIDILoopTest.cpp */,
-				D2F42CAE0003D3B3BF95A718 /* MIDILoopTest.h */,
-				C4A2073CA9745A2D42194614 /* MidiTest.cpp */,
 				C97C795B1C3DC791004BF5BF /* MikeyBusRegisters.cpp */,
 				C94D94D11B6C2D0700DF03E9 /* ModuleTypeTest.cpp */,
 				F9D4468B9A7AE0EB04C7F28D /* OldMessage.h */,
@@ -2193,8 +2159,6 @@
 			isa = PBXGroup;
 			children = (
 				C9BBBF7F1B322CC600766B48 /* Printer_osx.cpp */,
-				4BF116500005F0508D31630E /* AIODevice_osx.cpp */,
-				15A0DD33EFA4F2075581B057 /* AIODevices_osx.cpp */,
 				9BDF2D76AA5EA0C37980A6F5 /* AIOTestAdapter_osx.cpp */,
 				A63C76AC1EF339466EA164C1 /* ehw.h */,
 				75199A4B45F98728E908B97C /* ehw_osx.cpp */,
@@ -2580,8 +2544,6 @@
 		BC7A4B13B072DB1B88BD596B /* win32 */ = {
 			isa = PBXGroup;
 			children = (
-				B3B2325D1B4B9F5AFFD82E98 /* AIODevice_win.cpp */,
-				3CEC36C5A10A53F771388AAB /* AIODevices_win.cpp */,
 				ADABD406FED66B8D12FB01C9 /* AIOTestAdapter_win.cpp */,
 			);
 			name = win32;
@@ -3202,8 +3164,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9F48E9E1B1CB5BB0082CBFF /* FrequencySweepResponseTest.cpp in Sources */,
-				6AD16A68E10792F0F6641691 /* AIODevice_osx.cpp in Sources */,
-				2AF689AFB187BCB6AEA201A4 /* AIODevices_osx.cpp in Sources */,
 				A4E0BDE2CD54BE86DC68A1FF /* AIOTestAdapter_osx.cpp in Sources */,
 				49B01C4FB969B1DFCBC6DC74 /* ehw_osx.cpp in Sources */,
 				C930C6D11B40BF10000296E8 /* ProductionUnit.cpp in Sources */,
@@ -3213,8 +3173,6 @@
 				C90CC37D1C8A4640001DA8C9 /* WindowedFFT.cpp in Sources */,
 				24081D1FE12683761CF9E2B3 /* hwcaps.cpp in Sources */,
 				1CC29A9C4CC271D5665D6D32 /* osx.cpp in Sources */,
-				F4F1F0EC2B165D83AB331FFE /* AIODevice_win.cpp in Sources */,
-				2149EA8F256156287101B888 /* AIODevices_win.cpp in Sources */,
 				A60C4C4CF820892F5C39A733 /* AIOTestAdapter_win.cpp in Sources */,
 				C9BBBF801B322CC600766B48 /* Printer_osx.cpp in Sources */,
 				C94CC6AC1B293DE300CEC3BF /* DescriptionAM1.cpp in Sources */,
@@ -3243,8 +3201,6 @@
 				C919692F1C8A6F2700C06E9A /* mb_bulk.cpp in Sources */,
 				C95C66381B0A85E800DA394D /* USBFirmwareVersionTest.cpp in Sources */,
 				8B2957DE532055E139687AB1 /* MeterWindow.cpp in Sources */,
-				CE54B4FA36345C53CCB60912 /* MIDILoopTest.cpp in Sources */,
-				68FE50DCD04B08BC51650971 /* MidiTest.cpp in Sources */,
 				E98D739A35227DDFAAD6AFF7 /* PhaseTest.cpp in Sources */,
 				C96D4D7C1C8A1FAE0001DACC /* SpectrumAnalyzer.cpp in Sources */,
 				3CE1C81E5B5E7AE21D60B17D /* RelativeLevelTest.cpp in Sources */,
@@ -3283,16 +3239,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C920FEFB1B62F68E009CC653 /* FrequencySweepResponseTest.cpp in Sources */,
-				C920FEFC1B62F68E009CC653 /* AIODevice_osx.cpp in Sources */,
-				C920FEFD1B62F68E009CC653 /* AIODevices_osx.cpp in Sources */,
 				C920FEFE1B62F68E009CC653 /* AIOTestAdapter_osx.cpp in Sources */,
 				C920FEFF1B62F68E009CC653 /* ehw_osx.cpp in Sources */,
 				C920FF001B62F68E009CC653 /* ProductionUnit.cpp in Sources */,
 				C920FF011B62F68E009CC653 /* ehwlist_osx.cpp in Sources */,
 				C920FF021B62F68E009CC653 /* hwcaps.cpp in Sources */,
 				C920FF031B62F68E009CC653 /* osx.cpp in Sources */,
-				C920FF041B62F68E009CC653 /* AIODevice_win.cpp in Sources */,
-				C920FF051B62F68E009CC653 /* AIODevices_win.cpp in Sources */,
 				C920FF061B62F68E009CC653 /* AIOTestAdapter_win.cpp in Sources */,
 				C920FF071B62F68E009CC653 /* Printer_osx.cpp in Sources */,
 				C920FF081B62F68E009CC653 /* DescriptionAM1.cpp in Sources */,
@@ -3322,8 +3274,6 @@
 				C920FF1D1B62F68E009CC653 /* USBFirmwareVersionTest.cpp in Sources */,
 				C920FF1E1B62F68E009CC653 /* MeterWindow.cpp in Sources */,
 				C919692E1C8A6F2600C06E9A /* MikeyBusRegisters.cpp in Sources */,
-				C920FF1F1B62F68E009CC653 /* MIDILoopTest.cpp in Sources */,
-				C920FF201B62F68E009CC653 /* MidiTest.cpp in Sources */,
 				C91969291C8A6F0E00C06E9A /* SilenceTest.cpp in Sources */,
 				C920FF211B62F68E009CC653 /* PhaseTest.cpp in Sources */,
 				C920FF221B62F68E009CC653 /* RelativeLevelTest.cpp in Sources */,
@@ -3362,8 +3312,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C97C87961C431D950059995D /* FrequencySweepResponseTest.cpp in Sources */,
-				C97C87971C431D950059995D /* AIODevice_osx.cpp in Sources */,
-				C97C87981C431D950059995D /* AIODevices_osx.cpp in Sources */,
 				C97C87991C431D950059995D /* AIOTestAdapter_osx.cpp in Sources */,
 				C97C879A1C431D950059995D /* ehw_osx.cpp in Sources */,
 				C97C879B1C431D950059995D /* ProductionUnit.cpp in Sources */,
@@ -3372,8 +3320,6 @@
 				C97C879D1C431D950059995D /* hwcaps.cpp in Sources */,
 				C90CC3741C8A44FF001DA8C9 /* WindowedFFT.cpp in Sources */,
 				C97C879E1C431D950059995D /* osx.cpp in Sources */,
-				C97C879F1C431D950059995D /* AIODevice_win.cpp in Sources */,
-				C97C87A01C431D950059995D /* AIODevices_win.cpp in Sources */,
 				C97C87EF1C431EFC0059995D /* ModuleTypeTest.cpp in Sources */,
 				C97C87A11C431D950059995D /* AIOTestAdapter_win.cpp in Sources */,
 				C97C87A21C431D950059995D /* Printer_osx.cpp in Sources */,
@@ -3402,8 +3348,6 @@
 				C97C87B81C431D950059995D /* LevelCheckTest.cpp in Sources */,
 				C97C87B91C431D950059995D /* USBFirmwareVersionTest.cpp in Sources */,
 				C97C87BA1C431D950059995D /* MeterWindow.cpp in Sources */,
-				C97C87BB1C431D950059995D /* MIDILoopTest.cpp in Sources */,
-				C97C87BC1C431D950059995D /* MidiTest.cpp in Sources */,
 				C91579AF1C88DE6C00822D0E /* FrequencyIsolationTest.cpp in Sources */,
 				C97C87EE1C431EF20059995D /* MikeyBusRegisters.cpp in Sources */,
 				C97C87BD1C431D950059995D /* PhaseTest.cpp in Sources */,
@@ -3443,8 +3387,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9ED3C1B1B684274004A76CE /* FrequencySweepResponseTest.cpp in Sources */,
-				C9ED3C1C1B684274004A76CE /* AIODevice_osx.cpp in Sources */,
-				C9ED3C1D1B684274004A76CE /* AIODevices_osx.cpp in Sources */,
 				C9ED3C1E1B684274004A76CE /* AIOTestAdapter_osx.cpp in Sources */,
 				C9ED3C1F1B684274004A76CE /* ehw_osx.cpp in Sources */,
 				C90CC3781C8A463E001DA8C9 /* Spectrum.cpp in Sources */,
@@ -3454,8 +3396,6 @@
 				C9ED3C221B684274004A76CE /* hwcaps.cpp in Sources */,
 				C9ED3C231B684274004A76CE /* osx.cpp in Sources */,
 				C90CC3771C8A463E001DA8C9 /* WindowedFFT.cpp in Sources */,
-				C9ED3C241B684274004A76CE /* AIODevice_win.cpp in Sources */,
-				C9ED3C251B684274004A76CE /* AIODevices_win.cpp in Sources */,
 				C9ED3C261B684274004A76CE /* AIOTestAdapter_win.cpp in Sources */,
 				C9ED3C271B684274004A76CE /* Printer_osx.cpp in Sources */,
 				C9ED3C281B684274004A76CE /* DescriptionAM1.cpp in Sources */,
@@ -3486,8 +3426,6 @@
 				C9ED3C3D1B684274004A76CE /* LevelCheckTest.cpp in Sources */,
 				C9ED3C3E1B684274004A76CE /* USBFirmwareVersionTest.cpp in Sources */,
 				C9ED3C3F1B684274004A76CE /* MeterWindow.cpp in Sources */,
-				C9ED3C401B684274004A76CE /* MIDILoopTest.cpp in Sources */,
-				C9ED3C411B684274004A76CE /* MidiTest.cpp in Sources */,
 				C9ED3C421B684274004A76CE /* PhaseTest.cpp in Sources */,
 				C9ED3C431B684274004A76CE /* RelativeLevelTest.cpp in Sources */,
 				C9ED3C441B684274004A76CE /* SawtoothAudioSource.cpp in Sources */,

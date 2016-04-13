@@ -42,7 +42,7 @@ bool RunCCVoltageTest(XmlElement const *element,
 	channel &= ~3;
 	displayedChannel = String(channel + 1);
     
-    numInputs = element->getIntAttribute("num_channels", AIOTestAdapter::NUM_INPUTS);
+    numInputs = element->getIntAttribute("num_channels", AIOTestAdapter::NUM_INPUTS_PER_ADAPTER);
 	if (true == element->hasAttribute("short"))
 		numInputs = 2;
 
@@ -77,7 +77,7 @@ bool RunCCVoltageTest(XmlElement const *element,
 	//
 	// Read values from test adapter
 	//
-    uint16 values[AIOTestAdapter::NUM_INPUTS];
+    Array<uint16> values;
 
 	Thread::sleep(10);		// wait for ADCs to convert
 	testAdapter.read(values);
@@ -146,7 +146,7 @@ bool RunCCCurrentTest(XmlElement const *element,
 	channel &= ~3;
 	displayedChannel = String(channel + 1);
     
-    int numInputs = element->getIntAttribute("num_channels", AIOTestAdapter::NUM_INPUTS);
+    int numInputs = element->getIntAttribute("num_channels", AIOTestAdapter::NUM_INPUTS_PER_ADAPTER);
 	if (true == element->hasAttribute("short"))
 		numInputs = 2;
 
@@ -181,7 +181,7 @@ bool RunCCCurrentTest(XmlElement const *element,
 	//
 	// Read values from test adapter
 	//
-	uint16 values[AIOTestAdapter::NUM_INPUTS];
+	Array<uint16> values;
 
 	Thread::sleep(10);		// wait for ADCs to convert
 	testAdapter.read(values);

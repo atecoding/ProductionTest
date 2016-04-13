@@ -1,7 +1,7 @@
 #include "../base.h"
 #include "ehw.h"
 #include "ehwlist.h"
-#include "AcousticIO.h"
+#include "../AcousticIO.h"
 #include "../calibration/CalibrationData.h"
 
 ehw::ehw(IOUSBDeviceInterface** deviceInterface_) :

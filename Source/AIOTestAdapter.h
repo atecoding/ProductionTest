@@ -15,21 +15,29 @@ public:
     
     enum
     {
-        NUM_INPUTS = 4
+        NUM_INPUTS_PER_ADAPTER = 4
     };
 
 	bool open();
 	void close();
 	int write(uint8 byte);
-	int read(uint16 data[NUM_INPUTS]);
-    uint16 const getProductId() const
+	int read(Array<uint16> &data);
+    
+    bool checkProductID(uint16 const requiredProductID_) const
     {
-        return productId;
+        if (0 == productIDs.size())
+            return false;
+        
+        for (int i = 0; i < productIDs.size(); ++i)
+        {
+            if (productIDs[i] != requiredProductID_)
+                return false;
+        }
+        
+        return true;
     }
 
 protected:
-    uint16 productId;
-    
 #ifdef _WIN32
 	HANDLE deviceHandle;
 	HANDLE readHandle;
@@ -37,10 +45,13 @@ protected:
 #endif
     
 #ifdef JUCE_MAC
-    void findAdapter(IOHIDManagerRef &managerRef, CFSetRef &deviceCFSetRef, HeapBlock<IOHIDDeviceRef> &deviceRefs, CFIndex &deviceCount);
+    void findAdapters(IOHIDManagerRef &managerRef, CFSetRef &deviceCFSetRef, HeapBlock<IOHIDDeviceRef> &deviceRefs, CFIndex &deviceCount);
     
-    ScopedCFObject<IOHIDDeviceRef> deviceRef;
+    //ScopedCFObject<IOHIDDeviceRef> deviceRef;
+    OwnedCFObjectArray<IOHIDDeviceRef> testAdapterDeviceRefs;
 #endif
+    
+    Array<uint16> productIDs;
     
 	enum
 	{
