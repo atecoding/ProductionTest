@@ -4,22 +4,22 @@
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "EB753B41288501C6777E6C5AFC3231E605DADB93" : 0,
-    "B68DB04BE301AA9C57E94307CA4DB55EC967C34B" : 0
+    "DEBAC9C6799FD4E8074B3BAF720718E3C3499FA0" : 0,
+    "EB753B41288501C6777E6C5AFC3231E605DADB93" : 0
   },
-  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "A1F87DFE-C35C-4BBC-9B66-A27CC5AC8220",
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "6289F50B-31F0-4237-B8CA-7561F96FAE5E",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "EB753B41288501C6777E6C5AFC3231E605DADB93" : "ProductionTest",
-    "B68DB04BE301AA9C57E94307CA4DB55EC967C34B" : "SpeakerTest\/"
+    "DEBAC9C6799FD4E8074B3BAF720718E3C3499FA0" : "..\/JUCE",
+    "EB753B41288501C6777E6C5AFC3231E605DADB93" : "ProductionTest\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "ProductionTest",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Builds\/MacOSX\/ProductionTest.xcodeproj",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
     {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/mattgonzalez\/SpeakerTest.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/julianstorer\/JUCE.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B68DB04BE301AA9C57E94307CA4DB55EC967C34B"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "DEBAC9C6799FD4E8074B3BAF720718E3C3499FA0"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/mattgonzalez\/ProductionTest.git",
