@@ -1,6 +1,7 @@
-#if ACOUSTICIO_BUILD && JUCE_MAC
+#if ACOUSTICIO_BUILD
 
 #include "../base.h"
+#if JUCE_MAC
 #include "../AIOTestAdapter.h"
 
 // ----------------------------------------------------
@@ -254,15 +255,20 @@ int AIOTestAdapter::read(Array<uint16> &data)
         int64 end = Time::getHighResolutionTicks();
         maxRequestTicks = jmax(maxRequestTicks, end - begin);
         
+        if (status != kIOReturnSuccess)
+        {
+            data.clearQuick();
+            break;
+        }
+        
         for (int j = 0; j < NUM_INPUTS_PER_ADAPTER; ++j)
         {
             data.add(temp[j]);
         }
-        
-        result &= kIOReturnSuccess == status;
     }
 
     return data.size();
 }
 
+#endif
 #endif

@@ -1,3 +1,4 @@
+#ifdef _WIN32
 #include <windows.h>
 #include "../../base.h"
 #include "ehw.h"
@@ -50,3 +51,4 @@ void SampleRateBroadcaster::run()
 		}
 	}
 }
+#endif

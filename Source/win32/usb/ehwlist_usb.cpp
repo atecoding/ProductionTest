@@ -8,6 +8,7 @@
  *
  ********************************************************************************/
 
+#ifdef _WIN32
 #include <new>
 #include <windows.h>
 #include <malloc.h>
@@ -301,3 +302,4 @@ void ehwlist::UnregisterMessageListener(MessageListener *listener)
 		_devchange->UnregisterMessageListener(listener);
 	}
 }
+#endif

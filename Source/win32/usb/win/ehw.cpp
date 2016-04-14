@@ -3,6 +3,9 @@
  * ehw.cpp
  *
  ********************************************************************************/
+
+#ifdef _WIN32
+
 #pragma warning(disable:4100)
 
 #include <new>
@@ -1933,4 +1936,5 @@ Result ehw::writeMikey(uint8 module, uint8 page, uint8 address, uint8 value)
 	return Result::fail(error);
 }
 
+#endif
 #endif
