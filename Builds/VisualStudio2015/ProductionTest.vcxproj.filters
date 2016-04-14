@@ -1968,6 +1968,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\AcousticIO.h">
+      <Filter>ProductionTest\Source\AIO</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\Source\Description.h">
       <Filter>ProductionTest\Source\AIO</Filter>
     </ClInclude>

@@ -73,10 +73,10 @@
 		C284EE95A36F2B83040F0B9C /* DynRangeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D3C266D865BEE9E67128DAC7 /* DynRangeTest.cpp */; };
 		C37D039C397760971090BD28 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D8AB4CEA78C56F492140C74 /* CoreAudio.framework */; };
 		C6B58E8417A7A4EF056B8F94 /* juce_audio_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 194248DF049D844C2C0DF843 /* juce_audio_basics.mm */; };
-		C9215CCE1CBED9C3009392EE /* AIO-2 Module 1 Validation Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9215CCB1CBED9C3009392EE /* AIO-2 Module 1 Validation Test.xml */; };
-		C9215CCF1CBED9C3009392EE /* AIO-2 Module 2 Validation Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9215CCC1CBED9C3009392EE /* AIO-2 Module 2 Validation Test.xml */; };
-		C9215CD01CBED9C3009392EE /* AIO-2 Validation Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9215CCD1CBED9C3009392EE /* AIO-2 Validation Test.xml */; };
-		C9215CD41CBED9EE009392EE /* factory.icns in Resources */ = {isa = PBXBuildFile; fileRef = C9215CD31CBED9EE009392EE /* factory.icns */; };
+		C9805DF91CC03C140056129A /* factory.icns in Resources */ = {isa = PBXBuildFile; fileRef = C9805DF81CC03C140056129A /* factory.icns */; };
+		C9805DFF1CC03C2E0056129A /* AIO-2 Module 1 Validation Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9805DFC1CC03C2E0056129A /* AIO-2 Module 1 Validation Test.xml */; };
+		C9805E001CC03C2E0056129A /* AIO-2 Module 2 Validation Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9805DFD1CC03C2E0056129A /* AIO-2 Module 2 Validation Test.xml */; };
+		C9805E011CC03C2E0056129A /* AIO-2 Validation Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9805DFE1CC03C2E0056129A /* AIO-2 Validation Test.xml */; };
 		CD0A53BAB3E80428639E61A8 /* ReferenceVoltageTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8957DC366890FD05B21C61A5 /* ReferenceVoltageTest.cpp */; };
 		CF084F5CC7CBB22553A7E8D1 /* MeterWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1C0A49BA9A3AE6A93DC8DAFD /* MeterWindow.cpp */; };
 		D4EB8C826C1DC4C5CB9EC383 /* ModuleTypeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6512B0EC57F9F40D01012CA3 /* ModuleTypeTest.cpp */; };
@@ -806,6 +806,7 @@
 		9E0EFEFB6993C80D0E87BDE4 /* juce_Sampler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_Sampler.h; path = ../../JuceLibraryCode/modules/juce_audio_formats/sampler/juce_Sampler.h; sourceTree = SOURCE_ROOT; };
 		9E3C5D2900C2B27689F6C870 /* juce_CallOutBox.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_CallOutBox.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/windows/juce_CallOutBox.h; sourceTree = SOURCE_ROOT; };
 		9E8383A87E2E5B69D2C26747 /* adler32.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = adler32.c; path = ../../JuceLibraryCode/modules/juce_core/zip/zlib/adler32.c; sourceTree = SOURCE_ROOT; };
+		9EA9AECBA80000F3574BFB45 /* AcousticIO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AcousticIO.h; path = ../../Source/AcousticIO.h; sourceTree = SOURCE_ROOT; };
 		9F14A9039575B34CBA54DB5A /* juce_AudioIODevice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_AudioIODevice.cpp; path = ../../JuceLibraryCode/modules/juce_audio_devices/audio_io/juce_AudioIODevice.cpp; sourceTree = SOURCE_ROOT; };
 		9F3AE0FC496FD15CAABEDA35 /* juce_JPEGLoader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_JPEGLoader.cpp; path = ../../JuceLibraryCode/modules/juce_graphics/image_formats/juce_JPEGLoader.cpp; sourceTree = SOURCE_ROOT; };
 		9F5B5B71A52485F3FACD59BF /* juce_graphics.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = juce_graphics.mm; path = ../../JuceLibraryCode/juce_graphics.mm; sourceTree = SOURCE_ROOT; };
@@ -989,13 +990,13 @@
 		C76A997290A68B23A322747B /* juce_FileInputSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_FileInputSource.h; path = ../../JuceLibraryCode/modules/juce_core/streams/juce_FileInputSource.h; sourceTree = SOURCE_ROOT; };
 		C85F9238C7BD18D8D497E8AF /* juce_linux_Clipboard.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_linux_Clipboard.cpp; path = ../../JuceLibraryCode/modules/juce_gui_basics/native/juce_linux_Clipboard.cpp; sourceTree = SOURCE_ROOT; };
 		C8A9450A31EAA3FC250DC477 /* FrequencyIsolationTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = FrequencyIsolationTest.cpp; path = ../../Source/FrequencyIsolationTest.cpp; sourceTree = SOURCE_ROOT; };
-		C9215CCB1CBED9C3009392EE /* AIO-2 Module 1 Validation Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Module 1 Validation Test.xml"; path = "../../scripts/AIO-2 Module 1 Validation Test.xml"; sourceTree = "<group>"; };
-		C9215CCC1CBED9C3009392EE /* AIO-2 Module 2 Validation Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Module 2 Validation Test.xml"; path = "../../scripts/AIO-2 Module 2 Validation Test.xml"; sourceTree = "<group>"; };
-		C9215CCD1CBED9C3009392EE /* AIO-2 Validation Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Validation Test.xml"; path = "../../scripts/AIO-2 Validation Test.xml"; sourceTree = "<group>"; };
-		C9215CD11CBED9CD009392EE /* ProductionTest.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProductionTest.plist; sourceTree = "<group>"; };
-		C9215CD31CBED9EE009392EE /* factory.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = factory.icns; sourceTree = "<group>"; };
 		C9690D075B9887A6AF578899 /* juce_osx_MessageQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_osx_MessageQueue.h; path = ../../JuceLibraryCode/modules/juce_events/native/juce_osx_MessageQueue.h; sourceTree = SOURCE_ROOT; };
 		C971A67872651D1E8AECE8B6 /* FrequencySweepAudioSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FrequencySweepAudioSource.h; path = ../../Source/FrequencySweepAudioSource.h; sourceTree = SOURCE_ROOT; };
+		C9805DF61CC03C0D0056129A /* ProductionTest.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProductionTest.plist; sourceTree = "<group>"; };
+		C9805DF81CC03C140056129A /* factory.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = factory.icns; sourceTree = "<group>"; };
+		C9805DFC1CC03C2E0056129A /* AIO-2 Module 1 Validation Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Module 1 Validation Test.xml"; path = "../../scripts/AIO-2 Module 1 Validation Test.xml"; sourceTree = "<group>"; };
+		C9805DFD1CC03C2E0056129A /* AIO-2 Module 2 Validation Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Module 2 Validation Test.xml"; path = "../../scripts/AIO-2 Module 2 Validation Test.xml"; sourceTree = "<group>"; };
+		C9805DFE1CC03C2E0056129A /* AIO-2 Validation Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Validation Test.xml"; path = "../../scripts/AIO-2 Validation Test.xml"; sourceTree = "<group>"; };
 		C9AE648D501FAC479780EB75 /* jdinput.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = jdinput.c; path = ../../JuceLibraryCode/modules/juce_graphics/image_formats/jpglib/jdinput.c; sourceTree = SOURCE_ROOT; };
 		C9BFB3F895CEA50905204CF4 /* setup_X.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = setup_X.h; path = "../../JuceLibraryCode/modules/juce_audio_formats/codecs/oggvorbis/libvorbis-1.3.2/lib/modes/setup_X.h"; sourceTree = SOURCE_ROOT; };
 		C9CDE31091CF3C30301CAC54 /* juce_Colours.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_Colours.h; path = ../../JuceLibraryCode/modules/juce_graphics/colour/juce_Colours.h; sourceTree = SOURCE_ROOT; };
@@ -1753,6 +1754,7 @@
 		4681220E30FCD4C47E0B1E13 /* AIO */ = {
 			isa = PBXGroup;
 			children = (
+				9EA9AECBA80000F3574BFB45 /* AcousticIO.h */,
 				930B8FA1037D0738FCE3E6C1 /* Description.cpp */,
 				547BA594532375A6862194B6 /* Description.h */,
 				1A040FDC9894790BDED13BAC /* DescriptionAIO.cpp */,
@@ -2909,11 +2911,11 @@
 		B919EC5A2C0D7AF4E6C95099 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C9215CD31CBED9EE009392EE /* factory.icns */,
-				C9215CD11CBED9CD009392EE /* ProductionTest.plist */,
-				C9215CCB1CBED9C3009392EE /* AIO-2 Module 1 Validation Test.xml */,
-				C9215CCC1CBED9C3009392EE /* AIO-2 Module 2 Validation Test.xml */,
-				C9215CCD1CBED9C3009392EE /* AIO-2 Validation Test.xml */,
+				C9805DFC1CC03C2E0056129A /* AIO-2 Module 1 Validation Test.xml */,
+				C9805DFD1CC03C2E0056129A /* AIO-2 Module 2 Validation Test.xml */,
+				C9805DFE1CC03C2E0056129A /* AIO-2 Validation Test.xml */,
+				C9805DF81CC03C140056129A /* factory.icns */,
+				C9805DF61CC03C0D0056129A /* ProductionTest.plist */,
 				78DB5EA244A65C6E9227BE0A /* RecentFilesMenuTemplate.nib */,
 			);
 			name = Resources;
@@ -3374,10 +3376,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				33625D2A92051D4D5CF07177 /* RecentFilesMenuTemplate.nib in Resources */,
-				C9215CCF1CBED9C3009392EE /* AIO-2 Module 2 Validation Test.xml in Resources */,
-				C9215CCE1CBED9C3009392EE /* AIO-2 Module 1 Validation Test.xml in Resources */,
-				C9215CD41CBED9EE009392EE /* factory.icns in Resources */,
-				C9215CD01CBED9C3009392EE /* AIO-2 Validation Test.xml in Resources */,
+				C9805DF91CC03C140056129A /* factory.icns in Resources */,
+				C9805E011CC03C2E0056129A /* AIO-2 Validation Test.xml in Resources */,
+				C9805E001CC03C2E0056129A /* AIO-2 Module 2 Validation Test.xml in Resources */,
+				C9805DFF1CC03C2E0056129A /* AIO-2 Module 1 Validation Test.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3486,7 +3488,7 @@
 					../../Source/osx,
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = ProductionTest.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ProductionTest.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.echoaudio.ProductionTest;
@@ -3542,7 +3544,7 @@
 					../../Source/osx,
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = ProductionTest.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/ProductionTest.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.echoaudio.ProductionTest;

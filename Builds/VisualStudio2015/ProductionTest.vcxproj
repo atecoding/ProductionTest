@@ -1567,6 +1567,7 @@
     <ClCompile Include="..\..\JuceLibraryCode\juce_gui_extra.cpp"/>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Source\AcousticIO.h"/>
     <ClInclude Include="..\..\Source\Description.h"/>
     <ClInclude Include="..\..\Source\DescriptionAIO.h"/>
     <ClInclude Include="..\..\Source\DescriptionAM1.h"/>

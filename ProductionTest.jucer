@@ -6,6 +6,7 @@
   <MAINGROUP id="Mk5otN" name="ProductionTest">
     <GROUP id="{E9A05292-FEF7-4257-AC75-42216E5E514F}" name="Source">
       <GROUP id="{94AC4CC4-34ED-C307-E5E3-BC82C3D197C5}" name="AIO">
+        <FILE id="RWhwAf" name="AcousticIO.h" compile="0" resource="0" file="Source/AcousticIO.h"/>
         <FILE id="msK25x" name="Description.cpp" compile="1" resource="0" file="Source/Description.cpp"/>
         <FILE id="FSthzO" name="Description.h" compile="0" resource="0" file="Source/Description.h"/>
         <FILE id="V4Yifk" name="DescriptionAIO.cpp" compile="1" resource="0"
