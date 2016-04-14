@@ -14,7 +14,8 @@ extern "C"
 AIOTestAdapter::AIOTestAdapter() :
 deviceHandle(INVALID_HANDLE_VALUE),
 readHandle(INVALID_HANDLE_VALUE),
-writeHandle(INVALID_HANDLE_VALUE)
+writeHandle(INVALID_HANDLE_VALUE),
+maxRequestTicks(0)
 {
 }
 
@@ -105,6 +106,7 @@ bool AIOTestAdapter::open()
 					case ECHO_HID_TESTER_PRODUCT_ID_V210:
 						DBG("Test adapter found");
 						match = true;
+						productIDs.add(attributes.ProductID);
 						break;
 					}
 

@@ -538,6 +538,7 @@ void ProductionUnit::audioDeviceIOCallback
 		totalAudioCallbackSamples = 0;
 		blocks_recorded.exchange(0);
 		timestampCount = 0;
+		zerostruct(timestamps);
 	}
 	else
 	{
@@ -958,7 +959,7 @@ void ProductionUnit::ParseScript()
 				return;
 			}
             
-            if (0 != _test->requiredTestAdapterProductId && false == aioTestAdapter.checkProductID(_test->requiredTestAdapterProductId))                
+            if (0 != _test->requiredTestAdapterProductId && false == aioTestAdapter.checkProductID( _test->requiredTestAdapterProductId))                
             {
                 //
                 // Ignore this test
@@ -1623,23 +1624,34 @@ Result ProductionUnit::CheckSampleRate()
 
 	if (audioDevice)
 	{
-//		int blocks = timestampCount.get();
-		int blocks = timestampCount.get() - 1;
-		int samples = blocks * audioDevice->getCurrentBufferSizeSamples();
+		int bufferSize = audioDevice->getCurrentBufferSizeSamples();
+		double deviceSampleRate = audioDevice->getCurrentSampleRate();
 		int64 totalTicks = 0;
 		double measuredSampleRate = 0.0;
+		double elapsedSeconds = 0.0;
+		int totalSamples = 0;
 
 		if (timestampCount.get() != 0)
 		{
-//			totalTicks = timestamps[blocks - 1] - timestamps[0];
-			totalTicks = timestamps[blocks] - timestamps[0];
+			int lastTimestampIndex = timestampCount.get();
+			int minimumSamples = roundDoubleToInt(0.25 * deviceSampleRate);
+			int samplesRecorded = lastTimestampIndex * bufferSize;
+			if (samplesRecorded >= minimumSamples)
+			{
+				int firstTimestampIndex = lastTimestampIndex / 4;
+				lastTimestampIndex -= 1;
+
+				totalTicks = timestamps[lastTimestampIndex] - timestamps[firstTimestampIndex];
+				totalSamples = (lastTimestampIndex - firstTimestampIndex) * bufferSize;
+			}
 		}
 
-		measuredSampleRate = samples;
-		measuredSampleRate *= ticksPerSecond;
+		measuredSampleRate = totalSamples;
 		if (totalTicks != 0)
 		{
-			measuredSampleRate /= totalTicks;
+			elapsedSeconds = double(totalTicks) / ticksPerSecond;
+
+			measuredSampleRate = totalSamples / elapsedSeconds;
 		}
 
 		if ((measuredSampleRate >= _test->minSampleRate) && (measuredSampleRate <= _test->maxSampleRate))

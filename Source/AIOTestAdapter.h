@@ -23,7 +23,7 @@ public:
 	int write(uint8 byte);
 	int read(Array<uint16> &data);
     
-    bool checkProductID(uint16 const requiredProductID_) const
+    bool checkProductID(uint32 const requiredProductID_) const
     {
         if (0 == productIDs.size())
             return false;
