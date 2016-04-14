@@ -24,25 +24,17 @@ public:
 		return autostart;
 	}
     
-	void setLoop(bool loop_)
+    void setNumLoops(int numLoops_)
+    {
+        numLoops = numLoops_;
+    }
+    
+	int getNumLoops() const
 	{
-		loop = loop_;
+		return numLoops;
 	}
-
-	bool getLoop() const
-	{
-		return loop;
-	}
-
-	void setLoopCount(int loopcount_)
-	{
-		loopcount = loopcount_;
-	}
-
-	int getLoopCount() const
-	{
-		return loopcount;
-	}
+    
+    int currentLoop;
 
 protected:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(TestManager)
@@ -50,6 +42,5 @@ protected:
     Array<File> files;
     int currentIndex;
 	bool autostart;
-	bool loop;
-	int loopcount;
+	int numLoops;
 };

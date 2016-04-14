@@ -21,7 +21,7 @@ class ehw;
 class ehwlist;
 class Content;
 
-class ProductionUnit : public AudioIODeviceCallback, public MessageListener
+class ProductionUnit : public AudioIODeviceCallback, public MessageListener, public Timer
 {
 public:
 	ProductionUnit(ReferenceCountedObjectPtr<ehw> dev, ehwlist *devlist, Content *content);
@@ -33,6 +33,7 @@ public:
 	void audioDeviceAboutToStart(AudioIODevice *device);
 	void audioDeviceIOCallback(const float **inputChannelData, int numInputChannels, float **outputChannelData, int numOutputChannels, int numSamples);
 	void audioDeviceStopped();
+    void timerCallback();
 
 	void handleMessage(const Message &message);
     void deviceRemoved();
@@ -78,7 +79,7 @@ protected:
 	ReferenceCountedObjectPtr<ehw> _dev;
 	ehwlist *_devlist;
 	Content *_content;
-	ScopedPointer<AudioIODevice> _asio;
+	ScopedPointer<AudioIODevice> audioDevice;
 	ToneGeneratorAudioSource _tone;
 	
 	uint32 active_outputs;
@@ -88,9 +89,14 @@ protected:
 	ScopedPointer<XmlElement> _root;
 	XmlElement *_script;
 	Atomic<int32> new_test;
-	int callback_samples;
+    int audioCallbackCount;
+	int totalAudioCallbackSamples;
+    int timerIntervalMsec;
 	bool record_done;
-
+    int64 maxAudioDeviceCreateTicks;
+    int64 maxAudioDeviceOpenTicks;
+    int64 maxAudioDeviceStartTicks;
+    
 	ScopedPointer<Test> _test;
 
 	int _input;
@@ -112,10 +118,14 @@ protected:
 	bool ShowMeterWindow(Test &test);
 	void ParseScript();
 	void FinishGroup();
-	bool OpenASIO(int sample_rate);
-	bool CreateASIO(XmlElement *script);
+    bool createAudioDevice(XmlElement *script);
+	bool openAudioDevice(int sample_rate);
+    bool startAudioDevice();
+    void stopAudioDevice();
+    void audioDeviceTimedOut();
 	void clockDetectTest();
     void runOfflineTest(XmlElement *script);
+    void logPerformanceInfo();
 
 	Result CheckSampleRate();
 

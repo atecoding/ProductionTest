@@ -25,11 +25,10 @@ Test::Test(XmlElement *xe,bool &ok, ProductionUnit* unit_) :
 		title = title.trim();
 	}
 
-	if (application->testManager->getLoop())
+	if (application->testManager->getNumLoops())
 	{
-		int loopCount = application->testManager->getLoopCount();
-		if(title.isNotEmpty())
-			title += " - loop " + String(loopCount);
+        int currentLoop = application->testManager->currentLoop;
+        title += String::formatted(" - loop %d/%d", currentLoop + 1, application->testManager->getNumLoops());
 	}
 
 	getIntValue(xe,T("input"),input);

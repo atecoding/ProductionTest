@@ -36,6 +36,11 @@ public:
         
         return true;
     }
+    
+    RelativeTime getMaxRequestTime() const
+    {
+        return RelativeTime( double(maxRequestTicks) / double(Time::getHighResolutionTicksPerSecond()));
+    }
 
 protected:
 #ifdef _WIN32
@@ -51,6 +56,7 @@ protected:
     OwnedCFObjectArray<IOHIDDeviceRef> testAdapterDeviceRefs;
 #endif
     
+    int64 maxRequestTicks;
     Array<uint16> productIDs;
     
 	enum

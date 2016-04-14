@@ -1,150 +1,231 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="iNYqIt" name="ProductionTest" projectType="guiapp" version="1.0.0"
-              bundleIdentifier="com.yourcompany.ProductionTest" includeBinaryInAppConfig="1"
-              jucerVersion="3.1.1">
-  <MAINGROUP id="Hy9Uv1" name="ProductionTest">
-    <GROUP id="{F5F8022C-4B50-F7EA-332C-CB7B7E4CC186}" name="Source">
-      <GROUP id="{3F5ADA52-44D2-F7F5-D3FF-9D9364D31D19}" name="osx">
-        <FILE id="X9UG4K" name="AIODevice_osx.cpp" compile="1" resource="0"
-              file="Source/osx/AIODevice_osx.cpp"/>
-        <FILE id="bv2b4S" name="AIODevices_osx.cpp" compile="1" resource="0"
-              file="Source/osx/AIODevices_osx.cpp"/>
-        <FILE id="zDeW5R" name="AIOTestAdapter_osx.cpp" compile="1" resource="0"
-              file="Source/osx/AIOTestAdapter_osx.cpp"/>
-        <FILE id="JaqxyI" name="Description.cpp" compile="1" resource="0" file="Source/osx/Description.cpp"/>
-        <FILE id="gW1TqE" name="Description.h" compile="0" resource="0" file="Source/osx/Description.h"/>
-        <FILE id="l1Ibns" name="ehw.h" compile="0" resource="0" file="Source/osx/ehw.h"/>
-        <FILE id="rpvu7t" name="ehw_osx.cpp" compile="1" resource="0" file="Source/osx/ehw_osx.cpp"/>
-        <FILE id="GUk1js" name="ehwlist.h" compile="0" resource="0" file="Source/osx/ehwlist.h"/>
-        <FILE id="az3mK1" name="ehwlist_osx.cpp" compile="1" resource="0" file="Source/osx/ehwlist_osx.cpp"/>
-        <FILE id="GCu0h3" name="hwcaps.cpp" compile="1" resource="0" file="Source/osx/hwcaps.cpp"/>
-        <FILE id="FWDLqh" name="hwcaps.h" compile="0" resource="0" file="Source/osx/hwcaps.h"/>
-        <FILE id="CsyZWq" name="osx.cpp" compile="1" resource="0" file="Source/osx/osx.cpp"/>
-        <FILE id="J7fnyl" name="osx.h" compile="0" resource="0" file="Source/osx/osx.h"/>
-        <FILE id="Gzyiws" name="ScopedCFObject.h" compile="0" resource="0"
-              file="Source/osx/ScopedCFObject.h"/>
-        <FILE id="KuYD6p" name="ScopedIOObject.h" compile="0" resource="0"
-              file="Source/osx/ScopedIOObject.h"/>
+<JUCERPROJECT id="Px9Slv" name="ProductionTest" projectType="guiapp" version="1.0.0"
+              bundleIdentifier="com.echoaudio.ProductionTest" includeBinaryInAppConfig="1"
+              jucerVersion="4.2.0">
+  <MAINGROUP id="Mk5otN" name="ProductionTest">
+    <GROUP id="{E9A05292-FEF7-4257-AC75-42216E5E514F}" name="Source">
+      <GROUP id="{94AC4CC4-34ED-C307-E5E3-BC82C3D197C5}" name="AIO">
+        <FILE id="msK25x" name="Description.cpp" compile="1" resource="0" file="Source/Description.cpp"/>
+        <FILE id="FSthzO" name="Description.h" compile="0" resource="0" file="Source/Description.h"/>
+        <FILE id="V4Yifk" name="DescriptionAIO.cpp" compile="1" resource="0"
+              file="Source/DescriptionAIO.cpp"/>
+        <FILE id="SuQWEN" name="DescriptionAIO.h" compile="0" resource="0"
+              file="Source/DescriptionAIO.h"/>
+        <FILE id="SY2Nkn" name="DescriptionAM1.cpp" compile="1" resource="0"
+              file="Source/DescriptionAM1.cpp"/>
+        <FILE id="RLnKUO" name="DescriptionAM1.h" compile="0" resource="0"
+              file="Source/DescriptionAM1.h"/>
+        <FILE id="igEuZO" name="DescriptionAM2.cpp" compile="1" resource="0"
+              file="Source/DescriptionAM2.cpp"/>
+        <FILE id="BZuv8V" name="DescriptionAM2.h" compile="0" resource="0"
+              file="Source/DescriptionAM2.h"/>
       </GROUP>
-      <GROUP id="{E7D22781-F39B-924B-97BF-E08B47D1446A}" name="win32">
-        <FILE id="UzgxFG" name="AIODevice_win.cpp" compile="1" resource="0"
-              file="Source/win32/AIODevice_win.cpp"/>
-        <FILE id="At9Bzj" name="AIODevices_win.cpp" compile="1" resource="0"
-              file="Source/win32/AIODevices_win.cpp"/>
-        <FILE id="GGSBNM" name="AIOTestAdapter_win.cpp" compile="1" resource="0"
-              file="Source/win32/AIOTestAdapter_win.cpp"/>
+      <GROUP id="{47E5B287-DEF2-56FA-4E08-B83B2404C0DF}" name="Calibration">
+        <FILE id="NWrMcn" name="CalibrationAudioIOCallback.cpp" compile="1"
+              resource="0" file="Source/Calibration/CalibrationAudioIOCallback.cpp"/>
+        <FILE id="U35zXk" name="CalibrationAudioIOCallback.h" compile="0" resource="0"
+              file="Source/Calibration/CalibrationAudioIOCallback.h"/>
+        <FILE id="s1gSVH" name="CalibrationData.cpp" compile="1" resource="0"
+              file="Source/Calibration/CalibrationData.cpp"/>
+        <FILE id="M3khdE" name="CalibrationData.h" compile="0" resource="0"
+              file="Source/Calibration/CalibrationData.h"/>
+        <FILE id="EQ0Q5x" name="CalibrationDialogComponent.cpp" compile="1"
+              resource="0" file="Source/Calibration/CalibrationDialogComponent.cpp"/>
+        <FILE id="iDaTFl" name="CalibrationDialogComponent.h" compile="0" resource="0"
+              file="Source/Calibration/CalibrationDialogComponent.h"/>
+        <FILE id="Jmg3fJ" name="CalibrationManager.cpp" compile="1" resource="0"
+              file="Source/Calibration/CalibrationManager.cpp"/>
+        <FILE id="GesSk2" name="CalibrationManager.h" compile="0" resource="0"
+              file="Source/Calibration/CalibrationManager.h"/>
+        <FILE id="j6SpJ6" name="crc32.cpp" compile="1" resource="0" file="Source/Calibration/crc32.cpp"/>
+        <FILE id="lSnsfM" name="crc32.h" compile="0" resource="0" file="Source/Calibration/crc32.h"/>
+        <FILE id="ulbKkM" name="ExternalSpeakerMonitorTestResult.h" compile="0"
+              resource="0" file="Source/Calibration/ExternalSpeakerMonitorTestResult.h"/>
+        <FILE id="X5B34u" name="SquareWaveAnalysisResult.h" compile="0" resource="0"
+              file="Source/Calibration/SquareWaveAnalysisResult.h"/>
       </GROUP>
-      <FILE id="ueFnwk" name="AcousticIO.h" compile="0" resource="0" file="Source/AcousticIO.h"/>
-      <FILE id="vv3DqP" name="Analysis.cpp" compile="1" resource="0" file="Source/Analysis.cpp"/>
-      <FILE id="HWH2kP" name="Analysis.h" compile="0" resource="0" file="Source/Analysis.h"/>
-      <FILE id="Dp5tr4" name="App.cpp" compile="1" resource="0" file="Source/App.cpp"/>
-      <FILE id="lTkVw0" name="App.h" compile="0" resource="0" file="Source/App.h"/>
-      <FILE id="WL5VyS" name="AppWindow.cpp" compile="1" resource="0" file="Source/AppWindow.cpp"/>
-      <FILE id="Rf2CUY" name="AppWindow.h" compile="0" resource="0" file="Source/AppWindow.h"/>
-      <FILE id="jOxyh7" name="asio.h" compile="0" resource="0" file="Source/asio.h"/>
-      <FILE id="yqeY9F" name="asiosys.h" compile="0" resource="0" file="Source/asiosys.h"/>
-      <FILE id="IeRFUD" name="AudioOutput.cpp" compile="1" resource="0" file="Source/AudioOutput.cpp"/>
-      <FILE id="OtQUru" name="AudioOutput.h" compile="0" resource="0" file="Source/AudioOutput.h"/>
-      <FILE id="e9L4BH" name="base.h" compile="0" resource="0" file="Source/base.h"/>
-      <FILE id="XOOwL1" name="ConstantCurrentTest.cpp" compile="1" resource="0"
-            file="Source/ConstantCurrentTest.cpp"/>
-      <FILE id="IGLN2i" name="Content.cpp" compile="1" resource="0" file="Source/Content.cpp"/>
-      <FILE id="ynDzHB" name="Content.h" compile="0" resource="0" file="Source/Content.h"/>
-      <FILE id="OqQEAT" name="DelayTask.cpp" compile="1" resource="0" file="Source/DelayTask.cpp"/>
-      <FILE id="iaoZ5m" name="DynRangeTest.cpp" compile="1" resource="0"
-            file="Source/DynRangeTest.cpp"/>
-      <FILE id="Qspr8M" name="FilterCoeff.cpp" compile="1" resource="0" file="Source/FilterCoeff.cpp"/>
-      <FILE id="kMcoqe" name="FilterCoeff.h" compile="0" resource="0" file="Source/FilterCoeff.h"/>
-      <FILE id="uNrdce" name="FrequencyResponseTest.cpp" compile="1" resource="0"
-            file="Source/FrequencyResponseTest.cpp"/>
-      <FILE id="FwYP1z" name="iasiodrv.h" compile="0" resource="0" file="Source/iasiodrv.h"/>
-      <FILE id="St47cr" name="Images.cpp" compile="1" resource="0" file="Source/Images.cpp"/>
-      <FILE id="DUynGK" name="Images.h" compile="0" resource="0" file="Source/Images.h"/>
-      <FILE id="elTwDl" name="LevelCheckTest.cpp" compile="1" resource="0"
-            file="Source/LevelCheckTest.cpp"/>
-      <FILE id="U5kJ4w" name="MeterWindow.cpp" compile="1" resource="0" file="Source/MeterWindow.cpp"/>
-      <FILE id="CrUHI3" name="MeterWindow.h" compile="0" resource="0" file="Source/MeterWindow.h"/>
-      <FILE id="hWI4Vc" name="MIDILoopTest.cpp" compile="1" resource="0"
-            file="Source/MIDILoopTest.cpp"/>
-      <FILE id="M8fP2S" name="MIDILoopTest.h" compile="0" resource="0" file="Source/MIDILoopTest.h"/>
-      <FILE id="sWMD1i" name="MidiTest.cpp" compile="1" resource="0" file="Source/MidiTest.cpp"/>
-      <FILE id="hDqvIN" name="OldMessage.h" compile="0" resource="0" file="Source/OldMessage.h"/>
-      <FILE id="WuIm2E" name="PhaseTest.cpp" compile="1" resource="0" file="Source/PhaseTest.cpp"/>
-      <FILE id="HVssCv" name="ProductionUnit.cpp" compile="1" resource="0"
+      <GROUP id="{D4B35633-CCF9-9BA4-95BE-3D0F39DE63FE}" name="GUI">
+        <FILE id="ZveGiR" name="AppWindow.cpp" compile="1" resource="0" file="Source/AppWindow.cpp"/>
+        <FILE id="xr0Jnx" name="AppWindow.h" compile="0" resource="0" file="Source/AppWindow.h"/>
+        <FILE id="pJFqEH" name="Content.cpp" compile="1" resource="0" file="Source/Content.cpp"/>
+        <FILE id="G6Jcb5" name="Content.h" compile="0" resource="0" file="Source/Content.h"/>
+        <FILE id="bYwqVj" name="DelayTask.cpp" compile="1" resource="0" file="Source/DelayTask.cpp"/>
+        <FILE id="MhXodE" name="MeterWindow.cpp" compile="1" resource="0" file="Source/MeterWindow.cpp"/>
+        <FILE id="eHYTvT" name="MeterWindow.h" compile="0" resource="0" file="Source/MeterWindow.h"/>
+        <FILE id="XxwVk6" name="TestPrompt.cpp" compile="1" resource="0" file="Source/TestPrompt.cpp"/>
+        <FILE id="XmkIEj" name="TestPrompt.h" compile="0" resource="0" file="Source/TestPrompt.h"/>
+      </GROUP>
+      <GROUP id="{19B526ED-FDDA-FC80-5510-8E8A5E30D98E}" name="OSX">
+        <FILE id="usDr87" name="AIOTestAdapter_osx.cpp" compile="1" resource="0"
+              file="Source/OSX/AIOTestAdapter_osx.cpp"/>
+        <FILE id="wK40fm" name="ehw.h" compile="0" resource="0" file="Source/OSX/ehw.h"/>
+        <FILE id="dn1oEs" name="ehw_osx.cpp" compile="1" resource="0" file="Source/OSX/ehw_osx.cpp"/>
+        <FILE id="J9LCkN" name="ehwlist.h" compile="0" resource="0" file="Source/OSX/ehwlist.h"/>
+        <FILE id="QH9GIk" name="ehwlist_osx.cpp" compile="1" resource="0" file="Source/OSX/ehwlist_osx.cpp"/>
+        <FILE id="wYB5x0" name="hwcaps.cpp" compile="1" resource="0" file="Source/OSX/hwcaps.cpp"/>
+        <FILE id="ynpkWj" name="hwcaps.h" compile="0" resource="0" file="Source/OSX/hwcaps.h"/>
+        <FILE id="Xkdbco" name="osx.cpp" compile="1" resource="0" file="Source/OSX/osx.cpp"/>
+        <FILE id="uisSHN" name="osx.h" compile="0" resource="0" file="Source/OSX/osx.h"/>
+        <FILE id="yzOuyV" name="Printer_osx.cpp" compile="1" resource="0" file="Source/OSX/Printer_osx.cpp"/>
+        <FILE id="tMVkoB" name="ScopedCFObject.h" compile="0" resource="0"
+              file="Source/OSX/ScopedCFObject.h"/>
+        <FILE id="G7OCyd" name="ScopedIOObject.h" compile="0" resource="0"
+              file="Source/OSX/ScopedIOObject.h"/>
+      </GROUP>
+      <GROUP id="{5F5B6CD5-E1C2-D871-265C-EAA328106E3B}" name="Printer">
+        <FILE id="narb6F" name="Printer.cpp" compile="1" resource="0" file="Source/Printer/Printer.cpp"/>
+        <FILE id="loOMAX" name="Printer.h" compile="0" resource="0" file="Source/Printer/Printer.h"/>
+      </GROUP>
+      <GROUP id="{C10AE2B9-8E41-B9CA-BB00-6EF21EC7831E}" name="Sample rate converter">
+        <FILE id="WYXXXw" name="CDSPBlockConvolver.h" compile="0" resource="0"
+              file="Source/r8brain/CDSPBlockConvolver.h"/>
+        <FILE id="cf2EBy" name="CDSPFIRFilter.h" compile="0" resource="0" file="Source/r8brain/CDSPFIRFilter.h"/>
+        <FILE id="yLVSJs" name="CDSPFracInterpolator.h" compile="0" resource="0"
+              file="Source/r8brain/CDSPFracInterpolator.h"/>
+        <FILE id="ZgABha" name="CDSPProcessor.h" compile="0" resource="0" file="Source/r8brain/CDSPProcessor.h"/>
+        <FILE id="MAkJEd" name="CDSPRealFFT.h" compile="0" resource="0" file="Source/r8brain/CDSPRealFFT.h"/>
+        <FILE id="LYyHAP" name="CDSPResampler.h" compile="0" resource="0" file="Source/r8brain/CDSPResampler.h"/>
+        <FILE id="FcGHi4" name="CDSPSincFilterGen.h" compile="0" resource="0"
+              file="Source/r8brain/CDSPSincFilterGen.h"/>
+        <FILE id="t0OmcE" name="fft4g.h" compile="0" resource="0" file="Source/r8brain/fft4g.h"/>
+        <FILE id="O3ZNur" name="r8bbase.cpp" compile="1" resource="0" file="Source/r8brain/r8bbase.cpp"/>
+        <FILE id="HNiC1K" name="r8bbase.h" compile="0" resource="0" file="Source/r8brain/r8bbase.h"/>
+        <FILE id="q1j8wn" name="r8bconf.h" compile="0" resource="0" file="Source/r8brain/r8bconf.h"/>
+        <FILE id="Jqkfcc" name="Upsampler.cpp" compile="1" resource="0" file="Source/Upsampler.cpp"/>
+        <FILE id="a7Ppxb" name="Upsampler.h" compile="0" resource="0" file="Source/Upsampler.h"/>
+      </GROUP>
+      <GROUP id="{9E9FC09C-E8CE-2B26-AC9C-4F2A821375CD}" name="Spectrum">
+        <FILE id="hpOMeo" name="Spectrum.cpp" compile="1" resource="0" file="Source/Spectrum.cpp"/>
+        <FILE id="FBYZhK" name="Spectrum.h" compile="0" resource="0" file="Source/Spectrum.h"/>
+        <FILE id="nyOZlu" name="SpectrumAnalyzer.cpp" compile="1" resource="0"
+              file="Source/SpectrumAnalyzer.cpp"/>
+        <FILE id="MvT95k" name="SpectrumAnalyzer.h" compile="0" resource="0"
+              file="Source/SpectrumAnalyzer.h"/>
+        <FILE id="jzvIx3" name="WindowedFFT.cpp" compile="1" resource="0" file="Source/WindowedFFT.cpp"/>
+        <FILE id="GAwKUy" name="WindowedFFT.h" compile="0" resource="0" file="Source/WindowedFFT.h"/>
+      </GROUP>
+      <GROUP id="{5F589DF6-0F98-49F4-5FC8-CF12690887C7}" name="Tests">
+        <FILE id="lXBny7" name="Analysis.cpp" compile="1" resource="0" file="Source/Analysis.cpp"/>
+        <FILE id="zBnCtR" name="Analysis.h" compile="0" resource="0" file="Source/Analysis.h"/>
+        <FILE id="GDIYlO" name="CalibrationVerificationTest.cpp" compile="1"
+              resource="0" file="Source/CalibrationVerificationTest.cpp"/>
+        <FILE id="vtJK2w" name="ConstantCurrentTest.cpp" compile="1" resource="0"
+              file="Source/ConstantCurrentTest.cpp"/>
+        <FILE id="qKSeRV" name="DynRangeTest.cpp" compile="1" resource="0"
+              file="Source/DynRangeTest.cpp"/>
+        <FILE id="dWeULB" name="FilterCoeff.cpp" compile="1" resource="0" file="Source/FilterCoeff.cpp"/>
+        <FILE id="TFeRef" name="FilterCoeff.h" compile="0" resource="0" file="Source/FilterCoeff.h"/>
+        <FILE id="wFDyjz" name="FlashMemoryTest.cpp" compile="1" resource="0"
+              file="Source/FlashMemoryTest.cpp"/>
+        <FILE id="z5EQ61" name="FrequencyIsolationTest.cpp" compile="1" resource="0"
+              file="Source/FrequencyIsolationTest.cpp"/>
+        <FILE id="lSaMmq" name="FrequencyResponseTest.cpp" compile="1" resource="0"
+              file="Source/FrequencyResponseTest.cpp"/>
+        <FILE id="XqFDqt" name="FrequencySweepAudioSource.cpp" compile="1"
+              resource="0" file="Source/FrequencySweepAudioSource.cpp"/>
+        <FILE id="apq0H5" name="FrequencySweepAudioSource.h" compile="0" resource="0"
+              file="Source/FrequencySweepAudioSource.h"/>
+        <FILE id="lbNgJl" name="FrequencySweepResponseTest.cpp" compile="1"
+              resource="0" file="Source/FrequencySweepResponseTest.cpp"/>
+        <FILE id="VYJllu" name="LevelCheckTest.cpp" compile="1" resource="0"
+              file="Source/LevelCheckTest.cpp"/>
+        <FILE id="Uh65Gq" name="mb_bulk.cpp" compile="1" resource="0" file="Source/mb_bulk.cpp"/>
+        <FILE id="Ms4SUF" name="mb_bulk.h" compile="0" resource="0" file="Source/mb_bulk.h"/>
+        <FILE id="x9dBK9" name="MikeyBusRegisters.cpp" compile="1" resource="0"
+              file="Source/MikeyBusRegisters.cpp"/>
+        <FILE id="Hl3Y0g" name="ModuleTypeTest.cpp" compile="1" resource="0"
+              file="Source/ModuleTypeTest.cpp"/>
+        <FILE id="JAlgDX" name="PhaseTest.cpp" compile="1" resource="0" file="Source/PhaseTest.cpp"/>
+        <FILE id="ejaeep" name="PowerSupplyResetTest.cpp" compile="1" resource="0"
+              file="Source/PowerSupplyResetTest.cpp"/>
+        <FILE id="BqP0bJ" name="ReferenceVoltageTest.cpp" compile="1" resource="0"
+              file="Source/ReferenceVoltageTest.cpp"/>
+        <FILE id="w7xEi7" name="RelativeLevelTest.cpp" compile="1" resource="0"
+              file="Source/RelativeLevelTest.cpp"/>
+        <FILE id="wiDrHf" name="SilenceTest.cpp" compile="1" resource="0" file="Source/SilenceTest.cpp"/>
+        <FILE id="EB2DRJ" name="TEDSTest.cpp" compile="1" resource="0" file="Source/TEDSTest.cpp"/>
+        <FILE id="mFXbnT" name="Test.cpp" compile="1" resource="0" file="Source/Test.cpp"/>
+        <FILE id="jHBzVT" name="Test.h" compile="0" resource="0" file="Source/Test.h"/>
+        <FILE id="RuhkxD" name="TestManager.cpp" compile="1" resource="0" file="Source/TestManager.cpp"/>
+        <FILE id="CmgkAK" name="TestManager.h" compile="0" resource="0" file="Source/TestManager.h"/>
+        <FILE id="UjlRtR" name="ThdnTest.cpp" compile="1" resource="0" file="Source/ThdnTest.cpp"/>
+        <FILE id="fiEKWB" name="USBFirmwareVersionTest.cpp" compile="1" resource="0"
+              file="Source/USBFirmwareVersionTest.cpp"/>
+      </GROUP>
+      <GROUP id="{E34EA981-8E75-2D53-9D72-58E31E2EF004}" name="Utilities">
+        <FILE id="RMklbe" name="wavefile.cpp" compile="1" resource="0" file="Source/wavefile.cpp"/>
+        <FILE id="ciz9jA" name="wavefile.h" compile="0" resource="0" file="Source/wavefile.h"/>
+        <FILE id="ZNceng" name="xml.cpp" compile="1" resource="0" file="Source/xml.cpp"/>
+        <FILE id="m868T3" name="xml.h" compile="0" resource="0" file="Source/xml.h"/>
+      </GROUP>
+      <GROUP id="{25902976-11FD-1236-7ED5-EFFFD08D9534}" name="Win32"/>
+      <FILE id="VcY46v" name="App.cpp" compile="1" resource="0" file="Source/App.cpp"/>
+      <FILE id="gPK3oZ" name="App.h" compile="0" resource="0" file="Source/App.h"/>
+      <FILE id="FBppSU" name="AudioOutput.cpp" compile="1" resource="0" file="Source/AudioOutput.cpp"/>
+      <FILE id="PTOYER" name="AudioOutput.h" compile="0" resource="0" file="Source/AudioOutput.h"/>
+      <FILE id="apTcZ6" name="base.h" compile="0" resource="0" file="Source/base.h"/>
+      <FILE id="wuy3Lt" name="ErrorCodes.cpp" compile="1" resource="0" file="Source/ErrorCodes.cpp"/>
+      <FILE id="mJrBhJ" name="ErrorCodes.h" compile="0" resource="0" file="Source/ErrorCodes.h"/>
+      <FILE id="pr8iKy" name="ProductionUnit.cpp" compile="1" resource="0"
             file="Source/ProductionUnit.cpp"/>
-      <FILE id="lKkYBU" name="ProductionUnit.h" compile="0" resource="0"
+      <FILE id="WRoVni" name="ProductionUnit.h" compile="0" resource="0"
             file="Source/ProductionUnit.h"/>
-      <FILE id="sl6NR5" name="RelativeLevelTest.cpp" compile="1" resource="0"
-            file="Source/RelativeLevelTest.cpp"/>
-      <FILE id="dKY2kY" name="SawtoothAudioSource.cpp" compile="1" resource="0"
-            file="Source/SawtoothAudioSource.cpp"/>
-      <FILE id="SqeDwl" name="SawtoothAudioSource.h" compile="0" resource="0"
-            file="Source/SawtoothAudioSource.h"/>
-      <FILE id="QxyM2P" name="TEDSTest.cpp" compile="1" resource="0" file="Source/TEDSTest.cpp"/>
-      <FILE id="RV7kB2" name="Test.cpp" compile="1" resource="0" file="Source/Test.cpp"/>
-      <FILE id="fwe5li" name="Test.h" compile="0" resource="0" file="Source/Test.h"/>
-      <FILE id="inHZmm" name="TestManager.cpp" compile="1" resource="0" file="Source/TestManager.cpp"/>
-      <FILE id="C8Pubh" name="TestManager.h" compile="0" resource="0" file="Source/TestManager.h"/>
-      <FILE id="pSx9ue" name="TestPrompt.cpp" compile="1" resource="0" file="Source/TestPrompt.cpp"/>
-      <FILE id="RngAo2" name="TestPrompt.h" compile="0" resource="0" file="Source/TestPrompt.h"/>
-      <FILE id="rKS6kO" name="ThdnTest.cpp" compile="1" resource="0" file="Source/ThdnTest.cpp"/>
-      <FILE id="iYow1Z" name="wavefile.cpp" compile="1" resource="0" file="Source/wavefile.cpp"/>
-      <FILE id="Pi4IeP" name="wavefile.h" compile="0" resource="0" file="Source/wavefile.h"/>
-      <FILE id="vmJahY" name="xml.cpp" compile="1" resource="0" file="Source/xml.cpp"/>
-      <FILE id="cYEimi" name="xml.h" compile="0" resource="0" file="Source/xml.h"/>
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
-    <VS2013 targetFolder="Builds/VisualStudio2013" extraDefs="ACOUSTICIO_BUILD=1">
-      <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
-                       isDebug="1" optimisation="1" targetName="ProductionTest" headerPath="../../Source/ehw;../../Source/ehw/win;../../Source/ehw/usb;../../Source/ehw/usb/win"/>
-        <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
-                       isDebug="0" optimisation="2" targetName="ProductionTest" headerPath="../../Source/ehw;../../Source/ehw/win;../../Source/ehw/usb;../../Source/ehw/usb/win"/>
-      </CONFIGURATIONS>
-      <MODULEPATHS>
-        <MODULEPATH id="juce_gui_extra" path="/JUCE/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="/JUCE/modules"/>
-        <MODULEPATH id="juce_graphics" path="/JUCE/modules"/>
-        <MODULEPATH id="juce_events" path="/JUCE/modules"/>
-        <MODULEPATH id="juce_data_structures" path="/JUCE/modules"/>
-        <MODULEPATH id="juce_core" path="/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="/JUCE/modules"/>
-        <MODULEPATH id="juce_audio_basics" path="/JUCE/modules"/>
-      </MODULEPATHS>
-    </VS2013>
     <XCODE_MAC targetFolder="Builds/MacOSX" extraDefs="ACOUSTICIO_BUILD=1">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
-                       isDebug="1" optimisation="1" targetName="ProductionTest"/>
+                       isDebug="1" optimisation="1" targetName="ProductionTest" headerPath="../../Source/osx"/>
         <CONFIGURATION name="Release" osxSDK="default" osxCompatibility="default" osxArchitecture="default"
-                       isDebug="0" optimisation="2" targetName="ProductionTest"/>
+                       isDebug="0" optimisation="3" targetName="ProductionTest" headerPath="../../Source/osx"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_gui_extra" path="../../juce"/>
-        <MODULEPATH id="juce_gui_basics" path="../../juce"/>
-        <MODULEPATH id="juce_graphics" path="../../juce"/>
-        <MODULEPATH id="juce_events" path="../../juce"/>
-        <MODULEPATH id="juce_data_structures" path="../../juce"/>
-        <MODULEPATH id="juce_core" path="../../juce"/>
-        <MODULEPATH id="juce_audio_formats" path="../../juce"/>
-        <MODULEPATH id="juce_audio_devices" path="../../juce"/>
-        <MODULEPATH id="juce_audio_basics" path="../../juce"/>
+        <MODULEPATH id="juce_core" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
+    <VS2015 targetFolder="Builds/VisualStudio2015" extraDefs="ACOUSTICIO_BUILD=1">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
+                       isDebug="1" optimisation="1" targetName="ProductionTest"/>
+        <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
+                       isDebug="0" optimisation="3" targetName="ProductionTest"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_events" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_graphics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_data_structures" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_basics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_basics" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_devices" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_audio_formats" path="../../JUCE/modules"/>
+      </MODULEPATHS>
+    </VS2015>
   </EXPORTFORMATS>
   <MODULES>
-    <MODULES id="juce_audio_basics" showAllCode="1" useLocalCopy="1"/>
-    <MODULES id="juce_audio_devices" showAllCode="1" useLocalCopy="1"/>
-    <MODULES id="juce_audio_formats" showAllCode="1" useLocalCopy="1"/>
-    <MODULES id="juce_core" showAllCode="1" useLocalCopy="1"/>
-    <MODULES id="juce_data_structures" showAllCode="1" useLocalCopy="1"/>
-    <MODULES id="juce_events" showAllCode="1" useLocalCopy="1"/>
-    <MODULES id="juce_graphics" showAllCode="1" useLocalCopy="1"/>
-    <MODULES id="juce_gui_basics" showAllCode="1" useLocalCopy="1"/>
-    <MODULES id="juce_gui_extra" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="1"/>
   </MODULES>
-  <JUCEOPTIONS JUCE_ASIO="enabled"/>
+  <JUCEOPTIONS/>
+  <LIVE_SETTINGS>
+    <OSX/>
+  </LIVE_SETTINGS>
 </JUCERPROJECT>

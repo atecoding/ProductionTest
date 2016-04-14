@@ -120,7 +120,8 @@ void AIOTestAdapter::findAdapters(IOHIDManagerRef &managerRef, CFSetRef &deviceC
     }
 }
 
-AIOTestAdapter::AIOTestAdapter()
+AIOTestAdapter::AIOTestAdapter() :
+maxRequestTicks(0)
 {
 }
 
@@ -141,6 +142,8 @@ bool AIOTestAdapter::open()
     
     CFRelease(deviceCFSetRef);
     CFRelease(managerRef);
+    
+    maxRequestTicks = 0;
     
     int openCount = 0;
     for (int i = 0; i < testAdapterDeviceRefs.objects.size(); ++i)
@@ -191,31 +194,46 @@ int AIOTestAdapter::write(uint8 byte)
         if (0 == hidDeviceRef)
             continue;
         
-        IOReturn  status = IOHIDDeviceSetReport(
-                                                hidDeviceRef,          // IOHIDDeviceRef for the HID device
-                                                kIOHIDReportTypeOutput,   // IOHIDReportType for the report
-                                                0,           // CFIndex for the report ID
-                                                &byte,             // address of report buffer
-                                                sizeof(byte));      // length of the report
+        {
+            int64 begin = Time::getHighResolutionTicks();
+            
+            IOReturn status = IOHIDDeviceSetReport( hidDeviceRef,          // IOHIDDeviceRef for the HID device
+                                                    kIOHIDReportTypeOutput,   // IOHIDReportType for the report
+                                                    0,           // CFIndex for the report ID
+                                                    &byte,             // address of report buffer
+                                                    sizeof(byte));      // length of the report
+            
+            int64 end = Time::getHighResolutionTicks();
+            maxRequestTicks = jmax(maxRequestTicks, end - begin);
+            
+            result &= kIOReturnSuccess == status;
+        }
         Thread::sleep(100);
-        IOReturn status2 = IOHIDDeviceSetReport(
-                                                hidDeviceRef,          // IOHIDDeviceRef for the HID device
-                                                kIOHIDReportTypeOutput,   // IOHIDReportType for the report
-                                                0,           // CFIndex for the report ID
-                                                &byte,             // address of report buffer
-                                                sizeof(byte));      // length of the report
         
+        {
+            int64 begin = Time::getHighResolutionTicks();
+            
+            IOReturn status = IOHIDDeviceSetReport( hidDeviceRef,          // IOHIDDeviceRef for the HID device
+                                                    kIOHIDReportTypeOutput,   // IOHIDReportType for the report
+                                                    0,           // CFIndex for the report ID
+                                                    &byte,             // address of report buffer
+                                                    sizeof(byte));      // length of the report
+            
+            int64 end = Time::getHighResolutionTicks();
+            maxRequestTicks = jmax(maxRequestTicks, end - begin);
+            
+            result &= kIOReturnSuccess == status;
+        }
         Thread::sleep(100);
-        
-        result &= kIOReturnSuccess == status && kIOReturnSuccess == status2;
     }
-
+    
     return result;
 }
 
 int AIOTestAdapter::read(Array<uint16> &data)
 {
     data.clearQuick();
+    data.ensureStorageAllocated(NUM_INPUTS_PER_ADAPTER * testAdapterDeviceRefs.objects.size());
 
     for (int i = 0; i < testAdapterDeviceRefs.objects.size(); ++i)
     {
@@ -225,6 +243,7 @@ int AIOTestAdapter::read(Array<uint16> &data)
         
         uint16 temp[NUM_INPUTS_PER_ADAPTER];
         CFIndex length = sizeof(temp);
+        int64 begin = Time::getHighResolutionTicks();
         IOReturn status = IOHIDDeviceGetReport(
                                                 hidDeviceRef,          // IOHIDDeviceRef for the HID device
                                                 kIOHIDReportTypeInput,   // IOHIDReportType for the report
@@ -232,21 +251,16 @@ int AIOTestAdapter::read(Array<uint16> &data)
                                                 (uint8 *)temp,             // address of report buffer
                                                 &length);       // address of length of the report
         
+        int64 end = Time::getHighResolutionTicks();
+        maxRequestTicks = jmax(maxRequestTicks, end - begin);
+        
         for (int j = 0; j < NUM_INPUTS_PER_ADAPTER; ++j)
         {
-            ///DBG(String::formatted("AIOTestAdapter::read  %d - %d", j, temp[j] ));
             data.add(temp[j]);
         }
         
         result &= kIOReturnSuccess == status;
     }
-    
-    /*
-    for (int i = 0; i < data.size(); ++i)
-    {
-        DBG(String::formatted("    ---- %d - %d", i, data[i]));
-    }
-    */
 
     return data.size();
 }

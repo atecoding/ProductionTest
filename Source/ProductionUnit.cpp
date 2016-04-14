@@ -111,9 +111,12 @@ _ok(true),
 _dev(dev),
 _devlist(devlist),
 _content(content),
-_asio(nullptr),
+audioDevice(nullptr),
 active_outputs(0),
 _script(NULL),
+maxAudioDeviceCreateTicks(0),
+maxAudioDeviceOpenTicks(0),
+maxAudioDeviceStartTicks(0),
 calibrationManager(this, getOutputFolder())
 {
 	zerostruct(input_meters);
@@ -282,12 +285,11 @@ void ProductionUnit::Cleanup()
     CloseUSBDevice(_dev->GetNativeHandle());
 #endif
     
-    if (_asio)
+    if (audioDevice)
     {
-        _asio->stop();
-        _asio->close();
-        _asio = nullptr;
-		Process::setPriority(Process::NormalPriority);
+        stopAudioDevice();
+        audioDevice->close();
+        audioDevice = nullptr;
 	}
 }
 
@@ -428,9 +430,9 @@ void ProductionUnit::RunTests(Time const testStartTime_)
     CreateLogFile();
 
 	//
-	// Create the ASIO driver
+	// Create the audio driver object
 	//
-	if (!CreateASIO(_script))
+	if (!createAudioDevice(_script))
     {
         DBG("   RunTests exit");
 		return;
@@ -456,11 +458,14 @@ void ProductionUnit::RunTests(Time const testStartTime_)
     _content->log(SystemStats::getOperatingSystemName());
 	_content->log(String::empty);
 
-	if (application->testManager->getLoop())
-	{
-		int loopCount = application->testManager->getLoopCount();
-		_content->log("Loop " + String(loopCount));
-	}
+    {
+        int numLoops = application->testManager->getNumLoops();
+        if (numLoops)
+        {
+            _content->log(String::formatted("Loop %d/%d", application->testManager->currentLoop + 1,
+                                            numLoops));
+        }
+    }
 
 	//
 	// Set up the state machine
@@ -487,10 +492,17 @@ void ProductionUnit::audioDeviceAboutToStart(AudioIODevice *device)
 	{
 		_inbuffs[i]->clear();
 	}
+    
+    audioCallbackCount = 0;
+    totalAudioCallbackSamples = 0;
+    
+    timerIntervalMsec = 2000;
+    startTimer(timerIntervalMsec);
 }
 
 void ProductionUnit::audioDeviceStopped()
 {
+    stopTimer();
 }
 
 void ProductionUnit::audioDeviceIOCallback
@@ -505,6 +517,9 @@ void ProductionUnit::audioDeviceIOCallback
 	int in,i;
 	static int passes = 0;
     Test* test = _test;
+    
+    audioCallbackCount++;
+    startTimer(timerIntervalMsec);
 
     int64 now = Time::getHighResolutionTicks();
 	
@@ -520,13 +535,13 @@ void ProductionUnit::audioDeviceIOCallback
 	if (new_test.exchange(0))
 	{
 		record_done = false;
-		callback_samples = 0;
+		totalAudioCallbackSamples = 0;
 		blocks_recorded.exchange(0);
 		timestampCount = 0;
 	}
 	else
 	{
-		callback_samples += numSamples;
+		totalAudioCallbackSamples += numSamples;
 	}
 
 	//
@@ -552,7 +567,7 @@ void ProductionUnit::audioDeviceIOCallback
 	//
     if (test)
     {
-        if (callback_samples >= callback_skip_samples)
+        if (totalAudioCallbackSamples >= callback_skip_samples)
         {
             int count,temp;
             int const recordSamplesRequired = test->getSamplesRequired();
@@ -600,6 +615,23 @@ void ProductionUnit::audioDeviceIOCallback
 		passes = 0;
 }
 
+void ProductionUnit::timerCallback()
+{
+    audioDeviceTimedOut();
+}
+
+void ProductionUnit::audioDeviceTimedOut()
+{
+    stopAudioDevice();
+    
+    _content->log("FAIL -- Audio driver timeout");
+    _content->log(String::formatted("    Callbacks: %d    Samples recorded: %d", audioCallbackCount, totalAudioCallbackSamples));
+    _content->log(String::empty);
+    _unit_passed = false;
+    
+    ParseScript();
+}
+
 void ProductionUnit::handleMessage(const Message &message)
 {
 	OldMessage const* oldMessage = dynamic_cast<OldMessage const*>(&message);
@@ -613,14 +645,8 @@ void ProductionUnit::handleMessage(const Message &message)
 		{
 			bool result;
 			String msg;
-
-			if (_asio)
-			{
-				_asio->stop();
-				//DBG("_asio->stop");
-			}
-
-			Process::setPriority(Process::NormalPriority);
+            
+            stopAudioDevice();
 
 			Result sampleRateResult(CheckSampleRate());
 
@@ -868,21 +894,21 @@ void ProductionUnit::ParseScript()
 			//
 			// Set up the audio driver
 			//
-			ok = OpenASIO(tp.sample_rate);
+			ok = openAudioDevice(tp.sample_rate);
 			if (!ok)
 				return;
 
 			//
 			// show user prompt
 			//
-			tp.Setup(_asio->getCurrentBufferSizeSamples(),_tone,active_outputs);
+			tp.Setup(audioDevice->getCurrentBufferSizeSamples(),_tone,active_outputs);
 
 			if (0 == tp.start_group)
 			{
-				_asio->start(this);
+                startAudioDevice();
 				rval = tp.ShowMeterWindow(_content, _dev, input_meters);
-				_asio->stop();
-				//DBG("_asio start and stop");
+                stopAudioDevice();
+				//DBG("audioDevice start and stop");
 			}
 
 			//
@@ -951,220 +977,20 @@ void ProductionUnit::ParseScript()
 				_content->log(_test->title);
 			}
 
-			_test->Setup(_asio->getCurrentBufferSizeSamples(),_tone,active_outputs);
+			_test->Setup(audioDevice->getCurrentBufferSizeSamples(),_tone,active_outputs);
 
-			ok = OpenASIO(_test->sample_rate);
+			ok = openAudioDevice(_test->sample_rate);
 			if (!ok)
 				return;
 
-			Process::setPriority(Process::RealtimePriority);
-
-			_asio->start(this);
+            startAudioDevice();
             Thread::sleep(20);  // prime the pump
 			new_test.exchange(1);
-			//DBG("_asio->start");
 
 			_script = _script->getNextElement();
 			return;
 		}
 
-		//-----------------------------------------------------------------------------
-		//
-		// Write to the test register?
-		//
-		//-----------------------------------------------------------------------------
-
-#if ECHO1394
-		if (_script->hasTagName(T("write_rip_test_register")))
-		{
-			extern bool WriteRIPTestRegister(ehw *dev,XmlElement *xe,uint32 &reg_value);
-			uint32 reg_value;
-
-			ok = WriteRIPTestRegister(_dev,_script,reg_value);
-			if (!ok)
-			{
-				AlertWindow::showNativeDialogBox(	"Production Test",
-													"Could not write test register.",
-													false);
-				JUCEApplication::quit();
-				return;
-			}
-
-			_script = _script->getNextElement();
-			continue;
-		}
-#endif
-
-		//-----------------------------------------------------------------------------
-		//
-		// Check the RIP status register?
-		//
-		//-----------------------------------------------------------------------------
-
-#if ECHO1394
-		if (_script->hasTagName(T("check_rip_status_register")))
-		{
-			extern bool CheckRIPStatusRegister(ehw *dev,XmlElement *xe,bool &passed);
-			bool passed;
-			String msg;
-			XmlElement *text;
-
-			text = _script->getFirstChildElement();
-			if (!text->isTextElement())
-			{
-				AlertWindow::showNativeDialogBox(	"Production Test",
-													"No title for status register check in script.",
-													false);
-				JUCEApplication::quit();
-				return;
-			}
-
-			ok = CheckRIPStatusRegister(_dev,_script,passed);
-			if (!ok)
-			{
-				AlertWindow::showNativeDialogBox(	"Production Test",
-													"Could not read status register.",
-													false);
-				JUCEApplication::quit();
-				return;
-			}
-
-			msg = text->getText();
-			msg += ": ";
-			msg += passed ? "ok" : "failed";
-			_content->log(msg);
-
-			_unit_passed &= passed;
-			if (!passed)
-			{
-				_content->FinishTests(false,_skipped);
-				Cleanup();
-				return;
-			}
-
-			_script = _script->getNextElement();
-			continue;
-		}
-#endif
-
-		//-----------------------------------------------------------------------------
-		//
-		// Check the boxstatus register?
-		//
-		//-----------------------------------------------------------------------------
-
-#if ECHO1394
-		if (_script->hasTagName(T("boxstatus")))
-		{
-			extern bool CheckBoxstatusRegister(ehw *dev,XmlElement *xe,bool &passed);
-			bool passed;
-			String msg;
-			XmlElement *text;
-
-			text = _script->getFirstChildElement();
-			if (!text->isTextElement())
-			{
-				AlertWindow::showNativeDialogBox(	"Production Test",
-													"No title for status register check in script.",
-													false);
-				JUCEApplication::quit();
-				return;
-			}
-
-			ok = CheckBoxstatusRegister(_dev,_script,passed);
-			if (!ok)
-			{
-				AlertWindow::showNativeDialogBox(	"Production Test",
-													"Could not read boxstatus register.",
-													false);
-				JUCEApplication::quit();
-				return;
-			}
-
-			_content->log(String::empty);
-			msg = text->getText();
-			_content->AddResult(msg,(int)passed);
-			msg += ": ";
-			msg += passed ? "ok" : "failed";
-			_content->log(msg);
-
-			_script = _script->getNextElement();
-			continue;
-		}
-#endif
-
-		//-----------------------------------------------------------------------------
-		//
-		// Set digital mode?
-		//
-		//-----------------------------------------------------------------------------
-
-#ifdef PCI_BUILD
-		if (_script->hasTagName(T("setDigitalMode")))
-		{
-			int mode, result;
-			XmlElement *text;
-
-			text = _script->getFirstChildElement();
-			if (!text->isTextElement())
-			{
-				AlertWindow::showNativeDialogBox(	"Production Test",
-													"No type for digital mode in script.",
-													false);
-				JUCEApplication::quit();
-				return;
-			}
-
-			if (String("ADAT") == text->getText())
-				mode = hwcaps::digital_mode_adat;
-			else if (String("SPDIF_COAX") == text->getText())
-				mode = hwcaps::digital_mode_spdif_coax;
-			else if (String("SPDIF_OPTICAL") == text->getText())
-				mode = hwcaps::digital_mode_spdif_optical;
-			else
-			{
-				AlertWindow::showNativeDialogBox(	"Production Test",
-													"Invalid digital mode type",
-													false);
-				JUCEApplication::quit();
-				return;
-			}
-
-			if (_asio)
-			{
-				_asio->close();
-			}
-
-			result = _dev->setdigitalmode(mode);
-			Sleep(500);
-			DBG(String::formatted("setdigitalmode %d  result:%d",mode, result));
-
-			mode = -1;
-			_dev->getdigitalmode(mode);
-			DBG(String::formatted("getdigitalmode %d",mode));
-
-			_script = _script->getNextElement();
-			continue;
-		}
-#endif
-
-		//-----------------------------------------------------------------------------
-		//
-		// Guitar charge mode?
-		//
-		//-----------------------------------------------------------------------------
-
-#if ECHO1394
-		if (_script->hasTagName(T("set_rip_charge_mode")))
-		{
-			bool SetChargeMode(ehw *dev,XmlElement *xe);
-
-			SetChargeMode(_dev,_script);
-
-			_script = _script->getNextElement();
-			continue;
-		}
-#endif
 
 		//-----------------------------------------------------------------------------
 		//
@@ -1178,17 +1004,16 @@ void ProductionUnit::ParseScript()
 			if (!ok)
 				return;
 
-			ao.Setup(_asio->getCurrentBufferSizeSamples(),_tone,active_outputs);
+			ao.Setup(audioDevice->getCurrentBufferSizeSamples(),_tone,active_outputs);
 
 			//
 			// Start the audio driver
 			//
-			ok = OpenASIO(ao.sample_rate);
+			ok = openAudioDevice(ao.sample_rate);
 			if (!ok)
 				return;
 
-			_asio->start(this);
-			//DBG("_asio->start");
+            startAudioDevice();
 
 			_script = _script->getNextElement();
 			continue;
@@ -1208,89 +1033,6 @@ void ProductionUnit::ParseScript()
 
 		//-----------------------------------------------------------------------------
 		//
-		// Test MIDI in and out?
-		//
-		//-----------------------------------------------------------------------------
-
-#if ECHO1394
-		if (_script->hasTagName(T("testMIDI")))
-		{
-			extern bool MidiTest(ehw *dev,bool &passed);
-			bool passed;
-
-			String msg;
-			XmlElement *text;
-
-			text = _script->getFirstChildElement();
-			if (!text->isTextElement())
-			{
-				AlertWindow::showNativeDialogBox(	"Production Test",
-													"No title for MIDI check in script.",
-													false);
-				JUCEApplication::quit();
-				return;
-			}
-
-			ok = MidiTest(_dev, passed);
-			if (!ok)
-			{
-				AlertWindow::showNativeDialogBox(	"Production Test",
-													"Could not open MIDI device.",
-													false);
-				JUCEApplication::quit();
-				return;
-			}
-
-			_content->log(String::empty);
-			msg = text->getText();
-			_content->AddResult(msg,(int)passed);
-			msg += ": ";
-			msg += passed ? "ok" : "failed";
-			_content->log(msg);
-			_unit_passed &= passed;
-
-			_script = _script->getNextElement();
-			continue;
-		}
-#endif
-
-		//-----------------------------------------------------------------------------
-		//
-		// Show message box?
-		//
-		//-----------------------------------------------------------------------------
-
-#if ECHO1394
-		if (_script->hasTagName(T("softclip")))
-		{
-			int rval;
-			int set;
-
-			ok = getIntValue(_script,T("value"), set);
-
-			if(ok)
-			{
-				if (set)
-					rval = _dev->changeboxflags( efc_flag_soft_clip_enabled, 0);
-				else
-					rval = _dev->changeboxflags( 0, efc_flag_soft_clip_enabled);
-				}
-			else
-			{
-				AlertWindow::showNativeDialogBox(	"Production Test",
-													"No setting for softclip in script.",
-													false);
-				JUCEApplication::quit();
-				return;
-			}
-
-			_script = _script->getNextElement();
-			continue;
-		}
-#endif
-
-		//-----------------------------------------------------------------------------
-		//
 		// Global input or output channel?
 		//
 		//-----------------------------------------------------------------------------
@@ -1307,119 +1049,9 @@ void ProductionUnit::ParseScript()
 			_script = _script->getNextElement();
 			continue;
 		}
-        
 
-		//-----------------------------------------------------------------------------
-		//
-		// Input clock detect?
-		//
-		//-----------------------------------------------------------------------------
 
-#ifdef ECHOPCI
-		if (_script->hasTagName(T("ClockDetectTest")))
-		{
-			clockDetectTest();
-
-			_num_tests++;
-
-			_script = _script->getNextElement();
-			continue;
-		}
-#endif
-
-		//-----------------------------------------------------------------------------
-		//
-		// Software phantom power switch?
-		//
-		//-----------------------------------------------------------------------------
-
-#if defined(ECHOPCI) || defined(ECHO1394)
-		if (_script->hasTagName(T("PhantomPower")))
-		{
-			int mode = _script->getAllSubText().getIntValue();
-			_dev->setphantom(mode);
-
-			_script = _script->getNextElement();
-			continue;
-		}
-#endif
-
-		//-----------------------------------------------------------------------------
-		//
-		// Touch panel stuff for Echo2?
-		//
-		//-----------------------------------------------------------------------------
-
-#if defined(ECHOUSB) && defined(ECHO2_BUILD)
-		if (_script->hasTagName("set_touch_panel_reg"))
-		{
-			extern void SetTouchPanelRegister(XmlElement const *element,ehw *dev);
-
-			SetTouchPanelRegister(_script,_dev);
-
-			_script = _script->getNextElement();
-			continue;
-		}
-
-		if (_script->hasTagName("echo2_touch_panel_test"))
-		{
-			String msg;
-			bool ok = RunTouchPanelTest(_content,_dev,msg) == TestPrompt::ok;
-
-			_content->log(String::empty);
-			_content->log(msg);
-
-			_unit_passed &= ok;
-
-			_channel_group_name = "Touch panel";
-			_channel_group_passed = ok;
-
-			FinishGroup();
-
-			_script = _script->getNextElement();
-			continue;
-		}
-
-		if (_script->hasTagName("echo2_initial_power_test"))
-		{
-			String msg;
-			bool ok = RunEcho2InitialPowerTest(_content,_dev,_devlist,msg) == TestPrompt::ok;
-
-			_content->log(String::empty);
-			_content->log(msg);
-
-			_unit_passed &= ok;
-
-			_channel_group_name = "Initial power check";
-			_channel_group_passed = ok;
-
-			FinishGroup();
-
-			_script = _script->getNextElement();
-			continue;
-		}
-
-		if (_script->hasTagName("echo2_final_power_test"))
-		{
-			String msg;
-			bool ok = RunEcho2FinalPowerTest(_content,_dev,_devlist,msg) == TestPrompt::ok;
-
-			_content->log(String::empty);
-			_content->log(msg);
-
-			_unit_passed &= ok;
-
-			_channel_group_name = "Final power check";
-			_channel_group_passed = ok;
-
-			FinishGroup();
-
-			_script = _script->getNextElement();
-			break;
-		}
-#endif
-
-		//-----------------------------------------------------------------------------
+        //-----------------------------------------------------------------------------
 		//
 		// AcousticIO
 		//
@@ -1585,7 +1217,7 @@ void ProductionUnit::ParseScript()
                 // Destroy this object's AudioIODevice - this means that the
                 // calibration has to be the last stage of the test
                 //
-                _asio = nullptr;
+                audioDevice = nullptr;
                 
                 //
                 // Start the calibration
@@ -1607,7 +1239,7 @@ void ProductionUnit::ParseScript()
                 // Destroy this object's AudioIODevice - this means that the
                 // calibration has to be the last stage of the test
                 //
-                _asio = nullptr;
+                audioDevice = nullptr;
                 
                 //
                 // Start the resistance measurement
@@ -1778,7 +1410,9 @@ void ProductionUnit::ParseScript()
 		_content->log(String::empty);
 		_content->setFinalResult(finalResult,finalResultColor);
 	}
-
+    
+    logPerformanceInfo();
+    
 	_content->FinishTests(_unit_passed,_skipped);
 	Cleanup();
 
@@ -1786,6 +1420,46 @@ void ProductionUnit::ParseScript()
 	{ 
 		JUCEApplication::quit();
 	}
+}
+
+static RelativeTime ticksToRelativeTime(int64 const ticks)
+{
+    return RelativeTime( double(ticks) / Time::getHighResolutionTicksPerSecond());
+}
+
+void ProductionUnit::logPerformanceInfo()
+{
+    String const msecString(" msec");
+    
+    {
+        RelativeTime maxRequestTime(aioTestAdapter.getMaxRequestTime());
+        double seconds = maxRequestTime.inSeconds();
+        _content->log("Test adapter max HID request: " + String(seconds * 1000.0, 3) + msecString);
+    }
+    
+    if (_dev)
+    {
+        RelativeTime maxRequestTime(ticksToRelativeTime(_dev->getMaxRequestTicks()));
+        double seconds = maxRequestTime.inSeconds();
+        _content->log("DUT max request: " + String(seconds * 1000.0, 3) + msecString);
+    }
+    
+    {
+        double seconds = ticksToRelativeTime(maxAudioDeviceCreateTicks).inSeconds();
+        _content->log("Max audio device create: " + String(seconds * 1000.0, 3) + msecString);
+    }
+    
+    {
+        double seconds = ticksToRelativeTime(maxAudioDeviceOpenTicks).inSeconds();
+        _content->log("Max audio device open: " + String(seconds * 1000.0, 3) + msecString);
+    }
+    
+    {
+        double seconds = ticksToRelativeTime(maxAudioDeviceStartTicks).inSeconds();
+        _content->log("Max audio device start: " + String(seconds * 1000.0, 3) + msecString);
+    }
+
+    _content->log(String::empty);
 }
 
 void ProductionUnit::FinishGroup()
@@ -1799,14 +1473,14 @@ void ProductionUnit::FinishGroup()
 	}
 }
 
-bool ProductionUnit::CreateASIO(XmlElement *script)
+bool ProductionUnit::createAudioDevice(XmlElement *script)
 {
 	//
-	// Load the ASIO driver
+	// Load the audio driver
 	//
 	String devicename;
 
-	DBG("CreateASIO " << (pointer_sized_int)_asio.get());
+	DBG("createAudioDevice " << (pointer_sized_int)audioDevice.get());
     
 #if JUCE_WIN32
     String audioDriverTag("ASIO_driver");
@@ -1826,6 +1500,7 @@ bool ProductionUnit::CreateASIO(XmlElement *script)
 			return false;
 		}
 
+        int64 begin = Time::getHighResolutionTicks();
 #if JUCE_WIN32
 		ScopedPointer<AudioIODeviceType> type(AudioIODeviceType::createAudioIODeviceType_ASIO());
 #endif
@@ -1838,8 +1513,12 @@ bool ProductionUnit::CreateASIO(XmlElement *script)
 		{
 			if (deviceNames[j] == devicename)
 			{
-				_asio = type->createDevice(devicename, devicename);
-				DBG("CreateASIO ok");
+				audioDevice = type->createDevice(devicename, devicename);
+                
+                int64 end = Time::getHighResolutionTicks();
+                maxAudioDeviceCreateTicks = jmax(maxAudioDeviceCreateTicks, end - begin);
+                
+				DBG("createAudioDevice ok");
 				return true;
 			}
 		}
@@ -1853,10 +1532,11 @@ bool ProductionUnit::CreateASIO(XmlElement *script)
 	return false;
 }
 
-bool ProductionUnit::OpenASIO(int sample_rate)
+bool ProductionUnit::openAudioDevice(int sample_rate)
 {
 	BitArray inputs,outputs;
 	String err;
+    int64 begin = Time::getHighResolutionTicks();
 
 #ifdef PCI_BUILD
 	int channels;
@@ -1872,26 +1552,26 @@ bool ProductionUnit::OpenASIO(int sample_rate)
 	outputs.setRange(0,_dev->getcaps()->numplaychan(),true);
 #endif
 
-	if (_asio->isOpen())
+	if (audioDevice->isOpen())
 	{
-		//DBG("_asio is open");
-		if ((_asio->getCurrentSampleRate() != sample_rate) ||
-			 (inputs != _asio->getActiveInputChannels ()) ||
-			 (outputs != _asio->getActiveOutputChannels()))
+		//DBG("audioDevice is open");
+		if ((audioDevice->getCurrentSampleRate() != sample_rate) ||
+			 (inputs != audioDevice->getActiveInputChannels ()) ||
+			 (outputs != audioDevice->getActiveOutputChannels()))
 		{
-			_asio->close();
-			DBG("_asio->close");
+			audioDevice->close();
+			DBG("audioDevice->close");
 		}
 	}
 
-	if (false == _asio->isOpen())
+	if (false == audioDevice->isOpen())
 	{
-		DBG("configuring _asio");
+		DBG("configuring audioDevice");
         
-        Array<int> availableBufferSizes(_asio->getAvailableBufferSizes());
+        Array<int> availableBufferSizes(audioDevice->getAvailableBufferSizes());
         int bufferSize = availableBufferSizes.getLast();
 
-		err = _asio->open(inputs,outputs,sample_rate,bufferSize);
+		err = audioDevice->open(inputs,outputs,sample_rate,bufferSize);
 		if (err.isNotEmpty())
 		{
 			AlertWindow::showNativeDialogBox(	"Production Test",
@@ -1899,21 +1579,53 @@ bool ProductionUnit::OpenASIO(int sample_rate)
 												false);
 			return false;
 		}
-		DBG("_asio->open");
+		DBG("audioDevice->open");
 	}
+    
+    int64 end = Time::getHighResolutionTicks();
+    maxAudioDeviceOpenTicks = jmax(maxAudioDeviceOpenTicks, end - begin);
 
 	return true;
+}
+
+bool ProductionUnit::startAudioDevice()
+{
+    if (nullptr == audioDevice)
+    {
+        DBG("ProductionUnit::startAudioDevice - audio device not created");
+        return false;
+    }
+ 
+    int64 begin = Time::getHighResolutionTicks();
+    
+    //Process::setPriority(Process::RealtimePriority);
+    audioDevice->start(this);
+    
+    int64 end = Time::getHighResolutionTicks();
+    maxAudioDeviceStartTicks = jmax(maxAudioDeviceStartTicks, end - begin);
+    
+    return true;
+}
+
+void ProductionUnit::stopAudioDevice()
+{
+    if (audioDevice)
+    {
+        audioDevice->stop();
+    }
+    
+    //Process::setPriority(Process::NormalPriority);
 }
 
 Result ProductionUnit::CheckSampleRate()
 {
     int64 ticksPerSecond = Time::getHighResolutionTicksPerSecond();
 
-	if (_asio)
+	if (audioDevice)
 	{
 //		int blocks = timestampCount.get();
 		int blocks = timestampCount.get() - 1;
-		int samples = blocks * _asio->getCurrentBufferSizeSamples();
+		int samples = blocks * audioDevice->getCurrentBufferSizeSamples();
 		int64 totalTicks = 0;
 		double measuredSampleRate = 0.0;
 
@@ -1935,9 +1647,9 @@ Result ProductionUnit::CheckSampleRate()
 			return Result::ok();
 		}
 
-		String error("Sample rate " + String(_asio->getCurrentSampleRate(), 1) + " Hz\n");
+		String error("Sample rate " + String(audioDevice->getCurrentSampleRate(), 1) + " Hz\n");
 		error += "Measured sample rate " + String(measuredSampleRate, 1) + " Hz\n";
-		double ratio = measuredSampleRate / _asio->getCurrentSampleRate();
+		double ratio = measuredSampleRate / audioDevice->getCurrentSampleRate();
 		ratio *= 100.0;
 		error += "Ratio " + String(ratio, 3) + "%\n";
 		error += "Allowed " + String(_test->minSampleRate) + "/" + String(_test->maxSampleRate);
@@ -2240,7 +1952,7 @@ void ProductionUnit::runOfflineTest(XmlElement *script)
     }
     
     uint32 activeOutputs = 0xffffffff;
-    offlineTest->Setup(_asio->getCurrentBufferSizeSamples(),*offlineTone,activeOutputs);
+    offlineTest->Setup(audioDevice->getCurrentBufferSizeSamples(),*offlineTone,activeOutputs);
     
     FileChooser fc("So pick a wave file already",File::getSpecialLocation(File::userDesktopDirectory),"*.wav");
     if (fc.browseForFileToOpen())
