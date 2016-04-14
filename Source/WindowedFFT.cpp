@@ -106,6 +106,7 @@ SpectrumWindow(windowLength_)
 
 void BlackmanHarrisWindow::test()
 {
+#if JUCE_DEBUG
     BlackmanHarrisWindow window(1024, 4);
     float const * const windowValues = window.getValues();
     int windowLength = window.getLength();
@@ -114,6 +115,7 @@ void BlackmanHarrisWindow::test()
     {
         DBG("i:" << i << " " << windowValues[i]);
     }
+#endif
 }
 
 

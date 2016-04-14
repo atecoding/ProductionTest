@@ -258,7 +258,9 @@ double Spectrum::calculateTHD(double const fundamentalFrequency, int const first
         if (bin >= 0 && bin < maxBin)
         {
             double peak = interpolatePeak(bin);
+#if JUCE_DEBUG
             double peakDb = Decibels::gainToDecibels(peak, -100.0);
+#endif
             DBG("harmonicOrder " << harmonicOrder << " bin:" << bin << "  peak:" << peak);
             DBG("    peak:" + Decibels::toString(peakDb));
             
@@ -274,7 +276,9 @@ double Spectrum::calculateTHD(double const fundamentalFrequency, int const first
         {
             //double peak = interpolatePeak(bin);
             double peak = getBin(bin);
+#if JUCE_DEBUG
             double peakDb = Decibels::gainToDecibels(peak, -100.0);
+#endif
             DBG("harmonicOrder " << harmonicOrder << " bin:" << bin << "  peak:" << peak);
             DBG("    peak:" + Decibels::toString(peakDb));
             
