@@ -1,7 +1,7 @@
 #include "../base.h"
+#if JUCE_MAC
 #include <IOKit/IOKitLib.h>
 
-#if JUCE_MAC
 String const getMacModelID()
 {
     io_service_t service = IOServiceGetMatchingService(kIOMasterPortDefault,

@@ -1,4 +1,5 @@
 #include "../base.h"
+#if JUCE_MAC
 #include "ehwlist.h"
 
 ehwlist::ehwlist(int num_vendor_ids,uint32 *vendor_ids,CriticalSection *lock,FileLogger *logger)
@@ -208,3 +209,4 @@ void ehwlist::PostChangeMessage(int code, ehw *device)
         _listeners[index]->postMessage(msg);
     }
 }
+#endif

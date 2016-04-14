@@ -23,7 +23,7 @@ typedef unsigned __int8 byte;
 #endif
 #include "tusbaudioapi.h"
 #include "../Session.h"
-#include "../hwcaps.h"
+#include "../../hwcaps.h"
 #if ACOUSTICIO_BUILD
 #include "../../../Description.h"
 #include "../../../calibration/CalibrationData.h"
@@ -282,6 +282,11 @@ public:
 	static uint32 PanFloatToEfc(float pan);
 	static float EfcToPanFloat(uint32 pan);
 	static float PanFloatToDb(float pan);
+
+	int64 getMaxRequestTicks() const
+	{
+		return 0;
+	}
 
 protected:
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (ehw)

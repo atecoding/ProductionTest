@@ -1,4 +1,5 @@
 #include "../base.h"
+#if JUCE_MAC
 #include "Printer.h"
 
 const String PrinterName("Brother_QL_710W");
@@ -28,3 +29,4 @@ Result Printer::printInternal(String const text)
     
     return result;
 }
+#endif

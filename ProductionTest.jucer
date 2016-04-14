@@ -6,6 +6,7 @@
   <MAINGROUP id="Mk5otN" name="ProductionTest">
     <GROUP id="{E9A05292-FEF7-4257-AC75-42216E5E514F}" name="Source">
       <GROUP id="{94AC4CC4-34ED-C307-E5E3-BC82C3D197C5}" name="AIO">
+        <FILE id="RWhwAf" name="AcousticIO.h" compile="0" resource="0" file="Source/AcousticIO.h"/>
         <FILE id="msK25x" name="Description.cpp" compile="1" resource="0" file="Source/Description.cpp"/>
         <FILE id="FSthzO" name="Description.h" compile="0" resource="0" file="Source/Description.h"/>
         <FILE id="V4Yifk" name="DescriptionAIO.cpp" compile="1" resource="0"
@@ -63,8 +64,6 @@
         <FILE id="dn1oEs" name="ehw_osx.cpp" compile="1" resource="0" file="Source/OSX/ehw_osx.cpp"/>
         <FILE id="J9LCkN" name="ehwlist.h" compile="0" resource="0" file="Source/OSX/ehwlist.h"/>
         <FILE id="QH9GIk" name="ehwlist_osx.cpp" compile="1" resource="0" file="Source/OSX/ehwlist_osx.cpp"/>
-        <FILE id="wYB5x0" name="hwcaps.cpp" compile="1" resource="0" file="Source/OSX/hwcaps.cpp"/>
-        <FILE id="ynpkWj" name="hwcaps.h" compile="0" resource="0" file="Source/OSX/hwcaps.h"/>
         <FILE id="Xkdbco" name="osx.cpp" compile="1" resource="0" file="Source/OSX/osx.cpp"/>
         <FILE id="uisSHN" name="osx.h" compile="0" resource="0" file="Source/OSX/osx.h"/>
         <FILE id="yzOuyV" name="Printer_osx.cpp" compile="1" resource="0" file="Source/OSX/Printer_osx.cpp"/>
@@ -159,7 +158,38 @@
         <FILE id="ZNceng" name="xml.cpp" compile="1" resource="0" file="Source/xml.cpp"/>
         <FILE id="m868T3" name="xml.h" compile="0" resource="0" file="Source/xml.h"/>
       </GROUP>
-      <GROUP id="{25902976-11FD-1236-7ED5-EFFFD08D9534}" name="Win32"/>
+      <GROUP id="{25902976-11FD-1236-7ED5-EFFFD08D9534}" name="Win32">
+        <GROUP id="{D01070B8-94C1-D6C7-6643-F56B75CF7DF1}" name="usb">
+          <GROUP id="{A3E0CB8B-429C-B56C-49F5-B9DAF2307F0B}" name="win">
+            <FILE id="VkzxXJ" name="ehw.cpp" compile="1" resource="0" file="Source/Win32/usb/win/ehw.cpp"/>
+            <FILE id="YcMvO3" name="ehw.h" compile="0" resource="0" file="Source/Win32/usb/win/ehw.h"/>
+            <FILE id="SaNYIq" name="SampleRateBroadcaster.cpp" compile="1" resource="0"
+                  file="Source/Win32/usb/win/SampleRateBroadcaster.cpp"/>
+            <FILE id="rgqnec" name="SampleRateBroadcaster.h" compile="0" resource="0"
+                  file="Source/Win32/usb/win/SampleRateBroadcaster.h"/>
+            <FILE id="xFApxv" name="tstatus_codes.h" compile="0" resource="0" file="Source/Win32/usb/win/tstatus_codes.h"/>
+            <FILE id="dDwtEb" name="tstatus_codes_ex.h" compile="0" resource="0"
+                  file="Source/Win32/usb/win/tstatus_codes_ex.h"/>
+            <FILE id="GEDIXP" name="tusbaudio_defs.h" compile="0" resource="0"
+                  file="Source/Win32/usb/win/tusbaudio_defs.h"/>
+            <FILE id="pXJQAH" name="tusbaudioapi.h" compile="0" resource="0" file="Source/Win32/usb/win/tusbaudioapi.h"/>
+            <FILE id="IMfHvu" name="tusbaudioapi_defs.h" compile="0" resource="0"
+                  file="Source/Win32/usb/win/tusbaudioapi_defs.h"/>
+          </GROUP>
+          <FILE id="IZxn7u" name="ehwlist_usb.cpp" compile="1" resource="0" file="Source/Win32/usb/ehwlist_usb.cpp"/>
+          <FILE id="Jz7hgx" name="Session.h" compile="0" resource="0" file="Source/Win32/usb/Session.h"/>
+        </GROUP>
+        <FILE id="AUgRGC" name="AIOTestAdapter_win.cpp" compile="1" resource="0"
+              file="Source/Win32/AIOTestAdapter_win.cpp"/>
+        <FILE id="nmaDsC" name="CDevChange.cpp" compile="1" resource="0" file="Source/Win32/CDevChange.cpp"/>
+        <FILE id="ifvWEF" name="CDevChange.h" compile="0" resource="0" file="Source/Win32/CDevChange.h"/>
+        <FILE id="dCvLi2" name="NotificationWindow.cpp" compile="1" resource="0"
+              file="Source/Win32/NotificationWindow.cpp"/>
+        <FILE id="F2hAHd" name="NotificationWindow.h" compile="0" resource="0"
+              file="Source/Win32/NotificationWindow.h"/>
+        <FILE id="wp9V0K" name="Printer_win32.cpp" compile="1" resource="0"
+              file="Source/Win32/Printer_win32.cpp"/>
+      </GROUP>
       <FILE id="VcY46v" name="App.cpp" compile="1" resource="0" file="Source/App.cpp"/>
       <FILE id="gPK3oZ" name="App.h" compile="0" resource="0" file="Source/App.h"/>
       <FILE id="FBppSU" name="AudioOutput.cpp" compile="1" resource="0" file="Source/AudioOutput.cpp"/>
@@ -167,6 +197,8 @@
       <FILE id="apTcZ6" name="base.h" compile="0" resource="0" file="Source/base.h"/>
       <FILE id="wuy3Lt" name="ErrorCodes.cpp" compile="1" resource="0" file="Source/ErrorCodes.cpp"/>
       <FILE id="mJrBhJ" name="ErrorCodes.h" compile="0" resource="0" file="Source/ErrorCodes.h"/>
+      <FILE id="tgnLKm" name="hwcaps.cpp" compile="1" resource="0" file="Source/hwcaps.cpp"/>
+      <FILE id="kDINxo" name="hwcaps.h" compile="0" resource="0" file="Source/hwcaps.h"/>
       <FILE id="pr8iKy" name="ProductionUnit.cpp" compile="1" resource="0"
             file="Source/ProductionUnit.cpp"/>
       <FILE id="WRoVni" name="ProductionUnit.h" compile="0" resource="0"
@@ -196,20 +228,20 @@
     <VS2015 targetFolder="Builds/VisualStudio2015" extraDefs="ACOUSTICIO_BUILD=1">
       <CONFIGURATIONS>
         <CONFIGURATION name="Debug" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
-                       isDebug="1" optimisation="1" targetName="ProductionTest"/>
+                       isDebug="1" optimisation="1" targetName="ProductionTest" headerPath="../../Source/win32/usb/win&#10;../../Source/win32/usb&#10;../../Source/win32"/>
         <CONFIGURATION name="Release" winWarningLevel="4" generateManifest="1" winArchitecture="32-bit"
-                       isDebug="0" optimisation="3" targetName="ProductionTest"/>
+                       isDebug="0" optimisation="3" targetName="ProductionTest" headerPath="../../Source/win32/usb/win&#10;../../Source/win32/usb&#10;../../Source/win32"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_core" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_events" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_graphics" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_data_structures" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_gui_basics" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_basics" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_devices" path="../../JUCE/modules"/>
-        <MODULEPATH id="juce_audio_formats" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_core" path="\JUCE\modules"/>
+        <MODULEPATH id="juce_events" path="\JUCE\modules"/>
+        <MODULEPATH id="juce_graphics" path="\JUCE\modules"/>
+        <MODULEPATH id="juce_data_structures" path="\JUCE\modules"/>
+        <MODULEPATH id="juce_gui_basics" path="\JUCE\modules"/>
+        <MODULEPATH id="juce_gui_extra" path="\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_basics" path="\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_devices" path="\JUCE\modules"/>
+        <MODULEPATH id="juce_audio_formats" path="\JUCE\modules"/>
       </MODULEPATHS>
     </VS2015>
   </EXPORTFORMATS>

@@ -1,4 +1,5 @@
 #include "../base.h"
+#if JUCE_MAC
 #include "ehw.h"
 #include "ehwlist.h"
 #include "../AcousticIO.h"
@@ -574,4 +575,4 @@ Result ehw::writeMikey(uint8 module, uint8 page, uint8 address, uint8 value)
     }
     return Result::fail("Failed to write MB register");
 }
-
+#endif

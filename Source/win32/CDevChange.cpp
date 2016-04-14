@@ -154,11 +154,13 @@ void CDevChangeNotify::Win32MessageReceived(UINT uMsg,WPARAM wParam,LPARAM lPara
 					//
 					// Verify that the device has disconnected
 					//
+#if 0
 					if (0 == dev->updatepolledstuff())
 					{
 						DBG("Device is still connected");
 						return;
 					}
+#endif
 
 					//
 					// Remove this PnP ID from the device list

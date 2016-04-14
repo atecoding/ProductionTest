@@ -11,7 +11,7 @@
 #include "../../../base.h"
 #include "ehw.h"
 #include "ehwlist.h"
-#include "hwcaps.h"
+#include "../hwcaps.h"
 #include "NotificationWindow.h"
 
 #ifdef ECHO2_BUILD

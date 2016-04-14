@@ -1,4 +1,4 @@
-#if ACOUSTICIO_BUILD
+#if ACOUSTICIO_BUILD && JUCE_MAC
 
 #include "../base.h"
 #include "../AIOTestAdapter.h"
