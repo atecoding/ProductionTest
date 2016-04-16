@@ -437,7 +437,7 @@ void Content::FinishTests(bool pass,bool skipped)
 
 	if (application->testManager->getNumLoops())
 	{
-		if (application->testManager->currentLoop < application->testManager->getNumLoops())
+		if (application->testManager->currentLoop < application->testManager->getNumLoops()-1)
 		{
             application->testManager->currentLoop++;
 			startButton.triggerClick();

@@ -28,7 +28,10 @@ Test::Test(XmlElement *xe,bool &ok, ProductionUnit* unit_) :
 	if (application->testManager->getNumLoops())
 	{
         int currentLoop = application->testManager->currentLoop;
-        title += String::formatted(" - loop %d/%d", currentLoop + 1, application->testManager->getNumLoops());
+		if (title.isNotEmpty())
+		{
+			title += String::formatted(" - loop %d/%d", currentLoop + 1, application->testManager->getNumLoops());
+		}
 	}
 
 	getIntValue(xe,T("input"),input);
