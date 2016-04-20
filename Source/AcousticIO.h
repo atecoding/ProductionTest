@@ -7,6 +7,27 @@
 
 //======================================================================================
 //
+// USB interface module detection
+//
+// To detect the interface module version, read the bcdDevice field from the USB
+// device descriptor.  Apply ECHOAIO_INTERFACE_MODULE_BCDDEVICE_MASK with a bitwise and; 
+// the remaing bits indicate the interface module revision.
+//
+//======================================================================================
+
+#define ECHOAIO_INTERFACE_MODULE_BCDDEVICE_MASK 0xf000
+
+enum
+{
+	ECHOAIO_INTERFACE_MODULE_REV1 = 0x0000,	// Original interface module for 2014 and 2015
+											// XMOS XCore XS1 processor
+	ECHOAIO_INTERFACE_MODULE_REV2 = 0x3000	// Interface module introduced for 2016
+											// Supports 192 kHz, full calibration, USB sync
+											// XMOS Xcore200 XE216 processor
+};
+
+//======================================================================================
+//
 // USB controls
 //
 //======================================================================================
@@ -23,14 +44,26 @@ enum
 	ACOUSTICIO_AMP_GAIN_CONTROL,
 	ACOUSTICIO_TEDS_DATA_CONTROL,		// read-only
 	ACOUSTICIO_PEAK_METERS_CONTROL,		// read-only
-
-	//
-	// These controls are present in firmware version 0x70 or later
-	//
+	
+    //
+    // These controls are present in firmware version 0x70 or later
+    //
 	ACOUSTICIO_CALIBRATION_VOLTAGE_CONTROL,
 	ACOUSTICIO_CALIBRATION_DATA_CONTROL,
 	ACOUSTICIO_FLASH_BLOCK_CONTROL,
-	ACOUSTICIO_MODULE_TYPE_CONTROL
+    ACOUSTICIO_MODULE_TYPE_CONTROL,
+
+    //
+    // Controls for interface module version 2 (200 series processor)
+    //
+    ACOUSTICIO_CLOCK_SOURCE_CONTROL,
+    ACOUSTICIO_USB_CLOCK_RATE_CONTROL,
+
+	//
+	// Split output and input meter read commands
+	//
+	ACOUSTICIO_OUTPUT_PEAK_METERS_CONTROL = 0xa0,
+	ACOUSTICIO_INPUT_PEAK_METERS_CONTROL
 };
 
 
@@ -66,7 +99,6 @@ enum
 // Valid gain values are 1, 10, and 100
 //
 
-
 //
 // ACOUSTICIO_CONSTANT_CURRENT_CONTROL
 //
@@ -76,7 +108,6 @@ enum
 //
 // 1 for constant current enabled, 0 for disabled
 //
-
 
 //
 // ACOUSTICIO_AMP_GAIN_CONTROL
@@ -93,7 +124,6 @@ enum
 	ACOUSTICIO_AMP_GAIN_10V_P2P = 255
 };
 
-
 //
 // ACOUSTICIO_TEDS_DATA_CONTROL
 //
@@ -106,7 +136,6 @@ enum
 {
 	ACOUSTICIO_TEDS_DATA_BYTES = 128
 };
-
 
 //
 // ACOUSTICIO_PEAK_METERS
@@ -121,7 +150,6 @@ enum
 {
 	ACOUSTICIO_PEAK_METER_BYTES = 48
 };
-
 
 //
 // ACOUSTICIO_CALIBRATION_VOLTAGE_CONTROL
@@ -157,7 +185,6 @@ typedef struct _AcousticIOCalibrationData
 
 #define ACOUSTICIO_CRC32_POLYNOMIAL 0xEDB88320
 
-
 //
 // ACOUSTICIO_FLASH_BLOCK_CONTROL
 //
@@ -183,13 +210,26 @@ typedef struct _AcousticIOCalibrationData
 //
 enum
 {
-	ACOUSTICIO_MODULE_NOT_PRESENT = 0,
-	ACOUSTICIO_ANALOG_MODULE,
-	ACOUSTICIO_SPKRMON_MODULE,
-    ACOUSTICIO_MIKEYBUS_MODULE
+    ACOUSTICIO_MODULE_NOT_PRESENT = 0,
+    ACOUSTICIO_ANALOG_MODULE,
+    ACOUSTICIO_SPKRMON_MODULE,
+	ACOUSTICIO_MIKEYBUS_MODULE,
+	ACOUSTICIO_LINE_MODULE
 };
 
+#define AIO_TYPE_MA  (ACOUSTICIO_MIKEYBUS_MODULE << 4 | ACOUSTICIO_ANALOG_MODULE)
+#define AIO_TYPE_MM  (ACOUSTICIO_MIKEYBUS_MODULE << 4 | ACOUSTICIO_MIKEYBUS_MODULE)
+
 #define ACOUSTICIO_MODULE_TYPE_CONTROL_MIN_FIRMWARE_VERSION 0x0070
+
+//
+// ACOUSTICIO_CLOCK_SOURCE_CONTROL
+//
+enum
+{
+    ACOUSTICIO_INTERNAL_CLOCK = 1,
+    ACOUSTICIO_USB_CLOCK
+};
 
 
 //======================================================================================
@@ -218,14 +258,41 @@ typedef struct _AcousticIOCalibrationIndex
 
 //======================================================================================
 //
-// AIO-S channel numbers for integrated speaker monitor
+// AIO channel numbers for analog module
 //
-// AIO-S module should be in the center module slot
+//======================================================================================
+
+#define AIO_MIC1_INPUT_CHANNEL			0
+#define AIO_MIC2_INPUT_CHANNEL			1
+#define AIO_MIC3_INPUT_CHANNEL			2
+#define AIO_MIC4_INPUT_CHANNEL			3
+#define AIO_MIC5_INPUT_CHANNEL			4
+#define AIO_MIC6_INPUT_CHANNEL			5
+#define AIO_MIC7_INPUT_CHANNEL			6
+#define AIO_MIC8_INPUT_CHANNEL			7
+#define AIO_AMP1_OUTPUT_CHANNEL			0
+#define AIO_AMP2_OUTPUT_CHANNEL			1
+#define AIO_AMP3_OUTPUT_CHANNEL			2
+#define AIO_AMP4_OUTPUT_CHANNEL			3
+
+
+//======================================================================================
+//
+// AIO channel numbers for AIO-S module
 //
 //======================================================================================
 
 #define AIOS_VOLTAGE_INPUT_CHANNEL 2
 #define AIOS_CURRENT_INPUT_CHANNEL 3
 #define AIOS_VOLTAGE_OUTPUT_CHANNEL 0
+
+#define AIOS_VOLTAGE_INPUT_CHANNEL_A	2
+#define AIOS_CURRENT_INPUT_CHANNEL_A	3
+#define AIOS_VOLTAGE_INPUT_CHANNEL_B	6
+#define AIOS_CURRENT_INPUT_CHANNEL_B	7
+#define AIOS_VOLTAGE_OUTPUT_CHANNEL_A	0
+#define AIOS_AMP1_OUTPUT_CHANNEL_A		1
+#define AIOS_VOLTAGE_OUTPUT_CHANNEL_B	2
+#define AIOS_AMP3_OUTPUT_CHANNEL_B		3
 
 #endif

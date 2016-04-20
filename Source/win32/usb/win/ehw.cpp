@@ -1732,6 +1732,90 @@ Result ehw::setConstantCurrent(uint8 const input, uint8 const enabled)
 	return Result::fail(error);
 }
 
+Result ehw::setClockSource(XmlElement const *element)
+{
+	String tmp;
+	if (false == element->hasAttribute("source"))
+	{
+		Result error(Result::fail("AIO_set_clock_source missing 'source' setting"));
+
+		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
+			error.getErrorMessage(), false);
+		return error;
+	}
+
+	tmp = element->getStringAttribute("source");
+	if (tmp == "internal")
+		return setClockSource(ACOUSTICIO_INTERNAL_CLOCK);
+	else if (tmp == "USB")
+		return setClockSource(ACOUSTICIO_USB_CLOCK);
+	else
+	{
+		Result error(Result::fail("AIO_set_clock_source missing 'USB' or 'internal' as source"));
+
+		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
+			error.getErrorMessage(), false);
+		return error;
+	}
+}
+
+Result ehw::setClockSource(uint8 source)
+{
+	TUsbAudioStatus status;
+
+	status = TUSBAUDIO_AudioControlRequestSet(handle,
+		ACOUSTICIO_EXTENSION_UNIT,	// unit ID
+		CUR,
+		ACOUSTICIO_CLOCK_SOURCE_CONTROL,
+		0,
+		(void *)&source,
+		1,
+		NULL,
+		COMMAND_TIMEOUT_MSEC);
+	if (TSTATUS_SUCCESS == status)
+		return Result::ok();
+
+	String error("Failed to set clock source");
+	error += " - error " + String::toHexString((int32)status);
+	return Result::fail(error);
+}
+
+Result ehw::setUSBClockRate(XmlElement const *element)
+{
+	if (false == element->hasAttribute("rate"))
+	{
+		Result error(Result::fail("AIO_set_USB_clock_rate missing 'source' setting"));
+
+		AlertWindow::showNativeDialogBox(JUCEApplication::getInstance()->getApplicationName(),
+			error.getErrorMessage(), false);
+		return error;
+	}
+
+	unsigned int rate = element->getIntAttribute("rate", 0);
+	return setUSBClockRate(rate);
+}
+
+Result ehw::setUSBClockRate(unsigned int rate)
+{
+	TUsbAudioStatus status;
+
+	status = TUSBAUDIO_AudioControlRequestSet(handle,
+		ACOUSTICIO_EXTENSION_UNIT,	// unit ID
+		CUR,
+		ACOUSTICIO_USB_CLOCK_RATE_CONTROL,
+		0,
+		(void *)&rate,
+		4,
+		NULL,
+		COMMAND_TIMEOUT_MSEC);
+	if (TSTATUS_SUCCESS == status)
+		return Result::ok();
+
+	String error("Failed to set USB clock rate");
+	error += " - error " + String::toHexString((int32)status);
+	return Result::fail(error);
+}
+
 Result ehw::readTEDSData(uint8 const input, uint8* data, size_t dataBufferBytes)
 {
 	TUsbAudioStatus status;

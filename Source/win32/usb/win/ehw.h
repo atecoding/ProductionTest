@@ -250,6 +250,10 @@ public:
 	Result setAmpGain(XmlElement const *element);
 	Result setConstantCurrent(XmlElement const *element);
 	Result setConstantCurrent(uint8 const input, uint8 const enabled);
+	Result setClockSource(XmlElement const *element);
+	Result setClockSource(uint8 source);
+	Result setUSBClockRate(XmlElement const *element);
+	Result setUSBClockRate(unsigned int rate);
 	Result readTEDSData(uint8 const input, uint8* data, size_t dataBufferBytes);
 	Result setAIOSReferenceVoltage(XmlElement const *element);
 	Result setAIOSReferenceVoltage(int const module, bool const enabled);

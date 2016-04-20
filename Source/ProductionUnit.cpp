@@ -1090,18 +1090,46 @@ void ProductionUnit::ParseScript()
 		if (_script->hasTagName("AIO_set_constant_current"))
 		{
 			Result result(_dev->setConstantCurrent(_script));
-            
-            if (result.failed())
-            {
-                _content->log(String::empty);
-                _content->log(result.getErrorMessage());
-            }
+
+			if (result.failed())
+			{
+				_content->log(String::empty);
+				_content->log(result.getErrorMessage());
+			}
 
 			_script = _script->getNextElement();
 			continue;
 		}
-        
-        if (_script->hasTagName("AIOS_set_reference_voltage"))
+
+		if (_script->hasTagName("AIO_set_clock_source"))
+		{
+			Result result(_dev->setClockSource(_script));
+
+			if (result.failed())
+			{
+				_content->log(String::empty);
+				_content->log(result.getErrorMessage());
+			}
+
+			_script = _script->getNextElement();
+			continue;
+		}
+
+		if (_script->hasTagName("AIO_set_USB_clock_rate"))
+		{
+			Result result(_dev->setUSBClockRate(_script));
+
+			if (result.failed())
+			{
+				_content->log(String::empty);
+				_content->log(result.getErrorMessage());
+			}
+
+			_script = _script->getNextElement();
+			continue;
+		}
+
+		if (_script->hasTagName("AIOS_set_reference_voltage"))
         {
             Result result(_dev->setAIOSReferenceVoltage(_script));
             

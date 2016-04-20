@@ -16,8 +16,8 @@
 	<show_yes_no>1</show_yes_no>
 	<log>LED Test</log>
     </message_box>
+    <AIO_firmware_version_test min_version="0x2002"/>
 
-    <AIO_firmware_version_test min_version="0x2002" max_version="0x3000" />
 
     <AIO_module_type_test>
       <slot>0</slot>
@@ -32,7 +32,9 @@
       <type>3</type>
       <!-- type 3 == AMB module -->
     </AIO_module_type_test>
-    
+
+    <AIO_flash_memory_test />
+
     <!-- *************************************************
      
      MB power supply check

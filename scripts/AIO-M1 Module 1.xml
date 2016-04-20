@@ -10,11 +10,16 @@
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO-M1</CoreAudio_driver>
 
+    <AIO_set_USB_clock_rate rate="44100" />
+    <AIO_set_clock_source source="USB" />
+
     <message_box>
 	Is the blue LED lit?
 	<show_yes_no>1</show_yes_no>
 	<log>LED Test</log>
     </message_box>
+
+    <AIO_set_clock_source source="internal" />
 
     <AIO_firmware_version_test min_version="0x1000" />
 
