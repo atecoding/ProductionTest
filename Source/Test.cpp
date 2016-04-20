@@ -37,12 +37,22 @@ Test::Test(XmlElement *xe,bool &ok, ProductionUnit* unit_) :
 	getIntValue(xe,T("input"),input);
 	getIntValue(xe,T("output"),output);
 	getIntValue(xe,T("num_channels"),num_channels);
-
+	ok = getIntValue(xe, T("sample_rate_check"), sample_rate_check);
+	if (!ok)
+		sample_rate_check = 0;
 	ok = getIntValue(xe,T("sample_rate"),sample_rate);
 	ok &= getFloatValue(xe,T("output_amplitude_db"),output_amplitude_db);
 
-	minSampleRate = sample_rate * 0.94f;
-	maxSampleRate = sample_rate * 1.06f;
+	if(sample_rate_check != 0)
+	{
+		minSampleRate = sample_rate_check * 0.94f;
+		maxSampleRate = sample_rate_check * 1.06f;
+	}
+	else
+	{
+		minSampleRate = sample_rate * 0.94f;
+		maxSampleRate = sample_rate * 1.06f;
+	}
 	getFloatValue(xe, "min_sample_rate", minSampleRate);
 	getFloatValue(xe, "max_sample_rate", maxSampleRate);
     
@@ -128,6 +138,9 @@ Test *Test::Create(XmlElement *xe, int input, int output, bool &ok, ProductionUn
         
         if (typeString == "Frequency isolation")
             test = new FrequencyIsolationTest(xe, ok, unit_);
+
+		if (typeString == "USB sync")
+			test = new USBSyncTest(xe, ok, unit_);
 	}
 
 	if (test)

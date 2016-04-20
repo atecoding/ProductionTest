@@ -30,6 +30,7 @@ public:
 	int output;
 	int num_channels;
 	int sample_rate;
+	int sample_rate_check;
 	float output_amplitude_db;	
 	float output_frequency;
 	float pass_threshold_db;
@@ -133,7 +134,16 @@ public:
 
 	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg, ErrorCodes &errorCodes);
 
-    float peakRejectThresholdDb;
+	float peakRejectThresholdDb;
+};
+
+class USBSyncTest : public Test
+{
+public:
+	USBSyncTest(XmlElement *xe, bool &ok, ProductionUnit *unit_);
+	~USBSyncTest();
+
+	bool calc(OwnedArray<AudioSampleBuffer> &buffs, String &msg, ErrorCodes &errorCodes);
 };
 
 class RelativeLevelTest : public Test

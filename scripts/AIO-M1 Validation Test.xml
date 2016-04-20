@@ -1,22 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <root>
   
-  <!-- **************************************************** -->
+    <!-- **************************************************** -->
 	<!-- Echo AIO                                    -->
 	<!-- **************************************************** -->
+    
 	<device>
     AIO-M1
     <Require_AIO_Test_Adapter>true</Require_AIO_Test_Adapter>
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO-M1</CoreAudio_driver>
 
-    <message_box>
-	Is the blue LED lit?
-	<show_yes_no>1</show_yes_no>
-	<log>LED Test</log>
-    </message_box>
-
-    <AIO_firmware_version_test min_version="0x1000" />
+    <AIO_firmware_version_test min_version="0x3000" />
 
     <AIO_module_type_test>
       <slot>0</slot>
@@ -32,9 +27,9 @@
       <!-- type 3 == AMB module -->
     </AIO_module_type_test>
 
-    <message_box>Connect the Test Adapter to Inputs 1-4</message_box>
-
     <AIOS_clear_RAM_calibration />
+
+    <AIO_flash_memory_test />
 
     <!-- Check constant current voltage and current -->
 
@@ -87,6 +82,8 @@
 
     <AIO_TEDS_test input="0" />
 
+    <AIO_TEDS_test input="0" />
+
     <!-- Test USB synchronized clock source -->
 
     <prompt>
@@ -134,7 +131,7 @@
     </test>
 
     <!-- Run a few tests us USB clock and then set back to internal -->
-    
+
     <!-- Test gain settings for inputs and outputs -->
 
     <AIO_write_test_adapter byte="0x30"/> <!-- set adapter for audio measurements-->
@@ -146,20 +143,6 @@
 
     <AIO_set_amp_gain output="0" gain="1" />
     <AIO_set_amp_gain output="1" gain="1" />
-
-    <prompt>
-      Input and Output Gains 1-4
-      <text>Check levels for gain settings 1-4</text>
-      <output_amplitude_db>-20.0</output_amplitude_db>
-      <input>0</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <min_input_db>-200.0</min_input_db>
-      <max_input_db>0.0</max_input_db>
-      <wait_for_user>0</wait_for_user>
-      <start_group>1</start_group>
-    </prompt>
 
     <test>
       1x Input - 1x Output Level Check 1-2
@@ -418,6 +401,226 @@
       <last_channel>3</last_channel>
       <codes>0 1 2 4 5 6</codes>
     </Print_error_codes>
+
+    <Finish_group/>
+
+<!-- *************************************************
+ 
+ MB power supply check
+ 
+ ****************************************************** -->
+
+<!-- *************************************************
+ 
+ External MB test - outer module
+ 
+ Configure MB host chip and AIO-M test adapter
+ 
+ ****************************************************** -->
+
+
+<Delay_msec>1000</Delay_msec>
+
+<AIO_mikeybus module="1">
+    <write page="0x99" address="0x01" value="0xA5"/>
+    <write page="0x99" address="0x01" value="0x00"/>
+    
+    <write page="0x05" address="0x1E" value="0x10"/>
+    <write page="0x05" address="0x1E" value="0x00"/>
+    <write page="0x05" address="0x23" value="0x10"/>
+    <write page="0x05" address="0x23" value="0X00"/>
+    
+    <write page="0x05" address="0x33" value="0x2c"/>
+    <write page="0x05" address="0x34" value="0x2c"/>
+    <write page="0x05" address="0x35" value="0x2c"/>
+    <write page="0x05" address="0x36" value="0x2c"/>
+    <write page="0x05" address="0x37" value="0x2c"/>
+    <write page="0x05" address="0x38" value="0x2c"/>
+    <write page="0x05" address="0x39" value="0x2c"/>
+    <write page="0x05" address="0x3A" value="0x2c"/>
+    <write page="0x05" address="0x3B" value="0x2c"/>
+    <write page="0x05" address="0x3C" value="0x2c"/>
+    
+    <write page="0x05" address="0x29" value="0x2c"/>
+    <write page="0x05" address="0x2A" value="0x2c"/>
+    <write page="0x05" address="0x2B" value="0x2c"/>
+    <write page="0x05" address="0x2C" value="0x2c"/>
+    <write page="0x05" address="0x2D" value="0x2c"/>
+    <write page="0x05" address="0x2E" value="0x2c"/>
+    <write page="0x05" address="0x2F" value="0x2c"/>
+    <write page="0x05" address="0x30" value="0x2c"/>
+    <write page="0x05" address="0x31" value="0x2c"/>
+    <write page="0x05" address="0x32" value="0x2c"/>
+    
+    <write page="0x01" address="0x15" value="0x26"/>
+    <write page="0x01" address="0x16" value="0x27"/>
+    <write page="0x01" address="0x17" value="0x29"/>
+    <write page="0x01" address="0x18" value="0x2a"/>
+    <write page="0x01" address="0x19" value="0x2b"/>
+    <write page="0x01" address="0x1A" value="0x2d"/>
+    <write page="0x01" address="0x1B" value="0x2e"/>
+    <write page="0x01" address="0x1C" value="0x2f"/>
+    <write page="0x01" address="0x1D" value="0x31"/>
+    <write page="0x01" address="0x1E" value="0x32"/>
+    
+    <write page="0x00" address="0x14" value="0x00"/>
+    <write page="0x00" address="0x15" value="0x03"/>
+    <write page="0x00" address="0x16" value="0x06"/>
+    <write page="0x00" address="0x17" value="0x09"/>
+    <write page="0x00" address="0x18" value="0x0c"/>
+    <write page="0x00" address="0x19" value="0x0f"/>
+    <write page="0x00" address="0x1a" value="0x13"/>
+    <write page="0x00" address="0x1b" value="0x16"/>
+    <write page="0x00" address="0x1c" value="0x19"/>
+    <write page="0x00" address="0x1d" value="0x1c"/>
+    
+    <write page="0x00" address="0x1e" value="0xff"/>
+    <write page="0x00" address="0x1f" value="0xff"/>
+    <write page="0x00" address="0x20" value="0xff"/>
+    <write page="0x00" address="0x21" value="0xff"/>
+    
+    <write page="0x00" address="0x22" value="0x40"/>
+    <write page="0x00" address="0x23" value="0x43"/>
+    <write page="0x00" address="0x24" value="0x46"/>
+    <write page="0x00" address="0x25" value="0x49"/>
+    <write page="0x00" address="0x26" value="0x4c"/>
+    <write page="0x00" address="0x27" value="0x4f"/>
+    <write page="0x00" address="0x28" value="0x53"/>
+    <write page="0x00" address="0x29" value="0x56"/>
+    <write page="0x00" address="0x2a" value="0x59"/>
+    <write page="0x00" address="0x2b" value="0x5c"/>
+    
+    <write page="0x01" address="0x0b" value="0x19"/>
+    <write page="0x01" address="0x0c" value="0x1a"/>
+    <write page="0x01" address="0x0d" value="0x1b"/>
+    <write page="0x01" address="0x0e" value="0x1d"/>
+    <write page="0x01" address="0x0f" value="0x1e"/>
+    <write page="0x01" address="0x10" value="0x1f"/>
+    <write page="0x01" address="0x11" value="0x21"/>
+    <write page="0x01" address="0x12" value="0x22"/>
+    <write page="0x01" address="0x13" value="0x23"/>
+    <write page="0x01" address="0x14" value="0x25"/>
+    <write page="0x00" address="0x11" value="0xc0"/>
+    <write page="0x00" address="0x12" value="0x0c"/>
+    
+    
+    <write page="0x00" address="0x06" value="0x20"/>
+    <write page="0x04" address="0x01" value="0x10"/>
+    <write page="0x04" address="0x02" value="0x01"/>
+    <write page="0x04" address="0x03" value="0x03"/>
+    <write page="0x04" address="0x04" value="0x02"/>
+    <write page="0x04" address="0x07" value="0xfe"/>
+    <write page="0x04" address="0x08" value="0x00"/>
+    <write page="0x04" address="0x09" value="0xA0"/>
+    <write page="0x04" address="0x25" value="0x09"/>
+    <write page="0x04" address="0x26" value="0x00"/>
+    <write page="0x04" address="0x27" value="0x00"/>
+    <write page="0x04" address="0x28" value="0xff"/>
+    <write page="0x04" address="0x29" value="0x00"/>
+    <write page="0x04" address="0x2a" value="0xa0"/>
+    <write page="0x04" address="0x46" value="0x13"/>
+    <write page="0x04" address="0x47" value="0x00"/>
+    <write page="0x04" address="0x48" value="0x00"/>
+    <write page="0x04" address="0x01" value="0x12"/>
+    
+    
+    <bulk>0xff 0x04 0x03 0x00 0x02          </bulk>
+    <bulk>0xff 0x3 0x01 0x00                </bulk>
+    <bulk>0xff 0x04 0x03 0x07 0x04          </bulk>
+    <bulk>0xff 0x04 0x17 0x07 0x00          </bulk>
+    <bulk>0xff 0x04 0x1f 0x07 0x00          </bulk>
+    <bulk>0xff 0x04 0x03 0x06 0x00          </bulk>
+    <bulk>0xff 0x05 0x13 0x06 0x7e 0x7e     </bulk>
+    <bulk>0xff 0x04 0x53 0x03 0x0a          </bulk>
+    <bulk>0xff 0x04 0x53 0x04 0x0b          </bulk>
+    <bulk>0xff 0x04 0x53 0x05 0x0c          </bulk>
+    <bulk>0xff 0x04 0x03 0x03 0x14          </bulk>
+    <bulk>0xff 0x04 0x03 0x04 0x14          </bulk>
+    <bulk>0xff 0x04 0x03 0x05 0x14          </bulk>
+    
+    <bulk>0xff 0x04 0x13 0x03 0x00          </bulk>
+    <bulk>0xff 0x04 0x13 0x04 0x00          </bulk>
+    <bulk>0xff 0x04 0x13 0x05 0x00          </bulk>
+    
+    <bulk>0xff 0x06 0x53 0x0a 0x0d 0x0e 0x0f</bulk>
+    <bulk>0xff 0x04 0x03 0x0a 0x04          </bulk>
+    
+    <bulk>0xff 0x04 0x03 0x00 0x00          </bulk>
+    <bulk>0xff 0x04 0x2B 0x00 0x01          </bulk>
+    
+    <write page="0x04" address="0x01" value="0x10"/>
+    <write page="0x04" address="0x02" value="0x01"/>
+    <write page="0x04" address="0x03" value="0x09"/>
+    
+    <write page="0x04" address="0x04" value="0x14"/>
+    
+    <write page="0x04" address="0x07" value="0x00"/>
+    <write page="0x04" address="0x08" value="0x01"/>
+    <write page="0x04" address="0x09" value="0xe0"/>
+    <write page="0x04" address="0x0a" value="0x01"/>
+    <write page="0x04" address="0x0b" value="0x01"/>
+    <write page="0x04" address="0x0c" value="0xe0"/>
+    <write page="0x04" address="0x0d" value="0xfe"/>
+    <write page="0x04" address="0x0e" value="0x00"/>
+    <write page="0x04" address="0x0f" value="0xa0"/>
+    <write page="0x04" address="0x25" value="0x09"/>
+    <write page="0x04" address="0x26" value="0x00"/>
+    <write page="0x04" address="0x27" value="0x00"/>
+    <write page="0x04" address="0x28" value="0x0a"/>
+    <write page="0x04" address="0x29" value="0x01"/>
+    <write page="0x04" address="0x2a" value="0xe0"/>
+    <write page="0x04" address="0x2b" value="0x0b"/>
+    <write page="0x04" address="0x2c" value="0x01"/>
+    <write page="0x04" address="0x2d" value="0xe0"/>
+    <write page="0x04" address="0x2e" value="0x0c"/>
+    <write page="0x04" address="0x2f" value="0x01"/>
+    <write page="0x04" address="0x30" value="0xe0"/>
+    <write page="0x04" address="0x31" value="0x0d"/>
+    <write page="0x04" address="0x32" value="0x01"/>
+    <write page="0x04" address="0x33" value="0xe0"/>
+    <write page="0x04" address="0x34" value="0x0e"/>
+    <write page="0x04" address="0x35" value="0x01"/>
+    <write page="0x04" address="0x36" value="0xe0"/>
+    <write page="0x04" address="0x37" value="0x0f"/>
+    <write page="0x04" address="0x38" value="0x01"/>
+    <write page="0x04" address="0x39" value="0xe0"/>
+    <write page="0x04" address="0x3a" value="0xff"/>
+    <write page="0x04" address="0x3b" value="0x00"/>
+    <write page="0x04" address="0x3c" value="0xa0"/>
+    <write page="0x04" address="0x46" value="0x13"/>
+    <write page="0x04" address="0x47" value="0x00"/>
+    <write page="0x04" address="0x48" value="0x00"/>
+    <write page="0x04" address="0x01" value="0x12"/>
+</AIO_mikeybus>
+
+<!-- Outer module - External MB test -->
+<prompt>
+    MB External Test Outer Module
+    <text>Level check for exernal MB</text>
+    <output_amplitude_db>-20.0</output_amplitude_db>
+    <input>4</input>
+    <output>2</output>
+    <num_channels>2</num_channels>
+    <sample_rate>48000</sample_rate>
+    <min_input_db>-22.0</min_input_db>
+    <max_input_db>18.0</max_input_db>
+    <wait_for_user>0</wait_for_user>
+    <start_group>1</start_group>
+</prompt>
+
+<test>
+    <type>Frequency isolation</type>
+    <input>4</input>
+    <output>2</output>
+    <num_channels>2</num_channels>
+    <sample_rate>48000</sample_rate>
+    <output_frequency>984.375</output_frequency>
+    <output_amplitude_db>-6.0</output_amplitude_db>
+    <min_level_db>-12.0</min_level_db>
+    <max_level_db>-8.0</max_level_db>
+</test>
+
+<Finish_group/>
 
   </device>
 

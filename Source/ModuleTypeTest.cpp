@@ -10,9 +10,10 @@
 const char *moduleTypeNames[] =
 {
     "No module detected",
-    "TEDS + Class-D AMP module",
+    "AIO-A module",
     "AIO-S module",
-    "AMB module"
+	"AIO-M module",
+	"AIO-L module"
 };
 
 const char *slotNames[] =

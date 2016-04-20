@@ -1104,7 +1104,13 @@ void ProductionUnit::ParseScript()
 		if (_script->hasTagName("AIO_set_clock_source"))
 		{
 			Result result(_dev->setClockSource(_script));
-
+			if (result.ok())
+			{
+				_content->log(String::empty);
+				String tmp("Set Clock Source = ");
+				tmp += _script->getAttributeValue(0);
+				_content->log(tmp);
+			}
 			if (result.failed())
 			{
 				_content->log(String::empty);
@@ -1687,12 +1693,22 @@ Result ProductionUnit::CheckSampleRate()
 			return Result::ok();
 		}
 
-		String error("Sample rate " + String(audioDevice->getCurrentSampleRate(), 1) + " Hz\n");
-		error += "Measured sample rate " + String(measuredSampleRate, 1) + " Hz\n";
-		double ratio = measuredSampleRate / audioDevice->getCurrentSampleRate();
-		ratio *= 100.0;
-		error += "Ratio " + String(ratio, 3) + "%\n";
-		error += "Allowed " + String(_test->minSampleRate) + "/" + String(_test->maxSampleRate);
+		String error;
+		
+		if (0 == _test->sample_rate_check)
+		{
+			error = "\tSample rate " + String(audioDevice->getCurrentSampleRate(), 1) + " Hz\n";
+			error += "       Measured sample rate " + String(measuredSampleRate, 1) + " Hz\n";
+			double ratio = measuredSampleRate / audioDevice->getCurrentSampleRate();
+			ratio *= 100.0;
+			error += "       Ratio " + String(ratio, 3) + "%\n";
+			error += "       Allowed " + String(_test->minSampleRate) + "/" + String(_test->maxSampleRate);
+		}
+		else
+		{
+			error = "       Measured sample rate " + String(measuredSampleRate, 1) + " Hz\n";
+			error += "       Check PLL circuitry!";
+		}
 
 		return Result::fail(error);
 	}

@@ -155,6 +155,7 @@ copy ..\..\scripts\*.xml $(OutDir)</Command>
     <ClCompile Include="..\..\Source\Upsampler.cpp" />
     <ClCompile Include="..\..\Source\Spectrum.cpp" />
     <ClCompile Include="..\..\Source\SpectrumAnalyzer.cpp" />
+    <ClCompile Include="..\..\Source\USBSyncTest.cpp" />
     <ClCompile Include="..\..\Source\WindowedFFT.cpp" />
     <ClCompile Include="..\..\Source\Analysis.cpp" />
     <ClCompile Include="..\..\Source\CalibrationVerificationTest.cpp" />
