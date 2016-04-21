@@ -110,6 +110,7 @@ void AIOTestAdapter::findAdapters(IOHIDManagerRef &managerRef, CFSetRef &deviceC
                                         testAdapterDeviceRefs.objects.add(deviceRefs[i]);
                                         CFRetain(deviceRefs[i]);
                                         productIDs.add( productID_ );
+                                        break;
                                 }
                             }
                         }
