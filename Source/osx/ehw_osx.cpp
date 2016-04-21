@@ -471,20 +471,12 @@ Result ehw::setClockSource(XmlElement const *element)
 
 Result ehw::setClockSource(uint8 source)
 {
-	TUsbAudioStatus status;
-
-	status = TUSBAUDIO_AudioControlRequestSet(handle,
-		ACOUSTICIO_EXTENSION_UNIT,	// unit ID
-		CUR,
-		ACOUSTICIO_CLOCK_SOURCE_CONTROL,
-		(uint8)source,
-		NULL,
-		COMMAND_TIMEOUT_MSEC);
-	if (TSTATUS_SUCCESS == status)
-		return Result::ok();
+    IOReturn rc = getRequest(ACOUSTICIO_EXTENSION_UNIT, ACOUSTICIO_CLOCK_SOURCE_CONTROL, 0, &source, sizeof(source));
+    if (kIOReturnSuccess == rc)
+        return Result::ok();
 
 	String error("Failed to set clock source");
-	error += " - error " + String::toHexString((int32)status);
+	error += " - error " + String::toHexString((int32)rc);
 	return Result::fail(error);
 }
 
@@ -505,20 +497,12 @@ Result ehw::setUSBClockRate(XmlElement const *element)
 
 Result ehw::setUSBClockRate(unsigned int rate)
 {
-	TUsbAudioStatus status;
-
-	status = TUSBAUDIO_AudioControlRequestSet(handle,
-		ACOUSTICIO_EXTENSION_UNIT,	// unit ID
-		CUR,
-		ACOUSTICIO_USB_CLOCK_RATE_CONTROL,
-		(unsigned int)rate,
-		NULL,
-		COMMAND_TIMEOUT_MSEC);
-	if (TSTATUS_SUCCESS == status)
-		return Result::ok();
+    IOReturn rc = getRequest(ACOUSTICIO_EXTENSION_UNIT, ACOUSTICIO_USB_CLOCK_RATE_CONTROL, 0, (uint8 *)&rate, sizeof(rate));
+    if (kIOReturnSuccess == rc)
+        return Result::ok();
 
 	String error("Failed to set USB clock rate");
-	error += " - error " + String::toHexString((int32)status);
+	error += " - error " + String::toHexString((int32)rc);
 	return Result::fail(error);
 }
 

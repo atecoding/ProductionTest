@@ -1769,7 +1769,7 @@ Result ehw::setClockSource(uint8 source)
 		ACOUSTICIO_CLOCK_SOURCE_CONTROL,
 		0,
 		(void *)&source,
-		1,
+		sizeof(source),
 		NULL,
 		COMMAND_TIMEOUT_MSEC);
 	if (TSTATUS_SUCCESS == status)
@@ -1805,7 +1805,7 @@ Result ehw::setUSBClockRate(unsigned int rate)
 		ACOUSTICIO_USB_CLOCK_RATE_CONTROL,
 		0,
 		(void *)&rate,
-		4,
+		sizeof(rate),
 		NULL,
 		COMMAND_TIMEOUT_MSEC);
 	if (TSTATUS_SUCCESS == status)
