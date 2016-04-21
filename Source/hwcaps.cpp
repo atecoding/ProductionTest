@@ -21,16 +21,13 @@ int32 hwcaps::numbusin()
 {
 	switch (productId)
 	{
-	case ACOUSTICIO_PRODUCT_ID:
-    case ACOUSTICIO_XE216_PRODUCT_ID:
+	case AIO_PRODUCT_ID:
 		return 8;
             
-    case ACOUSTICIO_M1_PRODUCT_ID:
-    case ACOUSTICIO_MA_PRODUCT_ID:
+    case AIO_M1_PRODUCT_ID:
         return 14;
             
-    case ACOUSTICIO_M2_PRODUCT_ID:
-    case ACOUSTICIO_MM_PRODUCT_ID:
+    case AIO_M2_PRODUCT_ID:
         return 20;
 
 	case ANALYZERBR:
@@ -51,16 +48,13 @@ int32 hwcaps::numbusout()
 {
 	switch (productId)
 	{
-	case ACOUSTICIO_PRODUCT_ID:
-    case ACOUSTICIO_XE216_PRODUCT_ID:
+	case AIO_PRODUCT_ID:
 		return 4;
 
-    case ACOUSTICIO_M1_PRODUCT_ID:
-    case ACOUSTICIO_MA_PRODUCT_ID:
+    case AIO_M1_PRODUCT_ID:
         return 12;
         
-    case ACOUSTICIO_M2_PRODUCT_ID:
-    case ACOUSTICIO_MM_PRODUCT_ID:
+    case AIO_M2_PRODUCT_ID:
         return 20;
 
 	case ANALYZERBR:
@@ -81,16 +75,13 @@ int32 hwcaps::numplaychan(int /*samplerate*/)
 {
 	switch (productId)
 	{
-    case ACOUSTICIO_PRODUCT_ID:
-    case ACOUSTICIO_XE216_PRODUCT_ID:
+    case AIO_PRODUCT_ID:
 		return 4;
             
-    case ACOUSTICIO_M1_PRODUCT_ID:
-    case ACOUSTICIO_MA_PRODUCT_ID:
+    case AIO_M1_PRODUCT_ID:
         return 12;
        
-    case ACOUSTICIO_M2_PRODUCT_ID:
-    case ACOUSTICIO_MM_PRODUCT_ID:
+    case AIO_M2_PRODUCT_ID:
         return 20;
 	
     case ANALYZERBR:
@@ -110,16 +101,13 @@ int32 hwcaps::numrecchan(int /*samplerate*/)
 {
 	switch (productId)
 	{
-	case ACOUSTICIO_PRODUCT_ID:
-    case ACOUSTICIO_XE216_PRODUCT_ID:
+	case AIO_PRODUCT_ID:
         return 8;
             
-    case ACOUSTICIO_M1_PRODUCT_ID:
-    case ACOUSTICIO_MA_PRODUCT_ID:
+    case AIO_M1_PRODUCT_ID:
         return 14;
 
-    case ACOUSTICIO_M2_PRODUCT_ID:
-    case ACOUSTICIO_MM_PRODUCT_ID:
+    case AIO_M2_PRODUCT_ID:
         return 20;
             
 	case ANALYZERBR:
@@ -145,16 +133,13 @@ char const *hwcaps::BoxTypeName()
 	case ECHO4:
 		return "Echo4";
 
-	case ACOUSTICIO_PRODUCT_ID:
-    case ACOUSTICIO_XE216_PRODUCT_ID:
+	case AIO_PRODUCT_ID:
 		return "Echo AIO";
             
-    case ACOUSTICIO_M1_PRODUCT_ID:
-    case ACOUSTICIO_MA_PRODUCT_ID:
+    case AIO_M1_PRODUCT_ID:
             return "AIO-M1";
             
-    case ACOUSTICIO_M2_PRODUCT_ID:
-    case ACOUSTICIO_MM_PRODUCT_ID:
+    case AIO_M2_PRODUCT_ID:
          return "AIO-M2";
 	
     case ANALYZERBR:
@@ -168,16 +153,13 @@ int hwcaps::NumMixInGroups()
 {
 	switch (productId)
 	{
-	case ACOUSTICIO_PRODUCT_ID:
-    case ACOUSTICIO_XE216_PRODUCT_ID:
+	case AIO_PRODUCT_ID:
 		return 1;
             
-    case ACOUSTICIO_M1_PRODUCT_ID:
-    case ACOUSTICIO_MA_PRODUCT_ID:
+    case AIO_M1_PRODUCT_ID:
         return 2;
             
-    case ACOUSTICIO_M2_PRODUCT_ID:
-    case ACOUSTICIO_MM_PRODUCT_ID:
+    case AIO_M2_PRODUCT_ID:
         return 1;
 
 	case ANALYZERBR:
@@ -197,12 +179,10 @@ int hwcaps::MixInGroupSize(int /*group*/)
 {
 	switch (productId)
 	{
-	case ACOUSTICIO_PRODUCT_ID:
-    case ACOUSTICIO_XE216_PRODUCT_ID:
+	case AIO_PRODUCT_ID:
 		return 8;
             
-    case ACOUSTICIO_M1_PRODUCT_ID:
-    case ACOUSTICIO_MA_PRODUCT_ID:
+    case AIO_M1_PRODUCT_ID:
         {
         case 0:
             return 4;
@@ -211,8 +191,7 @@ int hwcaps::MixInGroupSize(int /*group*/)
             return 10;
         }
     
-    case ACOUSTICIO_M2_PRODUCT_ID:
-    case ACOUSTICIO_MM_PRODUCT_ID:
+    case AIO_M2_PRODUCT_ID:
         return 20;
 
 	case ANALYZERBR:
@@ -294,16 +273,13 @@ int hwcaps::NumMixOutGroups()
 {
 	switch (productId)
 	{
-	case ACOUSTICIO_PRODUCT_ID:
-    case ACOUSTICIO_XE216_PRODUCT_ID:
+	case AIO_PRODUCT_ID:
 		return 1;
             
-    case ACOUSTICIO_M1_PRODUCT_ID:
-    case ACOUSTICIO_MA_PRODUCT_ID:
+    case AIO_M1_PRODUCT_ID:
         return 2;
     
-    case ACOUSTICIO_M2_PRODUCT_ID:
-    case ACOUSTICIO_MM_PRODUCT_ID:
+    case AIO_M2_PRODUCT_ID:
         return 1;
 
 	case ANALYZERBR:
@@ -338,12 +314,10 @@ int hwcaps::MixOutGroup(int chan)
 {
 	switch (productId)
 	{
-	case ACOUSTICIO_PRODUCT_ID:
-    case ACOUSTICIO_XE216_PRODUCT_ID:
+	case AIO_PRODUCT_ID:
 		return chan >> 1;
             
-    case ACOUSTICIO_M1_PRODUCT_ID:
-    case ACOUSTICIO_MA_PRODUCT_ID:
+    case AIO_M1_PRODUCT_ID:
         {
             if (chan < 2)
                 return 0;
@@ -351,8 +325,7 @@ int hwcaps::MixOutGroup(int chan)
             return 1;
         }
     
-    case ACOUSTICIO_M2_PRODUCT_ID:
-    case ACOUSTICIO_MM_PRODUCT_ID:
+    case AIO_M2_PRODUCT_ID:
         return 0;
 
 	case ANALYZERBR:
@@ -371,12 +344,10 @@ int hwcaps::MixOutGroupOffset(int chan)
 {
 	switch (productId)
 	{
-	case ACOUSTICIO_PRODUCT_ID:
-    case ACOUSTICIO_XE216_PRODUCT_ID:
+	case AIO_PRODUCT_ID:
 		return chan % 8;
             
-    case ACOUSTICIO_M1_PRODUCT_ID:
-    case ACOUSTICIO_MA_PRODUCT_ID:
+    case AIO_M1_PRODUCT_ID:
         {
             if (chan < 2)
                 return chan;
@@ -384,8 +355,7 @@ int hwcaps::MixOutGroupOffset(int chan)
             return chan - 2;
         }
     
-    case ACOUSTICIO_M2_PRODUCT_ID:
-    case ACOUSTICIO_MM_PRODUCT_ID:
+    case AIO_M2_PRODUCT_ID:
         return chan;
 
 	case ANALYZERBR:
@@ -414,12 +384,9 @@ int hwcaps::MinSampleRate()
 {
 	switch (productId)
 	{
-	case ACOUSTICIO_PRODUCT_ID:
-    case ACOUSTICIO_M1_PRODUCT_ID:
-    case ACOUSTICIO_M2_PRODUCT_ID:
-    case ACOUSTICIO_XE216_PRODUCT_ID:
-    case ACOUSTICIO_MA_PRODUCT_ID:
-    case ACOUSTICIO_MM_PRODUCT_ID:
+	case AIO_PRODUCT_ID:
+    case AIO_M1_PRODUCT_ID:
+    case AIO_M2_PRODUCT_ID:
 		return 48000;
 
 	case ANALYZERBR:
@@ -438,14 +405,11 @@ int hwcaps::MaxSampleRate()
 {
 	switch (productId)
 	{
-	case ACOUSTICIO_PRODUCT_ID:
-    case ACOUSTICIO_M1_PRODUCT_ID:
-    case ACOUSTICIO_XE216_PRODUCT_ID:
-    case ACOUSTICIO_MA_PRODUCT_ID:
+	case AIO_PRODUCT_ID:
 		return 192000;
             
-    case ACOUSTICIO_M2_PRODUCT_ID:
-    case ACOUSTICIO_MM_PRODUCT_ID:
+	case AIO_M1_PRODUCT_ID:
+	case AIO_M2_PRODUCT_ID:
         return 48000;
 
 	case ECHO2:

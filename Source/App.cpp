@@ -9,19 +9,10 @@
 #include "AIOTestAdapter.h"
 #include "printer/Printer.h"
 #endif
+#include "calibrationV2/CalibrationManagerV2.h"
 
 App *application;
 const char boundariesName[] = "Window boundaries";
-
-#if 0
-#if ACOUSTICIO_BUILD
-String ProductionTestsXmlFileName("AIOProductionTests.xml");
-#endif
-
-#if ANALYZERBR_BUILD
-String ProductionTestsXmlFileName("ABRProductionTests.xml");
-#endif
-#endif
 
 //==============================================================================
 
@@ -96,6 +87,11 @@ void App::initialise (const String& commandLine)
 	_hwlist = new ehwlist(0,NULL);
 
 	//
+	// Create the calibration manager
+	//
+	calibrationManager = new CalibrationManagerV2(_hwlist);
+
+	//
 	// Make a window
 	//
     lookAndFeelV3 = new LookAndFeel_V3;
@@ -148,6 +144,8 @@ void App::shutdown()
 	}
     
     lookAndFeelV3 = nullptr;
+
+	calibrationManager = nullptr;
     
     _hwlist = nullptr;
     

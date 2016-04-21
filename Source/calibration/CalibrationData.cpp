@@ -1,3 +1,4 @@
+#if 0
 #include "../base.h"
 #include "../AcousticIO.h"
 #include "CalibrationData.h"
@@ -104,3 +105,4 @@ String ExternalSpeakerMonitorCalibrationData::printValue(float const value)
 	text += String(percent, 4) + "%)";
 	return text;
 }
+#endif

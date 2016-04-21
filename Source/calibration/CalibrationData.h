@@ -1,3 +1,4 @@
+#if 0
 #pragma once
 
 #include "../AcousticIO.h"
@@ -32,3 +33,4 @@ struct ExternalSpeakerMonitorCalibrationData
 
 	static String printValue(float const value);
 };
+#endif

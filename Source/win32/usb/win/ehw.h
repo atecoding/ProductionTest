@@ -25,6 +25,7 @@ typedef unsigned __int8 byte;
 #include "../Session.h"
 #include "../../hwcaps.h"
 #if ACOUSTICIO_BUILD
+#include "../../../AcousticIO.h"
 #include "../../../Description.h"
 #include "../../../calibration/CalibrationData.h"
 #endif
@@ -255,8 +256,8 @@ public:
 	Result setUSBClockRate(XmlElement const *element);
 	Result setUSBClockRate(unsigned int rate);
 	Result readTEDSData(uint8 const input, uint8* data, size_t dataBufferBytes);
-	Result setAIOSReferenceVoltage(XmlElement const *element);
-	Result setAIOSReferenceVoltage(int const module, bool const enabled);
+	Result setCalibrationReferenceVoltage(XmlElement const *element);
+	Result setCalibrationReferenceVoltage(int const module, bool const enabled);
 	Result readFlashBlock(uint8 const block, uint8 * const buffer, size_t const bufferBytes);
 	Result writeFlashBlock(uint8 const block, uint8 const * const buffer, size_t const bufferBytes);
 	Result clearRAMCalibrationData();
@@ -309,7 +310,7 @@ protected:
 
 	unsigned deviceIndex;
 	TUsbAudioHandle handle;
-	TUsbAudioDeviceProperties props;
+	TUsbAudioDeviceProperties properties;
 	int		_ok;
 	String	_error;
 	DWORD	m_dwRefCount;

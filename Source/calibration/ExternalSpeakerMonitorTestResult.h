@@ -1,3 +1,4 @@
+#if 0
 #pragma once
 
 struct ExternalSpeakerMonitorTestResult
@@ -18,3 +19,4 @@ struct ExternalSpeakerMonitorTestResult
 	float resistance;
 };
 
+#endif

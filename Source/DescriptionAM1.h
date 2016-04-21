@@ -3,7 +3,7 @@
 class DescriptionAM1 : public Description
 {
 public:
-	DescriptionAM1(uint8 moduleTypes_);
+	DescriptionAM1(uint8 moduleTypes_, uint16 const bcdVersion_);
 
 	virtual int getNumInputs() const;
 	virtual int getNumOutputs() const;
@@ -13,4 +13,8 @@ public:
 	virtual int getOutputType(int const output) const;
 	virtual int getModuleForInput(int const input) const;
 	virtual int getModuleForOutput(int const output) const;
+    
+#if JUCE_MAC
+    virtual String getCoreAudioName() const;
+#endif
 };

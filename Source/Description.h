@@ -1,16 +1,13 @@
 #pragma once
 
+#include "AIOClockSource.h"
+#include "AIOModule.h"
+
 class Description
 {
 public:
-	Description(uint8 moduleTypes_)
-	{
-		moduleTypes[0] = moduleTypes_ & 0xf;
-		moduleTypes[1] = moduleTypes_ >> 4;
-        
-		DBG("Description " << (int)moduleTypes[0] << " " << (int)moduleTypes[1]);
-	}
-
+    Description(uint8 moduleTypes_, uint16 const bcdVersion_);
+    
     virtual ~Description()
     {
     }
@@ -19,11 +16,19 @@ public:
     {
         return 0;
     }
+    
     virtual int getNumOutputs() const
     {
         return 0;
     }
-   
+    
+#if JUCE_MAC
+    virtual String getCoreAudioName() const
+    {
+        return String::empty;
+    }
+#endif
+    
     virtual String getInputName(int const /*input*/) const
     {
         return String::empty;
@@ -53,6 +58,15 @@ public:
 	{
 		return 0;
 	}
+    
+    virtual AIOModule* getModuleObject(int const moduleNumber) const;
+    
+    virtual bool supportsPeakMeters() const
+    {
+        return true;
+    }
+
+	uint16 const getInterfaceModuleVersion() const;
 
     enum
     {
@@ -64,23 +78,24 @@ public:
         AMP_OUT,
         MIKEYBUS_OUT
     };
+    
+    enum
+    {
+        MAX_MODULES = 2
+    };
 
-	uint8 getModuleType(int const module) const
-	{
-		return moduleTypes[module];
-	}
+    uint8 getModuleType(int const moduleNumber) const;
 
 	bool isInputPresent(int const input) const;
 	bool isOutputPresent(int const output) const;
 
+	virtual Array<AIOClockSource> getSupportedClockSources() const;
+
 protected:
-	uint8 moduleTypes[2];
+    OwnedArray<AIOModule> modules;
+	uint16 const bcdVersion;
 
 	const static String analogString;
 	const static String mbString;
 };
-
-#include "DescriptionAIO.h"
-#include "DescriptionAM1.h"
-#include "DescriptionAM2.h"
 

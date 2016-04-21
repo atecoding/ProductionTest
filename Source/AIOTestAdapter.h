@@ -7,6 +7,10 @@
 #include "ScopedCFObject.h"
 #endif
 
+#define ADAPTER_LOOP_OUTPUT_TO_INPUT	0x30
+#define ADAPTER_REFERENCE_VOLTAGE		0x40
+#define ADAPTER_TEST_INPUTS				0x00
+
 class AIOTestAdapter
 {
 public:

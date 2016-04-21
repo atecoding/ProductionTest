@@ -1,3 +1,4 @@
+#if 0
 #include "../base.h"
 #include "CalibrationAudioIOCallback.h"
 
@@ -97,3 +98,4 @@ float CalibrationAudioIOCallback::getSquareWaveFrequency() const
 {
 	return squareWaveFrequency;
 }
+#endif

@@ -30,7 +30,6 @@ struct SquareWaveAnalysisResult
 		}
 	}
 
-
 	float min;
 	float max;
 	float average;

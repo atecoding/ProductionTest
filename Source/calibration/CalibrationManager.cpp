@@ -1,3 +1,4 @@
+#if 0
 #include "../base.h"
 #include "CalibrationManager.h"
 #include "ehw.h"
@@ -2095,3 +2096,4 @@ Result CalibrationManager::configureAIO()
 	return setResult;
 }
 
+#endif

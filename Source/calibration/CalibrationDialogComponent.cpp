@@ -1,3 +1,4 @@
+#if 0
 #include "../base.h"
 #include "CalibrationDialogComponent.h"
 #include "CalibrationManager.h"
@@ -691,3 +692,4 @@ void CalibrationDialogComponent::ExternalSpeakerMonitorDoneComponent::resized()
 	externalSpeakerMonitorDoneButton.setSize(buttonW, h);
 	externalSpeakerMonitorDoneButton.setCentreRelative(0.5f, 0.78f);
 }
+#endif

@@ -32,7 +32,8 @@ Content::Content(ehwlist *devlist,const StringArray &hardwareInstances_) :
 	hardwareInstances (hardwareInstances_),
     _unit(NULL),
     startButton("Start"),
-    stopButton("Stop")
+    stopButton("Stop"),
+	calibrationComponent(application->calibrationManager)
 {
 	_dev_listener._content = this;
 
@@ -89,6 +90,10 @@ Content::Content(ehwlist *devlist,const StringArray &hardwareInstances_) :
 		return;
 	}
 
+
+	addChildComponent(calibrationComponent);
+	application->calibrationManager->addStateListener(this);
+
 	//
 	// Create the ProductionUnit
 	//
@@ -119,6 +124,8 @@ Content::~Content()
 	DBG("~Content");
 
     ModalComponentManager::getInstance()->cancelAllModalComponents();
+
+	application->calibrationManager->removeStateListener(this);
 
 	DBG("~Content done");
 }
@@ -381,6 +388,8 @@ void Content::resized()
     y = logDisplay.getY() + 20;
     h = logDisplay.getHeight() - 180;
     resultsListBox.setBounds(x,y,w,h);
+
+	calibrationComponent.setBounds(getLocalBounds());
 }
 
 void Content::AddResult(String const &name,int pass)
@@ -469,7 +478,7 @@ void Content::DevArrived(ehw *dev)
 		return;
 #endif
 
-	_unit = new ProductionUnit(dev, _devlist, this);
+	_unit = new ProductionUnit(dev, _devlist, this, application->calibrationManager);
 
 	_unit_name = dev->getcaps()->BoxTypeName();
 
@@ -671,5 +680,23 @@ void Content::paintListBoxItem (int rowNumber, Graphics &g, int width, int heigh
     g.fillRect(r);
     g.setColour(c);
     g.drawText(text, r, Justification::centred,false);
+}
+
+void Content::valueChanged(Value& value)
+{
+	CalibrationManagerV2::State const state(application->calibrationManager->getState());
+
+	bool visible = false;
+	switch (state)
+	{
+	case CalibrationManagerV2::STATE_MODULE_READY:
+	case CalibrationManagerV2::STATE_RECORDING:
+	case CalibrationManagerV2::STATE_ANALYZING:
+	case CalibrationManagerV2::STATE_ERROR:
+		visible = true;
+		break;
+	}
+
+	calibrationComponent.setVisible(visible);
 }
 

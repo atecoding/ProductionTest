@@ -258,7 +258,7 @@ bool FrequencySweepResponseTest::getFreq(int &period_start, int &period, double 
 		}
 		max = 0.0;
 	}
-	for (i = period_start + period / 4; i < upsampler.outputSampleCount - 2; i++)
+	for (i = period_start + period / 6; i < upsampler.outputSampleCount - 2; i++)
 	{
 		if (upsampler.outputBuffer[i] > max)
 			max = upsampler.outputBuffer[i];

@@ -506,7 +506,7 @@ Result ehw::setUSBClockRate(unsigned int rate)
 	return Result::fail(error);
 }
 
-Result ehw::setAIOSReferenceVoltage(XmlElement const *element)
+Result ehw::setCalibrationReferenceVoltage(XmlElement const *element)
 {
     if (false == element->hasAttribute("enabled"))
     {
@@ -519,10 +519,10 @@ Result ehw::setAIOSReferenceVoltage(XmlElement const *element)
     
     bool enabled = element->getIntAttribute("enabled", 0) != 0;
     int const module = 0;
-    return setAIOSReferenceVoltage(module, enabled);
+    return setCalibrationReferenceVoltage(module, enabled);
 }
 
-Result ehw::setAIOSReferenceVoltage(int const module, bool const enabled)
+Result ehw::setCalibrationReferenceVoltage(int const module, bool const enabled)
 {
     IOReturn rc = setRequest(ACOUSTICIO_EXTENSION_UNIT, ACOUSTICIO_CALIBRATION_VOLTAGE_CONTROL, module, (uint8 *)&enabled, 1);
     DBG(String::formatted("ehw::setAIOSReferenceVoltage  module:%d  enabled:%d  rc:%x", module, enabled, rc ));

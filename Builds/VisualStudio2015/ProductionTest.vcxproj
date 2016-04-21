@@ -131,6 +131,17 @@ copy ..\..\scripts\*.xml $(OutDir)</Command>
     </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\calibrationV2\AIOPnpHandler_ProductionTest.cpp" />
+    <ClCompile Include="..\..\Source\calibrationV2\CalibrationAudioIO.cpp" />
+    <ClCompile Include="..\..\Source\calibrationV2\CalibrationComponentV2.cpp" />
+    <ClCompile Include="..\..\Source\calibrationV2\CalibrationDataV2.cpp" />
+    <ClCompile Include="..\..\Source\calibrationV2\CalibrationManagerV2.cpp" />
+    <ClCompile Include="..\..\Source\calibrationV2\CalibrationProcedure.cpp" />
+    <ClCompile Include="..\..\Source\calibrationV2\CalibrationProcedureAIOA.cpp" />
+    <ClCompile Include="..\..\Source\calibrationV2\CalibrationProcedureAIOS.cpp" />
+    <ClCompile Include="..\..\Source\calibrationV2\CalibrationUnit.cpp" />
+    <ClCompile Include="..\..\Source\calibrationV2\crc32.cpp" />
+    <ClCompile Include="..\..\Source\calibrationV2\SquareWaveAudioSource.cpp" />
     <ClCompile Include="..\..\Source\Description.cpp" />
     <ClCompile Include="..\..\Source\DescriptionAIO.cpp" />
     <ClCompile Include="..\..\Source\DescriptionAM1.cpp" />
@@ -139,7 +150,6 @@ copy ..\..\scripts\*.xml $(OutDir)</Command>
     <ClCompile Include="..\..\Source\Calibration\CalibrationData.cpp" />
     <ClCompile Include="..\..\Source\Calibration\CalibrationDialogComponent.cpp" />
     <ClCompile Include="..\..\Source\Calibration\CalibrationManager.cpp" />
-    <ClCompile Include="..\..\Source\Calibration\crc32.cpp" />
     <ClCompile Include="..\..\Source\AppWindow.cpp" />
     <ClCompile Include="..\..\Source\Content.cpp" />
     <ClCompile Include="..\..\Source\DelayTask.cpp" />
@@ -1579,6 +1589,17 @@ copy ..\..\scripts\*.xml $(OutDir)</Command>
   <ItemGroup>
     <ClInclude Include="..\..\Source\AcousticIO.h" />
     <ClInclude Include="..\..\Source\AIOTestAdapter.h" />
+    <ClInclude Include="..\..\Source\calibrationV2\CalibrationAudioIO.h" />
+    <ClInclude Include="..\..\Source\calibrationV2\CalibrationComponentV2.h" />
+    <ClInclude Include="..\..\Source\calibrationV2\CalibrationDataV2.h" />
+    <ClInclude Include="..\..\Source\calibrationV2\CalibrationManagerV2.h" />
+    <ClInclude Include="..\..\Source\calibrationV2\CalibrationProcedure.h" />
+    <ClInclude Include="..\..\Source\calibrationV2\CalibrationProcedureAIOA.h" />
+    <ClInclude Include="..\..\Source\calibrationV2\CalibrationProcedureAIOM.h" />
+    <ClInclude Include="..\..\Source\calibrationV2\CalibrationProcedureAIOS.h" />
+    <ClInclude Include="..\..\Source\calibrationV2\CalibrationUnit.h" />
+    <ClInclude Include="..\..\Source\calibrationV2\crc32.h" />
+    <ClInclude Include="..\..\Source\calibrationV2\SquareWaveAudioSource.h" />
     <ClInclude Include="..\..\Source\Description.h" />
     <ClInclude Include="..\..\Source\DescriptionAIO.h" />
     <ClInclude Include="..\..\Source\DescriptionAM1.h" />
@@ -1587,7 +1608,6 @@ copy ..\..\scripts\*.xml $(OutDir)</Command>
     <ClInclude Include="..\..\Source\Calibration\CalibrationData.h" />
     <ClInclude Include="..\..\Source\Calibration\CalibrationDialogComponent.h" />
     <ClInclude Include="..\..\Source\Calibration\CalibrationManager.h" />
-    <ClInclude Include="..\..\Source\Calibration\crc32.h" />
     <ClInclude Include="..\..\Source\Calibration\ExternalSpeakerMonitorTestResult.h" />
     <ClInclude Include="..\..\Source\Calibration\SquareWaveAnalysisResult.h" />
     <ClInclude Include="..\..\Source\AppWindow.h" />
@@ -1613,6 +1633,8 @@ copy ..\..\scripts\*.xml $(OutDir)</Command>
     <ClInclude Include="..\..\Source\Upsampler.h" />
     <ClInclude Include="..\..\Source\Spectrum.h" />
     <ClInclude Include="..\..\Source\SpectrumAnalyzer.h" />
+    <ClInclude Include="..\..\Source\USBDevice.h" />
+    <ClInclude Include="..\..\Source\USBDevices.h" />
     <ClInclude Include="..\..\Source\WindowedFFT.h" />
     <ClInclude Include="..\..\Source\Analysis.h" />
     <ClInclude Include="..\..\Source\FilterCoeff.h" />
@@ -2176,6 +2198,33 @@ copy ..\..\scripts\*.xml $(OutDir)</Command>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include=".\resources.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\..\scripts\AIO Offline Test.xml" />
+    <Xml Include="..\..\scripts\AIO Printer Test.xml" />
+    <Xml Include="..\..\scripts\AIO-2 Field Test.xml" />
+    <Xml Include="..\..\scripts\AIO-2 Full Test.xml" />
+    <Xml Include="..\..\scripts\AIO-2 Module 1 Validation Test.xml" />
+    <Xml Include="..\..\scripts\AIO-2 Module 1.xml" />
+    <Xml Include="..\..\scripts\AIO-2 Module 2 Validation Test.xml" />
+    <Xml Include="..\..\scripts\AIO-2 Module 2.xml" />
+    <Xml Include="..\..\scripts\AIO-2 Validation Test.xml" />
+    <Xml Include="..\..\scripts\AIO-M1 Final Test.xml" />
+    <Xml Include="..\..\scripts\AIO-M1 Module 1.xml" />
+    <Xml Include="..\..\scripts\AIO-M1 Validation Test.xml" />
+    <Xml Include="..\..\scripts\AIO-M2 Final Test.xml" />
+    <Xml Include="..\..\scripts\AIO-S calibration test.xml" />
+    <Xml Include="..\..\scripts\AIO-S Field Test.xml" />
+    <Xml Include="..\..\scripts\AIO-S Full Test (small inductor).xml" />
+    <Xml Include="..\..\scripts\AIO-S Full Test.xml" />
+    <Xml Include="..\..\scripts\AIO-S Module 1 (small inductor).xml" />
+    <Xml Include="..\..\scripts\AIO-S Module 1.xml" />
+    <Xml Include="..\..\scripts\AIO-S Module 2.xml" />
+    <Xml Include="..\..\scripts\AIO-S Resistance Check.xml" />
+    <Xml Include="..\..\scripts\AudioFire 12 Test.xml" />
+    <Xml Include="..\..\scripts\Calibration voltage test.xml" />
+    <Xml Include="..\..\scripts\Test Adapter Test.xml" />
+    <Xml Include="..\..\scripts\voltage startup test.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

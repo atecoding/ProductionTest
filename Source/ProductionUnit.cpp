@@ -100,7 +100,7 @@ bool MikeyBusRegisters(XmlElement const *element,
 
 //extern String ProductionTestsXmlFileName;
 
-ProductionUnit::ProductionUnit(ReferenceCountedObjectPtr<ehw> dev, ehwlist *devlist, Content *content) :
+ProductionUnit::ProductionUnit(ReferenceCountedObjectPtr<ehw> dev, ehwlist *devlist, Content *content, CalibrationManagerV2* calibrationManager_) :
 _num_tests(0),
 _unit_passed(true),
 _skipped(false),
@@ -117,7 +117,7 @@ _script(NULL),
 maxAudioDeviceCreateTicks(0),
 maxAudioDeviceOpenTicks(0),
 maxAudioDeviceStartTicks(0),
-calibrationManager(this, getOutputFolder())
+calibrationManager(calibrationManager_)
 {
 	zerostruct(input_meters);
 
@@ -1137,7 +1137,7 @@ void ProductionUnit::ParseScript()
 
 		if (_script->hasTagName("AIOS_set_reference_voltage"))
         {
-            Result result(_dev->setAIOSReferenceVoltage(_script));
+            Result result(_dev->setCalibrationReferenceVoltage(_script));
             
             if (result.failed())
             {
@@ -1242,7 +1242,7 @@ void ProductionUnit::ParseScript()
             continue;
         }
         
-        if (_script->hasTagName("AIOS_calibrate"))
+        if (_script->hasTagName("AIO_calibrate"))
         {
             _script = _script->getNextElement();
 
@@ -1252,40 +1252,41 @@ void ProductionUnit::ParseScript()
                 // Destroy this object's AudioIODevice - this means that the
                 // calibration has to be the last stage of the test
                 //
-                audioDevice = nullptr;
+                //audioDevice = nullptr;
                 
                 //
                 // Start the calibration
                 //
-                calibrationManager.startIntegratedSpeakerMonitorCalibration(_dev);
+				calibrationManager->setDevices(_dev, audioDevice);
+				calibrationManager->userAction(CalibrationManagerV2::ACTION_CALIBRATE);
 				return;
             }
             
 			continue;
         }
         
-        if (_script->hasTagName("AIOS_measure_resistance"))
-        {
-            _script = _script->getNextElement();
-            
-            if (_unit_passed)
-            {
-                //
-                // Destroy this object's AudioIODevice - this means that the
-                // calibration has to be the last stage of the test
-                //
-                audioDevice = nullptr;
-                
-                //
-                // Start the resistance measurement
-                //
-                calibrationManager.setSerialNumber(_serial_number);
-                calibrationManager.startResistanceMeasurement(_dev);
-                return;
-            }
-            
-            continue;
-        }
+//         if (_script->hasTagName("AIOS_measure_resistance"))
+//         {
+//             _script = _script->getNextElement();
+//             
+//             if (_unit_passed)
+//             {
+//                 //
+//                 // Destroy this object's AudioIODevice - this means that the
+//                 // calibration has to be the last stage of the test
+//                 //
+//                 audioDevice = nullptr;
+//                 
+//                 //
+//                 // Start the resistance measurement
+//                 //
+//                 calibrationManager.setSerialNumber(_serial_number);
+//                 calibrationManager.startResistanceMeasurement(_dev);
+//                 return;
+//             }
+//             
+//             continue;
+//         }
         
         if (_script->hasTagName("AIO_mikeybus"))
         {
@@ -1798,6 +1799,7 @@ void ProductionUnit::runAIOTest(AIOTestVector function, String const groupName)
 
 void ProductionUnit::finishAIOSCalibration()
 {
+#if 0
     bool pass;
     const String testName("AIO-S Calibration");
     
@@ -1836,8 +1838,8 @@ void ProductionUnit::finishAIOSCalibration()
             _content->log( calibrationManager.calibrationDataAIOS.toString() );
         }
         break;
-            
     }
+#endif
 
     ParseScript();
 }
@@ -1845,6 +1847,7 @@ void ProductionUnit::finishAIOSCalibration()
 
 void ProductionUnit::finishAIOSResistanceMeasurement()
 {
+	/*
     bool pass;
     const String testName("AIO-S Resistance Measurement");
     
@@ -1881,6 +1884,7 @@ void ProductionUnit::finishAIOSResistanceMeasurement()
             }
             break;
     }
+	*/
     
     ParseScript();
 }

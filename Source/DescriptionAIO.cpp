@@ -2,11 +2,12 @@
 #include "Description.h"
 #include "DescriptionAIO.h"
 #include "AcousticIO.h"
+#include "AIOAModule.h"
+#include "AIOSModule.h"
 
-DescriptionAIO::DescriptionAIO(uint8 moduleTypes_) :
-Description(moduleTypes_)
+DescriptionAIO::DescriptionAIO(uint8 moduleTypes_, uint16 const bcdVersion_) :
+Description(moduleTypes_, bcdVersion_)
 {
-
 }
 
 
@@ -78,10 +79,27 @@ int DescriptionAIO::getOutputType(int const /*output*/) const
 
 int DescriptionAIO::getModuleForInput(int const input) const
 {
+    jassert(input >= 0 && input < 8);
+
+	if (input < 0 || input >= 8)
+		return -1;
+
 	return input / 4;
 }
 
 int DescriptionAIO::getModuleForOutput(int const output) const
 {
+    jassert(output >= 0 && output < 4);
+
+	if (output < 0 || output >= 8)
+		return -1;
+
 	return output / 2;
 }
+
+#if JUCE_MAC
+String DescriptionAIO::getCoreAudioName() const
+{
+    return "EchoAIO";
+}
+#endif

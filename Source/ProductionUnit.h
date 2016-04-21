@@ -5,7 +5,7 @@
 
 #if ACOUSTICIO_BUILD
 #include "AIOTestAdapter.h"
-#include "calibration/CalibrationManager.h"
+#include "calibrationV2/CalibrationManagerV2.h"
 class Content;
 typedef bool (*AIOTestVector)(  XmlElement const *element,
                                 ehw *dev,
@@ -24,7 +24,7 @@ class Content;
 class ProductionUnit : public AudioIODeviceCallback, public MessageListener, public Timer
 {
 public:
-	ProductionUnit(ReferenceCountedObjectPtr<ehw> dev, ehwlist *devlist, Content *content);
+	ProductionUnit(ReferenceCountedObjectPtr<ehw> dev, ehwlist *devlist, Content *content, CalibrationManagerV2* calibrationManager_);
 	~ProductionUnit(void);
 
 	bool status();
@@ -131,8 +131,8 @@ protected:
 
 #if ACOUSTICIO_BUILD
 	AIOTestAdapter aioTestAdapter;
-    CalibrationManager calibrationManager;
-    
+	CalibrationManagerV2* calibrationManager;
+
     void runAIOTest(AIOTestVector function, String const groupName);
     void finishAIOSCalibration();
     void finishAIOSResistanceMeasurement();

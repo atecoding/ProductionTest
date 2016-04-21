@@ -6,7 +6,8 @@
 #include "AIOTestAdapter.h"
 #include "ErrorCodes.h"
 #include "xml.h"
-#include "calibration/crc32.h"
+#include "calibrationV2/crc32.h"
+#include "calibrationV2/CalibrationDataV2.h"
 
 
 bool RunCalibrationVerificationTest(XmlElement const *element,
@@ -56,7 +57,7 @@ bool RunCalibrationVerificationTest(XmlElement const *element,
     //
     // Read calibration data from flash
     //
-    AIOSCalibrationData calibrationDataFlash;
+	CalibrationDataV2 calibrationDataFlash;
     
     {
         int8 block = (uint8)(calibrationIndex.numCalibrations - 1) % ACOUSTICIO_NUM_CALIBRATION_DATA_ENTRIES;
@@ -90,7 +91,7 @@ bool RunCalibrationVerificationTest(XmlElement const *element,
     //
     // Read calibration data from RAM - should match the data from flash
     //
-    AIOSCalibrationData calibrationDataRAM;
+    CalibrationDataV2 calibrationDataRAM;
     
     {
         Result result(dev->getCalibrationData(&calibrationDataRAM.data));

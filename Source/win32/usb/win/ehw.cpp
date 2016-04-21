@@ -24,6 +24,11 @@
 #include "/proj/xmos/common/Echo4.h"
 #endif
 
+#include "../DescriptionAIO.h"
+#include "../DescriptionAM1.h"
+#include "../DescriptionAM2.h"
+#include "../calibrationV2/CalibrationDataV2.h"
+
 //******************************************************************************
 // conversion routines
 //******************************************************************************
@@ -108,13 +113,13 @@ ehw::ehw
 	TUsbAudioStatus status;
 	TUsbAudioHandle tempHandle;
 
-	props.usbProductId = 0;
+	properties.usbProductId = 0;
 
 	status = TUSBAUDIO_OpenDeviceByIndex(device_index, &tempHandle);
 	DBG_PRINTF(("TUSBAUDIO_OpenDeviceByIndex handle:0x%x status:0x%x", tempHandle, status));
 	if (TSTATUS_SUCCESS == status)
 	{
-		status = TUSBAUDIO_GetDeviceProperties(tempHandle, &props);
+		status = TUSBAUDIO_GetDeviceProperties(tempHandle, &properties);
 		//if (TSTATUS_SUCCESS == status)
 		//{
 		//	switch (props.usbProductId)
@@ -125,25 +130,25 @@ ehw::ehw
 		//	}
 		//}
 
-		DBG_PRINTF(("usbProductId:0x%04x  usbRevisionId:0x%04x  tempHandle:0x%x", props.usbProductId, props.usbRevisionId, tempHandle));
+		DBG_PRINTF(("usbProductId:0x%04x  usbRevisionId:0x%04x  tempHandle:0x%x", properties.usbProductId, properties.usbRevisionId, tempHandle));
 
 		uint8 moduleTypes = getModuleTypes(tempHandle);
-		switch (props.usbProductId)
+		switch (properties.usbProductId)
 		{
-		case hwcaps::ACOUSTICIO_PRODUCT_ID:
-			description = new DescriptionAIO(moduleTypes);
+		case hwcaps::AIO_PRODUCT_ID:
+			description = new DescriptionAIO(moduleTypes, (uint16)properties.usbRevisionId);
 			break;
 
-		case hwcaps::ACOUSTICIO_M1_PRODUCT_ID:
-			description = new DescriptionAM1(moduleTypes);
+		case hwcaps::AIO_M1_PRODUCT_ID:
+			description = new DescriptionAM1(moduleTypes, (uint16)properties.usbRevisionId);
 			break;
 
-		case hwcaps::ACOUSTICIO_M2_PRODUCT_ID:
-			description = new DescriptionAM2(moduleTypes);
-			break;
+		case hwcaps::AIO_M2_PRODUCT_ID:
+			moduleTypes = (ACOUSTICIO_MIKEYBUS_MODULE << 4) | ACOUSTICIO_MIKEYBUS_MODULE;
+			description = new DescriptionAM2(moduleTypes, (uint16)properties.usbProductId, (uint16)properties.usbRevisionId);			break;
 
 		default:
-			description = new Description(moduleTypes);
+			description = new Description(moduleTypes, (uint16)properties.usbRevisionId);
 			break;
 		}
 
@@ -161,7 +166,7 @@ ehw::ehw
 
 	memset(meters,0,sizeof(meters));
 
-	_caps.init(props.usbProductId);
+	_caps.init(properties.usbProductId);
 	_uniquename = _caps.BoxTypeName();
 
 	
@@ -208,13 +213,13 @@ uint32 ehw::GetDriverVersion()
 
 uint32 ehw::getFirmwareVersion() const
 {
-	return props.usbRevisionId;
+	return properties.usbRevisionId;
 }
 
 
 String ehw::getFirmwareVersionString() const
 {
-	return String::toHexString((int32)props.usbRevisionId);
+	return String::toHexString((int32)properties.usbRevisionId);
 }
 
 //******************************************************************************
@@ -1837,7 +1842,7 @@ Result ehw::readTEDSData(uint8 const input, uint8* data, size_t dataBufferBytes)
 	return Result::fail(error);
 }
 
-Result ehw::setAIOSReferenceVoltage(XmlElement const *element)
+Result ehw::setCalibrationReferenceVoltage(XmlElement const *element)
 {
 	if (false == element->hasAttribute("enabled"))
 	{
@@ -1850,10 +1855,10 @@ Result ehw::setAIOSReferenceVoltage(XmlElement const *element)
 
 	bool enabled = element->getIntAttribute("enabled", 0) != 0;
 	int const module = 0; // assume AIO center module for now
-	return setAIOSReferenceVoltage(module, enabled);
+	return setCalibrationReferenceVoltage(module, enabled);
 }
 
-Result ehw::setAIOSReferenceVoltage(int const module, bool const enabled)
+Result ehw::setCalibrationReferenceVoltage(int const module, bool const enabled)
 {
 	TUsbAudioStatus status;
 
@@ -1917,7 +1922,7 @@ Result ehw::writeFlashBlock(uint8 const block, uint8 const * const buffer, size_
 
 Result ehw::clearRAMCalibrationData()
 {
-	AIOSCalibrationData data;
+	CalibrationDataV2 data;
 
 	return setCalibrationData(&data.data);
 }

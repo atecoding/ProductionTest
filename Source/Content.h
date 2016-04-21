@@ -2,6 +2,7 @@
 #define _cwcomp_h_
 
 class Content;
+#include "calibrationV2\CalibrationComponentV2.h"
 
 class DevChangeListener : public MessageListener
 {
@@ -21,7 +22,8 @@ class ProductionUnit;
 
 class Content : public Component, Button::Listener, public AsyncUpdater,
 public ComboBox::Listener,
-public ListBoxModel
+public ListBoxModel,
+public Value::Listener
 {
 public:
 	Content(ehwlist *devlist, const StringArray &hardwareInstances_);
@@ -59,10 +61,10 @@ protected:
     virtual void comboBoxChanged (ComboBox* comboBoxThatHasChanged);
     virtual int getNumRows();
     virtual void paintListBoxItem (int rowNumber, Graphics &g, int width, int height, bool rowIsSelected);
-	
+	virtual void valueChanged(Value& value) override;
+
 	StringArray hardwareInstances;
-	ehwlist		*_devlist;
-	//Font		_f;
+	ehwlist *_devlist;
 	String finalResult;
 	Colour finalResultColour;
 
@@ -76,6 +78,7 @@ protected:
     ComboBox scriptCombo;
 #endif
     ListBox resultsListBox;
+	CalibrationComponentV2 calibrationComponent;
 
 	DevChangeListener _dev_listener;
 
@@ -84,9 +87,5 @@ protected:
 
 	friend class DevChangeListener;
 };
-
-
-
-
 
 #endif

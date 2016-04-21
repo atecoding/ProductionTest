@@ -1,3 +1,4 @@
+#if 0
 #pragma once
 #include "CalibrationDialogComponent.h"
 #include "CalibrationAudioIOCallback.h"
@@ -231,3 +232,4 @@ protected:
 	static const String voltageOutputName;
 	static const String currentInputName;
 };
+#endif

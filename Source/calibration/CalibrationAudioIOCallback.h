@@ -1,3 +1,4 @@
+#if 0
 #pragma once
 
 class CalibrationAudioIOCallback : public AudioIODeviceCallback
@@ -32,3 +33,4 @@ protected:
 	void fillSquareWave(AudioSampleBuffer &outputBuffer);
 };
 
+#endif

@@ -2,8 +2,8 @@
 #include "Description.h"
 #include "DescriptionAM1.h"
 
-DescriptionAM1::DescriptionAM1(uint8 moduleTypes_) :
-Description(moduleTypes_)
+DescriptionAM1::DescriptionAM1(uint8 moduleTypes_, uint16 const bcdVersion_) :
+Description(moduleTypes_, bcdVersion_)
 {
 
 }
@@ -66,3 +66,9 @@ int DescriptionAM1::getModuleForOutput(int const output) const
 	return 1;
 }
 
+#if JUCE_MAC
+String DescriptionAM1::getCoreAudioName() const
+{
+    return "EchoAIO-M1";
+}
+#endif

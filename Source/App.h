@@ -6,6 +6,7 @@ class ehwlist;
 
 #include "AppWindow.h"
 #include "TestManager.h"
+#include "CalibrationV2/CalibrationManagerV2.h"
 
 class App : public JUCEApplication
 {
@@ -22,7 +23,7 @@ protected :
     ScopedPointer<InterProcessLock> _processlock;
 
 	ScopedPointer <PropertiesFile> props;
-    
+	    
 public:
 
     //==============================================================================
@@ -68,6 +69,10 @@ public:
 	 virtual void systemRequestedQuit();
     
     ScopedPointer<TestManager> testManager;
+
+#if ACOUSTICIO_BUILD
+	ScopedPointer<CalibrationManagerV2> calibrationManager;
+#endif
 };
 
 extern App *application;

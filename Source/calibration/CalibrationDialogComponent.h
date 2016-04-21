@@ -1,3 +1,4 @@
+#if 0
 #pragma once
 #include "CalibrationData.h"
 #include "ExternalSpeakerMonitorTestResult.h"
@@ -117,3 +118,4 @@ protected:
 		ProgressBar progressBar;
 	} recordProgress;
 };
+#endif

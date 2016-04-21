@@ -228,8 +228,8 @@ public:
 	Result setUSBClockRate(XmlElement const *element);
 	Result setUSBClockRate(uint rate);
 	Result readTEDSData(uint8 const input, uint8* data, size_t dataBufferBytes);
-    Result setAIOSReferenceVoltage(XmlElement const *element);
-    Result setAIOSReferenceVoltage(int const module, bool const enabled);
+    Result setCalibrationReferenceVoltage(XmlElement const *element);
+    Result setCalibrationReferenceVoltage(int const module, bool const enabled);
     Result readFlashBlock(uint8 const block, uint8 * const buffer, size_t const bufferBytes);
     Result writeFlashBlock(uint8 const block, uint8 const * const buffer, size_t const bufferBytes);
     Result clearRAMCalibrationData();
