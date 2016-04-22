@@ -472,10 +472,10 @@ Result ehw::setClockSource(XmlElement const *element)
 
 Result ehw::setClockSource(uint8 source)
 {
-    IOReturn rc = getRequest(ACOUSTICIO_EXTENSION_UNIT, ACOUSTICIO_CLOCK_SOURCE_CONTROL, 0, &source, sizeof(source));
+    IOReturn rc = setRequest(ACOUSTICIO_EXTENSION_UNIT, ACOUSTICIO_CLOCK_SOURCE_CONTROL, 0, &source, sizeof(source));
     if (kIOReturnSuccess == rc)
         return Result::ok();
-
+    
 	String error("Failed to set clock source");
 	error += " - error " + String::toHexString((int32)rc);
 	return Result::fail(error);
@@ -492,13 +492,13 @@ Result ehw::setUSBClockRate(XmlElement const *element)
 		return error;
 	}
 
-	unsigned int rate = element->getIntAttribute("rate", 0) != 0;
+	unsigned int rate = element->getIntAttribute("rate", 0);
 	return setUSBClockRate(rate);
 }
 
 Result ehw::setUSBClockRate(unsigned int rate)
 {
-    IOReturn rc = getRequest(ACOUSTICIO_EXTENSION_UNIT, ACOUSTICIO_USB_CLOCK_RATE_CONTROL, 0, (uint8 *)&rate, sizeof(rate));
+    IOReturn rc = setRequest(ACOUSTICIO_EXTENSION_UNIT, ACOUSTICIO_USB_CLOCK_RATE_CONTROL, 0, (uint8 *)&rate, sizeof(rate));
     if (kIOReturnSuccess == rc)
         return Result::ok();
 

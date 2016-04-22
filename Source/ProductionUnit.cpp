@@ -1682,6 +1682,15 @@ Result ProductionUnit::CheckSampleRate()
 		double measuredSampleRate = 0.0;
 		double elapsedSeconds = 0.0;
 		int totalSamples = 0;
+        
+        /*
+        for (int i = 1; i < timestampCount.get(); ++i)
+        {
+            int64 elapsedTicks = timestamps[i] - timestamps[i-1];
+            double elapsedMsec = double(elapsedTicks) / ticksPerSecond;
+            DBG("i:" << i << "  timestamp:" << timestamps[i] << "  " << elapsedMsec);
+        }
+        */
 
 		if (timestampCount.get() != 0)
 		{

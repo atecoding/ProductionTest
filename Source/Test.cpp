@@ -45,8 +45,8 @@ Test::Test(XmlElement *xe,bool &ok, ProductionUnit* unit_) :
 
 	if (sample_rate_check != 0)
 	{
-		minSampleRate = sample_rate_check * 0.94f;
-		maxSampleRate = sample_rate_check * 1.06f;
+		minSampleRate = sample_rate_check * 0.80f;
+		maxSampleRate = sample_rate_check * 1.20f;
 	}
 	else
 	{
