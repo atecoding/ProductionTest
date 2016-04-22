@@ -3788,9 +3788,6 @@
     <Xml Include="..\..\scripts\AIO-2 Validation Test.xml">
       <Filter>Scripts</Filter>
     </Xml>
-    <Xml Include="..\..\scripts\AIO-M1 Final Test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
     <Xml Include="..\..\scripts\AIO-M1 Module 1.xml">
       <Filter>Scripts</Filter>
     </Xml>
@@ -3806,13 +3803,7 @@
     <Xml Include="..\..\scripts\AIO-S Field Test.xml">
       <Filter>Scripts</Filter>
     </Xml>
-    <Xml Include="..\..\scripts\AIO-S Full Test (small inductor).xml">
-      <Filter>Scripts</Filter>
-    </Xml>
     <Xml Include="..\..\scripts\AIO-S Full Test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-S Module 1 (small inductor).xml">
       <Filter>Scripts</Filter>
     </Xml>
     <Xml Include="..\..\scripts\AIO-S Module 1.xml">
@@ -3837,6 +3828,9 @@
       <Filter>Scripts</Filter>
     </Xml>
     <Xml Include="..\..\scripts\Calibration test.xml">
+      <Filter>Scripts</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO-M1 Full Test.xml">
       <Filter>Scripts</Filter>
     </Xml>
   </ItemGroup>
