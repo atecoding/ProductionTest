@@ -28,8 +28,8 @@ public:
             
             now = Time::getCurrentTime();
             RelativeTime remainingTime = timeout - now;
-            RelativeTime progress = delay - remainingTime;
-            setProgress( progress.inSeconds() / delay.inSeconds());
+            RelativeTime elapsed = delay - remainingTime;
+            setProgress(elapsed.inSeconds() / delay.inSeconds());
         }
     }
     

@@ -172,7 +172,7 @@ int Spectrum::getBinForHarmonic(double const fundamentalFrequency, int const har
     //int fundamentalBin = roundDoubleToInt(fundamentalFrequency / frequencyResolution);
 
     // Calc target frequency ...
-    harmonicFrequency = harmonicOrder * fundamentalFrequency;
+    harmonicFrequency = (float)(harmonicOrder * fundamentalFrequency);
     
     // Calc harmonic bin ...
     k = roundDoubleToInt(harmonicFrequency / frequencyResolution);

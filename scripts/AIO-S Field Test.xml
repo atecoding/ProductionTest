@@ -861,7 +861,7 @@
     <!-- Final calibration -->
     <!-- This must be the last stage of the test or the CalibrationManager doesn't get CoreAudio callbacks -->
     
-    <AIOS_calibrate/>
+    <AIO_calibrate/>
     
     <AIO_calibration_verification_test/>
     

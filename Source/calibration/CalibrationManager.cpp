@@ -565,7 +565,7 @@ void CalibrationManager::execute()
     case STATE_FINISH_INTEGRATED_SPEAKER_MONITOR_TEST:
         {
             DBG("case STATE_FINISH_INTEGRATED_SPEAKER_MONITOR_TEST");
-            finish(MESSAGE_AIOS_CALIBRATION_DONE);
+            finish(MESSAGE_CALIBRATION_DONE);
         }
         break;
 
@@ -573,14 +573,14 @@ void CalibrationManager::execute()
 		{
 			AlertWindow::showMessageBox(AlertWindow::WarningIcon, JUCEApplication::getInstance()->getApplicationName(), "No audio data recorded - unable to proceed.", "Close");
 
-            finish(MESSAGE_AIOS_CALIBRATION_DONE);
+            finish(MESSAGE_CALIBRATION_DONE);
 		}
 		break;
 
 	case STATE_CANCELLED:
 		{
             pass = false;
-            finish(MESSAGE_AIOS_CALIBRATION_DONE);
+            finish(MESSAGE_CALIBRATION_DONE);
         }
 		break;
             

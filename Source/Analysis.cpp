@@ -362,7 +362,7 @@ bool verifyRate(int rate,int *data,int samples,double freq)
 // AnalysisManager::computeFreqResp
 // Compute the frequency response of the audio data stored in buffer 'buf',
 // which contains 'count' samples. We assume 32-bit stereo data.
-void computeFreqResp(int *bufL,int *bufR,int count,int maxL,int maxR,FREQ_RSLT *r)
+void computeFreqResp(int *bufL,int *bufR,int count,int maxL,int maxR,FREQ_RSLT *freqRslt)
 {
 	 static int i,maxAmpL,maxAmpR;
 
@@ -385,15 +385,15 @@ void computeFreqResp(int *bufL,int *bufR,int count,int maxL,int maxR,FREQ_RSLT *
 	 // if a max amplitude is zero, the dyn range is zero
 	 if ((maxAmpL == 0) || (maxAmpR == 0) || (maxL == 0) || (maxR == 0) )
 	 {
-		  r->freqL = 0;
-		  r->freqR = 0;
+		  freqRslt->freqL = 0;
+		  freqRslt->freqR = 0;
 		  return;
 	}
 
 	 // compute the frequency response
 	 
-	 r->freqL = fabs(20 * log10((double)maxAmpL / maxL));
-	 r->freqR = fabs(20 * log10((double)maxAmpR / maxR));
+	 freqRslt->freqL = fabs(20 * log10((double)maxAmpL / maxL));
+	 freqRslt->freqR = fabs(20 * log10((double)maxAmpR / maxR));
 
 	 // fudge the frequency response
 	 //r->freqL += device->getDeviceInfo(INFO_FUDGE_FREQ_RESP);

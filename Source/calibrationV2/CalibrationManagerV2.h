@@ -76,6 +76,11 @@ public:
         return result;
     }
 
+	bool isUnitCalibrated() const
+	{
+		return unit.isCalibrated();
+	}
+
 	void setDevices(ReferenceCountedObjectPtr<USBDevice> aioUSBDevice_, AudioIODevice* audioIODevice_);
     
 protected:

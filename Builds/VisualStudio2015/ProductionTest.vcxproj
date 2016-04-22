@@ -2222,6 +2222,7 @@ copy ..\..\scripts\*.xml $(OutDir)</Command>
     <Xml Include="..\..\scripts\AIO-S Module 2.xml" />
     <Xml Include="..\..\scripts\AIO-S Resistance Check.xml" />
     <Xml Include="..\..\scripts\AudioFire 12 Test.xml" />
+    <Xml Include="..\..\scripts\Calibration test.xml" />
     <Xml Include="..\..\scripts\Calibration voltage test.xml" />
     <Xml Include="..\..\scripts\Test Adapter Test.xml" />
     <Xml Include="..\..\scripts\voltage startup test.xml" />

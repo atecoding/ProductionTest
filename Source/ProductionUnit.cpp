@@ -255,11 +255,15 @@ calibrationManager(calibrationManager_)
         buffer->clear();
 		_inbuffs.add(buffer);
 	}
+
+	calibrationManager_->addStateListener(this);
 }
 
 ProductionUnit::~ProductionUnit(void)
 {
 	Cleanup();
+
+	calibrationManager->removeStateListener(this);
 
 #if ACOUSTICIO_BUILD
 	aioTestAdapter.close();
@@ -334,36 +338,44 @@ void ProductionUnit::RunTests(Time const testStartTime_)
 	// Load the set of tests from XML
 	//
 	File f(application->testManager->getCurrentScript());
-	String devname(_dev->getcaps()->BoxTypeName()),txt;
     
 	XmlDocument xmlDocument(f);
-	XmlElement *temp,*child;
+	XmlElement *child;
 
 	_root = xmlDocument.getDocumentElement();
 	DBG("XML file " + f.getFullPathName());
-	DBG("Parsing XML for " + devname);
 	if (_root)
 	{
+		uint32 scriptUSBProductID = 0;
 		child = _root->getFirstChildElement();
 		while (child)
 		{
 			if (child->hasTagName("device"))
 			{
-				temp = child->getFirstChildElement();
-				if (temp && temp->isTextElement())
+				scriptUSBProductID = child->getStringAttribute("USB_product_ID").getHexValue32();
+
+				if (scriptUSBProductID == _dev->GetBoxType())
 				{
-					txt = temp->getText();
-					txt = txt.trimStart();
-					txt = txt.trimEnd();
-					DBG(txt);
-					if (txt == devname)
-					{
-						_script = child;
-						break;
-					}
+					_script = child;
+					break;
 				}
 			}
 			child = child->getNextElement();
+		}
+
+		if (nullptr == _script)
+		{
+			String errorString("Incorrect AIO type for " + f.getFullPathName() + newLine);
+			errorString += "Detected " + String(_dev->getcaps()->BoxTypeName());
+			errorString += String::formatted("(product ID 0x%04x)", _dev->GetBoxType());
+			errorString += newLine;
+			errorString += String::formatted("Test script requires product ID 0x%04x", scriptUSBProductID);
+			AlertWindow::showNativeDialogBox("Production Test",
+				errorString,
+				false);
+			JUCEApplication::quit();
+			DBG("   RunTests exit");
+			return;
 		}
 	}
 	else
@@ -373,16 +385,6 @@ void ProductionUnit::RunTests(Time const testStartTime_)
 											false);
 		JUCEApplication::quit();
 		_ok = false;
-        DBG("   RunTests exit");
-		return;
-	}
-
-	if (!_ok || (NULL == _script))
-	{
-		AlertWindow::showNativeDialogBox(	"Production Test",
-											"Could not parse " + f.getFullPathName(),
-											false);
-		JUCEApplication::quit();
         DBG("   RunTests exit");
 		return;
 	}
@@ -692,9 +694,9 @@ void ProductionUnit::handleMessage(const Message &message)
 		}
 		break;
             
-        case MESSAGE_AIOS_CALIBRATION_DONE:
+        case MESSAGE_CALIBRATION_DONE:
         {
-            finishAIOSCalibration();
+            finishCalibration();
         }
         break;
             
@@ -1797,49 +1799,45 @@ void ProductionUnit::runAIOTest(AIOTestVector function, String const groupName)
     _script = _script->getNextElement();
 }
 
-void ProductionUnit::finishAIOSCalibration()
+void ProductionUnit::finishCalibration()
 {
-#if 0
-    bool pass;
-    const String testName("AIO-S Calibration");
+    const String testName("Calibration");
     
     _content->log(testName);
     
-    switch (calibrationManager.getState())
+    switch (calibrationManager->getState())
     {
     default:
         {
             _content->AddResult(testName, false);
             _content->log("*** Calibration failed");
-            _content->log("*** Unexpected calibraton manager state " + String((int)calibrationManager.getState()));
+            _content->log("*** Unexpected calibration manager state " + String((int)calibrationManager->getState()));
             _unit_passed = false;
         }
         break;
             
-    case CalibrationManager::STATE_CANCELLED:
+    case CalibrationManagerV2::STATE_ERROR:
         {
             _content->AddResult(testName, false);
             _content->log("*** Calibration failed");
-            _content->log(calibrationManager.getResults(pass));
+            _content->log(calibrationManager->getResult().getErrorMessage());
             _unit_passed = false;
         }
         break;
     
-    case CalibrationManager::STATE_FINISH_INTEGRATED_SPEAKER_MONITOR_TEST:
+    case CalibrationManagerV2::STATE_SHOW_ACTIVE_CALIBRATION:
         {
-            String results(calibrationManager.getResults(pass));
-            _unit_passed &= pass;
+			bool pass = calibrationManager->isUnitCalibrated();
             _content->AddResult(testName, pass);
             if (pass)
                 _content->log("Calibration OK");
             else
                 _content->log("Calibration FAIL");
-            _content->log( "Calibration Data");
-            _content->log( calibrationManager.calibrationDataAIOS.toString() );
+            _content->log( "\n---Calibration Data---");
+            _content->log( calibrationManager->getData().toString() );
         }
         break;
     }
-#endif
 
     ParseScript();
 }
@@ -2055,4 +2053,15 @@ void ProductionUnit::runOfflineTest(XmlElement *script)
                                          false);
         return;
     }
+}
+
+void ProductionUnit::valueChanged(Value& value)
+{
+	CalibrationManagerV2::State const state(application->calibrationManager->getState());
+
+	if (CalibrationManagerV2::STATE_SHOW_ACTIVE_CALIBRATION == state)
+	{
+		finishCalibration();
+		return;
+	}
 }

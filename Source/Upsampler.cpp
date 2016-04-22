@@ -197,7 +197,7 @@ Result Upsampler::upsample(AudioBuffer<float> const &inputBuffer, int const inpu
         
         for (int i = 0; i < outputCopyCount; ++i)
         {
-            *destination = outputBlock[i];
+            *destination = (float)outputBlock[i];
             destination++;
         }
         
@@ -223,7 +223,7 @@ Result Upsampler::upsample(AudioBuffer<float> const &inputBuffer, int const inpu
         
         for (int i = 0; i < outputCopyCount; ++i)
         {
-            *destination = outputBlock[i];
+            *destination = (float)outputBlock[i];
             destination++;
         }
         

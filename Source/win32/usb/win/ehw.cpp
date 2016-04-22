@@ -230,18 +230,17 @@ String ehw::getFirmwareVersionString() const
 
 uint32 ehw::GetVendorId()
 {
-	return 0; //_caps->_caps.node_id_hi >> 8;
+	return properties.usbVendorId;
 }
 
 uint32 ehw::GetBoxType()
 {
-	//return _caps->_caps.hwtype;
-	return 0;
+	return properties.usbProductId;
 }
 
 uint32 ehw::GetBoxRev()
 {
-	return 0;
+	return properties.usbRevisionId;
 }
 
 uint64 ehw::GetSerialNumber()

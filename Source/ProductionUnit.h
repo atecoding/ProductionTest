@@ -21,7 +21,7 @@ class ehw;
 class ehwlist;
 class Content;
 
-class ProductionUnit : public AudioIODeviceCallback, public MessageListener, public Timer
+class ProductionUnit : public AudioIODeviceCallback, public MessageListener, public Timer, public Value::Listener
 {
 public:
 	ProductionUnit(ReferenceCountedObjectPtr<ehw> dev, ehwlist *devlist, Content *content, CalibrationManagerV2* calibrationManager_);
@@ -30,10 +30,11 @@ public:
 	bool status();
 	void RunTests(Time const testStartTime_);
 
-	void audioDeviceAboutToStart(AudioIODevice *device);
-	void audioDeviceIOCallback(const float **inputChannelData, int numInputChannels, float **outputChannelData, int numOutputChannels, int numSamples);
-	void audioDeviceStopped();
-    void timerCallback();
+	void audioDeviceAboutToStart(AudioIODevice *device) override;
+	void audioDeviceIOCallback(const float **inputChannelData, int numInputChannels, float **outputChannelData, int numOutputChannels, int numSamples) override;
+	void audioDeviceStopped() override;
+    void timerCallback() override;
+	virtual void valueChanged(Value& value) override;
 
 	void handleMessage(const Message &message);
     void deviceRemoved();
@@ -134,7 +135,7 @@ protected:
 	CalibrationManagerV2* calibrationManager;
 
     void runAIOTest(AIOTestVector function, String const groupName);
-    void finishAIOSCalibration();
+    void finishCalibration();
     void finishAIOSResistanceMeasurement();
     void printErrorCodes(XmlElement *xe);
 #endif

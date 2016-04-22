@@ -3869,5 +3869,8 @@
     <Xml Include="..\..\scripts\voltage startup test.xml">
       <Filter>Scripts</Filter>
     </Xml>
+    <Xml Include="..\..\scripts\Calibration test.xml">
+      <Filter>Scripts</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

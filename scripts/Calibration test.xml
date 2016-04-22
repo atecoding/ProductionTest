@@ -5,13 +5,11 @@
   <!-- Echo AIO-1, AIO-2, AIO-S, and AIO-M1                 -->
   <!-- **************************************************** -->
   
-  <device>
-    AIO-M1
+  <device USB_product_ID="0xa1">
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO</CoreAudio_driver>
 
     <AIO_calibrate></AIO_calibrate>
-    <quit/>
  
   </device>
 
