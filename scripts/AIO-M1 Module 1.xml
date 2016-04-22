@@ -15,7 +15,7 @@
 	<log>LED Test</log>
     </message_box>
 
-    <AIO_firmware_version_test min_version="0x1000" />
+    <AIO_firmware_version_test min_version="0x3000" />
 
     <AIO_module_type_test>
       <slot>0</slot>
@@ -31,64 +31,11 @@
       <!-- type 3 == AMB module -->
     </AIO_module_type_test>
 
-    <AIO_flash_memory_test />
-
-    <!-- Test USB synchronized clock source -->
-
-    <prompt>
-      USB Clock Source Check
-      <text>Check USB Sync Clock Source</text>
-      <output_amplitude_db>-20.0</output_amplitude_db>
-      <input>0</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <min_input_db>-200.0</min_input_db>
-      <max_input_db>0.0</max_input_db>
-      <wait_for_user>0</wait_for_user>
-      <start_group>1</start_group>
-    </prompt>
-
-    <AIO_set_clock_source source="internal" />
-    <AIO_set_USB_clock_rate rate="32000" />
-    <Delay_msec>200</Delay_msec>
-    <AIO_set_clock_source source="USB" />
-    <test>
-      USB Sync Clock Source Check
-      <type>USB sync</type>
-      <output_amplitude_db>-0.0</output_amplitude_db>
-      <input>0</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>32000</sample_rate>
-      <sample_rate_check>32000</sample_rate_check>
-      <min_level_db>-200</min_level_db>
-      <max_level_db>0.0</max_level_db>
-    </test>
-
-    <AIO_set_clock_source source="internal" />
-    <AIO_set_USB_clock_rate rate="48000" />
-    <Delay_msec>200</Delay_msec>
-    <AIO_set_clock_source source="USB" />
-
-    <test>
-      USB Sync Clock Source Check
-      <type>USB sync</type>
-      <output_amplitude_db>-0.0</output_amplitude_db>
-      <input>0</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <sample_rate_check>48000</sample_rate_check>
-      <min_level_db>-200</min_level_db>
-      <max_level_db>0.0</max_level_db>
-    </test>
+    <AIO_clear_RAM_calibration />
 
     <AIO_set_clock_source source="internal" />
 
     <message_box>Connect the Test Adapter to Inputs 1-4</message_box>
-
-    <AIO_clear_RAM_calibration />
 
     <!-- Check constant current voltage and current -->
 
@@ -115,8 +62,6 @@
     <AIO_set_constant_current input="5" enabled="0" /> <!-- turn off constant current for input 6 -->
     <AIO_set_constant_current input="6" enabled="0" /> <!-- turn off constant current for input 7 -->
     <AIO_set_constant_current input="7" enabled="0" /> <!-- turn off constant current for input 8 -->
-    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
-    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
     <AIO_mic_supply_on_voltage_test input="0">
       <minimum>19.0</minimum>
       <!-- minimum and maximum are in volts -->
@@ -206,7 +151,7 @@
       <input>0</input>
       <output>0</output>
       <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
+      <sample_rate>96000</sample_rate>
       <min_level_db>-5.0</min_level_db>
       <max_level_db>-1.0</max_level_db>
     </test>
@@ -218,7 +163,7 @@
       <input>2</input>
       <output>0</output>
       <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
+      <sample_rate>96000</sample_rate>
       <min_level_db>-5.0</min_level_db>
       <max_level_db>-1.0</max_level_db>
     </test>
@@ -270,7 +215,7 @@
       <input>0</input>
       <output>0</output>
       <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
+      <sample_rate>192000</sample_rate>
       <min_level_db>-8.0</min_level_db>
       <max_level_db>-4.0</max_level_db>
     </test>
@@ -282,7 +227,7 @@
       <input>2</input>
       <output>0</output>
       <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
+      <sample_rate>192000</sample_rate>
       <min_level_db>-8.0</min_level_db>
       <max_level_db>-4.0</max_level_db>
     </test>
@@ -353,7 +298,7 @@
       <input>0</input>
       <output>0</output>
       <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
+      <sample_rate>96000</sample_rate>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
       <pass_threshold_db>0.75</pass_threshold_db>
@@ -406,7 +351,7 @@
       <input>2</input>
       <output>0</output>
       <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
+      <sample_rate>96000</sample_rate>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
       <pass_threshold_db>0.75</pass_threshold_db>

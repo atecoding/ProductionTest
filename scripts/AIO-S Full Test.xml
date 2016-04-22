@@ -4,6 +4,7 @@
   <!-- **************************************************** -->
 	<!-- Echo AIO-S                                  -->
 	<!-- **************************************************** -->
+
 	<device USB_product_ID="0xa0">
     <Require_AIO_Test_Adapter>true</Require_AIO_Test_Adapter>
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
@@ -142,8 +143,8 @@
 
     <AIO_set_constant_current input="0" enabled="0" /> <!-- turn off constant current for input 1 -->
     <AIO_set_constant_current input="1" enabled="0" /> <!-- turn off constant current for input 2 -->
-    <AIO_set_constant_current input="2" enabled="0" /> <!-- turn on constant current for input 3 -->
-    <AIO_set_constant_current input="3" enabled="0" /> <!-- turn on constant current for input 4 -->
+    <AIO_set_constant_current input="2" enabled="0" /> <!-- turn off constant current for input 3 -->
+    <AIO_set_constant_current input="3" enabled="0" /> <!-- turn off constant current for input 4 -->
     <AIO_set_constant_current input="4" enabled="1" /> <!-- turn on constant current for input 5 -->
     <AIO_set_constant_current input="5" enabled="1" /> <!-- turn on constant current for input 6 -->
     <AIO_set_constant_current input="6" enabled="1" /> <!-- turn on constant current for input 7 -->
@@ -156,12 +157,10 @@
 
     <AIO_set_constant_current input="0" enabled="1" /> <!-- turn on constant current for input 1 -->
     <AIO_set_constant_current input="1" enabled="1" /> <!-- turn on constant current for input 2 -->
-    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
-    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
     <AIO_set_constant_current input="4" enabled="0" /> <!-- turn off constant current for input 5 -->
     <AIO_set_constant_current input="5" enabled="0" /> <!-- turn off constant current for input 6 -->
-    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
-    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
+    <AIO_set_constant_current input="6" enabled="0" /> <!-- turn off constant current for input 7 -->
+    <AIO_set_constant_current input="7" enabled="0" /> <!-- turn off constant current for input 8 -->
     <AIO_mic_supply_on_voltage_test input="0" short="1">
       <minimum>19.0</minimum> <!-- minimum and maximum are in volts -->
       <maximum>21.0</maximum>
@@ -591,7 +590,6 @@
     <AIO_set_constant_current input="5" enabled="1" /> <!-- turn on constant current for input 6 -->
     <AIO_set_constant_current input="6" enabled="1" /> <!-- turn on constant current for input 7 -->
     <AIO_set_constant_current input="7" enabled="1" /> <!-- turn on constant current for input 8 -->
-    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
     <AIO_mic_supply_on_voltage_test input="4">
       <minimum>19.0</minimum>
       <!-- minimum and maximum are in volts -->

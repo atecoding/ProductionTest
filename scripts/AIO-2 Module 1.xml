@@ -15,9 +15,7 @@
 	<log>LED Test</log>
     </message_box>
 
-    <AIO_firmware_version_test min_version="0x71" />
-
-    <AIO_clear_RAM_calibration />
+    <AIO_firmware_version_test min_version="0x3000" />
 
     <AIO_module_type_test>
       <slot>0</slot>
@@ -33,11 +31,9 @@
       <!-- type 1 == TEDS microphone + class D amp analog module -->
     </AIO_module_type_test>
 
-    <message_box>Connect the Test Adapter to Inputs 1-4</message_box>
-
     <AIO_clear_RAM_calibration />
 
-    <AIO_flash_memory_test />
+	<message_box>Connect the Test Adapter to Inputs 1-4</message_box>
 
     <!-- Check constant current voltage and current -->
 
@@ -64,8 +60,6 @@
     <AIO_set_constant_current input="5" enabled="0" /> <!-- turn off constant current for input 6 -->
     <AIO_set_constant_current input="6" enabled="0" /> <!-- turn off constant current for input 7 -->
     <AIO_set_constant_current input="7" enabled="0" /> <!-- turn off constant current for input 8 -->
-    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
-    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
     <AIO_mic_supply_on_voltage_test input="0">
       <minimum>19.0</minimum>
       <!-- minimum and maximum are in volts -->
@@ -257,6 +251,7 @@
       <min_input_db>-200.0</min_input_db>
       <max_input_db>0.0</max_input_db>
       <wait_for_user>0</wait_for_user>
+      <start_group>1</start_group>
     </prompt>
 
     <!-- THD+N and DNR Channels 1-2 -->
@@ -304,7 +299,7 @@
       <sample_rate>96000</sample_rate>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
-      <pass_threshold_db>0.49</pass_threshold_db>
+      <pass_threshold_db>0.75</pass_threshold_db>
       <sweep_time_seconds>2.0</sweep_time_seconds>
       <sweep_delay_seconds>0.4</sweep_delay_seconds>
       <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
@@ -357,7 +352,7 @@
       <sample_rate>96000</sample_rate>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
-      <pass_threshold_db>0.49</pass_threshold_db>
+      <pass_threshold_db>0.75</pass_threshold_db>
       <sweep_time_seconds>2.0</sweep_time_seconds>
       <sweep_delay_seconds>0.4</sweep_delay_seconds>
       <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
