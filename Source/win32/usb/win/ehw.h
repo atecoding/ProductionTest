@@ -27,7 +27,7 @@ typedef unsigned __int8 byte;
 #if ACOUSTICIO_BUILD
 #include "../../../AcousticIO.h"
 #include "../../../Description.h"
-#include "../../../calibration/CalibrationData.h"
+#include "../../../calibrationV2/CalibrationDataV2.h"
 #endif
 
 //

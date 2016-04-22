@@ -10,9 +10,6 @@
     <Filter Include="ProductionTest\Source\AIO">
       <UniqueIdentifier>{F5EE12EC-A65D-2FAA-90FB-B88F1DD18474}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ProductionTest\Source\Calibration">
-      <UniqueIdentifier>{5538E966-8B87-1CEC-F2B0-38D1A8E69CBF}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ProductionTest\Source\GUI">
       <UniqueIdentifier>{9C3E96AF-ED02-F500-0DFD-4D079DB7B20F}</UniqueIdentifier>
     </Filter>
@@ -356,18 +353,6 @@
     </ClCompile>
     <ClCompile Include="..\..\Source\DescriptionAM2.cpp">
       <Filter>ProductionTest\Source\AIO</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Calibration\CalibrationAudioIOCallback.cpp">
-      <Filter>ProductionTest\Source\Calibration</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Calibration\CalibrationData.cpp">
-      <Filter>ProductionTest\Source\Calibration</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Calibration\CalibrationDialogComponent.cpp">
-      <Filter>ProductionTest\Source\Calibration</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Source\Calibration\CalibrationManager.cpp">
-      <Filter>ProductionTest\Source\Calibration</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\AppWindow.cpp">
       <Filter>ProductionTest\Source\GUI</Filter>
@@ -1981,24 +1966,6 @@
     </ClInclude>
     <ClInclude Include="..\..\Source\DescriptionAM2.h">
       <Filter>ProductionTest\Source\AIO</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Calibration\CalibrationAudioIOCallback.h">
-      <Filter>ProductionTest\Source\Calibration</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Calibration\CalibrationData.h">
-      <Filter>ProductionTest\Source\Calibration</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Calibration\CalibrationDialogComponent.h">
-      <Filter>ProductionTest\Source\Calibration</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Calibration\CalibrationManager.h">
-      <Filter>ProductionTest\Source\Calibration</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Calibration\ExternalSpeakerMonitorTestResult.h">
-      <Filter>ProductionTest\Source\Calibration</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\Source\Calibration\SquareWaveAnalysisResult.h">
-      <Filter>ProductionTest\Source\Calibration</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\AppWindow.h">
       <Filter>ProductionTest\Source\GUI</Filter>

@@ -146,10 +146,6 @@ copy ..\..\scripts\*.xml $(OutDir)</Command>
     <ClCompile Include="..\..\Source\DescriptionAIO.cpp" />
     <ClCompile Include="..\..\Source\DescriptionAM1.cpp" />
     <ClCompile Include="..\..\Source\DescriptionAM2.cpp" />
-    <ClCompile Include="..\..\Source\Calibration\CalibrationAudioIOCallback.cpp" />
-    <ClCompile Include="..\..\Source\Calibration\CalibrationData.cpp" />
-    <ClCompile Include="..\..\Source\Calibration\CalibrationDialogComponent.cpp" />
-    <ClCompile Include="..\..\Source\Calibration\CalibrationManager.cpp" />
     <ClCompile Include="..\..\Source\AppWindow.cpp" />
     <ClCompile Include="..\..\Source\Content.cpp" />
     <ClCompile Include="..\..\Source\DelayTask.cpp" />
@@ -1604,12 +1600,6 @@ copy ..\..\scripts\*.xml $(OutDir)</Command>
     <ClInclude Include="..\..\Source\DescriptionAIO.h" />
     <ClInclude Include="..\..\Source\DescriptionAM1.h" />
     <ClInclude Include="..\..\Source\DescriptionAM2.h" />
-    <ClInclude Include="..\..\Source\Calibration\CalibrationAudioIOCallback.h" />
-    <ClInclude Include="..\..\Source\Calibration\CalibrationData.h" />
-    <ClInclude Include="..\..\Source\Calibration\CalibrationDialogComponent.h" />
-    <ClInclude Include="..\..\Source\Calibration\CalibrationManager.h" />
-    <ClInclude Include="..\..\Source\Calibration\ExternalSpeakerMonitorTestResult.h" />
-    <ClInclude Include="..\..\Source\Calibration\SquareWaveAnalysisResult.h" />
     <ClInclude Include="..\..\Source\AppWindow.h" />
     <ClInclude Include="..\..\Source\Content.h" />
     <ClInclude Include="..\..\Source\MeterWindow.h" />
