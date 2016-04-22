@@ -43,7 +43,7 @@ Test::Test(XmlElement *xe,bool &ok, ProductionUnit* unit_) :
 	ok = getIntValue(xe,T("sample_rate"),sample_rate);
 	ok &= getFloatValue(xe,T("output_amplitude_db"),output_amplitude_db);
 
-	if(sample_rate_check != 0)
+	if (sample_rate_check != 0)
 	{
 		minSampleRate = sample_rate_check * 0.94f;
 		maxSampleRate = sample_rate_check * 1.06f;

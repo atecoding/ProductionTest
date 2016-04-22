@@ -55,7 +55,7 @@
       <input>0</input>
       <output>0</output>
       <num_channels>2</num_channels>
-      <sample_rate>32000</sample_rate>
+      <sample_rate>48000</sample_rate>
       <sample_rate_check>32000</sample_rate_check>
       <min_level_db>-200</min_level_db>
       <max_level_db>0.0</max_level_db>

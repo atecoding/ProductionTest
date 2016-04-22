@@ -1706,8 +1706,13 @@ Result ProductionUnit::CheckSampleRate()
 			measuredSampleRate = totalSamples / elapsedSeconds;
 		}
 
+        String const audioClockSourceString("Audio clock source");
 		if ((measuredSampleRate >= _test->minSampleRate) && (measuredSampleRate <= _test->maxSampleRate))
 		{
+            if (0 != _test->sample_rate_check)
+            {
+                _content->AddResult(audioClockSourceString, true);
+            }
 			return Result::ok();
 		}
 
@@ -1726,6 +1731,8 @@ Result ProductionUnit::CheckSampleRate()
 		{
 			error = "       Measured sample rate " + String(measuredSampleRate, 1) + " Hz\n";
 			error += "       Check PLL circuitry!";
+            
+            _content->AddResult(audioClockSourceString, false);
 		}
 
 		return Result::fail(error);
