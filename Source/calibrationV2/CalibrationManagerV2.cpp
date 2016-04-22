@@ -188,6 +188,12 @@ Result CalibrationManagerV2::startAudioIO()
 void CalibrationManagerV2::audioRecordDone()
 {
     DBG("CalibrationManagerV2::audioRecordDone()");
+    triggerAsyncUpdate();
+}
+
+void CalibrationManagerV2::handleAsyncUpdate()
+{
+    DBG("CalibrationManagerV2::handleAsyncUpdate()");
     
     audioIO.stop();
     
@@ -237,8 +243,8 @@ void CalibrationManagerV2::audioRecordDone()
         result = unit.finishModuleCalibration();
         if (result.wasOk())
         {
-            DBG("CalibrationManagerV2::audioRecordDone() - module is done");
-            if (unit.isCalibrated())
+            DBG("CalibrationManagerV2::audioRecordDone() - module is done   state:" << (int)state.getValue());
+            if (unit.isDone())
             {
                 state = STATE_SHOW_ACTIVE_CALIBRATION;
                 return;
@@ -264,7 +270,7 @@ void CalibrationManagerV2::audioRecordDone()
         {
             return;
         }
-            }
+    }
     
     DBG("Failed to continue or finish module procedure");
                 state = STATE_ERROR;
@@ -281,10 +287,10 @@ String CalibrationManagerV2::getHistory()
     return unit.getHistory();
 }
 
-void CalibrationManagerV2::setDevices(ReferenceCountedObjectPtr<USBDevice> aioUSBDevice_, AudioIODevice* audioIODevice_)
+void CalibrationManagerV2::configure(CalibrationManagerConfiguration& configuration)
 {
-	unit.setDevice(aioUSBDevice_);
-	audioIO.setDevice(audioIODevice_);
+	unit.configure(configuration);
+	audioIO.setDevice(configuration.audioIODevice);
 }
 
 Result CalibrationManagerV2::userActionResetRAMData()

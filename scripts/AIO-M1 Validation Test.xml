@@ -5,8 +5,7 @@
 	<!-- Echo AIO                                    -->
 	<!-- **************************************************** -->
     
-	<device>
-    AIO-M1
+	<device USB_product_ID="0xa1">
     <Require_AIO_Test_Adapter>true</Require_AIO_Test_Adapter>
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO-M1</CoreAudio_driver>
@@ -27,7 +26,7 @@
       <!-- type 3 == AMB module -->
     </AIO_module_type_test>
 
-    <AIOS_clear_RAM_calibration />
+    <AIO_clear_RAM_calibration />
 
     <AIO_flash_memory_test />
 

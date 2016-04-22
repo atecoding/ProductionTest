@@ -22,6 +22,7 @@ public:
 
 protected:
 	CalibrationManagerV2* calibrationManager;
+    Value calibrationStateValue;
 
     TextButton nextButton;
 	TextButton cancelButton;
@@ -80,6 +81,4 @@ protected:
 		CalibrationManagerV2* calibrationManager;
 		ProgressBar progressBar;
 	} recordProgress;
-    
-    CalibrationDataV2 dummyData;
 };

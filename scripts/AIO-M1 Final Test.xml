@@ -5,8 +5,7 @@
 	<!-- Echo AIO                                    -->
 	<!-- **************************************************** -->
     
-	<device>
-    AIO-M1
+	<device USB_product_ID="0xa1">
     <Require_AIO_Test_Adapter>true</Require_AIO_Test_Adapter>
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO-M1</CoreAudio_driver>
@@ -35,7 +34,7 @@
 
     <message_box>Connect the Test Adapter to Inputs 1-4</message_box>
 
-    <AIOS_clear_RAM_calibration />
+    <AIO_clear_RAM_calibration />
 
     <AIO_flash_memory_test />
 
@@ -176,6 +175,7 @@
       <sample_rate>48000</sample_rate>
       <min_level_db>-5.0</min_level_db>
       <max_level_db>-1.0</max_level_db>
+      <required_test_adapter_product_id>0x200</required_test_adapter_product_id>
     </test>
 
     <test>
@@ -188,6 +188,7 @@
       <sample_rate>48000</sample_rate>
       <min_level_db>-5.0</min_level_db>
       <max_level_db>-1.0</max_level_db>
+      <required_test_adapter_product_id>0x200</required_test_adapter_product_id>
     </test>
 
     <AIO_set_mic_gain input="0" gain="1" />
@@ -584,6 +585,14 @@
 </test>
 
 <Finish_group/>
+
+    <!-- Calibrate the center module and write to flash -->
+    <AIO_calibrate>
+        <module>0</module>
+        <write_to_flash>1</write_to_flash>
+    </AIO_calibrate>
+
+    <AIO_calibration_verification_test/>
 
   </device>
 

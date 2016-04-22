@@ -29,11 +29,11 @@ void colorlabel(Label *lbl)
 // c-tor
 //
 Content::Content(ehwlist *devlist,const StringArray &hardwareInstances_) :
+    calibrationComponent(application->calibrationManager),
 	hardwareInstances (hardwareInstances_),
     _unit(NULL),
     startButton("Start"),
-    stopButton("Stop"),
-	calibrationComponent(application->calibrationManager)
+    stopButton("Stop")
 {
 	_dev_listener._content = this;
 
@@ -92,8 +92,9 @@ Content::Content(ehwlist *devlist,const StringArray &hardwareInstances_) :
 
 
 	addChildComponent(calibrationComponent);
-	application->calibrationManager->addStateListener(this);
-
+    calibrationStateValue.referTo( application->calibrationManager->getStateValue() );
+    calibrationStateValue.addListener(this);
+	
 	//
 	// Create the ProductionUnit
 	//
@@ -124,8 +125,6 @@ Content::~Content()
 	DBG("~Content");
 
     ModalComponentManager::getInstance()->cancelAllModalComponents();
-
-	application->calibrationManager->removeStateListener(this);
 
 	DBG("~Content done");
 }
@@ -685,6 +684,8 @@ void Content::paintListBoxItem (int rowNumber, Graphics &g, int width, int heigh
 void Content::valueChanged(Value& value)
 {
 	CalibrationManagerV2::State const state(application->calibrationManager->getState());
+    
+    DBG("Content::valueChanged " << state);
 
 	bool visible = false;
 	switch (state)
@@ -695,6 +696,9 @@ void Content::valueChanged(Value& value)
 	case CalibrationManagerV2::STATE_ERROR:
 		visible = true;
 		break;
+            
+    default:
+        break;
 	}
 
 	calibrationComponent.setVisible(visible);

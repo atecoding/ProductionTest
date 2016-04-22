@@ -5,8 +5,7 @@
   <!-- Echo AIO-S                                  -->
   <!-- **************************************************** -->
 
-  <device>
-    Echo AIO
+  <device USB_product_ID="0xa0">
     <Require_AIO_Test_Adapter>true</Require_AIO_Test_Adapter>
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO</CoreAudio_driver>
@@ -24,11 +23,11 @@
         <type>2</type>  <!-- type 2 == speaker monitor module -->
     </AIO_module_type_test>
 
-    <AIOS_clear_RAM_calibration />
+    <AIO_clear_RAM_calibration />
 
     <AIO_flash_memory_test />
 
-    <message_box>Connect the Test Adapter to Inputs 1-2 and AMP1 and insert the Reference Resistor Adapter.</message_box>
+    <message_box>Connect the Test Adapter to MIC1, MIC2, SPKR, and AMP1</message_box>
 
     <!-- Check AIO-S calibration reference voltage -->
 

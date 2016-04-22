@@ -28,14 +28,13 @@ recordProgress(calibrationManager_)
     dataDisplay.resetButton.addListener(this);
     dataDisplay.eraseButton.addListener(this);
 	
-    calibrationManager_->addStateListener(this);
+    calibrationStateValue.referTo(calibrationManager_->getStateValue());
+    calibrationStateValue.addListener(this);
 }
 
 CalibrationComponentV2::~CalibrationComponentV2()
 {
 	DBG("CalibrationComponentV2::~CalibrationComponentV2");
-    
-    calibrationManager->removeStateListener(this);
 }
 
 void CalibrationComponentV2::paint(Graphics& g)

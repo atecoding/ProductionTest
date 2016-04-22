@@ -2,7 +2,7 @@
 #define _cwcomp_h_
 
 class Content;
-#include "calibrationV2\CalibrationComponentV2.h"
+#include "calibrationV2/CalibrationComponentV2.h"
 
 class DevChangeListener : public MessageListener
 {
@@ -38,9 +38,9 @@ public:
 
     Result promptForSerialNumber(String &serialNumber);
 
-	void resized();
+	void resized() override;
 
-	virtual void handleCommandMessage(int commandId);
+	virtual void handleCommandMessage(int commandId) override;
 
 	void log(String msg);
 	void setFinalResult(String text,Colour color);
@@ -52,15 +52,17 @@ public:
 	void DevArrived(ehw *dev);
 	void DevRemoved(ehw *dev);
 
-	void handleAsyncUpdate();
+	void handleAsyncUpdate() override;
+    
+    CalibrationComponentV2 calibrationComponent;
 
 protected:
-	virtual void paint (Graphics& g);
-	virtual void buttonClicked(Button *button);
-    virtual bool keyPressed(KeyPress const & key);
-    virtual void comboBoxChanged (ComboBox* comboBoxThatHasChanged);
-    virtual int getNumRows();
-    virtual void paintListBoxItem (int rowNumber, Graphics &g, int width, int height, bool rowIsSelected);
+	virtual void paint (Graphics& g) override;
+	virtual void buttonClicked(Button *button) override;
+    virtual bool keyPressed(KeyPress const & key) override;
+    virtual void comboBoxChanged (ComboBox* comboBoxThatHasChanged) override;
+    virtual int getNumRows() override;
+    virtual void paintListBoxItem (int rowNumber, Graphics &g, int width, int height, bool rowIsSelected) override;
 	virtual void valueChanged(Value& value) override;
 
 	StringArray hardwareInstances;
@@ -78,7 +80,8 @@ protected:
     ComboBox scriptCombo;
 #endif
     ListBox resultsListBox;
-	CalibrationComponentV2 calibrationComponent;
+    
+    Value calibrationStateValue;
 
 	DevChangeListener _dev_listener;
 

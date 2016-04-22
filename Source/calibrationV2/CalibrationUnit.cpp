@@ -9,8 +9,10 @@
 const Result CalibrationUnit::invalidProcedureResult(Result::fail("Invalid calibration procedure"));
 
 CalibrationUnit::CalibrationUnit(USBDevices* aioUSBDevices_, CalibrationManagerV2& calibrationManager_) :
+firstModule(-1),
 moduleNumber(-1),
 numModulesToCalibrate(0),
+writeToFlashWhenDone(true),
 calibrationManager(calibrationManager_),
 pnpHandler(*this, aioUSBDevices_)
 {
@@ -21,9 +23,9 @@ CalibrationUnit::~CalibrationUnit()
 }
 
 
-bool CalibrationUnit::isCalibrated() const
+bool CalibrationUnit::isDone() const
 {
-    return moduleNumber >= numModulesToCalibrate;
+    return moduleNumber >= (firstModule + numModulesToCalibrate);
 }
 
 bool CalibrationUnit::isModuleProcedureDone() const
@@ -55,23 +57,24 @@ Result CalibrationUnit::prepareUnitForCalibration()
         return Result::fail("AIO Test Adapter not found");
     
     //
-    // Clear the RAM calibration data in the unit
-    //
-    Result result(resetRAMCalibrationData());
-    if (result.failed())
-        return Result::fail("Failed to reset RAM calibration data");
-    
-    //
     // Reset module number and module count
     //
-    moduleNumber = 0;
-    Description const * const descripton = aioUSBDevice->getDescription();
-    numModulesToCalibrate = 0;
-    for (int tempModuleNumber = 0; tempModuleNumber < Description::MAX_MODULES; ++tempModuleNumber)
+    if (firstModule < 0)
     {
-        AIOModule* module = descripton->getModuleObject(tempModuleNumber);
-        if (module->supportsCalibration())
-            numModulesToCalibrate++;
+        firstModule = 0;
+    }
+    moduleNumber = firstModule;
+    
+    if (numModulesToCalibrate <= 0)
+    {
+        Description const * const descripton = aioUSBDevice->getDescription();
+        numModulesToCalibrate = 0;
+        for (int tempModuleNumber = 0; tempModuleNumber < Description::MAX_MODULES; ++tempModuleNumber)
+        {
+            AIOModule* module = descripton->getModuleObject(tempModuleNumber);
+            if (module->supportsCalibration())
+                numModulesToCalibrate++;
+        }
     }
     
     return Result::ok();
@@ -114,9 +117,12 @@ Result CalibrationUnit::createModuleProcedure()
     if (nullptr == procedure)
         return invalidProcedureResult;
     
+    //
+    // Zero the gains for the appropriate channels in the calibration data
+    // and write to device RAM
+    //
     calibrationData.reset(module->getModuleNumber());
-    
-    return Result::ok();
+    return aioUSBDevice->setCalibrationData(&calibrationData.data);
 }
 
 
@@ -181,7 +187,7 @@ Result CalibrationUnit::finishModuleCalibration()
         }
     }
     
-    if (isCalibrated())
+    if (isDone() && writeToFlashWhenDone)
     {
         result = writeActiveCalibrationToFlash();
     }
@@ -266,19 +272,23 @@ String CalibrationUnit::getHistory()
     return text;
 }
 
-void CalibrationUnit::setDevice(ReferenceCountedObjectPtr<USBDevice> aioUSBDevice_)
+void CalibrationUnit::configure(CalibrationManagerConfiguration& configuration)
 {
 	originalCalibrationData.reset();
 	calibrationData.reset();
 
-	if (aioUSBDevice_)
+	if (configuration.aioUSBDevice)
 	{
-		aioUSBDevice_->getCalibrationData(&originalCalibrationData.data);
+		configuration.aioUSBDevice->getCalibrationData(&originalCalibrationData.data);
 		originalCalibrationData.validateChecksum();
 		calibrationData = originalCalibrationData;
 	}
+    
+    firstModule = configuration.firstModule;
+    numModulesToCalibrate = configuration.numModulesToCalibrate;
+    writeToFlashWhenDone = configuration.writeToFlash;
 
-	aioUSBDevice = aioUSBDevice_;
+	aioUSBDevice = configuration.aioUSBDevice;
 	calibrationManager.aioChanged();
 }
 

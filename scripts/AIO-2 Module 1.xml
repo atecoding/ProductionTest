@@ -4,8 +4,7 @@
   <!-- **************************************************** -->
 	<!-- Echo AIO                                    -->
 	<!-- **************************************************** -->
-	<device>
-    Echo AIO
+	<device USB_product_ID="0xa0">
     <Require_AIO_Test_Adapter>true</Require_AIO_Test_Adapter>
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO</CoreAudio_driver>
@@ -18,7 +17,7 @@
 
     <AIO_firmware_version_test min_version="0x71" />
 
-    <AIOS_clear_RAM_calibration />
+    <AIO_clear_RAM_calibration />
 
     <AIO_module_type_test>
       <slot>0</slot>
@@ -36,7 +35,7 @@
 
     <message_box>Connect the Test Adapter to Inputs 1-4</message_box>
 
-    <AIOS_clear_RAM_calibration />
+    <AIO_clear_RAM_calibration />
 
     <AIO_flash_memory_test />
 

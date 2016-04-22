@@ -70,7 +70,7 @@ bool LevelCheckTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, Erro
 
 		if (max_db < peakRejectThresholdDb)
 		{
-			msg = String::formatted(T("Level check at "));
+			msg = String::formatted("Level check at ");
 			msg += MsgSampleRate();
 			msg += String::formatted(": level too low (peak %f)", peak);
 

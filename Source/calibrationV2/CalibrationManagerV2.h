@@ -6,7 +6,16 @@
 #include "CalibrationAudioIO.h"
 #include "CalibrationProcedure.h"
 
-class CalibrationManagerV2
+struct CalibrationManagerConfiguration
+{
+    ReferenceCountedObjectPtr<USBDevice> aioUSBDevice;
+    AudioIODevice* audioIODevice;
+    int firstModule;
+    int numModulesToCalibrate;
+    bool writeToFlash;
+};
+
+class CalibrationManagerV2 : public AsyncUpdater
 {
 public:
 	CalibrationManagerV2(USBDevices* devices_);
@@ -47,14 +56,9 @@ public:
         return (State)value;
 	}
     
-    void addStateListener(Value::Listener* listener_)
+    Value const getStateValue() const
     {
-        state.addListener(listener_);
-    }
-    
-    void removeStateListener(Value::Listener* listener_)
-    {
-        state.removeListener(listener_);
+        return state;
     }
     
 	double &getRecordProgress();
@@ -76,12 +80,12 @@ public:
         return result;
     }
 
-	bool isUnitCalibrated() const
+	bool isUnitDone() const
 	{
-		return unit.isCalibrated();
+		return unit.isDone();
 	}
 
-	void setDevices(ReferenceCountedObjectPtr<USBDevice> aioUSBDevice_, AudioIODevice* audioIODevice_);
+    void configure(CalibrationManagerConfiguration& configuration);
     
 protected:
     Result userActionCancel();
@@ -93,6 +97,8 @@ protected:
     Result runModuleProcedureStage();
     Result startAudioIO();
     Result restartModuleCalibration();
+    
+    virtual void handleAsyncUpdate() override;
     
     Value state;
     Result result;

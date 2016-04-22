@@ -4,8 +4,7 @@
   <!-- **************************************************** -->
 	<!-- Echo AIO                                    -->
 	<!-- **************************************************** -->
-	<device>
-    AIO-M1
+	<device USB_product_ID="0xa1">
     <Require_AIO_Test_Adapter>true</Require_AIO_Test_Adapter>
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO-M1</CoreAudio_driver>
@@ -34,7 +33,7 @@
 
     <message_box>Connect the Test Adapter to Inputs 1-4</message_box>
 
-    <AIOS_clear_RAM_calibration />
+    <AIO_clear_RAM_calibration />
 
     <!-- Check constant current voltage and current -->
 

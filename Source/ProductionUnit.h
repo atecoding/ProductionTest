@@ -36,7 +36,7 @@ public:
     void timerCallback() override;
 	virtual void valueChanged(Value& value) override;
 
-	void handleMessage(const Message &message);
+	void handleMessage(const Message &message) override;
     void deviceRemoved();
 
 	int	_num_tests;
@@ -133,6 +133,7 @@ protected:
 #if ACOUSTICIO_BUILD
 	AIOTestAdapter aioTestAdapter;
 	CalibrationManagerV2* calibrationManager;
+    Value calibrationStateValue;
 
     void runAIOTest(AIOTestVector function, String const groupName);
     void finishCalibration();

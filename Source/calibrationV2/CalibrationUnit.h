@@ -7,6 +7,7 @@
 #include "../USBDevices.h"
 
 class CalibrationManagerV2;
+struct CalibrationManagerConfiguration;
 
 class CalibrationUnit
 {
@@ -30,14 +31,14 @@ public:
     Result finishModuleProcedureStage();
     Result finishModuleCalibration();
     bool isModuleProcedureDone() const;
-    bool isCalibrated() const;
+    bool isDone() const;
     void cancelCalibration();
     
     Result resetRAMCalibrationData();
     Result eraseFlashCalibrationData();
     String getHistory();
 
-	void setDevice(ReferenceCountedObjectPtr<USBDevice> aioUSBDevice_);
+    void configure(CalibrationManagerConfiguration& configuration);
 
 	ReferenceCountedObjectPtr<USBDevice> aioUSBDevice;
     
@@ -51,8 +52,10 @@ private:
     Result getFlashIndex(AcousticIOCalibrationIndex &calibrationIndex, bool &checksumOK);
     Result writeActiveCalibrationToFlash();
     
+    int firstModule;
     int moduleNumber;
     int numModulesToCalibrate;
+    bool writeToFlashWhenDone;
 
     ScopedPointer<AIOTestAdapter> testAdapter;
     CalibrationManagerV2& calibrationManager;

@@ -24,7 +24,7 @@
 
 #if ACOUSTICIO_BUILD
 #include "Description.h"
-#include "../calibration/CalibrationData.h"
+#include "../calibrationV2/CalibrationDataV2.h"
 #endif
 
 //
@@ -65,7 +65,10 @@ public:
 	String GetIdString();
 
 	uint32 GetVendorId();
-	uint32 GetBoxType();
+	uint32 GetBoxType()
+    {
+        return productID;
+    }
 	uint32 GetBoxRev();
 
 	uint32 GetDriverVersion();
@@ -275,6 +278,7 @@ protected:
 	
 	hwcaps	_caps;
 	String	_uniquename;
+    uint16 productID;
     uint16 firmwareVersion;
     int64 maxRequestTicks;
 	

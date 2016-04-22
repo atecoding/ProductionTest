@@ -256,14 +256,13 @@ calibrationManager(calibrationManager_)
 		_inbuffs.add(buffer);
 	}
 
-	calibrationManager_->addStateListener(this);
+    calibrationStateValue.referTo(calibrationManager_->getStateValue());
+    calibrationStateValue.addListener(this);
 }
 
 ProductionUnit::~ProductionUnit(void)
 {
 	Cleanup();
-
-	calibrationManager->removeStateListener(this);
 
 #if ACOUSTICIO_BUILD
 	aioTestAdapter.close();
@@ -1151,7 +1150,7 @@ void ProductionUnit::ParseScript()
             continue;
         }
 
-		if (_script->hasTagName("AIOS_clear_RAM_calibration"))
+		if (_script->hasTagName("AIO_clear_RAM_calibration"))
 		{
 			Result result(_dev->clearRAMCalibrationData());
 
@@ -1246,9 +1245,19 @@ void ProductionUnit::ParseScript()
         
         if (_script->hasTagName("AIO_calibrate"))
         {
+            int firstModule = -1;
+            int writeToFlash = 0;
+            
+            if (false == getIntValue(_script, "module", firstModule))
+            {
+                _content->log("Missing module tag for AIO_calibrate");
+            }
+            
+            getIntValue(_script, "write_to_flash", writeToFlash);
+            
             _script = _script->getNextElement();
 
-            if (_unit_passed)
+            if (_unit_passed && firstModule >= 0)
             {
                 //
                 // Destroy this object's AudioIODevice - this means that the
@@ -1259,8 +1268,14 @@ void ProductionUnit::ParseScript()
                 //
                 // Start the calibration
                 //
-				calibrationManager->setDevices(_dev, audioDevice);
-				calibrationManager->userAction(CalibrationManagerV2::ACTION_CALIBRATE);
+                CalibrationManagerConfiguration configuration;
+                configuration.aioUSBDevice = _dev;
+                configuration.audioIODevice = audioDevice;
+                configuration.firstModule = firstModule;
+                configuration.numModulesToCalibrate = 1;
+                configuration.writeToFlash = writeToFlash != 0;
+                calibrationManager->configure(configuration);
+                calibrationManager->userAction(CalibrationManagerV2::ACTION_CALIBRATE);
 				return;
             }
             
@@ -1803,6 +1818,8 @@ void ProductionUnit::finishCalibration()
 {
     const String testName("Calibration");
     
+    _content->calibrationComponent.setVisible(false);
+    
     _content->log(testName);
     
     switch (calibrationManager->getState())
@@ -1827,13 +1844,12 @@ void ProductionUnit::finishCalibration()
     
     case CalibrationManagerV2::STATE_SHOW_ACTIVE_CALIBRATION:
         {
-			bool pass = calibrationManager->isUnitCalibrated();
+			bool pass = calibrationManager->isUnitDone();
             _content->AddResult(testName, pass);
             if (pass)
                 _content->log("Calibration OK");
             else
                 _content->log("Calibration FAIL");
-            _content->log( "\n---Calibration Data---");
             _content->log( calibrationManager->getData().toString() );
         }
         break;
@@ -2058,10 +2074,26 @@ void ProductionUnit::runOfflineTest(XmlElement *script)
 void ProductionUnit::valueChanged(Value& value)
 {
 	CalibrationManagerV2::State const state(application->calibrationManager->getState());
+    
+    DBG("ProductionUnit::valueChanged " << state);
 
 	if (CalibrationManagerV2::STATE_SHOW_ACTIVE_CALIBRATION == state)
 	{
 		finishCalibration();
 		return;
 	}
+    
+    switch (state)
+    {
+        case CalibrationManagerV2::STATE_SHOW_ACTIVE_CALIBRATION:
+            finishCalibration();
+            break;
+            
+        case CalibrationManagerV2::STATE_MODULE_READY:
+            calibrationManager->userAction(CalibrationManagerV2::ACTION_CALIBRATE);
+            break;
+            
+        default:
+            break;
+    }
 }

@@ -3,13 +3,17 @@
 #include "ehw.h"
 #include "ehwlist.h"
 #include "../AcousticIO.h"
-#include "../calibration/CalibrationData.h"
+#include "../calibrationV2/CalibrationDataV2.h"
+#include "Description.h"
+#include "DescriptionAIO.h"
+#include "DescriptionAM1.h"
+#include "DescriptionAM2.h"
 
 ehw::ehw(IOUSBDeviceInterface** deviceInterface_) :
 maxRequestTicks(0),
 deviceInterface(deviceInterface_)
 {
-    uint16 productID = 0;
+    productID = 0;
     
     (*deviceInterface_)->GetDeviceReleaseNumber(deviceInterface_,&firmwareVersion);
     (*deviceInterface_)->GetDeviceProduct(deviceInterface_,&productID);
@@ -17,25 +21,22 @@ deviceInterface(deviceInterface_)
     uint8 moduleTypes = getModuleTypes();
     switch (productID)
     {
-        case hwcaps::ACOUSTICIO_PRODUCT_ID:
-        case hwcaps::ACOUSTICIO_XE216_PRODUCT_ID:
-            description = new DescriptionAIO(moduleTypes);
+        case hwcaps::AIO_PRODUCT_ID:
+            description = new DescriptionAIO(moduleTypes, firmwareVersion);
             break;
             
-        case hwcaps::ACOUSTICIO_M1_PRODUCT_ID:
-        case hwcaps::ACOUSTICIO_MA_PRODUCT_ID:
+        case hwcaps::AIO_M1_PRODUCT_ID:
             moduleTypes = (ACOUSTICIO_MIKEYBUS_MODULE << 4) | ACOUSTICIO_ANALOG_MODULE;
-            description = new DescriptionAM1(moduleTypes);
+            description = new DescriptionAM1(moduleTypes, firmwareVersion);
             break;
             
-        case hwcaps::ACOUSTICIO_M2_PRODUCT_ID:
-        case hwcaps::ACOUSTICIO_MM_PRODUCT_ID:
+        case hwcaps::AIO_M2_PRODUCT_ID:
             moduleTypes = (ACOUSTICIO_MIKEYBUS_MODULE << 4) | ACOUSTICIO_MIKEYBUS_MODULE;
-            description = new DescriptionAM2(moduleTypes);
+            description = new DescriptionAM2(moduleTypes, productID, firmwareVersion);
             break;
             
         default:
-            description = new Description(moduleTypes);
+            description = new Description(moduleTypes, firmwareVersion);
             break;
     }
     
@@ -572,7 +573,7 @@ Result ehw::writeFlashBlock(uint8 const block, uint8 const * const buffer, size_
 
 Result ehw::clearRAMCalibrationData()
 {
-    AIOSCalibrationData data;
+    CalibrationDataV2 data;
     
     return setCalibrationData(&data.data);
 }

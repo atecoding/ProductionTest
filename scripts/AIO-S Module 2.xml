@@ -5,8 +5,7 @@
 	<!-- Echo AIO-S                                    -->
 	<!-- **************************************************** -->
 
-  <device>
-    Echo AIO
+  <device USB_product_ID="0xa0">
     <Require_AIO_Test_Adapter>true</Require_AIO_Test_Adapter>
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO</CoreAudio_driver>
@@ -24,7 +23,7 @@
         <type>1</type>  <!-- type 1 == TEDS microphone + class D amp analog module -->
     </AIO_module_type_test>
 
-    <AIOS_clear_RAM_calibration />
+    <AIO_clear_RAM_calibration />
 
     <AIO_flash_memory_test />
 
