@@ -32,11 +32,62 @@
       <!-- type 3 == AMB module -->
     </AIO_module_type_test>
 
-    <message_box>Connect the Test Adapter to Inputs 1-4</message_box>
-
     <AIO_clear_RAM_calibration />
 
     <AIO_flash_memory_test />
+
+    <!-- Test USB synchronized clock source -->
+
+    <prompt>
+      USB Clock Source Check
+      <text>Check USB Sync Clock Source</text>
+      <output_amplitude_db>-20.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-200.0</min_input_db>
+      <max_input_db>0.0</max_input_db>
+      <wait_for_user>0</wait_for_user>
+      <start_group>1</start_group>
+    </prompt>
+
+    <AIO_set_clock_source source="internal" />
+    <AIO_set_USB_clock_rate rate="32000" />
+    <Delay_msec>200</Delay_msec>
+    <AIO_set_clock_source source="USB" />
+    <test>
+      USB Sync Clock Source Check
+      <type>USB sync</type>
+      <output_amplitude_db>-0.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>32000</sample_rate>
+      <sample_rate_check>32000</sample_rate_check>
+      <min_level_db>-200</min_level_db>
+      <max_level_db>0.0</max_level_db>
+    </test>
+
+    <AIO_set_clock_source source="internal" />
+    <AIO_set_USB_clock_rate rate="48000" />
+    <Delay_msec>200</Delay_msec>
+    <AIO_set_clock_source source="USB" />
+
+    <test>
+      USB Sync Clock Source Check
+      <type>USB sync</type>
+      <output_amplitude_db>-0.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <sample_rate_check>48000</sample_rate_check>
+      <min_level_db>-200</min_level_db>
+      <max_level_db>0.0</max_level_db>
+    </test>
+
+    <AIO_set_clock_source source="internal" />
 
     <!-- Check constant current voltage and current -->
 
@@ -100,6 +151,20 @@
 
     <AIO_set_amp_gain output="0" gain="1" />
     <AIO_set_amp_gain output="1" gain="1" />
+
+    <prompt>
+      Input and Output Gains 1-4
+      <text>Check levels for gain settings 1-4</text>
+      <output_amplitude_db>-20.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-200.0</min_input_db>
+      <max_input_db>0.0</max_input_db>
+      <wait_for_user>0</wait_for_user>
+      <start_group>1</start_group>
+    </prompt>
 
     <test>
       1x Input - 1x Output Level Check 1-2
@@ -175,7 +240,6 @@
       <sample_rate>48000</sample_rate>
       <min_level_db>-5.0</min_level_db>
       <max_level_db>-1.0</max_level_db>
-      <required_test_adapter_product_id>0x200</required_test_adapter_product_id>
     </test>
 
     <test>
@@ -188,7 +252,6 @@
       <sample_rate>48000</sample_rate>
       <min_level_db>-5.0</min_level_db>
       <max_level_db>-1.0</max_level_db>
-      <required_test_adapter_product_id>0x200</required_test_adapter_product_id>
     </test>
 
     <AIO_set_mic_gain input="0" gain="1" />
@@ -244,6 +307,7 @@
       <min_input_db>-200.0</min_input_db>
       <max_input_db>0.0</max_input_db>
       <wait_for_user>0</wait_for_user>
+      <start_group>1</start_group>
     </prompt>
 
     <!-- THD+N and DNR Channels 1-2 -->
@@ -291,7 +355,7 @@
       <sample_rate>48000</sample_rate>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
-      <pass_threshold_db>0.49</pass_threshold_db>
+      <pass_threshold_db>0.75</pass_threshold_db>
       <sweep_time_seconds>2.0</sweep_time_seconds>
       <sweep_delay_seconds>0.4</sweep_delay_seconds>
       <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
@@ -344,7 +408,7 @@
       <sample_rate>48000</sample_rate>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
-      <pass_threshold_db>0.49</pass_threshold_db>
+      <pass_threshold_db>0.75</pass_threshold_db>
       <sweep_time_seconds>2.0</sweep_time_seconds>
       <sweep_delay_seconds>0.4</sweep_delay_seconds>
       <sweep_fadein_seconds>0.1</sweep_fadein_seconds>

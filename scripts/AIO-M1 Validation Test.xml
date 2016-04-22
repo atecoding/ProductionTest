@@ -28,7 +28,58 @@
 
     <AIO_clear_RAM_calibration />
 
-    <AIO_flash_memory_test />
+    <!-- Test USB synchronized clock source -->
+
+    <prompt>
+      USB Clock Source Check
+      <text>Check USB Sync Clock Source</text>
+      <output_amplitude_db>-20.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-200.0</min_input_db>
+      <max_input_db>0.0</max_input_db>
+      <wait_for_user>0</wait_for_user>
+      <start_group>1</start_group>
+    </prompt>
+
+    <AIO_set_clock_source source="internal" />
+    <AIO_set_USB_clock_rate rate="32000" />
+    <Delay_msec>200</Delay_msec>
+    <AIO_set_clock_source source="USB" />
+    <test>
+      USB Sync Clock Source Check
+      <type>USB sync</type>
+      <output_amplitude_db>-0.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>32000</sample_rate>
+      <sample_rate_check>32000</sample_rate_check>
+      <min_level_db>-200</min_level_db>
+      <max_level_db>0.0</max_level_db>
+    </test>
+
+    <AIO_set_clock_source source="internal" />
+    <AIO_set_USB_clock_rate rate="48000" />
+    <Delay_msec>200</Delay_msec>
+    <AIO_set_clock_source source="USB" />
+
+    <test>
+      USB Sync Clock Source Check
+      <type>USB sync</type>
+      <output_amplitude_db>-0.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <sample_rate_check>48000</sample_rate_check>
+      <min_level_db>-200</min_level_db>
+      <max_level_db>0.0</max_level_db>
+    </test>
+
+    <AIO_set_clock_source source="internal" />
 
     <!-- Check constant current voltage and current -->
 
@@ -81,56 +132,6 @@
 
     <AIO_TEDS_test input="0" />
 
-    <AIO_TEDS_test input="0" />
-
-    <!-- Test USB synchronized clock source -->
-
-    <prompt>
-      USB Clock Source Check
-      <text>Check USB Sync Clock Source</text>
-      <output_amplitude_db>-20.0</output_amplitude_db>
-      <input>0</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <min_input_db>-200.0</min_input_db>
-      <max_input_db>0.0</max_input_db>
-      <wait_for_user>0</wait_for_user>
-      <start_group>1</start_group>
-    </prompt>
-
-    <AIO_set_USB_clock_rate rate="32000" />
-    <AIO_set_clock_source source="USB" />
-    <test>
-      USB Sync Clock Source Check
-      <type>USB sync</type>
-      <output_amplitude_db>-0.0</output_amplitude_db>
-      <input>0</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <sample_rate_check>32000</sample_rate_check>
-      <min_level_db>-200</min_level_db>
-      <max_level_db>0.0</max_level_db>
-    </test>
-
-    <AIO_set_USB_clock_rate rate="48000" />
-
-    <test>
-      USB Sync Clock Source Check
-      <type>USB sync</type>
-      <output_amplitude_db>-0.0</output_amplitude_db>
-      <input>0</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <sample_rate_check>48000</sample_rate_check>
-      <min_level_db>-200</min_level_db>
-      <max_level_db>0.0</max_level_db>
-    </test>
-
-    <!-- Run a few tests us USB clock and then set back to internal -->
-
     <!-- Test gain settings for inputs and outputs -->
 
     <AIO_write_test_adapter byte="0x30"/> <!-- set adapter for audio measurements-->
@@ -142,6 +143,20 @@
 
     <AIO_set_amp_gain output="0" gain="1" />
     <AIO_set_amp_gain output="1" gain="1" />
+
+    <prompt>
+      Input and Output Gains 1-4
+      <text>Check levels for gain settings 1-4</text>
+      <output_amplitude_db>-20.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-200.0</min_input_db>
+      <max_input_db>0.0</max_input_db>
+      <wait_for_user>0</wait_for_user>
+      <start_group>1</start_group>
+    </prompt>
 
     <test>
       1x Input - 1x Output Level Check 1-2
@@ -166,8 +181,6 @@
       <min_level_db>-25.0</min_level_db>
       <max_level_db>-20.0</max_level_db>
     </test>
-
-    <AIO_set_clock_source source="internal" />
 
     <AIO_set_mic_gain input="0" gain="10" />
     <AIO_set_mic_gain input="1" gain="10" />
@@ -286,6 +299,7 @@
       <min_input_db>-200.0</min_input_db>
       <max_input_db>0.0</max_input_db>
       <wait_for_user>0</wait_for_user>
+      <start_group>1</start_group>
     </prompt>
 
     <!-- THD+N and DNR Channels 1-2 -->
@@ -333,7 +347,7 @@
       <sample_rate>48000</sample_rate>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
-      <pass_threshold_db>0.49</pass_threshold_db>
+      <pass_threshold_db>0.75</pass_threshold_db>
       <sweep_time_seconds>2.0</sweep_time_seconds>
       <sweep_delay_seconds>0.4</sweep_delay_seconds>
       <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
@@ -386,7 +400,7 @@
       <sample_rate>48000</sample_rate>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
-      <pass_threshold_db>0.49</pass_threshold_db>
+      <pass_threshold_db>0.75</pass_threshold_db>
       <sweep_time_seconds>2.0</sweep_time_seconds>
       <sweep_delay_seconds>0.4</sweep_delay_seconds>
       <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
@@ -417,8 +431,6 @@
  
  ****************************************************** -->
 
-
-<Delay_msec>1000</Delay_msec>
 
 <AIO_mikeybus module="1">
     <write page="0x99" address="0x01" value="0xA5"/>
