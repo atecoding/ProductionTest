@@ -101,8 +101,10 @@ bool AIOTestAdapter::open()
 
 					switch (attributes.ProductID)
 					{
+#if SUPPORT_TEST_ADAPTER_V200
 					case ECHO_HID_TESTER_PRODUCT_ID_V100:
 					case ECHO_HID_TESTER_PRODUCT_ID_V200:
+#endif
 					case ECHO_HID_TESTER_PRODUCT_ID_V210:
 						DBG("Test adapter found");
 						match = true;

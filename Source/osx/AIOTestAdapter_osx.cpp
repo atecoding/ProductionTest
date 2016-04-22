@@ -102,8 +102,10 @@ void AIOTestAdapter::findAdapters(IOHIDManagerRef &managerRef, CFSetRef &deviceC
                             {
                                 switch (productID_)
                                 {
+#if SUPPORT_TEST_ADAPTER_V200
                                     case ECHO_HID_TESTER_PRODUCT_ID_V100:
                                     case ECHO_HID_TESTER_PRODUCT_ID_V200:
+#endif
                                     case ECHO_HID_TESTER_PRODUCT_ID_V210:
                                         DBG("Test adapter found");
                                         

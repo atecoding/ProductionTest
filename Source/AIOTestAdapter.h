@@ -11,6 +11,10 @@
 #define ADAPTER_REFERENCE_VOLTAGE		0x40
 #define ADAPTER_TEST_INPUTS				0x00
 
+#ifndef SUPPORT_TEST_ADAPTER_V200 
+#define SUPPORT_TEST_ADAPTER_V200 0
+#endif
+
 class AIOTestAdapter
 {
 public:
