@@ -18,14 +18,11 @@
 		23D2FFDD4C7E0775567A4485 /* Content.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B141200811342E2DA35E1FDA /* Content.cpp */; };
 		2544BF85AFCFB21148D9F022 /* PowerSupplyResetTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BB0C8954EC9E8D82AA67AFCA /* PowerSupplyResetTest.cpp */; };
 		255E0958A93D32B9BDDC1E64 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E3F2059B7EFE70036FC203A /* Carbon.framework */; };
-		27EC0B69FAB3DF5CE733F7C5 /* CalibrationData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6A67E2EE03194DEF797B3D90 /* CalibrationData.cpp */; };
 		29218F76A883E45E14A85100 /* FrequencySweepResponseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5727382B1C55FC1D6335175D /* FrequencySweepResponseTest.cpp */; };
 		29465D40B3229AD3DF92D25B /* DelayTask.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3C8E4D598370CEAE5CD2A63E /* DelayTask.cpp */; };
 		2DA89763ED3B9C6EC61ADB83 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37DE2EFEAFC75F8D31D9FFF3 /* IOKit.framework */; };
-		30E0C279F1957A5D1048CB6D /* crc32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 63230B181D5ECF916FE2E62D /* crc32.cpp */; };
 		31954E3C481C5D84FAE28181 /* juce_audio_formats.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2E9CB8ADF59A40F4710B4735 /* juce_audio_formats.mm */; };
 		33625D2A92051D4D5CF07177 /* RecentFilesMenuTemplate.nib in Resources */ = {isa = PBXBuildFile; fileRef = 78DB5EA244A65C6E9227BE0A /* RecentFilesMenuTemplate.nib */; };
-		3743A02D4AC06AFB44A48E22 /* CalibrationManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65E16FC4BDCE454031F4DB2E /* CalibrationManager.cpp */; };
 		3A6CEB593710F102E41DF7C4 /* ehwlist_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 312996CDFB7260C2562165CD /* ehwlist_osx.cpp */; };
 		3FBC962F93D58B2934FA7A78 /* osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 62CC532BD0EC1D4682FD9AB4 /* osx.cpp */; };
 		414AE99B07C0C6F281AA9A1D /* DescriptionAM1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12D7D3D379D0D24F396C67CA /* DescriptionAM1.cpp */; };
@@ -34,14 +31,12 @@
 		4ADB0110592B3D5C48A457C7 /* AIOTestAdapter_osx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 38CB3061766743142CDB823C /* AIOTestAdapter_osx.cpp */; };
 		4E36CA41E366A246C2F8DF74 /* wavefile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8A4FE7DD363919438BA85A3F /* wavefile.cpp */; };
 		52498C7B13097A62AAADE022 /* juce_core.mm in Sources */ = {isa = PBXBuildFile; fileRef = B78CDEDFAE5B25C12A8D9D52 /* juce_core.mm */; };
-		557C2C4C83A2CCF62E92A28B /* CalibrationDialogComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CD5FDCB4D61A5F9EDE962378 /* CalibrationDialogComponent.cpp */; };
 		56008E9AAB7AAD07C556AEB8 /* PhaseTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 61E2899C0E7D24F3D7E9053F /* PhaseTest.cpp */; };
 		5876F9A92CDE95554712D2DE /* FlashMemoryTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 91C84CFB19297BDDA1B978FF /* FlashMemoryTest.cpp */; };
 		59E5F030DE314DB489B9EAD1 /* FrequencySweepAudioSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BC49B98AD88490D365811645 /* FrequencySweepAudioSource.cpp */; };
 		5CBAEA095EC18746ECBB0437 /* Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 448D4DFA5288C40A223AEA46 /* Test.cpp */; };
 		5D04396EF0B82D470B397C8E /* mb_bulk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1C5150A90EA7040B73D17562 /* mb_bulk.cpp */; };
 		5E902671321322ED0A29E26B /* Spectrum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8360B9CBB6446E52214D4C7B /* Spectrum.cpp */; };
-		61DD3C9942255E2E0ED300A5 /* CalibrationAudioIOCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 362100A3D8D3AB874844F6D2 /* CalibrationAudioIOCallback.cpp */; };
 		62615F619351CADB1A2027B4 /* LevelCheckTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55F35CCC8450B43DD91FF9A4 /* LevelCheckTest.cpp */; };
 		64FAE6A503805B93A5B045CF /* ehw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CF1CF7F3C421891DC9726382 /* ehw.cpp */; };
 		6849DBD22BA7F5DF90E8AAC3 /* ErrorCodes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 81B939EB833718386F8FF349 /* ErrorCodes.cpp */; };
@@ -79,6 +74,21 @@
 		C6B58E8417A7A4EF056B8F94 /* juce_audio_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 194248DF049D844C2C0DF843 /* juce_audio_basics.mm */; };
 		C87CD9FB851465C7F455E427 /* AIOTestAdapter_win.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2E1233B4DBC44DA8D38F13E /* AIOTestAdapter_win.cpp */; };
 		C908715D1CC8921900444B87 /* USBSyncTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C908715C1CC8921900444B87 /* USBSyncTest.cpp */; };
+		C96D7FBE1CC9D3FF00C029F9 /* AIOPnpHandler_ProductionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D7FA61CC9D3FF00C029F9 /* AIOPnpHandler_ProductionTest.cpp */; };
+		C96D7FBF1CC9D3FF00C029F9 /* CalibrationAudioIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D7FA71CC9D3FF00C029F9 /* CalibrationAudioIO.cpp */; };
+		C96D7FC01CC9D3FF00C029F9 /* CalibrationComponentV2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D7FA91CC9D3FF00C029F9 /* CalibrationComponentV2.cpp */; };
+		C96D7FC11CC9D3FF00C029F9 /* CalibrationDataV2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D7FAB1CC9D3FF00C029F9 /* CalibrationDataV2.cpp */; };
+		C96D7FC21CC9D3FF00C029F9 /* CalibrationManagerV2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D7FAD1CC9D3FF00C029F9 /* CalibrationManagerV2.cpp */; };
+		C96D7FC31CC9D3FF00C029F9 /* CalibrationProcedure.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D7FAF1CC9D3FF00C029F9 /* CalibrationProcedure.cpp */; };
+		C96D7FC41CC9D3FF00C029F9 /* CalibrationProcedureAIOA.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D7FB11CC9D3FF00C029F9 /* CalibrationProcedureAIOA.cpp */; };
+		C96D7FC51CC9D3FF00C029F9 /* CalibrationProcedureAIOS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D7FB41CC9D3FF00C029F9 /* CalibrationProcedureAIOS.cpp */; };
+		C96D7FC61CC9D3FF00C029F9 /* CalibrationUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D7FB61CC9D3FF00C029F9 /* CalibrationUnit.cpp */; };
+		C96D7FC71CC9D3FF00C029F9 /* crc32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D7FB81CC9D3FF00C029F9 /* crc32.cpp */; };
+		C96D7FC81CC9D3FF00C029F9 /* SquareWaveAudioSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D7FBB1CC9D3FF00C029F9 /* SquareWaveAudioSource.cpp */; };
+		C9E669E01CC9F5F000C964C5 /* AIO-2 Full Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9FDDAF11CC9DD4000DC18A0 /* AIO-2 Full Test.xml */; };
+		C9E669E11CC9F5F000C964C5 /* AIO-M1 Final Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9FDDAF71CC9DD4000DC18A0 /* AIO-M1 Final Test.xml */; };
+		C9E669E21CC9F5F000C964C5 /* AIO-S Full Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9FDDAFD1CC9DD4000DC18A0 /* AIO-S Full Test.xml */; };
+		C9FDDAF01CC9DCF800DC18A0 /* factory.icns in Resources */ = {isa = PBXBuildFile; fileRef = C9FDDAEF1CC9DCF800DC18A0 /* factory.icns */; };
 		CD0A53BAB3E80428639E61A8 /* ReferenceVoltageTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8957DC366890FD05B21C61A5 /* ReferenceVoltageTest.cpp */; };
 		CF084F5CC7CBB22553A7E8D1 /* MeterWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1C0A49BA9A3AE6A93DC8DAFD /* MeterWindow.cpp */; };
 		D4EB8C826C1DC4C5CB9EC383 /* ModuleTypeTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6512B0EC57F9F40D01012CA3 /* ModuleTypeTest.cpp */; };
@@ -261,7 +271,6 @@
 		23DFED19D1992CEA2DAD8800 /* juce_MouseCursor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_MouseCursor.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/mouse/juce_MouseCursor.h; sourceTree = SOURCE_ROOT; };
 		2408AD9F850AA8335B0C4697 /* juce_ApplicationCommandInfo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_ApplicationCommandInfo.cpp; path = ../../JuceLibraryCode/modules/juce_gui_basics/commands/juce_ApplicationCommandInfo.cpp; sourceTree = SOURCE_ROOT; };
 		242AA97FBA2A96C28231CFCC /* juce_ApplicationCommandInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ApplicationCommandInfo.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/commands/juce_ApplicationCommandInfo.h; sourceTree = SOURCE_ROOT; };
-		24B616D3F6EC3E5DE4C23CBF /* CalibrationData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CalibrationData.h; path = ../../Source/Calibration/CalibrationData.h; sourceTree = SOURCE_ROOT; };
 		256572BD0ED449BB118D7671 /* juce_MidiOutput.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_MidiOutput.cpp; path = ../../JuceLibraryCode/modules/juce_audio_devices/midi_io/juce_MidiOutput.cpp; sourceTree = SOURCE_ROOT; };
 		25A74DFCABC94FC20EC2F8B8 /* juce_RuntimePermissions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_RuntimePermissions.h; path = ../../JuceLibraryCode/modules/juce_core/misc/juce_RuntimePermissions.h; sourceTree = SOURCE_ROOT; };
 		25B85009966EC025EFBD259C /* juce_Component.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_Component.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/components/juce_Component.h; sourceTree = SOURCE_ROOT; };
@@ -330,7 +339,6 @@
 		35C88941FEA9D49B7EAB92A1 /* jdmerge.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = jdmerge.c; path = ../../JuceLibraryCode/modules/juce_graphics/image_formats/jpglib/jdmerge.c; sourceTree = SOURCE_ROOT; };
 		35FDE15954E6C930A4A69AFA /* stream_decoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = stream_decoder.h; path = ../../JuceLibraryCode/modules/juce_audio_formats/codecs/flac/libFLAC/include/protected/stream_decoder.h; sourceTree = SOURCE_ROOT; };
 		3617DA13C71AC7EA28CEC1D1 /* jdatasrc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = jdatasrc.c; path = ../../JuceLibraryCode/modules/juce_graphics/image_formats/jpglib/jdatasrc.c; sourceTree = SOURCE_ROOT; };
-		362100A3D8D3AB874844F6D2 /* CalibrationAudioIOCallback.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CalibrationAudioIOCallback.cpp; path = ../../Source/Calibration/CalibrationAudioIOCallback.cpp; sourceTree = SOURCE_ROOT; };
 		363CCFA54A3B59BD9802A842 /* juce_FlacAudioFormat.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_FlacAudioFormat.cpp; path = ../../JuceLibraryCode/modules/juce_audio_formats/codecs/juce_FlacAudioFormat.cpp; sourceTree = SOURCE_ROOT; };
 		3697D7C62A57D80ED45DAF79 /* juce_TreeView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_TreeView.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/widgets/juce_TreeView.h; sourceTree = SOURCE_ROOT; };
 		36AF07B3EE0B0EE4153E6276 /* juce_ImageComponent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_ImageComponent.cpp; path = ../../JuceLibraryCode/modules/juce_gui_basics/widgets/juce_ImageComponent.cpp; sourceTree = SOURCE_ROOT; };
@@ -356,7 +364,6 @@
 		39D054A0C59EB52EC0ADE59F /* juce_ApplicationProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ApplicationProperties.h; path = ../../JuceLibraryCode/modules/juce_data_structures/app_properties/juce_ApplicationProperties.h; sourceTree = SOURCE_ROOT; };
 		39D0581BED8F50EDB110C764 /* NotificationWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NotificationWindow.h; path = ../../Source/Win32/NotificationWindow.h; sourceTree = SOURCE_ROOT; };
 		39D93B827017D5EEBA1B716A /* juce_MidiBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_MidiBuffer.cpp; path = ../../JuceLibraryCode/modules/juce_audio_basics/midi/juce_MidiBuffer.cpp; sourceTree = SOURCE_ROOT; };
-		39DFDB8121FEF11707DA771A /* SquareWaveAnalysisResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SquareWaveAnalysisResult.h; path = ../../Source/Calibration/SquareWaveAnalysisResult.h; sourceTree = SOURCE_ROOT; };
 		3A4AA2B1C5B61AA18E6DD1D6 /* juce_InterprocessConnectionServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_InterprocessConnectionServer.h; path = ../../JuceLibraryCode/modules/juce_events/interprocess/juce_InterprocessConnectionServer.h; sourceTree = SOURCE_ROOT; };
 		3AA1F511FC4E44365E33E8C7 /* juce_FileChooserDialogBox.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_FileChooserDialogBox.cpp; path = ../../JuceLibraryCode/modules/juce_gui_basics/filebrowser/juce_FileChooserDialogBox.cpp; sourceTree = SOURCE_ROOT; };
 		3B3DF7E6CFB24FAFFAEF9F01 /* juce_Identifier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_Identifier.h; path = ../../JuceLibraryCode/modules/juce_core/text/juce_Identifier.h; sourceTree = SOURCE_ROOT; };
@@ -553,7 +560,6 @@
 		62DDDF2B9B5DD3AABDDEE81E /* juce_WildcardFileFilter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_WildcardFileFilter.cpp; path = ../../JuceLibraryCode/modules/juce_core/files/juce_WildcardFileFilter.cpp; sourceTree = SOURCE_ROOT; };
 		62E6444414182A6F86ED09E9 /* pngpread.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = pngpread.c; path = ../../JuceLibraryCode/modules/juce_graphics/image_formats/pnglib/pngpread.c; sourceTree = SOURCE_ROOT; };
 		62E994DEAA0A050906C6E79B /* juce_ComponentPeer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_ComponentPeer.cpp; path = ../../JuceLibraryCode/modules/juce_gui_basics/windows/juce_ComponentPeer.cpp; sourceTree = SOURCE_ROOT; };
-		63230B181D5ECF916FE2E62D /* crc32.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = crc32.cpp; path = ../../Source/Calibration/crc32.cpp; sourceTree = SOURCE_ROOT; };
 		63674C23B07B9DDCAB15452B /* juce_MPEInstrument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_MPEInstrument.h; path = ../../JuceLibraryCode/modules/juce_audio_basics/mpe/juce_MPEInstrument.h; sourceTree = SOURCE_ROOT; };
 		6389021AA2B1F7860B8C4ABB /* juce_audio_devices.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = juce_audio_devices.mm; path = ../../JuceLibraryCode/juce_audio_devices.mm; sourceTree = SOURCE_ROOT; };
 		6393D6960FDF822836CA6789 /* memory.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = memory.c; path = ../../JuceLibraryCode/modules/juce_audio_formats/codecs/flac/libFLAC/memory.c; sourceTree = SOURCE_ROOT; };
@@ -567,7 +573,6 @@
 		6512B0EC57F9F40D01012CA3 /* ModuleTypeTest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = ModuleTypeTest.cpp; path = ../../Source/ModuleTypeTest.cpp; sourceTree = SOURCE_ROOT; };
 		6553A2BE7DE7CE6617F3710B /* juce_RelativeRectangle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_RelativeRectangle.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/positioning/juce_RelativeRectangle.h; sourceTree = SOURCE_ROOT; };
 		65B5F2329A514E2DB6FB7209 /* juce_AudioSampleBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_AudioSampleBuffer.h; path = ../../JuceLibraryCode/modules/juce_audio_basics/buffers/juce_AudioSampleBuffer.h; sourceTree = SOURCE_ROOT; };
-		65E16FC4BDCE454031F4DB2E /* CalibrationManager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CalibrationManager.cpp; path = ../../Source/Calibration/CalibrationManager.cpp; sourceTree = SOURCE_ROOT; };
 		661DAF3BFAA3BAF79D8DDBC0 /* juce_FilenameComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_FilenameComponent.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/filebrowser/juce_FilenameComponent.h; sourceTree = SOURCE_ROOT; };
 		665BA0911269F5E98B604A75 /* sharedbook.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = sharedbook.c; path = "../../JuceLibraryCode/modules/juce_audio_formats/codecs/oggvorbis/libvorbis-1.3.2/lib/sharedbook.c"; sourceTree = SOURCE_ROOT; };
 		6669C19288BB999F6C88FDCF /* juce_PNGLoader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_PNGLoader.cpp; path = ../../JuceLibraryCode/modules/juce_graphics/image_formats/juce_PNGLoader.cpp; sourceTree = SOURCE_ROOT; };
@@ -585,7 +590,6 @@
 		69C00ABC490B3A50CE422483 /* jccoefct.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = jccoefct.c; path = ../../JuceLibraryCode/modules/juce_graphics/image_formats/jpglib/jccoefct.c; sourceTree = SOURCE_ROOT; };
 		69D2D5B993782D38A5EB0735 /* juce_ResizableEdgeComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ResizableEdgeComponent.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/layout/juce_ResizableEdgeComponent.h; sourceTree = SOURCE_ROOT; };
 		69E4A03C77C9AD158FCEE167 /* juce_linux_SystemStats.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_linux_SystemStats.cpp; path = ../../JuceLibraryCode/modules/juce_core/native/juce_linux_SystemStats.cpp; sourceTree = SOURCE_ROOT; };
-		6A67E2EE03194DEF797B3D90 /* CalibrationData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CalibrationData.cpp; path = ../../Source/Calibration/CalibrationData.cpp; sourceTree = SOURCE_ROOT; };
 		6A77B05CBBC41F2B8ED890CC /* juce_DialogWindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_DialogWindow.cpp; path = ../../JuceLibraryCode/modules/juce_gui_basics/windows/juce_DialogWindow.cpp; sourceTree = SOURCE_ROOT; };
 		6A97985ED87351CE1999DE7F /* juce_SubregionStream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_SubregionStream.h; path = ../../JuceLibraryCode/modules/juce_core/streams/juce_SubregionStream.h; sourceTree = SOURCE_ROOT; };
 		6AA01108FBD4313F659C5504 /* juce_linux_AudioCDReader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_linux_AudioCDReader.cpp; path = ../../JuceLibraryCode/modules/juce_audio_devices/native/juce_linux_AudioCDReader.cpp; sourceTree = SOURCE_ROOT; };
@@ -711,7 +715,6 @@
 		877EFF6EC00CB3CB5B911F07 /* juce_DialogWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_DialogWindow.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/windows/juce_DialogWindow.h; sourceTree = SOURCE_ROOT; };
 		8816EF1603A0B22572B634AE /* juce_ChildProcess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ChildProcess.h; path = ../../JuceLibraryCode/modules/juce_core/threads/juce_ChildProcess.h; sourceTree = SOURCE_ROOT; };
 		88194B7E98ADCFECA4CEE1E4 /* float.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = float.h; path = ../../JuceLibraryCode/modules/juce_audio_formats/codecs/flac/libFLAC/include/private/float.h; sourceTree = SOURCE_ROOT; };
-		88287AC7E9E3451CD00859D2 /* CalibrationAudioIOCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CalibrationAudioIOCallback.h; path = ../../Source/Calibration/CalibrationAudioIOCallback.h; sourceTree = SOURCE_ROOT; };
 		882C23A39A5C6248345EB677 /* juce_ColourGradient.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_ColourGradient.cpp; path = ../../JuceLibraryCode/modules/juce_graphics/colour/juce_ColourGradient.cpp; sourceTree = SOURCE_ROOT; };
 		8837303A5E9F7D5E4696CD9E /* osx.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = osx.h; path = ../../Source/OSX/osx.h; sourceTree = SOURCE_ROOT; };
 		887CF957F457193687CFB74C /* juce_SpinLock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_SpinLock.h; path = ../../JuceLibraryCode/modules/juce_core/threads/juce_SpinLock.h; sourceTree = SOURCE_ROOT; };
@@ -785,7 +788,6 @@
 		95ABD03939B4DEB30934A171 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; name = LICENSE; path = ../../JuceLibraryCode/modules/juce_graphics/image_formats/pnglib/LICENSE; sourceTree = SOURCE_ROOT; };
 		961E6C039402F94231C78335 /* juce_CharacterFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_CharacterFunctions.h; path = ../../JuceLibraryCode/modules/juce_core/text/juce_CharacterFunctions.h; sourceTree = SOURCE_ROOT; };
 		962F10890C936F1B9BE22331 /* juce_CallOutBox.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_CallOutBox.cpp; path = ../../JuceLibraryCode/modules/juce_gui_basics/windows/juce_CallOutBox.cpp; sourceTree = SOURCE_ROOT; };
-		9641C6B97E70564FB74CAD01 /* crc32.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = crc32.h; path = ../../Source/Calibration/crc32.h; sourceTree = SOURCE_ROOT; };
 		964A44DDA57EA290AB113E1C /* juce_Typeface.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_Typeface.cpp; path = ../../JuceLibraryCode/modules/juce_graphics/fonts/juce_Typeface.cpp; sourceTree = SOURCE_ROOT; };
 		964D4CD9F14E08A947043B1E /* juce_ComponentPeer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ComponentPeer.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/windows/juce_ComponentPeer.h; sourceTree = SOURCE_ROOT; };
 		9669EB27E6986A543C82DD30 /* Ogg Vorbis Licence.txt */ = {isa = PBXFileReference; lastKnownFileType = text.txt; name = "Ogg Vorbis Licence.txt"; path = "../../JuceLibraryCode/modules/juce_audio_formats/codecs/oggvorbis/Ogg Vorbis Licence.txt"; sourceTree = SOURCE_ROOT; };
@@ -795,7 +797,6 @@
 		97787B1B96518406A94467A4 /* juce_ToneGeneratorAudioSource.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_ToneGeneratorAudioSource.cpp; path = ../../JuceLibraryCode/modules/juce_audio_basics/sources/juce_ToneGeneratorAudioSource.cpp; sourceTree = SOURCE_ROOT; };
 		97890162D46D954CC42F9ABB /* tusbaudioapi_defs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = tusbaudioapi_defs.h; path = ../../Source/Win32/usb/win/tusbaudioapi_defs.h; sourceTree = SOURCE_ROOT; };
 		978FFFB6E6206EEC5612A828 /* juce_XmlDocument.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_XmlDocument.cpp; path = ../../JuceLibraryCode/modules/juce_core/xml/juce_XmlDocument.cpp; sourceTree = SOURCE_ROOT; };
-		97E4A2AFCD42E684F7E2D54F /* CalibrationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CalibrationManager.h; path = ../../Source/Calibration/CalibrationManager.h; sourceTree = SOURCE_ROOT; };
 		98042B2952E1D22AC32AC921 /* juce_win32_Network.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_win32_Network.cpp; path = ../../JuceLibraryCode/modules/juce_core/native/juce_win32_Network.cpp; sourceTree = SOURCE_ROOT; };
 		983376949CC0C120DE068377 /* juce_RelativeCoordinatePositioner.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_RelativeCoordinatePositioner.cpp; path = ../../JuceLibraryCode/modules/juce_gui_basics/positioning/juce_RelativeCoordinatePositioner.cpp; sourceTree = SOURCE_ROOT; };
 		985E8BC8C69CC972442C80DB /* juce_AnimatedPositionBehaviours.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_AnimatedPositionBehaviours.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/layout/juce_AnimatedPositionBehaviours.h; sourceTree = SOURCE_ROOT; };
@@ -942,7 +943,6 @@
 		B5DEB28373601FC045919406 /* psych_16.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = psych_16.h; path = "../../JuceLibraryCode/modules/juce_audio_formats/codecs/oggvorbis/libvorbis-1.3.2/lib/modes/psych_16.h"; sourceTree = SOURCE_ROOT; };
 		B5E8B4F81C0F43C19301D70C /* juce_Process.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_Process.h; path = ../../JuceLibraryCode/modules/juce_core/threads/juce_Process.h; sourceTree = SOURCE_ROOT; };
 		B5F956EECC073797E055E75F /* juce_Image.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_Image.cpp; path = ../../JuceLibraryCode/modules/juce_graphics/images/juce_Image.cpp; sourceTree = SOURCE_ROOT; };
-		B600652D212BCED6A7AC4B7F /* CalibrationDialogComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CalibrationDialogComponent.h; path = ../../Source/Calibration/CalibrationDialogComponent.h; sourceTree = SOURCE_ROOT; };
 		B60E7ECCA714F7EFC0B36259 /* juce_mac_CoreAudio.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_mac_CoreAudio.cpp; path = ../../JuceLibraryCode/modules/juce_audio_devices/native/juce_mac_CoreAudio.cpp; sourceTree = SOURCE_ROOT; };
 		B62F72254EE199C8D55E76CA /* juce_StringArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_StringArray.h; path = ../../JuceLibraryCode/modules/juce_core/text/juce_StringArray.h; sourceTree = SOURCE_ROOT; };
 		B630B2EEC60733BEE37B5C9A /* juce_Colour.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_Colour.cpp; path = ../../JuceLibraryCode/modules/juce_graphics/colour/juce_Colour.cpp; sourceTree = SOURCE_ROOT; };
@@ -1013,10 +1013,48 @@
 		C908715C1CC8921900444B87 /* USBSyncTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = USBSyncTest.cpp; path = ../../Source/USBSyncTest.cpp; sourceTree = "<group>"; };
 		C908715E1CC8922E00444B87 /* AIOTestAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIOTestAdapter.h; path = ../../Source/AIOTestAdapter.h; sourceTree = "<group>"; };
 		C9690D075B9887A6AF578899 /* juce_osx_MessageQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_osx_MessageQueue.h; path = ../../JuceLibraryCode/modules/juce_events/native/juce_osx_MessageQueue.h; sourceTree = SOURCE_ROOT; };
+		C96D7FA61CC9D3FF00C029F9 /* AIOPnpHandler_ProductionTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIOPnpHandler_ProductionTest.cpp; path = ../../Source/calibrationV2/AIOPnpHandler_ProductionTest.cpp; sourceTree = "<group>"; };
+		C96D7FA71CC9D3FF00C029F9 /* CalibrationAudioIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalibrationAudioIO.cpp; path = ../../Source/calibrationV2/CalibrationAudioIO.cpp; sourceTree = "<group>"; };
+		C96D7FA81CC9D3FF00C029F9 /* CalibrationAudioIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalibrationAudioIO.h; path = ../../Source/calibrationV2/CalibrationAudioIO.h; sourceTree = "<group>"; };
+		C96D7FA91CC9D3FF00C029F9 /* CalibrationComponentV2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalibrationComponentV2.cpp; path = ../../Source/calibrationV2/CalibrationComponentV2.cpp; sourceTree = "<group>"; };
+		C96D7FAA1CC9D3FF00C029F9 /* CalibrationComponentV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalibrationComponentV2.h; path = ../../Source/calibrationV2/CalibrationComponentV2.h; sourceTree = "<group>"; };
+		C96D7FAB1CC9D3FF00C029F9 /* CalibrationDataV2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalibrationDataV2.cpp; path = ../../Source/calibrationV2/CalibrationDataV2.cpp; sourceTree = "<group>"; };
+		C96D7FAC1CC9D3FF00C029F9 /* CalibrationDataV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalibrationDataV2.h; path = ../../Source/calibrationV2/CalibrationDataV2.h; sourceTree = "<group>"; };
+		C96D7FAD1CC9D3FF00C029F9 /* CalibrationManagerV2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalibrationManagerV2.cpp; path = ../../Source/calibrationV2/CalibrationManagerV2.cpp; sourceTree = "<group>"; };
+		C96D7FAE1CC9D3FF00C029F9 /* CalibrationManagerV2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalibrationManagerV2.h; path = ../../Source/calibrationV2/CalibrationManagerV2.h; sourceTree = "<group>"; };
+		C96D7FAF1CC9D3FF00C029F9 /* CalibrationProcedure.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalibrationProcedure.cpp; path = ../../Source/calibrationV2/CalibrationProcedure.cpp; sourceTree = "<group>"; };
+		C96D7FB01CC9D3FF00C029F9 /* CalibrationProcedure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalibrationProcedure.h; path = ../../Source/calibrationV2/CalibrationProcedure.h; sourceTree = "<group>"; };
+		C96D7FB11CC9D3FF00C029F9 /* CalibrationProcedureAIOA.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalibrationProcedureAIOA.cpp; path = ../../Source/calibrationV2/CalibrationProcedureAIOA.cpp; sourceTree = "<group>"; };
+		C96D7FB21CC9D3FF00C029F9 /* CalibrationProcedureAIOA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalibrationProcedureAIOA.h; path = ../../Source/calibrationV2/CalibrationProcedureAIOA.h; sourceTree = "<group>"; };
+		C96D7FB31CC9D3FF00C029F9 /* CalibrationProcedureAIOM.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalibrationProcedureAIOM.h; path = ../../Source/calibrationV2/CalibrationProcedureAIOM.h; sourceTree = "<group>"; };
+		C96D7FB41CC9D3FF00C029F9 /* CalibrationProcedureAIOS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalibrationProcedureAIOS.cpp; path = ../../Source/calibrationV2/CalibrationProcedureAIOS.cpp; sourceTree = "<group>"; };
+		C96D7FB51CC9D3FF00C029F9 /* CalibrationProcedureAIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalibrationProcedureAIOS.h; path = ../../Source/calibrationV2/CalibrationProcedureAIOS.h; sourceTree = "<group>"; };
+		C96D7FB61CC9D3FF00C029F9 /* CalibrationUnit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalibrationUnit.cpp; path = ../../Source/calibrationV2/CalibrationUnit.cpp; sourceTree = "<group>"; };
+		C96D7FB71CC9D3FF00C029F9 /* CalibrationUnit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CalibrationUnit.h; path = ../../Source/calibrationV2/CalibrationUnit.h; sourceTree = "<group>"; };
+		C96D7FB81CC9D3FF00C029F9 /* crc32.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = crc32.cpp; path = ../../Source/calibrationV2/crc32.cpp; sourceTree = "<group>"; };
+		C96D7FB91CC9D3FF00C029F9 /* crc32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = crc32.h; path = ../../Source/calibrationV2/crc32.h; sourceTree = "<group>"; };
+		C96D7FBA1CC9D3FF00C029F9 /* SquareWaveAnalysisResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SquareWaveAnalysisResult.h; path = ../../Source/calibrationV2/SquareWaveAnalysisResult.h; sourceTree = "<group>"; };
+		C96D7FBB1CC9D3FF00C029F9 /* SquareWaveAudioSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SquareWaveAudioSource.cpp; path = ../../Source/calibrationV2/SquareWaveAudioSource.cpp; sourceTree = "<group>"; };
+		C96D7FBC1CC9D3FF00C029F9 /* SquareWaveAudioSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SquareWaveAudioSource.h; path = ../../Source/calibrationV2/SquareWaveAudioSource.h; sourceTree = "<group>"; };
+		C96D7FBD1CC9D3FF00C029F9 /* USBDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = USBDevice.h; path = ../../Source/calibrationV2/USBDevice.h; sourceTree = "<group>"; };
 		C971A67872651D1E8AECE8B6 /* FrequencySweepAudioSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FrequencySweepAudioSource.h; path = ../../Source/FrequencySweepAudioSource.h; sourceTree = SOURCE_ROOT; };
 		C9AE648D501FAC479780EB75 /* jdinput.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = jdinput.c; path = ../../JuceLibraryCode/modules/juce_graphics/image_formats/jpglib/jdinput.c; sourceTree = SOURCE_ROOT; };
 		C9BFB3F895CEA50905204CF4 /* setup_X.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = setup_X.h; path = "../../JuceLibraryCode/modules/juce_audio_formats/codecs/oggvorbis/libvorbis-1.3.2/lib/modes/setup_X.h"; sourceTree = SOURCE_ROOT; };
 		C9CDE31091CF3C30301CAC54 /* juce_Colours.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_Colours.h; path = ../../JuceLibraryCode/modules/juce_graphics/colour/juce_Colours.h; sourceTree = SOURCE_ROOT; };
+		C9FDDAEF1CC9DCF800DC18A0 /* factory.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = factory.icns; sourceTree = "<group>"; };
+		C9FDDAF11CC9DD4000DC18A0 /* AIO-2 Full Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Full Test.xml"; path = "../../scripts/AIO-2 Full Test.xml"; sourceTree = "<group>"; };
+		C9FDDAF21CC9DD4000DC18A0 /* AIO-2 Module 1 Validation Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Module 1 Validation Test.xml"; path = "../../scripts/AIO-2 Module 1 Validation Test.xml"; sourceTree = "<group>"; };
+		C9FDDAF31CC9DD4000DC18A0 /* AIO-2 Module 1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Module 1.xml"; path = "../../scripts/AIO-2 Module 1.xml"; sourceTree = "<group>"; };
+		C9FDDAF41CC9DD4000DC18A0 /* AIO-2 Module 2 Validation Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Module 2 Validation Test.xml"; path = "../../scripts/AIO-2 Module 2 Validation Test.xml"; sourceTree = "<group>"; };
+		C9FDDAF51CC9DD4000DC18A0 /* AIO-2 Module 2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Module 2.xml"; path = "../../scripts/AIO-2 Module 2.xml"; sourceTree = "<group>"; };
+		C9FDDAF61CC9DD4000DC18A0 /* AIO-2 Validation Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Validation Test.xml"; path = "../../scripts/AIO-2 Validation Test.xml"; sourceTree = "<group>"; };
+		C9FDDAF71CC9DD4000DC18A0 /* AIO-M1 Final Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-M1 Final Test.xml"; path = "../../scripts/AIO-M1 Final Test.xml"; sourceTree = "<group>"; };
+		C9FDDAF81CC9DD4000DC18A0 /* AIO-S Module 2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Module 2.xml"; path = "../../scripts/AIO-S Module 2.xml"; sourceTree = "<group>"; };
+		C9FDDAF91CC9DD4000DC18A0 /* AIO-M1 Module 1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-M1 Module 1.xml"; path = "../../scripts/AIO-M1 Module 1.xml"; sourceTree = "<group>"; };
+		C9FDDAFA1CC9DD4000DC18A0 /* AIO-M1 Validation Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-M1 Validation Test.xml"; path = "../../scripts/AIO-M1 Validation Test.xml"; sourceTree = "<group>"; };
+		C9FDDAFB1CC9DD4000DC18A0 /* AIO-M2 Final Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-M2 Final Test.xml"; path = "../../scripts/AIO-M2 Final Test.xml"; sourceTree = "<group>"; };
+		C9FDDAFC1CC9DD4000DC18A0 /* AIO-S Module 1.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Module 1.xml"; path = "../../scripts/AIO-S Module 1.xml"; sourceTree = "<group>"; };
+		C9FDDAFD1CC9DD4000DC18A0 /* AIO-S Full Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Full Test.xml"; path = "../../scripts/AIO-S Full Test.xml"; sourceTree = "<group>"; };
 		CA29D0FCBE0DB32F70AEBF63 /* juce_ThreadPool.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_ThreadPool.cpp; path = ../../JuceLibraryCode/modules/juce_core/threads/juce_ThreadPool.cpp; sourceTree = SOURCE_ROOT; };
 		CA31DAE50AD6A50A762E67A6 /* juce_ChoicePropertyComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ChoicePropertyComponent.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/properties/juce_ChoicePropertyComponent.h; sourceTree = SOURCE_ROOT; };
 		CA397672169D757164653618 /* endswap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = endswap.h; path = ../../JuceLibraryCode/modules/juce_audio_formats/codecs/flac/endswap.h; sourceTree = SOURCE_ROOT; };
@@ -1033,7 +1071,6 @@
 		CD18D72B7B17EA0F634852C3 /* juce_Expression.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_Expression.h; path = ../../JuceLibraryCode/modules/juce_core/maths/juce_Expression.h; sourceTree = SOURCE_ROOT; };
 		CD25A5B9C0DBE1DC38871F07 /* juce_ToolbarItemComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ToolbarItemComponent.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/widgets/juce_ToolbarItemComponent.h; sourceTree = SOURCE_ROOT; };
 		CD571216B8720E64EEB482C8 /* juce_PropertySet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_PropertySet.h; path = ../../JuceLibraryCode/modules/juce_core/containers/juce_PropertySet.h; sourceTree = SOURCE_ROOT; };
-		CD5FDCB4D61A5F9EDE962378 /* CalibrationDialogComponent.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = CalibrationDialogComponent.cpp; path = ../../Source/Calibration/CalibrationDialogComponent.cpp; sourceTree = SOURCE_ROOT; };
 		CDEFFBC7513FC65FAD073B55 /* juce_ProgressBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ProgressBar.h; path = ../../JuceLibraryCode/modules/juce_gui_basics/widgets/juce_ProgressBar.h; sourceTree = SOURCE_ROOT; };
 		CE0EC0AE4B27FDC305FDBE50 /* juce_ScopedPointer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_ScopedPointer.h; path = ../../JuceLibraryCode/modules/juce_core/memory/juce_ScopedPointer.h; sourceTree = SOURCE_ROOT; };
 		CE351FE5E932E57C2F0F374C /* mdct.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = mdct.c; path = "../../JuceLibraryCode/modules/juce_audio_formats/codecs/oggvorbis/libvorbis-1.3.2/lib/mdct.c"; sourceTree = SOURCE_ROOT; };
@@ -1156,7 +1193,6 @@
 		E87D528255FDF7C2E685786E /* juce_Font.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_Font.cpp; path = ../../JuceLibraryCode/modules/juce_graphics/fonts/juce_Font.cpp; sourceTree = SOURCE_ROOT; };
 		E88B256B13B487FB134020E7 /* juce_FileOutputStream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_FileOutputStream.cpp; path = ../../JuceLibraryCode/modules/juce_core/files/juce_FileOutputStream.cpp; sourceTree = SOURCE_ROOT; };
 		E8913A3B42192A8738E64009 /* codebook.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = codebook.c; path = "../../JuceLibraryCode/modules/juce_audio_formats/codecs/oggvorbis/libvorbis-1.3.2/lib/codebook.c"; sourceTree = SOURCE_ROOT; };
-		E8D54B8CE57D68C28A901ECB /* ExternalSpeakerMonitorTestResult.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ExternalSpeakerMonitorTestResult.h; path = ../../Source/Calibration/ExternalSpeakerMonitorTestResult.h; sourceTree = SOURCE_ROOT; };
 		E8F8E86B520922BAE7DCCCB5 /* juce_linux_Midi.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = juce_linux_Midi.cpp; path = ../../JuceLibraryCode/modules/juce_audio_devices/native/juce_linux_Midi.cpp; sourceTree = SOURCE_ROOT; };
 		E907DE61017C2982834D42D0 /* juce_FloatVectorOperations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_FloatVectorOperations.h; path = ../../JuceLibraryCode/modules/juce_audio_basics/buffers/juce_FloatVectorOperations.h; sourceTree = SOURCE_ROOT; };
 		E933FFE84A04768E6EDA7689 /* App.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = App.h; path = ../../Source/App.h; sourceTree = SOURCE_ROOT; };
@@ -1943,7 +1979,6 @@
 				BCC2A77CE27802BAC53D0160 /* AudioOutput.cpp */,
 				2BE65DEEFA4D79E875EA75A3 /* AudioOutput.h */,
 				DF2371D30C953A8F995C30B3 /* base.h */,
-				F951A09D0331BC0140035324 /* Calibration */,
 				C9576DA41CC8928B003DF495 /* CalibrationV2 */,
 				81B939EB833718386F8FF349 /* ErrorCodes.cpp */,
 				E13F6360CC1107168AF0974B /* ErrorCodes.h */,
@@ -2966,6 +3001,20 @@
 		B919EC5A2C0D7AF4E6C95099 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C9FDDAF11CC9DD4000DC18A0 /* AIO-2 Full Test.xml */,
+				C9FDDAF21CC9DD4000DC18A0 /* AIO-2 Module 1 Validation Test.xml */,
+				C9FDDAF31CC9DD4000DC18A0 /* AIO-2 Module 1.xml */,
+				C9FDDAF41CC9DD4000DC18A0 /* AIO-2 Module 2 Validation Test.xml */,
+				C9FDDAF51CC9DD4000DC18A0 /* AIO-2 Module 2.xml */,
+				C9FDDAF61CC9DD4000DC18A0 /* AIO-2 Validation Test.xml */,
+				C9FDDAF71CC9DD4000DC18A0 /* AIO-M1 Final Test.xml */,
+				C9FDDAF81CC9DD4000DC18A0 /* AIO-S Module 2.xml */,
+				C9FDDAF91CC9DD4000DC18A0 /* AIO-M1 Module 1.xml */,
+				C9FDDAFA1CC9DD4000DC18A0 /* AIO-M1 Validation Test.xml */,
+				C9FDDAFB1CC9DD4000DC18A0 /* AIO-M2 Final Test.xml */,
+				C9FDDAFC1CC9DD4000DC18A0 /* AIO-S Module 1.xml */,
+				C9FDDAFD1CC9DD4000DC18A0 /* AIO-S Full Test.xml */,
+				C9FDDAEF1CC9DCF800DC18A0 /* factory.icns */,
 				294FCA1109401DBDF86F21D1 /* Info-App.plist */,
 				78DB5EA244A65C6E9227BE0A /* RecentFilesMenuTemplate.nib */,
 			);
@@ -3068,6 +3117,30 @@
 		C9576DA41CC8928B003DF495 /* CalibrationV2 */ = {
 			isa = PBXGroup;
 			children = (
+				C96D7FA61CC9D3FF00C029F9 /* AIOPnpHandler_ProductionTest.cpp */,
+				C96D7FA71CC9D3FF00C029F9 /* CalibrationAudioIO.cpp */,
+				C96D7FA81CC9D3FF00C029F9 /* CalibrationAudioIO.h */,
+				C96D7FA91CC9D3FF00C029F9 /* CalibrationComponentV2.cpp */,
+				C96D7FAA1CC9D3FF00C029F9 /* CalibrationComponentV2.h */,
+				C96D7FAB1CC9D3FF00C029F9 /* CalibrationDataV2.cpp */,
+				C96D7FAC1CC9D3FF00C029F9 /* CalibrationDataV2.h */,
+				C96D7FAD1CC9D3FF00C029F9 /* CalibrationManagerV2.cpp */,
+				C96D7FAE1CC9D3FF00C029F9 /* CalibrationManagerV2.h */,
+				C96D7FAF1CC9D3FF00C029F9 /* CalibrationProcedure.cpp */,
+				C96D7FB01CC9D3FF00C029F9 /* CalibrationProcedure.h */,
+				C96D7FB11CC9D3FF00C029F9 /* CalibrationProcedureAIOA.cpp */,
+				C96D7FB21CC9D3FF00C029F9 /* CalibrationProcedureAIOA.h */,
+				C96D7FB31CC9D3FF00C029F9 /* CalibrationProcedureAIOM.h */,
+				C96D7FB41CC9D3FF00C029F9 /* CalibrationProcedureAIOS.cpp */,
+				C96D7FB51CC9D3FF00C029F9 /* CalibrationProcedureAIOS.h */,
+				C96D7FB61CC9D3FF00C029F9 /* CalibrationUnit.cpp */,
+				C96D7FB71CC9D3FF00C029F9 /* CalibrationUnit.h */,
+				C96D7FB81CC9D3FF00C029F9 /* crc32.cpp */,
+				C96D7FB91CC9D3FF00C029F9 /* crc32.h */,
+				C96D7FBA1CC9D3FF00C029F9 /* SquareWaveAnalysisResult.h */,
+				C96D7FBB1CC9D3FF00C029F9 /* SquareWaveAudioSource.cpp */,
+				C96D7FBC1CC9D3FF00C029F9 /* SquareWaveAudioSource.h */,
+				C96D7FBD1CC9D3FF00C029F9 /* USBDevice.h */,
 			);
 			name = CalibrationV2;
 			sourceTree = "<group>";
@@ -3311,25 +3384,6 @@
 			name = undomanager;
 			sourceTree = "<group>";
 		};
-		F951A09D0331BC0140035324 /* Calibration */ = {
-			isa = PBXGroup;
-			children = (
-				362100A3D8D3AB874844F6D2 /* CalibrationAudioIOCallback.cpp */,
-				88287AC7E9E3451CD00859D2 /* CalibrationAudioIOCallback.h */,
-				6A67E2EE03194DEF797B3D90 /* CalibrationData.cpp */,
-				24B616D3F6EC3E5DE4C23CBF /* CalibrationData.h */,
-				CD5FDCB4D61A5F9EDE962378 /* CalibrationDialogComponent.cpp */,
-				B600652D212BCED6A7AC4B7F /* CalibrationDialogComponent.h */,
-				65E16FC4BDCE454031F4DB2E /* CalibrationManager.cpp */,
-				97E4A2AFCD42E684F7E2D54F /* CalibrationManager.h */,
-				63230B181D5ECF916FE2E62D /* crc32.cpp */,
-				9641C6B97E70564FB74CAD01 /* crc32.h */,
-				E8D54B8CE57D68C28A901ECB /* ExternalSpeakerMonitorTestResult.h */,
-				39DFDB8121FEF11707DA771A /* SquareWaveAnalysisResult.h */,
-			);
-			name = Calibration;
-			sourceTree = "<group>";
-		};
 		FE3AE8C5782AC286512BF744 /* juce_gui_extra */ = {
 			isa = PBXGroup;
 			children = (
@@ -3433,6 +3487,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				33625D2A92051D4D5CF07177 /* RecentFilesMenuTemplate.nib in Resources */,
+				C9FDDAF01CC9DCF800DC18A0 /* factory.icns in Resources */,
+				C9E669E21CC9F5F000C964C5 /* AIO-S Full Test.xml in Resources */,
+				C9E669E11CC9F5F000C964C5 /* AIO-M1 Final Test.xml in Resources */,
+				C9E669E01CC9F5F000C964C5 /* AIO-2 Full Test.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3447,25 +3505,24 @@
 				4486814245F03F8AE957E2A1 /* DescriptionAIO.cpp in Sources */,
 				414AE99B07C0C6F281AA9A1D /* DescriptionAM1.cpp in Sources */,
 				0A39944385FEEBD64D3E1B12 /* DescriptionAM2.cpp in Sources */,
-				61DD3C9942255E2E0ED300A5 /* CalibrationAudioIOCallback.cpp in Sources */,
-				27EC0B69FAB3DF5CE733F7C5 /* CalibrationData.cpp in Sources */,
 				C908715D1CC8921900444B87 /* USBSyncTest.cpp in Sources */,
-				557C2C4C83A2CCF62E92A28B /* CalibrationDialogComponent.cpp in Sources */,
-				3743A02D4AC06AFB44A48E22 /* CalibrationManager.cpp in Sources */,
-				30E0C279F1957A5D1048CB6D /* crc32.cpp in Sources */,
 				81ABDDE0C959A0D7D587D1E6 /* AppWindow.cpp in Sources */,
 				23D2FFDD4C7E0775567A4485 /* Content.cpp in Sources */,
 				29465D40B3229AD3DF92D25B /* DelayTask.cpp in Sources */,
 				CF084F5CC7CBB22553A7E8D1 /* MeterWindow.cpp in Sources */,
 				173CCAC08C221EABE3BAF829 /* TestPrompt.cpp in Sources */,
+				C96D7FC31CC9D3FF00C029F9 /* CalibrationProcedure.cpp in Sources */,
+				C96D7FC81CC9D3FF00C029F9 /* SquareWaveAudioSource.cpp in Sources */,
 				4ADB0110592B3D5C48A457C7 /* AIOTestAdapter_osx.cpp in Sources */,
 				DB728FF439655BA5FCC8D8DF /* ehw_osx.cpp in Sources */,
 				3A6CEB593710F102E41DF7C4 /* ehwlist_osx.cpp in Sources */,
+				C96D7FC01CC9D3FF00C029F9 /* CalibrationComponentV2.cpp in Sources */,
 				3FBC962F93D58B2934FA7A78 /* osx.cpp in Sources */,
 				A11C071954072FAC10AEFF16 /* Printer_osx.cpp in Sources */,
 				EB55A8B054200FFBAA74FD5A /* Printer.cpp in Sources */,
 				B880F9CCBED18B76C5F02821 /* r8bbase.cpp in Sources */,
 				ADBB04DD169B8CCF536E2EF1 /* Upsampler.cpp in Sources */,
+				C96D7FC21CC9D3FF00C029F9 /* CalibrationManagerV2.cpp in Sources */,
 				5E902671321322ED0A29E26B /* Spectrum.cpp in Sources */,
 				91618C630800B57FFA596400 /* SpectrumAnalyzer.cpp in Sources */,
 				74BE5EAA796CA6EE13472D2F /* WindowedFFT.cpp in Sources */,
@@ -3478,7 +3535,9 @@
 				FF0A5D79E8F010359B0D3CD2 /* FrequencyIsolationTest.cpp in Sources */,
 				70882BAA02C4FDA0C53A2428 /* FrequencyResponseTest.cpp in Sources */,
 				59E5F030DE314DB489B9EAD1 /* FrequencySweepAudioSource.cpp in Sources */,
+				C96D7FC61CC9D3FF00C029F9 /* CalibrationUnit.cpp in Sources */,
 				29218F76A883E45E14A85100 /* FrequencySweepResponseTest.cpp in Sources */,
+				C96D7FC41CC9D3FF00C029F9 /* CalibrationProcedureAIOA.cpp in Sources */,
 				62615F619351CADB1A2027B4 /* LevelCheckTest.cpp in Sources */,
 				5D04396EF0B82D470B397C8E /* mb_bulk.cpp in Sources */,
 				69C535573E5D1A2FD9EE3B23 /* MikeyBusRegisters.cpp in Sources */,
@@ -3506,16 +3565,21 @@
 				7FD3B2B1AD612726AA84D2D4 /* AudioOutput.cpp in Sources */,
 				6849DBD22BA7F5DF90E8AAC3 /* ErrorCodes.cpp in Sources */,
 				E19B5CA662133BF160417CE6 /* hwcaps.cpp in Sources */,
+				C96D7FC51CC9D3FF00C029F9 /* CalibrationProcedureAIOS.cpp in Sources */,
 				EE532580B9456AB398189771 /* ProductionUnit.cpp in Sources */,
 				C6B58E8417A7A4EF056B8F94 /* juce_audio_basics.mm in Sources */,
 				AEF4F11881EB811C608DA32E /* juce_audio_devices.mm in Sources */,
 				31954E3C481C5D84FAE28181 /* juce_audio_formats.mm in Sources */,
 				52498C7B13097A62AAADE022 /* juce_core.mm in Sources */,
+				C96D7FC71CC9D3FF00C029F9 /* crc32.cpp in Sources */,
+				C96D7FC11CC9D3FF00C029F9 /* CalibrationDataV2.cpp in Sources */,
 				1C6C8CA5B64FEBA3A2FCC39B /* juce_data_structures.mm in Sources */,
 				169CF13EC1A12D2AC1A71210 /* juce_events.mm in Sources */,
+				C96D7FBF1CC9D3FF00C029F9 /* CalibrationAudioIO.cpp in Sources */,
 				F635D74798D58C512EEB94A8 /* juce_graphics.mm in Sources */,
 				89062B91E73265F91F964453 /* juce_gui_basics.mm in Sources */,
 				146258512A1B68029C729FA3 /* juce_gui_extra.mm in Sources */,
+				C96D7FBE1CC9D3FF00C029F9 /* AIOPnpHandler_ProductionTest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
