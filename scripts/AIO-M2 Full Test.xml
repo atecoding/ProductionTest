@@ -11,11 +11,12 @@
     <CoreAudio_driver>EchoAIO-M2</CoreAudio_driver>
 
     <message_box>
-	Is the blue LED lit?
-	<show_yes_no>1</show_yes_no>
-	<log>LED Test</log>
+      Is the blue LED lit?
+      <show_yes_no>1</show_yes_no>
+      <log>LED Test</log>
     </message_box>
-    <AIO_firmware_version_test min_version="0x2002"/>
+
+    <AIO_firmware_version_test min_version="0x3001"/>
 
 
     <AIO_module_type_test>

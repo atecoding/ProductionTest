@@ -3833,5 +3833,8 @@
     <Xml Include="..\..\scripts\AIO-M1 Full Test.xml">
       <Filter>Scripts</Filter>
     </Xml>
+    <Xml Include="..\..\scripts\AIO-M2 Full Test.xml">
+      <Filter>Scripts</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

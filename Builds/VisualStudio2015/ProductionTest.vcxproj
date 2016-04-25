@@ -2203,6 +2203,7 @@ copy ..\..\scripts\*.xml $(OutDir)</Command>
     <Xml Include="..\..\scripts\AIO-M1 Module 1.xml" />
     <Xml Include="..\..\scripts\AIO-M1 Validation Test.xml" />
     <Xml Include="..\..\scripts\AIO-M2 Final Test.xml" />
+    <Xml Include="..\..\scripts\AIO-M2 Full Test.xml" />
     <Xml Include="..\..\scripts\AIO-S calibration test.xml" />
     <Xml Include="..\..\scripts\AIO-S Field Test.xml" />
     <Xml Include="..\..\scripts\AIO-S Full Test.xml" />
