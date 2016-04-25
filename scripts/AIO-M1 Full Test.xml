@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <root>
   
-    <!-- **************************************************** -->
+  <!-- **************************************************** -->
 	<!-- Echo AIO                                    -->
 	<!-- **************************************************** -->
     
@@ -22,14 +22,14 @@
       <slot>0</slot>
       <!-- slot 0 == center slot -->
       <type>1</type>
-      <!-- type 1 == TEDS microphone + class D amp analog module -->
+      <!-- type 1 == AIO-A module -->
     </AIO_module_type_test>
 
     <AIO_module_type_test>
       <slot>1</slot>
       <!-- slot 1 == outer slot -->
       <type>3</type>
-      <!-- type 3 == AMB module -->
+      <!-- type 3 == AIO-M module -->
     </AIO_module_type_test>
 
     <AIO_clear_RAM_calibration />
@@ -89,6 +89,10 @@
 
     <AIO_set_clock_source source="internal" />
 
+    <!-- Start testing the center module -->
+
+    <message_box>Connect the Test Adapter to Inputs 1-4 and AMP 1-2</message_box>
+
     <!-- Check constant current voltage and current -->
 
     <AIO_set_constant_current input="0" enabled="0" /> <!-- turn off constant current for input 1 -->
@@ -101,8 +105,7 @@
     <AIO_set_constant_current input="7" enabled="1" /> <!-- turn on constant current for input 8 -->
     <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
     <AIO_mic_supply_off_voltage_test input="0">
-      <minimum>0.0</minimum>
-      <!-- minimum and maximum are in volts -->
+      <minimum>0.0</minimum> <!-- minimum and maximum are in volts -->
       <maximum>1.0</maximum>
     </AIO_mic_supply_off_voltage_test>
 
@@ -115,18 +118,16 @@
     <AIO_set_constant_current input="6" enabled="0" /> <!-- turn off constant current for input 7 -->
     <AIO_set_constant_current input="7" enabled="0" /> <!-- turn off constant current for input 8 -->
     <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
-    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
+    <AIO_write_test_adapter byte="0x00"/> <!-- second time to allow capacitor discharge-->
     <AIO_mic_supply_on_voltage_test input="0">
-      <minimum>19.0</minimum>
-      <!-- minimum and maximum are in volts -->
+      <minimum>19.0</minimum> <!-- minimum and maximum are in volts -->
       <maximum>21.0</maximum>
     </AIO_mic_supply_on_voltage_test>
 
     <AIO_write_test_adapter byte="0x0f"/> <!-- set adapter for Mic Supply current measurement and read ADCs-->
     <AIO_write_test_adapter byte="0x0f"/> <!-- second time to allow capacitor discharge-->
     <AIO_mic_supply_current_test input="0">
-      <minimum>4.0</minimum>
-      <!-- minimum and maximum are in volts -->
+      <minimum>4.0</minimum> <!-- minimum and maximum are in volts -->
       <maximum>4.4</maximum>
     </AIO_mic_supply_current_test>
 
@@ -416,6 +417,8 @@
       <sweep_record_seconds>4.0</sweep_record_seconds>
     </test>
 
+    <Finish_group/>
+
     <Print_error_codes>
       <text> - Module 1</text>
       <first_channel>0</first_channel>
@@ -423,7 +426,7 @@
       <codes>0 1 2 4 5 6</codes>
     </Print_error_codes>
 
-    <Finish_group/>
+
 
 <!-- *************************************************
  
@@ -445,7 +448,7 @@
  
  ****************************************************** -->
 
-<message_box>Connect the AIO-M Tester to INPUT connector on the outer module.</message_box>
+<message_box>Leave the Test Adapter connected to Inputs 1-4 and AMP 1-2.    Connect the AIO-M Tester to INPUT connector on the outer module.</message_box>
 
 <Delay_msec>1000</Delay_msec>
 
