@@ -186,7 +186,7 @@
     
     <prompt>
         Input and Output Gains 1-4
-        <text>Check levels for gain settings 1-2</text>
+        <text>Check levels for gain settings 1-4</text>
         <output_amplitude_db>-20.0</output_amplitude_db>
         <input>0</input>
         <output>0</output>
