@@ -1,4 +1,5 @@
 #define FILTER_TAPS			512
+#define FILTER_TAPS_120		4096
 #define NUM_FILTER_RATES	3
 
 #define FILTER_INDEX_44100	0
@@ -10,4 +11,6 @@ extern const double Bandpass_1kHz[NUM_FILTER_RATES][FILTER_TAPS];
 extern const double BandRjct_1kHz[NUM_FILTER_RATES][FILTER_TAPS];
 extern const double Bandpass_7200Hz[FILTER_TAPS];
 extern const double BandRjct_7200Hz[FILTER_TAPS];
+extern const double Bandpass_120Hz[FILTER_TAPS_120];
+extern const double BandRjct_120Hz[FILTER_TAPS_120];
 

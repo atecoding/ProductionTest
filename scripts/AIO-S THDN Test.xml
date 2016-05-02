@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+
+  <!-- **************************************************** -->
+  <!-- Echo AIO-S                                  -->
+  <!-- **************************************************** -->
+
+  <device USB_product_ID="0xa0">
+    <Require_AIO_Test_Adapter>true</Require_AIO_Test_Adapter>
+    <ASIO_driver>ASIO Echo AIO</ASIO_driver>
+    <CoreAudio_driver>EchoAIO</CoreAudio_driver>
+
+    <AIO_firmware_version_test min_version="0x71" />
+    
+    <message_box>Connect the Reference Resistor to the SPKR output</message_box>
+
+
+    <!-- Audio Quality Tests 1-4 -->
+
+    <AIO_set_mic_gain input="0" gain="1" />
+    <AIO_set_mic_gain input="1" gain="1" />
+    <AIO_set_mic_gain input="2" gain="1" />
+    <AIO_set_mic_gain input="3" gain="1" />
+
+    <AIO_set_amp_gain output="0" gain="10" />
+    <AIO_set_amp_gain output="1" gain="10" />
+
+    <prompt>
+      Audio Quality 1-4
+      <text>Test Audio Quality 1-4</text>
+      <output_amplitude_db>-20.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-200.0</min_input_db>
+      <max_input_db>0.0</max_input_db>
+      <wait_for_user>0</wait_for_user>
+      <start_group>1</start_group>
+    </prompt>
+
+
+    <!-- THD+N Channels 3 and 4 -->
+
+    <test>
+      SPKR Output to VMON
+      <type>THD+N</type>
+      <input>2</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_frequency>120.0</output_frequency>
+      <output_amplitude_db>-23.5</output_amplitude_db>
+      <pass_threshold_db>-66.0</pass_threshold_db>
+    </test>
+
+    <test>
+      SPKR Output to IMON
+      <type>THD+N</type>
+      <input>3</input>
+      <output>0</output>
+      <num_channels>1</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_frequency>120.0</output_frequency>
+      <output_amplitude_db>-23.5</output_amplitude_db>
+      <pass_threshold_db>-46.0</pass_threshold_db>
+    </test>
+
+    <prompt>
+      Group End Prompt
+      <text>Force printing of last result</text>
+      <output_amplitude_db>-0.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-200.0</min_input_db>
+      <max_input_db>0.0</max_input_db>
+      <wait_for_user>0</wait_for_user>
+      <stop_group>1</stop_group>
+    </prompt>
+
+    <Print_error_codes>
+      <text> - Module 1</text>
+      <first_channel>0</first_channel>
+      <last_channel>3</last_channel>
+      <codes>0 1 2 4 5 6</codes>
+    </Print_error_codes>
+
+  </device>
+
+</root>
+

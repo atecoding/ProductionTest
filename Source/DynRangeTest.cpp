@@ -27,7 +27,7 @@ bool DynRangeTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorC
 	msg += ": ";
 	for (channel = 0; channel < num_channels; channel++)
 	{
-		result = computeTHDN(buffs[input + channel]->getReadPointer(0), sample_rate);
+		result = computeTHDN(buffs[input + channel]->getReadPointer(0), sample_rate, 1000.0);
 		result = (-1.0 * result) + 60.0;
 
 		msg += String::formatted(T("  %.1f dB"), result);

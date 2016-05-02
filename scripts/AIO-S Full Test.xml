@@ -10,6 +10,8 @@
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO</CoreAudio_driver>
 
+    <ignore>
+
     <message_box>
       Is the blue LED lit?
       <show_yes_no>1</show_yes_no>
@@ -33,6 +35,7 @@
     </AIO_module_type_test>
 
     <AIO_clear_RAM_calibration />
+
 
     <AIO_flash_memory_test />
 
@@ -441,23 +444,23 @@
       <pass_threshold_db>100.0</pass_threshold_db>
     </test>
 
-    <!-- Frequency response tests for 1-2 -->
+      <!-- Frequency response tests for 1-2 -->
 
-    <test>
-      <type>Frequency sweep response</type>
-      <input>0</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>96000</sample_rate>
-      <output_amplitude_db>-10.0</output_amplitude_db>
-      <output_frequency>20.0</output_frequency>
-      <pass_threshold_db>0.75</pass_threshold_db>
-      <sweep_time_seconds>2.0</sweep_time_seconds>
-      <sweep_delay_seconds>0.4</sweep_delay_seconds>
-      <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
-      <sweep_fadeout_seconds>0.1</sweep_fadeout_seconds>
-      <sweep_record_seconds>4.0</sweep_record_seconds>
-    </test>
+      <test>
+        <type>Frequency sweep response</type>
+        <input>0</input>
+        <output>0</output>
+        <num_channels>2</num_channels>
+        <sample_rate>96000</sample_rate>
+        <output_amplitude_db>-10.0</output_amplitude_db>
+        <output_frequency>20.0</output_frequency>
+        <pass_threshold_db>0.75</pass_threshold_db>
+        <sweep_time_seconds>2.0</sweep_time_seconds>
+        <sweep_delay_seconds>0.4</sweep_delay_seconds>
+        <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
+        <sweep_fadeout_seconds>0.1</sweep_fadeout_seconds>
+        <sweep_record_seconds>4.0</sweep_record_seconds>
+      </test>
 
     <!-- THD+N and DNR Channels 3-4 -->
 
@@ -494,26 +497,28 @@
       <pass_threshold_db>90.0</pass_threshold_db>
     </test>
 
-    <!-- Frequency response tests for 3-4 -->
+      <!-- Frequency response tests for 3-4 -->
 
-    <test>
-      <type>Frequency sweep response</type>
-      <input>2</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>96000</sample_rate>
-      <output_amplitude_db>-10.0</output_amplitude_db>
-      <output_frequency>20.0</output_frequency>
-      <pass_threshold_db>0.75</pass_threshold_db>
-      <sweep_time_seconds>2.0</sweep_time_seconds>
-      <sweep_delay_seconds>0.4</sweep_delay_seconds>
-      <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
-      <sweep_fadeout_seconds>0.1</sweep_fadeout_seconds>
-      <sweep_record_seconds>4.0</sweep_record_seconds>
-    </test>
+      <test>
+        <type>Frequency sweep response</type>
+        <input>2</input>
+        <output>0</output>
+        <num_channels>2</num_channels>
+        <sample_rate>96000</sample_rate>
+        <output_amplitude_db>-10.0</output_amplitude_db>
+        <output_frequency>20.0</output_frequency>
+        <pass_threshold_db>0.75</pass_threshold_db>
+        <sweep_time_seconds>2.0</sweep_time_seconds>
+        <sweep_delay_seconds>0.4</sweep_delay_seconds>
+        <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
+        <sweep_fadeout_seconds>0.1</sweep_fadeout_seconds>
+        <sweep_record_seconds>4.0</sweep_record_seconds>
+      </test>
 
-    <Finish_group/>
+      <Finish_group/>
 
+    </ignore>
+    
     <!-- Calibrate the center module -->
     <AIO_calibrate>
         <module>0</module>
@@ -527,7 +532,7 @@
     </Print_error_codes>
 
     <message_box>
-      Connect the Test Adapter to Inputs 5-8
+      Connect the Test Adapter to Inputs 5-8 and AMP 3-4
       <continue_or_stop>1</continue_or_stop>
     </message_box>
 

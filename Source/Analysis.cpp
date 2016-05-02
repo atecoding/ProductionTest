@@ -69,7 +69,7 @@ void RunFIRFilter(double const *audio,int num_samples,double const *taps,int num
 // computeTHDN
 // Compute the THD+N of the given audio data
 // The filters require that at least 2,560 samples are provided.
-double computeTHDN(float const *input,int rate)
+double computeTHDN(float const *input,int rate, float const toneFrequency)
 {
     int filterIndex,i;
     double rmsSignal,rmsNoise,thdn;
@@ -95,13 +95,26 @@ double computeTHDN(float const *input,int rate)
 		return 0.0;
 	}
 
-    // save the A-weighting, bandpass, and bandreject filters
-    aWeight = A_Weight[filterIndex];
-    bandPass = Bandpass_1kHz[filterIndex];
-	bandReject = BandRjct_1kHz[filterIndex];
+	// save the A-weighting, bandpass, and bandreject filters
+	aWeight = A_Weight[filterIndex];
+	if (1000.0 == toneFrequency)
+	{
+		aWeight = A_Weight[filterIndex];
+		bandPass = Bandpass_1kHz[filterIndex];
+		bandReject = BandRjct_1kHz[filterIndex];
+	}
+	else if (120.0 == toneFrequency)
+	{
+//		bandPass = Bandpass_120Hz;
+//		bandReject = BandRjct_120Hz;
+	}
 
     // filter the data to create A-weighted signal
-	RunFIRFilter(input,2048,aWeight,512,aweightedData);
+	if (1000.0 == toneFrequency)
+		RunFIRFilter(input, 2048, aWeight, 512, aweightedData);
+	else
+		memcpy(aweightedData, input, 2560);
+
 	//WriteWaveFile("aweight.wav",rate,aweightedData,2048);
 
     // filter the data to create signal

@@ -9,6 +9,7 @@ ThdnTest::ThdnTest(XmlElement *xe,bool &ok, ProductionUnit *unit_) :
 	Test(xe,ok,unit_)
 {
 	ok &= getFloatValue(xe, "pass_threshold_db", pass_threshold_db);
+	ok &= getFloatValue(xe, T("output_frequency"), output_frequency);
 }
 
 
@@ -24,11 +25,11 @@ bool ThdnTest::calc(OwnedArray<AudioSampleBuffer> &buffs,String &msg, ErrorCodes
 	bool pass = true;
 
 	msg = "THD+N at ";
-	msg += MsgSampleRate();
+	msg += String::formatted("%d Hz", (int) output_frequency );
 	msg += ": ";
 	for (channel = 0; channel < num_channels; channel++)
 	{
-		result = computeTHDN(buffs[input + channel]->getReadPointer(0),sample_rate);
+		result = computeTHDN(buffs[input + channel]->getReadPointer(0),sample_rate, output_frequency);
         
         if (num_channels <= 2)
         {
