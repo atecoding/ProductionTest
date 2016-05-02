@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9467CF0A5927780E968FDAFF"
-               BuildableName = "AIO Final Test.app"
-               BlueprintName = "ProductionTest (App)"
+               BlueprintIdentifier = "C96FC6821CD8028D00CFF6AA"
+               BuildableName = "AIO Final Test (App).app"
+               BlueprintName = "AIO Final Test (App)"
                ReferencedContainer = "container:ProductionTest.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9467CF0A5927780E968FDAFF"
-            BuildableName = "AIO Final Test.app"
-            BlueprintName = "ProductionTest (App)"
+            BlueprintIdentifier = "C96FC6821CD8028D00CFF6AA"
+            BuildableName = "AIO Final Test (App).app"
+            BlueprintName = "AIO Final Test (App)"
             ReferencedContainer = "container:ProductionTest.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -55,9 +55,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9467CF0A5927780E968FDAFF"
-            BuildableName = "AIO Final Test.app"
-            BlueprintName = "ProductionTest (App)"
+            BlueprintIdentifier = "C96FC6821CD8028D00CFF6AA"
+            BuildableName = "AIO Final Test (App).app"
+            BlueprintName = "AIO Final Test (App)"
             ReferencedContainer = "container:ProductionTest.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -74,9 +74,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9467CF0A5927780E968FDAFF"
-            BuildableName = "AIO Final Test.app"
-            BlueprintName = "ProductionTest (App)"
+            BlueprintIdentifier = "C96FC6821CD8028D00CFF6AA"
+            BuildableName = "AIO Final Test (App).app"
+            BlueprintName = "AIO Final Test (App)"
             ReferencedContainer = "container:ProductionTest.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
