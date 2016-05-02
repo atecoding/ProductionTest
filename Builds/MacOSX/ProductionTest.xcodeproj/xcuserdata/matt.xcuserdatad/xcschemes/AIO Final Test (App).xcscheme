@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C96FC6821CD8028D00CFF6AA"
-               BuildableName = "AIO Final Test (App).app"
+               BuildableName = "AIO Final Test.app"
                BlueprintName = "AIO Final Test (App)"
                ReferencedContainer = "container:ProductionTest.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C96FC6821CD8028D00CFF6AA"
-            BuildableName = "AIO Final Test (App).app"
+            BuildableName = "AIO Final Test.app"
             BlueprintName = "AIO Final Test (App)"
             ReferencedContainer = "container:ProductionTest.xcodeproj">
          </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C96FC6821CD8028D00CFF6AA"
-            BuildableName = "AIO Final Test (App).app"
+            BuildableName = "AIO Final Test.app"
             BlueprintName = "AIO Final Test (App)"
             ReferencedContainer = "container:ProductionTest.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C96FC6821CD8028D00CFF6AA"
-            BuildableName = "AIO Final Test (App).app"
+            BuildableName = "AIO Final Test.app"
             BlueprintName = "AIO Final Test (App)"
             ReferencedContainer = "container:ProductionTest.xcodeproj">
          </BuildableReference>

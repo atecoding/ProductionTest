@@ -258,7 +258,7 @@ Result CalibrationProcedureAIOA::analyzeRecording(AudioBuffer<float> recordBuffe
 Result CalibrationProcedureAIOA::checkAmpConnection(AudioBuffer<float> recordBuffer, CalibrationDataV2& calibrationData, int const firstInput, int const lastInput)
 {
     SquareWaveAudioSource::Configuration const &squareWaveConfiguration( squareWaveSource.getConfiguration() );
-    float threshold = (outputPeakVolts * squareWaveConfiguration.getAmplitude() * 0.25f) / inputPeakVolts;
+    float threshold = (outputPeakVolts * squareWaveConfiguration.getAmplitude() * 0.20f) / inputPeakVolts;
     
     jassert(firstInput <= lastInput);
     
@@ -279,7 +279,7 @@ Result CalibrationProcedureAIOA::checkAmpConnection(AudioBuffer<float> recordBuf
     {
         return Result::fail("Check AMP connections");
     }
-
+    
     return Result::ok();
 }
 
