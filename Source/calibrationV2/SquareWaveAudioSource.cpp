@@ -1,10 +1,7 @@
 #include "../base.h"
 #include "SquareWaveAudioSource.h"
 
-SquareWaveAudioSource::SquareWaveAudioSource() :
-squareWaveFrequency(1000.0f),
-squareWaveMinAmplitude(0.0f),
-squareWaveMaxAmplitude(0.5f)
+SquareWaveAudioSource::SquareWaveAudioSource()
 {
     
 }
@@ -14,10 +11,22 @@ SquareWaveAudioSource::~SquareWaveAudioSource()
     
 }
 
+
+void SquareWaveAudioSource::setConfiguration(Configuration& configuration_)
+{
+    jassert(configuration_.frequency > 0.0f);
+    jassert(-1.0f <= configuration_.minAmplitude && configuration_.minAmplitude <= 0.0f);
+    jassert(0.0f <= configuration_.maxAmplitude && configuration_.maxAmplitude <= 1.0f);
+    configuration = configuration_;
+}
+
 void SquareWaveAudioSource::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
 {
+    jassert(configuration.frequency > 0.0f);
+    jassert(-1.0f <= configuration.minAmplitude && configuration.minAmplitude <= 0.0f);
+    jassert(0.0f <= configuration.maxAmplitude && configuration.maxAmplitude<= 1.0f);
     squareWavePosition = 0;
-    squareWavePeriodSamples = roundDoubleToInt(sampleRate / squareWaveFrequency);
+    squareWavePeriodSamples = roundDoubleToInt(sampleRate / configuration.frequency);
 }
 
 void SquareWaveAudioSource::releaseResources()
@@ -40,9 +49,9 @@ void SquareWaveAudioSource::getNextAudioBlock (const AudioSourceChannelInfo &buf
         while (bufferSamplesRemaining > 0)
         {
             if (squareWavePositionThisChannel < halfPeriodSamples)
-                *destination = squareWaveMaxAmplitude;
+                *destination = configuration.maxAmplitude;
             else
-                *destination = squareWaveMinAmplitude;
+                *destination = configuration.minAmplitude;
             
             squareWavePositionThisChannel = (squareWavePositionThisChannel + 1) % squareWavePeriodSamples;
             

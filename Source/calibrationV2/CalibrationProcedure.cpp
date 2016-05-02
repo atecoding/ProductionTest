@@ -14,11 +14,15 @@ const Result CalibrationProcedure::invalidStageResult(Result::fail("Invalid cali
 CalibrationProcedure::CalibrationProcedure(CalibrationUnit * const calibrationUnit_, AIOModule * const module_) :
 calibrationUnit(calibrationUnit_),
 module(module_),
-stage(0)
+stage(-1)
 {
 }
 
 
+void CalibrationProcedure::prepareToPlay(int samplesPerBlockExpected, double sampleRate)
+{
+    squareWaveSource.prepareToPlay(samplesPerBlockExpected, sampleRate);
+}
 Result CalibrationProcedure::analyze
 (
     String const name,
@@ -27,7 +31,8 @@ Result CalibrationProcedure::analyze
     int numSamples,
     float const squareWaveFrequency,
     float &totalResult,
-    Range<float> const range
+    Range<float> const range,
+    bool const log
 )
 {
 	SquareWaveAnalysisResult positiveResult;
@@ -58,7 +63,7 @@ Result CalibrationProcedure::analyze
     // How many zero crossings should there be?  One for each phase of the square wave (*2.0), then times 1.5 for a fudge factor
     //
     int zeroCrossing1, zeroCrossing2;
-    int zeroCrossingCount(1);
+    int zeroCrossingCount = 1;
     int const maxExpectedZeroCrossings = roundDoubleToInt(1.5f * 2.0f * (double(numSamples) / sampleRate * squareWaveFrequency));
     
     findZeroCrossing(data, numSamples, 0, zeroCrossing1, squareWaveFrequency);
@@ -185,9 +190,3 @@ void CalibrationProcedure::findZeroCrossing(const float * data, int numSamples, 
     zeroCrossingIndex = -1;
 }
 
-
-Result CalibrationProcedure::finishStage()
-{
-    stage++;
-    return Result::ok();
-}

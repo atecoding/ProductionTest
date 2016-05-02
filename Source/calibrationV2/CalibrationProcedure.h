@@ -26,10 +26,7 @@ public:
         return 0;
     }
     
-    bool isDone() const
-    {
-        return stage >= getNumCalibrationStages();
-    }
+    virtual bool isDone() const = 0;
     
     virtual int getNumCalibrationStages() const = 0;
     
@@ -38,12 +35,12 @@ public:
         return invalidProcedureResult;
     }
     
-    virtual void prepareToPlay(int samplesPerBlockExpected, double sampleRate)
-    {
-        squareWaveSource.prepareToPlay(samplesPerBlockExpected, sampleRate);
-    }
+    virtual void prepareToPlay(int samplesPerBlockExpected, double sampleRate);
     
-    virtual Result finishStage();
+    virtual Result finishStage()
+    {
+        return invalidProcedureResult;
+    }
     
     virtual Result finishModuleCalibration()
     {
@@ -88,7 +85,8 @@ protected:
                    int numSamples,
                    float const squareWaveFrequency,
                    float &totalResult,
-                   Range<float> const range);
+                   Range<float> const range,
+                   bool const log = false);
     void findZeroCrossing(const float * data, int numSamples, int startIndex, int &zeroCrossingIndex, double const squareWaveFrequency);
     
     CalibrationUnit * const calibrationUnit;

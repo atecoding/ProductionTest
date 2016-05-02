@@ -2,6 +2,7 @@
 #include "base.h"
 #include "AcousticIO.h"
 #include "ehw.h"
+#include "Description.h"
 #include "content.h"
 #include "AIOTestAdapter.h"
 #include "ErrorCodes.h"

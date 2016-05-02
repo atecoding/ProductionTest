@@ -287,6 +287,12 @@ String CalibrationManagerV2::getHistory()
     return unit.getHistory();
 }
 
+void CalibrationManagerV2::setDevices(ReferenceCountedObjectPtr<USBDevice> aioUSBDevice_, AudioIODevice* audioIODevice_)
+{
+	unit.setDevice(aioUSBDevice_);
+	audioIO.setDevice(audioIODevice_);
+}
+
 void CalibrationManagerV2::configure(CalibrationManagerConfiguration& configuration)
 {
 	unit.configure(configuration);

@@ -130,11 +130,11 @@ void Upsampler::upsample(AudioSampleBuffer *inputBuffer)
     //DBG("   outputSampleCount:" << outputSampleCount);
 }
 
-Result Upsampler::upsample(AudioBuffer<float> const &inputBuffer, int const inputChannel, AudioBuffer<float> &outputBuffer, int const outputChannel, int &outputSampleCount)
+Result Upsampler::upsample(AudioBuffer<float> const &inputBuffer, int const inputChannel, AudioBuffer<float> &outputBuffer_, int const outputChannel, int &outputSampleCount_)
 {
     int outputSamplesNeeded = roundDoubleToInt( (outputSampleRate * inputBuffer.getNumSamples())/ inputSampleRate);
     
-    if (outputBuffer.getNumSamples() < outputSamplesNeeded)
+    if (outputBuffer_.getNumSamples() < outputSamplesNeeded)
         return Result::fail("Output buffer too small");
     
     //DBG("upsample inputSampleCount:" << inputSampleCount);
@@ -163,12 +163,12 @@ Result Upsampler::upsample(AudioBuffer<float> const &inputBuffer, int const inpu
     //
     // Flush the output buffer
     //
-    outputBuffer.clear();
+    outputBuffer_.clear();
     
     //
     // Do the actual upsample
     //
-    outputSampleCount = 0;
+    outputSampleCount_ = 0;
     
     int inputSampleCount = inputBuffer.getNumSamples();
     const float * source = inputBuffer.getReadPointer(inputChannel);
@@ -191,9 +191,9 @@ Result Upsampler::upsample(AudioBuffer<float> const &inputBuffer, int const inpu
         double* outputBlock = nullptr;
         
         int outputBlockSampleCount = resampler->process(inputBlockBuffer, inputConvertCount, outputBlock);
-        int outputSpaceRemaining = outputBuffer.getNumSamples() - outputSampleCount;
+        int outputSpaceRemaining = outputBuffer_.getNumSamples() - outputSampleCount_;
         int outputCopyCount = jmin( outputSpaceRemaining, outputBlockSampleCount);
-        float *destination = outputBuffer.getWritePointer(outputChannel, outputSampleCount);
+        float *destination = outputBuffer_.getWritePointer(outputChannel, outputSampleCount_);
         
         for (int i = 0; i < outputCopyCount; ++i)
         {
@@ -201,7 +201,7 @@ Result Upsampler::upsample(AudioBuffer<float> const &inputBuffer, int const inpu
             destination++;
         }
         
-        outputSampleCount += outputCopyCount;
+        outputSampleCount_ += outputCopyCount;
     }
     
     //
@@ -209,7 +209,7 @@ Result Upsampler::upsample(AudioBuffer<float> const &inputBuffer, int const inpu
     //
     inputBlockBuffer.clear(MAX_RESAMPLER_INPUT_SAMPLES);
     
-    while (outputSampleCount < outputBuffer.getNumSamples())
+    while (outputSampleCount_ < outputBuffer_.getNumSamples())
     {
         //
         // Run the SRC
@@ -217,9 +217,9 @@ Result Upsampler::upsample(AudioBuffer<float> const &inputBuffer, int const inpu
         double* outputBlock = nullptr;
         
         int outputBlockSampleCount = resampler->process(inputBlockBuffer, MAX_RESAMPLER_INPUT_SAMPLES, outputBlock);
-        int outputSpaceRemaining = outputBuffer.getNumSamples() - outputSampleCount;
+        int outputSpaceRemaining = outputBuffer_.getNumSamples() - outputSampleCount_;
         int outputCopyCount = jmin( outputSpaceRemaining, outputBlockSampleCount);
-        float *destination = outputBuffer.getWritePointer(outputChannel, outputSampleCount);
+        float *destination = outputBuffer_.getWritePointer(outputChannel, outputSampleCount_);
         
         for (int i = 0; i < outputCopyCount; ++i)
         {
@@ -227,7 +227,7 @@ Result Upsampler::upsample(AudioBuffer<float> const &inputBuffer, int const inpu
             destination++;
         }
         
-        outputSampleCount += outputCopyCount;
+        outputSampleCount_ += outputCopyCount;
     }
     
     //DBG("   outputSampleCount:" << outputSampleCount);

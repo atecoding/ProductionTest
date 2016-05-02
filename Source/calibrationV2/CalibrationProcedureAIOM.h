@@ -10,6 +10,11 @@ public:
     {
     }
     
+    virtual bool isDone() const override
+    {
+        return false;
+    }
+    
     virtual int getNumCalibrationStages() const override
     {
         return 0;

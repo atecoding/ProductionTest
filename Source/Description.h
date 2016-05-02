@@ -98,4 +98,3 @@ protected:
 	const static String analogString;
 	const static String mbString;
 };
-

@@ -1,12 +1,23 @@
 #pragma once
 
+#include "USBDevice.h"
+
 class AIOModule
 {
 public:
-    AIOModule(int const moduleNumber_, uint16 const interfaceModuleVersion_) :
+    AIOModule(int const moduleNumber_, uint16 const interfaceModuleVersion_,
+              int &firstInput_, int const numInputs_,
+              int &firstOutput_, int const numOutputs_) :
     moduleNumber(moduleNumber_),
     interfaceModuleVersion(interfaceModuleVersion_)
     {
+        firstInput = firstInput_;
+        numInputs = numInputs_;
+        firstInput_ += numInputs_;
+        
+        firstOutput = firstOutput_;
+        numOutputs = numOutputs_;
+        firstOutput_ += numOutputs;
     }
     
     virtual ~AIOModule()
@@ -21,14 +32,34 @@ public:
     virtual uint8 getType() const = 0;
     virtual String const getName() const = 0;
     
-    Range<int> const getInputs() const
+    int const getFirstInput() const
     {
-        return inputChannels;
+        return firstInput;
     }
     
-    Range<int> const getOutputs() const
+    int const getNumInputs() const
     {
-        return outputChannels;
+        return numInputs;
+    }
+    
+    int const getLastInput() const
+    {
+        return firstInput + numInputs - 1;
+    }
+    
+    int const getFirstOutput() const
+    {
+        return firstOutput;
+    }
+    
+    int const getNumOutputs() const
+    {
+        return numOutputs;
+    }
+    
+    int const getLastOutput() const
+    {
+        return firstOutput + numOutputs - 1;
     }
     
     virtual bool supportsCalibration() const
@@ -41,6 +72,8 @@ protected:
     
     int const moduleNumber;
     uint16 const interfaceModuleVersion;
-    Range<int> inputChannels;
-    Range<int> outputChannels;
+    int firstInput;
+    int numInputs;
+    int firstOutput;
+    int numOutputs;
 };

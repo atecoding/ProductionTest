@@ -1,6 +1,7 @@
 #include "../base.h"
 #include "CalibrationProcedureAIOA.h"
 #include "CalibrationUnit.h"
+#include "../Description.h"
 #include "../AIOModule.h"
 
 const float CalibrationProcedureAIOA::AIOReferencePeakVolts = 2.5f;   // Reference signal is 0 to +5V, but AC coupled so -2.5V to +2.5V (for both signal from test adapter and AIO-S onboard signal)
@@ -15,6 +16,8 @@ CalibrationProcedure(calibrationUnit_, module_),
 expectedOutputReferenceSignalResult(0.0f)
 {
     DBG("CalibrationProcedureAIOA::CalibrationProcedureAIOA");
+    
+    stage = STAGE_CHECK_ADAPTER_CONNECTIONS;
 }
 
 double CalibrationProcedureAIOA::getRecordLengthSeconds() const
@@ -34,10 +37,10 @@ Result CalibrationProcedureAIOA::prepareModuleForCalibration()
         case STAGE_CHECK_ADAPTER_CONNECTIONS:
             return prepareStageCheckAdapterConnections();
             
-        case STAGE_CALIBRATE_MIC_INPUTS:
+        case STAGE_CALIBRATE_AIOA_MIC_INPUTS:
             return prepareStageCalibrateMics();
         
-        case STAGE_CALIBRATE_AMP_OUTPUTS:
+        case STAGE_CALIBRATE_AIOA_AMP_OUTPUTS:
             return prepareStageCalibrateAmps();
         
         default:
@@ -56,9 +59,8 @@ Result CalibrationProcedureAIOA::setGains()
     //
     // Set all microphone inputs to 1x gain and disable constant current
     //
-    Range<int> inputChannels( module->getInputs() );
     Result usbResult(Result::ok());
-    for (int input = inputChannels.getStart(); input < inputChannels.getEnd() && usbResult.wasOk(); ++input)
+    for (int input = module->getFirstInput(); input <= module->getLastInput() && usbResult.wasOk(); ++input)
     {
         usbResult = aioUSBDevice->setConstantCurrent((uint8)input, false);
         if (usbResult.wasOk())
@@ -72,8 +74,7 @@ Result CalibrationProcedureAIOA::setGains()
         //
         // Set all amp outputs to full scale output
         //
-        Range<int> outputChannels(module->getOutputs());
-        for (int output = outputChannels.getStart(); output < outputChannels.getEnd() && usbResult.wasOk(); ++output)
+        for (int output = module->getFirstOutput(); output <= module->getLastOutput() && usbResult.wasOk(); ++output)
         {
             usbResult = aioUSBDevice->setAmpGain((uint8)output, ACOUSTICIO_AMP_GAIN_10V_P2P);
         }
@@ -91,19 +92,24 @@ Result CalibrationProcedureAIOA::prepareStageCheckAdapterConnections()
 {
     DBG("CalibrationProcedureAIOA::prepareStageCheckAdapterConnections()");
     
+    SquareWaveAudioSource::Configuration squareWaveConfiguration;
+    squareWaveConfiguration.frequency = 1000.0f;
+    squareWaveConfiguration.minAmplitude = -0.25f;
+    squareWaveConfiguration.maxAmplitude = 0.25f;
+    squareWaveSource.setConfiguration(squareWaveConfiguration);
+    
     Result result(setGains());
     if (result.wasOk())
     {
         ReferenceCountedObjectPtr<USBDevice> aioUSBDevice(calibrationUnit->aioUSBDevice);
         Description const * const description = aioUSBDevice->getDescription();
-        Range<int> inputs(module->getInputs());
         
         result = writeTestAdapter(ADAPTER_TEST_INPUTS);
         if (result.wasOk())
         {
             DBG("writeTestAdapter OK");
             
-            for (int input = inputs.getStart(); input < inputs.getEnd(); ++input)
+            for (int input = module->getFirstInput(); input <= module->getLastInput(); ++input)
             {
                 if (description->getInputType(input) == Description::TEDS_IN)
                 {
@@ -141,6 +147,12 @@ Result CalibrationProcedureAIOA::prepareStageCalibrateMics()
 {
     DBG("CalibrationProcedureAIOA::prepareStageCalibrateMics()");
     
+    SquareWaveAudioSource::Configuration squareWaveConfiguration;
+    squareWaveConfiguration.frequency = testAdapterSquareWaveFrequency;
+    squareWaveConfiguration.minAmplitude = -0.25f;
+    squareWaveConfiguration.maxAmplitude = 0.25f;
+    squareWaveSource.setConfiguration(squareWaveConfiguration);
+    
     //
     // Turn on test adapter reference signal
     //
@@ -150,6 +162,12 @@ Result CalibrationProcedureAIOA::prepareStageCalibrateMics()
 Result CalibrationProcedureAIOA::prepareStageCalibrateAmps()
 {
     DBG("CalibrationProcedureAIOA::prepareStageCalibrateAmps()");
+    
+    SquareWaveAudioSource::Configuration squareWaveConfiguration;
+    squareWaveConfiguration.frequency = 500.0f;
+    squareWaveConfiguration.minAmplitude = -0.25f;
+    squareWaveConfiguration.maxAmplitude = 0.25f;
+    squareWaveSource.setConfiguration(squareWaveConfiguration);
     
     //
     // Set test adapter to loopback mode, disabling the reference voltage
@@ -169,8 +187,7 @@ void CalibrationProcedureAIOA::fillOutputBuffer(AudioBuffer<float> outputBuffer)
         case STAGE_CHECK_ADAPTER_CONNECTIONS:
         {
             float** channelPointers = outputBuffer.getArrayOfWritePointers();
-            Range<int> outputs(module->getOutputs());
-            AudioBuffer<float> fillBuffer(channelPointers + outputs.getStart(),
+            AudioBuffer<float> fillBuffer(channelPointers + module->getFirstOutput(),
                                           1,
                                           outputBuffer.getNumSamples());
             AudioSourceChannelInfo info(fillBuffer);
@@ -178,32 +195,30 @@ void CalibrationProcedureAIOA::fillOutputBuffer(AudioBuffer<float> outputBuffer)
             break;
         }
             
-        // STAGE_CALIBRATE_MIC_INPUTS
         //-------------------------------------------------------------------------------------------------------
         //
         // Fill output buffer with silence because the test adapter is generating the
         // reference signal
         //
-        case STAGE_CALIBRATE_MIC_INPUTS:
+        case STAGE_CALIBRATE_AIOA_MIC_INPUTS:
         {
             break;
-        } // STAGE_CALIBRATE_MIC_INPUTS
+        }
             
         //-------------------------------------------------------------------------------------------------------
         //
         // Play out a square wave out of the amps for this module
         //
-        case STAGE_CALIBRATE_AMP_OUTPUTS:
+        case STAGE_CALIBRATE_AIOA_AMP_OUTPUTS:
         {
             float** channelPointers = outputBuffer.getArrayOfWritePointers();
-            Range<int> outputs(module->getOutputs());
-            AudioBuffer<float> fillBuffer(channelPointers + outputs.getStart(),
-                                          outputs.getLength(),
+            AudioBuffer<float> fillBuffer(channelPointers + module->getFirstOutput(),
+                                          module->getNumOutputs(),
                                           outputBuffer.getNumSamples());
             AudioSourceChannelInfo info(fillBuffer);
             squareWaveSource.getNextAudioBlock(info);
             break;
-        } // STAGE_CALIBRATE_AMP_OUTPUTS
+        }
     }
 }
 
@@ -218,37 +233,43 @@ Result CalibrationProcedureAIOA::analyzeRecording(AudioBuffer<float> recordBuffe
         // Check that the amp plugs are connected correctly
         //
         case STAGE_CHECK_ADAPTER_CONNECTIONS:
-            return checkAmpConnection(recordBuffer, calibrationData, module->getInputs());
+            return checkAmpConnection(recordBuffer, calibrationData, module->getFirstInput(), module->getLastInput());
             
         //
         // Calibrate the microphone inputs for this module
         //
-        case STAGE_CALIBRATE_MIC_INPUTS:
-            return calibrateMicInputs(recordBuffer, calibrationData, module->getInputs());
+        case STAGE_CALIBRATE_AIOA_MIC_INPUTS:
+            return calibrateMicInputs(recordBuffer, calibrationData, module->getFirstInput(), module->getLastInput());
             
         //
         // Calibrate the amp outputs for this module
         //
-        case STAGE_CALIBRATE_AMP_OUTPUTS:
-            return calibrateAmpOutputs(recordBuffer, calibrationData);
+        case STAGE_CALIBRATE_AIOA_AMP_OUTPUTS:
+            return calibrateAmpOutputs(recordBuffer, calibrationData,
+                                       module->getFirstOutput(),
+                                       module->getLastOutput(),
+                                       module->getFirstInput() + FIRST_MIC_INPUT_CHANNEL);
     }
     
     return invalidStageResult;
 }
 
 
-Result CalibrationProcedureAIOA::checkAmpConnection(AudioBuffer<float> recordBuffer, CalibrationDataV2& calibrationData, Range<int> inputs)
+Result CalibrationProcedureAIOA::checkAmpConnection(AudioBuffer<float> recordBuffer, CalibrationDataV2& calibrationData, int const firstInput, int const lastInput)
 {
-    float threshold = (outputPeakVolts * squareWaveSource.squareWaveMaxAmplitude * 0.25f) / inputPeakVolts;
+    SquareWaveAudioSource::Configuration const &squareWaveConfiguration( squareWaveSource.getConfiguration() );
+    float threshold = (outputPeakVolts * squareWaveConfiguration.getAmplitude() * 0.25f) / inputPeakVolts;
+    
+    jassert(firstInput <= lastInput);
     
     bool pass = true;
-    for (int input = inputs.getStart(); input < inputs.getEnd(); ++input)
+    for (int input = firstInput; input <= lastInput; ++input)
     {
         float peak = recordBuffer.getMagnitude(input, 0, recordBuffer.getNumSamples());
         
         DBG("input " << input << "  peak " << peak);
         
-        if (input < (inputs.getStart() + 2))
+        if (input < (firstInput + 2))
             pass &= peak >= threshold;
         else
             pass &= peak < threshold;
@@ -263,19 +284,29 @@ Result CalibrationProcedureAIOA::checkAmpConnection(AudioBuffer<float> recordBuf
 }
 
 
-Result CalibrationProcedureAIOA::calibrateMicInputs(AudioBuffer<float> recordBuffer, CalibrationDataV2& calibrationData, Range<int> inputs)
+Result CalibrationProcedureAIOA::calibrateMicInputs(AudioBuffer<float> recordBuffer, CalibrationDataV2& calibrationData, int const firstInput, int const lastInput)
 {
     // Uncalibrated input limits - 5V ref signal into mic input
     // Nominal float sample value 0.571
+    SquareWaveAudioSource::Configuration const &squareWaveConfiguration( squareWaveSource.getConfiguration() );
     Range<float> uncalibratedInputLimits;
     float maxVariation = maxInputVariationPercent * 0.01f;
     uncalibratedInputLimits.setStart( expectedInputReferenceSignalResult * (1.0f - maxVariation));
     uncalibratedInputLimits.setEnd( expectedInputReferenceSignalResult * (1.0f + maxVariation));
     
+    jassert(firstInput <= lastInput);
+    
+#if 0
+    String filename(String::formatted("MIC %d-%d  ", firstInput, lastInput));
+    filename += Time::getCurrentTime().toString(true, true);
+    filename = File::createLegalFileName(filename);
+    WriteWaveFile(filename, recordBuffer, getSampleRate(), recordBuffer.getNumSamples(), firstInput, lastInput);
+#endif
+    
     //
     // Analyze each input
     //
-    for (int input = inputs.getStart(); input < inputs.getEnd(); ++input)
+    for (int input = firstInput; input <= lastInput; ++input)
     {
         float inputLevel = 0.0f;
         
@@ -286,7 +317,7 @@ Result CalibrationProcedureAIOA::calibrateMicInputs(AudioBuffer<float> recordBuf
                 recordBuffer.getWritePointer(input),
                 nullptr,
                 recordBuffer.getNumSamples(),
-                testAdapterSquareWaveFrequency,
+                squareWaveConfiguration.frequency,
                 inputLevel,
                 uncalibratedInputLimits));
         if (analysisResult.failed())
@@ -313,21 +344,21 @@ void CalibrationProcedureAIOA::updateUncalibratedOutputLimits()
     // Uncalibrated output limits - square wave from amp outputs into mic inputs
     // Multiply squareWaveMaxAmplitude because the square wave output has a DC offset -> AC coupled input
     // Nominal float sample value 0.771
-    expectedOutputReferenceSignalResult = (outputPeakVolts * squareWaveSource.squareWaveMaxAmplitude * 0.5f) / inputPeakVolts;
+    SquareWaveAudioSource::Configuration const &squareWaveConfiguration( squareWaveSource.getConfiguration() );
+    expectedOutputReferenceSignalResult = (outputPeakVolts * squareWaveConfiguration.getAmplitude() * 0.5f) / inputPeakVolts;
     float maxVariation = maxOutputVariationPercent * 0.01f;
     
     uncalibratedOutputLimits.setStart( expectedOutputReferenceSignalResult * (1.0f - maxVariation));
     uncalibratedOutputLimits.setEnd( expectedOutputReferenceSignalResult * (1.0f + maxVariation));
 }
 
-Result CalibrationProcedureAIOA::calibrateAmpOutputs(AudioBuffer<float> recordBuffer, CalibrationDataV2& calibrationData)
+Result CalibrationProcedureAIOA::calibrateAmpOutputs(AudioBuffer<float> recordBuffer, CalibrationDataV2& calibrationData, int const firstOutput, int const lastOutput, int const firstInput)
 {
-    Range<int> inputs(module->getInputs());
-    Range<int> outputs(module->getOutputs());
+    SquareWaveAudioSource::Configuration const &squareWaveConfiguration( squareWaveSource.getConfiguration() );
     updateUncalibratedOutputLimits();
     
-    int output = outputs.getStart();
-    for (int input = inputs.getStart(); input < inputs.getEnd(); input += 2, ++output)
+    int input = firstInput;
+    for (int output = firstOutput; output <= lastOutput; ++output)
     {
         float inputLevel = 0.0f;
         
@@ -338,7 +369,7 @@ Result CalibrationProcedureAIOA::calibrateAmpOutputs(AudioBuffer<float> recordBu
                                        recordBuffer.getWritePointer(input),
                                        recordBuffer.getWritePointer(input + 1),
                                        recordBuffer.getNumSamples(),
-                                       testAdapterSquareWaveFrequency,
+                                       squareWaveConfiguration.frequency,
                                        inputLevel,
                                        uncalibratedOutputLimits));
         if (analysisResult.failed())
@@ -347,6 +378,8 @@ Result CalibrationProcedureAIOA::calibrateAmpOutputs(AudioBuffer<float> recordBu
         }
         
         storeOutputCalibration(output, inputLevel, calibrationData);
+        
+        input += 2;
     }
     
     DBG("CalibrationProcedureAIOA::calibrateAmpOutputs -- " + calibrationData.toString());
@@ -367,30 +400,33 @@ void CalibrationProcedureAIOA::storeOutputCalibration(int const output, float co
     calibrationData.data.outputGains[output] = value;
 }
 
-Result CalibrationProcedureAIOA::finishModuleCalibration()
+Result CalibrationProcedureAIOA::finishStage()
 {
-    DBG("CalibrationProcedureAIOA::finishModuleCalibration()  stage:" << stage);
-    
-    Result result(writeTestAdapter(ADAPTER_LOOP_OUTPUT_TO_INPUT));
-    if (result.failed())
-        return result;
+    DBG("CalibrationProcedureAIOA::finishStage()  stage:" << stage);
     
     switch (stage)
     {
         case STAGE_CHECK_ADAPTER_CONNECTIONS:
-            stage = STAGE_CALIBRATE_MIC_INPUTS;
+            stage = STAGE_CALIBRATE_AIOA_MIC_INPUTS;
             break;
             
-        case STAGE_CALIBRATE_MIC_INPUTS:
-            stage = STAGE_CALIBRATE_AMP_OUTPUTS;
+        case STAGE_CALIBRATE_AIOA_MIC_INPUTS:
+            stage = STAGE_CALIBRATE_AIOA_AMP_OUTPUTS;
             break;
 
-        case STAGE_CALIBRATE_AMP_OUTPUTS:
+        case STAGE_CALIBRATE_AIOA_AMP_OUTPUTS:
             stage = STAGE_MODULE_CALIBRATION_DONE;
             break;
     }
     
     return Result::ok();
+}
+
+Result CalibrationProcedureAIOA::finishModuleCalibration()
+{
+    DBG("CalibrationProcedureAIOA::finishModuleCalibration()  stage:" << stage);
+    
+    return writeTestAdapter(ADAPTER_LOOP_OUTPUT_TO_INPUT);
 }
 
 
@@ -418,16 +454,14 @@ String CalibrationProcedureAIOA::getProgressLabelText() const
             return "Checking test adapter connections";
         }
             
-        case STAGE_CALIBRATE_MIC_INPUTS:
+        case STAGE_CALIBRATE_AIOA_MIC_INPUTS:
         {
-            Range<int> inputs(module->getInputs());
-            return "Calibrating MIC " + String(inputs.getStart() + 1) + " through MIC " + String(inputs.getEnd());
+            return "Calibrating MIC " + String(module->getFirstInput() + 1) + " through MIC " + String(module->getLastInput() + 1);
         }
             
-        case STAGE_CALIBRATE_AMP_OUTPUTS:
+        case STAGE_CALIBRATE_AIOA_AMP_OUTPUTS:
         {
-            Range<int> outputs(module->getOutputs());
-            return "Calibrating AMP " + String(outputs.getStart() + 1) + "/" + String(outputs.getEnd());
+            return "Calibrating AMP " + String(module->getFirstOutput() + 1) + "/" + String(module->getLastOutput() + 1);
         }
     }
     
@@ -459,4 +493,3 @@ Result CalibrationProcedureAIOA::writeTestAdapter(uint8 byte)
     
     return Result::ok();
 }
-

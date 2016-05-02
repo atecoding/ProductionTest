@@ -189,7 +189,7 @@ void SpectrumAnalyzer::calculate(AudioBuffer<float> const &inputData, int const 
     // Average the spectra
     //
     averageSpectrum->clear();
-    for (int spectrumIndex = 0; spectrumIndex < spectra.size(); ++spectrumIndex)
+    for (spectrumIndex = 0; spectrumIndex < spectra.size(); ++spectrumIndex)
     {
         Spectrum* spectrum = spectra[spectrumIndex];
         for (int bin = 0; bin < windowLengthSamples * 2; ++bin)
