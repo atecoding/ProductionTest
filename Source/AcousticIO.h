@@ -116,12 +116,12 @@ enum
 // GET request: returns a single byte containing the gain for that channel
 // SET request: accepts a single byte containing the gain for that channel
 //
-// Gain is 20 Log (value/255).  value = 255 sets 10Vp-p, value = 26 sets 1Vp-p
+// Gain is 20 Log (value/255).  value = 255 sets 10X output gain, value = 26 sets unity gain
 //
 enum
 {
-	ACOUSTICIO_AMP_GAIN_1V_P2P = 26,
-	ACOUSTICIO_AMP_GAIN_10V_P2P = 255
+	ACOUSTICIO_AMP_GAIN_1X = 26,
+	ACOUSTICIO_AMP_GAIN_10X = 255
 };
 
 //

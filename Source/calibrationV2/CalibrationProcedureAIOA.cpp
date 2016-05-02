@@ -76,7 +76,7 @@ Result CalibrationProcedureAIOA::setGains()
         //
         for (int output = module->getFirstOutput(); output <= module->getLastOutput() && usbResult.wasOk(); ++output)
         {
-            usbResult = aioUSBDevice->setAmpGain((uint8)output, ACOUSTICIO_AMP_GAIN_10V_P2P);
+            usbResult = aioUSBDevice->setAmpGain((uint8)output, ACOUSTICIO_AMP_GAIN_10X);
         }
     }
     

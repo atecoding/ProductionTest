@@ -4,12 +4,14 @@
   <!-- **************************************************** -->
 	<!-- Echo AIO                                    -->
 	<!-- **************************************************** -->
-	<device>
-    Echo AIO
+	<device USB_product_ID="0xa0">
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO</CoreAudio_driver>
 
-    <AIO_calibrate/>
+<AIO_calibrate>
+    <module>0</module>
+    <write_to_flash>0</write_to_flash>
+</AIO_calibrate>
 
   </device>
 
