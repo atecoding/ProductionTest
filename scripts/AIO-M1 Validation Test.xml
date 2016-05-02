@@ -10,7 +10,7 @@
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO-M1</CoreAudio_driver>
 
-    <AIO_firmware_version_test min_version="0x3000" />
+    <AIO_firmware_version_test min_version="0x3800" />
 
     <AIO_module_type_test>
       <slot>0</slot>

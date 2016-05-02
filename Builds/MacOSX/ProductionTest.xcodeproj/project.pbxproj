@@ -86,7 +86,6 @@
 		C96D7FC61CC9D3FF00C029F9 /* CalibrationUnit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D7FB61CC9D3FF00C029F9 /* CalibrationUnit.cpp */; };
 		C96D7FC71CC9D3FF00C029F9 /* crc32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D7FB81CC9D3FF00C029F9 /* crc32.cpp */; };
 		C96D7FC81CC9D3FF00C029F9 /* SquareWaveAudioSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D7FBB1CC9D3FF00C029F9 /* SquareWaveAudioSource.cpp */; };
-		C9719AD21CD033010031B8A3 /* AIO-S calibration test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9719AD11CD033010031B8A3 /* AIO-S calibration test.xml */; };
 		C9AD0D0B1CCACE66009FE0EF /* AIO-2 Full Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9FDDAF11CC9DD4000DC18A0 /* AIO-2 Full Test.xml */; };
 		C9AD0D0E1CCACE66009FE0EF /* AIO-M1 Full Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C95DAF321CCAAF67000B8205 /* AIO-M1 Full Test.xml */; };
 		C9AD0D101CCACE66009FE0EF /* AIO-S Full Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C9FDDAFD1CC9DD4000DC18A0 /* AIO-S Full Test.xml */; };
@@ -3497,7 +3496,6 @@
 				C9AD0D101CCACE66009FE0EF /* AIO-S Full Test.xml in Resources */,
 				C90F82E31CCDC9BB00EFC55A /* AIO-M2 Full Test.xml in Resources */,
 				C9AD0D0B1CCACE66009FE0EF /* AIO-2 Full Test.xml in Resources */,
-				C9719AD21CD033010031B8A3 /* AIO-S calibration test.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

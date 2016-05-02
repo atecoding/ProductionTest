@@ -26,6 +26,22 @@ enum
 											// XMOS Xcore200 XE216 processor
 };
 
+
+//======================================================================================
+//
+// Protected interface module
+//
+// If the bcdVersion value from unit has this bit set, then this unit is locked
+//
+//======================================================================================
+
+enum
+{
+    ECHOAIO_LOCKED_INTERFACE_MODULE_BIT = 11,
+    ECHOAIO_LOCKED_INTERFACE_MODULE_MASK = 1 << ECHOAIO_LOCKED_INTERFACE_MODULE_BIT
+};
+
+
 //======================================================================================
 //
 // USB controls
