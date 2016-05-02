@@ -23,7 +23,7 @@
 #include "hwcaps.h"
 
 #if ACOUSTICIO_BUILD
-#include "Description.h"
+class Description;
 #include "../calibrationV2/CalibrationDataV2.h"
 #endif
 
