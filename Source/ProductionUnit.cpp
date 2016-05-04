@@ -97,6 +97,10 @@ bool MikeyBusRegisters(XmlElement const *element,
                   ValueTree &unitTree);
 
 #endif
+#include "AcousticIO.h"
+#include "win32/usb/win/ehw.h"
+#include "AIOModule.h"
+#include "Description.h"
 
 //extern String ProductionTestsXmlFileName;
 
@@ -347,6 +351,12 @@ void ProductionUnit::RunTests(Time const testStartTime_)
 	{
 		uint32 scriptUSBProductID = 0;
 		child = _root->getFirstChildElement();
+
+		if (child->hasTagName("MasterScript"))
+		{
+			runCorrectScript();
+		}
+
 		while (child)
 		{
 			if (child->hasTagName("device"))
@@ -2112,4 +2122,137 @@ void ProductionUnit::valueChanged(Value& value)
         default:
             break;
     }
+}
+
+Result ProductionUnit::runCorrectScript()
+{
+	Result result(Result::ok());
+	bool badConfiguration(false);
+	uint32 AIO_Revision(_dev->GetBoxRev());
+	//uint32 AIO_Type(_dev->GetBoxType());
+	
+	if (AIO_Revision > ECHOAIO_INTERFACE_MODULE_REV2)
+	{
+		AIO_Revision = ECHOAIO_INTERFACE_MODULE_REV2;
+	}
+	//
+	// Find out what revision the AIO is.
+	// If it's an invalid AIO revision, return an error.
+	// Find out what modules the AIO has in each slot.
+	// If they do not match a known configuration, return an error.
+	//
+	AIOModule * AIO_Module_1 = _dev->getDescription()->getModuleObject(0);
+	AIOModule * AIO_Module_2 = _dev->getDescription()->getModuleObject(1);
+
+	if (AIO_Module_1 == nullptr)
+	{
+		result = Result::fail("Error: No module detected in the center module slot!");
+	}
+
+	if (AIO_Module_2 == nullptr)
+	{
+		result = Result::fail("Error: No module detected in the outer module slot!");
+	}
+
+	if (result.failed())
+	{
+		return result;
+	}
+
+	uint8 AIO_Type((AIO_Module_2->getType() << 4) | AIO_Module_1->getType());
+
+	switch (AIO_Revision)
+	{
+	case ECHOAIO_INTERFACE_MODULE_REV1:
+	{
+		switch (AIO_Type)
+		{
+		case AIO_TYPE_2:
+		{
+			DBG("AIO_TYPE_2");
+			break;
+		}
+
+		case AIO_TYPE_S:
+		{
+			DBG("AIO_TYPE_S");
+
+			break;
+		}
+
+		case AIO_TYPE_MA:
+		{
+			DBG("AIO_TYPE_MA");
+
+			break;
+		}
+
+		case AIO_TYPE_MM:
+		{
+			DBG("AIO_TYPE_MM");
+
+			break;
+		}
+
+		default:
+		{
+			badConfiguration = true;
+		}
+		}
+		break;
+	}
+
+	case ECHOAIO_INTERFACE_MODULE_REV2:
+		{
+			switch (AIO_Type)
+			{
+			case AIO_TYPE_2:
+			{
+				DBG("AIO_TYPE_2");
+				break;
+			}
+
+			case AIO_TYPE_S:
+			{
+				DBG("AIO_TYPE_S");
+
+				break;
+			}
+
+			case AIO_TYPE_MA:
+			{
+				DBG("AIO_TYPE_MA");
+
+				break;
+			}
+
+			case AIO_TYPE_MM:
+			{
+				DBG("AIO_TYPE_MM");
+
+				break;
+			}
+
+			default:
+			{
+				badConfiguration = true;
+			}
+			}
+			break;
+		}
+
+	default:
+		result = Result::fail("Invalid AIO revision!The interface board is not a proper AIO interface revision");
+		return result;
+	}
+	if (badConfiguration)
+	{
+		result = Result::fail("Invalid AIO configuration! The modules are not in a valid configuration.");
+	}
+	//
+	// Call the appropriate test scripts based on what revision and modules
+	// the AIO has.
+	//
+
+	return result;
 }

@@ -76,7 +76,6 @@ public:
 	uint32 GetVendorId();
 	uint32 GetBoxType();
 	uint32 GetBoxRev();
-
 	uint64 GetSerialNumber();
 
 	uint32 GetDriverVersion();

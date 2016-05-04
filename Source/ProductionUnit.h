@@ -128,6 +128,8 @@ protected:
     void runOfflineTest(XmlElement *script);
     void logPerformanceInfo();
 
+	Result runCorrectScript();
+
 	Result CheckSampleRate();
 
 #if ACOUSTICIO_BUILD
