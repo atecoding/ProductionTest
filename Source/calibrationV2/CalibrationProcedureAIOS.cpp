@@ -347,7 +347,17 @@ Result CalibrationProcedureAIOS::finishStage()
             break;
 
         case STAGE_CALIBRATE_AIOS_IMON_INPUT:
-            stage = STAGE_CALIBRATE_AIOS_MIC_INPUTS;
+		{
+			//
+			// Support for old interface modules
+			// This way we don't need separate scripts for them
+			//
+			if (calibrationUnit->aioUSBDevice->GetBoxRev() == ECHOAIO_INTERFACE_MODULE_REV1)
+			{
+				stage = STAGE_MODULE_CALIBRATION_DONE;
+			}
+			stage = STAGE_CALIBRATE_AIOS_MIC_INPUTS;
+		}
             break;
             
         case STAGE_CALIBRATE_AIOS_MIC_INPUTS:

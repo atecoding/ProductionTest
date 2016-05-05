@@ -11,7 +11,7 @@
 //
 // To detect the interface module version, read the bcdDevice field from the USB
 // device descriptor.  Apply ECHOAIO_INTERFACE_MODULE_BCDDEVICE_MASK with a bitwise and; 
-// the remaing bits indicate the interface module revision.
+// the remaining bits indicate the interface module revision.
 //
 //======================================================================================
 
@@ -21,7 +21,7 @@ enum
 {
 	ECHOAIO_INTERFACE_MODULE_REV1 = 0x0000,	// Original interface module for 2014 and 2015
 											// XMOS XCore XS1 processor
-	ECHOAIO_INTERFACE_MODULE_REV2 = 0x3000	// Interface module introduced for 2016
+	ECHOAIO_INTERFACE_MODULE_REV2 = 0x3800	// Interface module introduced for 2016
 											// Supports 192 kHz, full calibration, USB sync
 											// XMOS Xcore200 XE216 processor
 };
@@ -233,6 +233,9 @@ enum
 	ACOUSTICIO_LINE_MODULE
 };
 
+#define AIO_TYPE_AA  (ACOUSTICIO_ANALOG_MODULE << 4 | ACOUSTICIO_ANALOG_MODULE)
+#define AIO_TYPE_XA  (ACOUSTICIO_MODULE_NOT_PRESENT << 4 | ACOUSTICIO_ANALOG_MODULE)
+#define AIO_TYPE_AS  (ACOUSTICIO_ANALOG_MODULE << 4 | ACOUSTICIO_SPKRMON_MODULE)
 #define AIO_TYPE_MA  (ACOUSTICIO_MIKEYBUS_MODULE << 4 | ACOUSTICIO_ANALOG_MODULE)
 #define AIO_TYPE_MM  (ACOUSTICIO_MIKEYBUS_MODULE << 4 | ACOUSTICIO_MIKEYBUS_MODULE)
 

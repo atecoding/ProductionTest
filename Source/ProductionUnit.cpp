@@ -97,6 +97,10 @@ bool MikeyBusRegisters(XmlElement const *element,
                   ValueTree &unitTree);
 
 #endif
+#include "AcousticIO.h"
+#include "win32/usb/win/ehw.h"
+#include "AIOModule.h"
+#include "Description.h"
 
 //extern String ProductionTestsXmlFileName;
 
@@ -347,6 +351,13 @@ void ProductionUnit::RunTests(Time const testStartTime_)
 	{
 		uint32 scriptUSBProductID = 0;
 		child = _root->getFirstChildElement();
+
+		if (child->hasTagName("MasterScript"))
+		{
+			runCorrectScript();
+			return;
+		}
+
 		while (child)
 		{
 			if (child->hasTagName("device"))
@@ -713,6 +724,7 @@ void ProductionUnit::ParseScript()
 	bool ok;
 	bool quit = false;
 	int rval = -1;
+	uint32 AIO_Revision(_dev->GetBoxRev());
 
 	while (_script && _running && deviceAttached)
 	{
@@ -848,6 +860,20 @@ void ProductionUnit::ParseScript()
 			}
 
 			//
+			// Support for old interface modules
+			// This way we don't need separate scripts for them
+			//
+			if (text->getText().trim() == "USB Clock Source Check")
+			{
+				
+				if (AIO_Revision == ECHOAIO_INTERFACE_MODULE_REV1)
+				{
+					_script = _script->getNextElement();
+					continue;
+				}
+			}
+
+			//
 			// Parse the rest of this child element
 			//
 			TestPrompt tp(_script,_input,_output,ok);
@@ -896,6 +922,19 @@ void ProductionUnit::ParseScript()
 			//
 			// Set up the audio driver
 			//
+
+			//
+			// Support for old interface modules
+			// This way we don't need separate scripts for them
+			//
+			if (AIO_Revision == ECHOAIO_INTERFACE_MODULE_REV1)
+			{
+				if (tp.sample_rate > 96000)
+				{
+					tp.sample_rate = 96000;
+				}
+			}
+
 			ok = openAudioDevice(tp.sample_rate);
 			if (!ok)
 				return;
@@ -950,6 +989,24 @@ void ProductionUnit::ParseScript()
 
 		if (_script->hasTagName("test"))
 		{
+			//
+			// Support for old interface modules
+			// This way we don't need separate scripts for them
+			//
+			if (AIO_Revision == ECHOAIO_INTERFACE_MODULE_REV1)
+			{
+				XmlElement* _type(_script->getChildByName("type"));
+				
+				if (_type != nullptr)
+				{
+					if (_type->getAllSubText().trim() == "USB sync")
+					{
+						_script = _script->getNextElement();
+						continue;
+					}
+				}
+			}
+
 			_test = Test::Create(_script,_input,_output,ok,this);
 
 			if (!ok || (NULL == _test))
@@ -1104,6 +1161,16 @@ void ProductionUnit::ParseScript()
 
 		if (_script->hasTagName("AIO_set_clock_source"))
 		{
+			//
+			// Support for old interface modules
+			// This way we don't need separate scripts for them
+			//
+			if (AIO_Revision == ECHOAIO_INTERFACE_MODULE_REV1)
+			{
+				_script = _script->getNextElement();
+				continue;
+			}
+
 			Result result(_dev->setClockSource(_script));
 			if (result.ok())
 			{
@@ -1124,6 +1191,16 @@ void ProductionUnit::ParseScript()
 
 		if (_script->hasTagName("AIO_set_USB_clock_rate"))
 		{
+			//
+			// Support for old interface modules
+			// This way we don't need separate scripts for them
+			//
+			if (AIO_Revision == ECHOAIO_INTERFACE_MODULE_REV1)
+			{
+				_script = _script->getNextElement();
+				continue;
+			}
+
 			Result result(_dev->setUSBClockRate(_script));
 
 			if (result.failed())
@@ -1152,6 +1229,19 @@ void ProductionUnit::ParseScript()
 
 		if (_script->hasTagName("AIO_clear_RAM_calibration"))
 		{
+			//
+			// Support for old interface modules
+			// This way we don't need separate scripts for them
+			//
+			if (AIO_Revision == ECHOAIO_INTERFACE_MODULE_REV1)
+			{
+				if (_dev->GetBoxModuleTypes() != AIO_TYPE_AS)
+				{
+					_script = _script->getNextElement();
+					continue;
+				}
+			}
+
 			Result result(_dev->clearRAMCalibrationData());
 
 			if (result.failed())
@@ -1206,6 +1296,18 @@ void ProductionUnit::ParseScript()
         
         if (_script->hasTagName("AIO_flash_memory_test"))
         {
+			//
+			// Support for old interface modules
+			// This way we don't need separate scripts for them
+			//
+			if (AIO_Revision == ECHOAIO_INTERFACE_MODULE_REV1)
+			{
+				if (_dev->GetBoxModuleTypes() != AIO_TYPE_AS)
+				{
+					_script = _script->getNextElement();
+					continue;
+				}
+			}
             runAIOTest(RunFlashMemoryTest, "Flash memory");
             continue;
         }
@@ -1232,6 +1334,19 @@ void ProductionUnit::ParseScript()
         
         if (_script->hasTagName("AIO_calibration_verification_test"))
         {
+			//
+			// Support for old interface modules
+			// This way we don't need separate scripts for them
+			//
+			if (AIO_Revision == ECHOAIO_INTERFACE_MODULE_REV1)
+			{
+				if (_dev->GetBoxModuleTypes() != AIO_TYPE_AS)
+				{
+					_script = _script->getNextElement();
+					continue;
+				}
+			}
+
             if (_unit_passed)
             {
                 runAIOTest(RunCalibrationVerificationTest, "Calibration verification");
@@ -1245,6 +1360,19 @@ void ProductionUnit::ParseScript()
         
         if (_script->hasTagName("AIO_calibrate"))
         {
+			//
+			// Support for old interface modules
+			// This way we don't need separate scripts for them
+			//
+			if (AIO_Revision == ECHOAIO_INTERFACE_MODULE_REV1)
+			{
+				if (_dev->GetBoxModuleTypes() != AIO_TYPE_AS)
+				{
+					_script = _script->getNextElement();
+					continue;
+				}
+			}
+
             int firstModule = -1;
             int writeToFlash = 0;
             
@@ -1259,6 +1387,20 @@ void ProductionUnit::ParseScript()
 
             if (_unit_passed && firstModule >= 0)
             {
+				//
+				// Support for old interface modules
+				// This way we don't need separate scripts for them
+				//
+				// Skip the A module in an AIO-S for Revision 1
+				//
+				if (AIO_Revision == ECHOAIO_INTERFACE_MODULE_REV1)
+				{
+					if (firstModule != 0)
+					{
+						continue;
+					}
+				}
+
                 //
                 // Destroy this object's AudioIODevice - this means that the
                 // calibration has to be the last stage of the test
@@ -2112,4 +2254,128 @@ void ProductionUnit::valueChanged(Value& value)
         default:
             break;
     }
+}
+
+Result ProductionUnit::runCorrectScript()
+{
+	Result result(Result::ok());
+	bool badConfiguration(false);
+	uint32 AIO_Revision(_dev->GetBoxRev());
+		
+	//
+	// Find out what revision the AIO is.
+	// If it's an invalid AIO revision, return an error.
+	// In addition, find out what modules the AIO has in each slot.
+	// If they do not match a known configuration, return an error.
+	//
+
+	uint8 AIO_Type(_dev->GetBoxModuleTypes());
+
+	switch (AIO_Revision)
+	{
+	case ECHOAIO_INTERFACE_MODULE_REV1:
+	{
+		switch (AIO_Type)
+		{
+		
+		case AIO_TYPE_XA:
+		{
+			DBG("AIO_TYPE_1");
+			break;
+		}
+
+		case AIO_TYPE_AA:
+		{
+			DBG("AIO_TYPE_2");
+			break;
+		}
+
+		case AIO_TYPE_AS:
+		{
+			DBG("AIO_TYPE_S");
+
+			break;
+		}
+
+		case AIO_TYPE_MA:
+		{
+			DBG("AIO_TYPE_MA");
+
+			break;
+		}
+
+		case AIO_TYPE_MM:
+		{
+			DBG("AIO_TYPE_MM");
+
+			break;
+		}
+
+		default:
+		{
+			badConfiguration = true;
+		}
+		}
+		break;
+	}
+
+	case ECHOAIO_INTERFACE_MODULE_REV2:
+		{
+			switch (AIO_Type)
+			{
+			case AIO_TYPE_XA:
+			{
+				DBG("AIO_TYPE_1");
+				break;
+			}
+
+			case AIO_TYPE_AA:
+			{
+				DBG("AIO_TYPE_2");
+				break;
+			}
+
+			case AIO_TYPE_AS:
+			{
+				DBG("AIO_TYPE_S");
+
+				break;
+			}
+
+			case AIO_TYPE_MA:
+			{
+				DBG("AIO_TYPE_MA");
+
+				break;
+			}
+
+			case AIO_TYPE_MM:
+			{
+				DBG("AIO_TYPE_MM");
+
+				break;
+			}
+
+			default:
+			{
+				badConfiguration = true;
+			}
+			}
+			break;
+		}
+
+	default:
+		result = Result::fail("Invalid AIO revision!The interface board is not a proper AIO interface revision");
+		return result;
+	}
+	if (badConfiguration)
+	{
+		result = Result::fail("Invalid AIO configuration! The modules are not in a valid configuration.");
+	}
+	//
+	// Call the appropriate test scripts based on what revision and modules
+	// the AIO has.
+	//
+
+	return result;
 }

@@ -115,6 +115,15 @@ Result CalibrationProcedureAIOA::prepareStageCheckAdapterConnections()
                 {
                     uint8 data[ACOUSTICIO_TEDS_DATA_BYTES];
                     
+					//
+					// Support for old interface modules
+					// This way we don't need separate scripts for them
+					//
+					if (aioUSBDevice->GetBoxRev() == ECHOAIO_INTERFACE_MODULE_REV1)
+					{
+						continue;
+					}
+
                     result = aioUSBDevice->readTEDSData((uint8)input, data, sizeof(data));
                     if (result.wasOk())
                     {
@@ -146,7 +155,7 @@ Result CalibrationProcedureAIOA::prepareStageCheckAdapterConnections()
 Result CalibrationProcedureAIOA::prepareStageCalibrateMics()
 {
     DBG("CalibrationProcedureAIOA::prepareStageCalibrateMics()");
-    
+
     SquareWaveAudioSource::Configuration squareWaveConfiguration;
     squareWaveConfiguration.frequency = testAdapterSquareWaveFrequency;
     squareWaveConfiguration.minAmplitude = -0.25f;
