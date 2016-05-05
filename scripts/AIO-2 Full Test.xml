@@ -433,7 +433,7 @@
     </Print_error_codes>
 
     <message_box>
-      Connect the Test Adapter to Inputs 5-8
+      Connect the Test Adapter to Inputs 5-8 and AMP 3-4
       <continue_or_stop>1</continue_or_stop>
     </message_box>
 
