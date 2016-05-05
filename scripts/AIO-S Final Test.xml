@@ -22,15 +22,19 @@
         <min_version>0x3800</min_version>
       </interface_module>
     </AIO_firmware_version_test>
-    
+
     <AIO_module_type_test>
-        <slot>0</slot>  <!-- slot 1 == outer slot -->
-        <type>1</type>  <!-- type 1 == TEDS microphone + class D amp analog module -->
+      <slot>0</slot>
+      <!-- slot 0 == center slot -->
+      <type>2</type>
+      <!-- type 2 == AIO-S -->
     </AIO_module_type_test>
-    
+
     <AIO_module_type_test>
-        <slot>1</slot>  <!-- slot 1 == outer slot -->
-        <type>1</type>  <!-- type 1 == TEDS microphone + class D amp analog module -->
+      <slot>1</slot>
+      <!-- slot 1 == outer slot -->
+      <type>1</type>
+      <!-- type 1 == AIO-A module -->
     </AIO_module_type_test>
     
     <AIO_calibration_verification_test/>

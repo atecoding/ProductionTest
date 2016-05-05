@@ -340,6 +340,18 @@
     <Filter Include="Scripts">
       <UniqueIdentifier>{14322b0c-1b38-4a63-8505-52f02230c00a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts\AIO-2">
+      <UniqueIdentifier>{9e3bcddf-a66e-4cac-a74e-b2228fc6ada1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\AIO-S">
+      <UniqueIdentifier>{5786d098-d944-4aa9-ba5f-0bd5a2440403}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\AIO-M1">
+      <UniqueIdentifier>{bf3bc654-4644-42d3-8e51-df61f5403c9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scripts\AIO-M2">
+      <UniqueIdentifier>{3f6a12e9-fcca-452b-a1a2-e40e7760c32d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\Description.cpp">
@@ -3761,107 +3773,53 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Xml Include="..\..\scripts\AIO Offline Test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO Printer Test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-2 Field Test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-2 Full Test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-2 Module 1 Validation Test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-2 Module 1.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-2 Module 2 Validation Test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-2 Module 2.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-2 Validation Test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-M1 Module 1.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-M1 Validation Test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-M2 Final Test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-S calibration test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-S Field Test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-S Full Test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-S Module 1.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-S Module 2.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-S Resistance Check.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AudioFire 12 Test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\Calibration voltage test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\Test Adapter Test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\voltage startup test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\Calibration test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-M1 Full Test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
     <Xml Include="..\..\scripts\AIO-M2 Full Test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-M1 Module 2 Test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-2 Module 1 Test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-M1 Module 1 Test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-2 Module 2 Test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-S Module 1 Test.xml">
-      <Filter>Scripts</Filter>
-    </Xml>
-    <Xml Include="..\..\scripts\AIO-S Module 2 Test.xml">
-      <Filter>Scripts</Filter>
+      <Filter>Scripts\AIO-M2</Filter>
     </Xml>
     <Xml Include="..\..\scripts\AIO-M2 Module 1 Test.xml">
-      <Filter>Scripts</Filter>
+      <Filter>Scripts\AIO-M2</Filter>
     </Xml>
     <Xml Include="..\..\scripts\AIO-M2 Module 2 Test.xml">
-      <Filter>Scripts</Filter>
+      <Filter>Scripts\AIO-M2</Filter>
     </Xml>
-    <Xml Include="..\..\scripts\MasterScript.xml">
-      <Filter>Scripts</Filter>
+    <Xml Include="..\..\scripts\AIO-M1 Full Test.xml">
+      <Filter>Scripts\AIO-M1</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO-M1 Module 1 Test.xml">
+      <Filter>Scripts\AIO-M1</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO-M1 Module 2 Test.xml">
+      <Filter>Scripts\AIO-M1</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO-S Full Test.xml">
+      <Filter>Scripts\AIO-S</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO-S Module 1 Test.xml">
+      <Filter>Scripts\AIO-S</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO-S Module 2 Test.xml">
+      <Filter>Scripts\AIO-S</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO-2 Final Test.xml">
+      <Filter>Scripts\AIO-2</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO-2 Full Test.xml">
+      <Filter>Scripts\AIO-2</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO-2 Module 1 Test.xml">
+      <Filter>Scripts\AIO-2</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO-2 Module 2 Test.xml">
+      <Filter>Scripts\AIO-2</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO-S Final Test.xml">
+      <Filter>Scripts\AIO-S</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO-M1 Final Test.xml">
+      <Filter>Scripts\AIO-M1</Filter>
+    </Xml>
+    <Xml Include="..\..\scripts\AIO-M2 Final Test.xml">
+      <Filter>Scripts\AIO-M2</Filter>
     </Xml>
   </ItemGroup>
 </Project>
