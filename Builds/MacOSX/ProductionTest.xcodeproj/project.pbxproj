@@ -1156,7 +1156,6 @@
 		C96FC67E1CD8000F00CFF6AA /* ProductionTest.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProductionTest.plist; sourceTree = "<group>"; };
 		C96FC6801CD8011700CFF6AA /* check.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = check.icns; sourceTree = "<group>"; };
 		C96FC6E81CD8028D00CFF6AA /* AIO Final Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AIO Final Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C96FC6E91CD8028D00CFF6AA /* ProductionTest (App) copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "ProductionTest (App) copy-Info.plist"; path = "/Users/matt/proj/ProductionTest/Builds/MacOSX/ProductionTest (App) copy-Info.plist"; sourceTree = "<absolute>"; };
 		C971A67872651D1E8AECE8B6 /* FrequencySweepAudioSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = FrequencySweepAudioSource.h; path = ../../Source/FrequencySweepAudioSource.h; sourceTree = SOURCE_ROOT; };
 		C9AE648D501FAC479780EB75 /* jdinput.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = jdinput.c; path = ../../JuceLibraryCode/modules/juce_graphics/image_formats/jpglib/jdinput.c; sourceTree = SOURCE_ROOT; };
 		C9B5D1D11CD80605003EACBD /* AIO-2 Final Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Final Test.xml"; path = "../../scripts/AIO-2 Final Test.xml"; sourceTree = "<group>"; };
@@ -1573,7 +1572,6 @@
 				B919EC5A2C0D7AF4E6C95099 /* Resources */,
 				6E45D85AC9098BC2834A639E /* Frameworks */,
 				6D56BF9C135FA3094F096010 /* Products */,
-				C96FC6E91CD8028D00CFF6AA /* ProductionTest (App) copy-Info.plist */,
 			);
 			name = Source;
 			sourceTree = "<group>";
