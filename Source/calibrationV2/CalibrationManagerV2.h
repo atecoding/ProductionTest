@@ -85,6 +85,8 @@ public:
 		return unit.isDone();
 	}
 
+	void setDevices(ReferenceCountedObjectPtr<USBDevice> aioUSBDevice_, AudioIODevice* audioIODevice_);
+
     void configure(CalibrationManagerConfiguration& configuration);
     
 protected:

@@ -9,9 +9,14 @@ public:
     
     virtual double getRecordLengthSeconds() const override;
     
+    virtual bool isDone() const override
+    {
+        return STAGE_MODULE_CALIBRATION_DONE == stage;
+    }
+    
     virtual int getNumCalibrationStages() const override
     {
-        return STAGE_CALIBRATE_AMP_OUTPUTS + 1;
+        return STAGE_CALIBRATE_AIOA_AMP_OUTPUTS - STAGE_CHECK_ADAPTER_CONNECTIONS + 1;
     }
     
     virtual Result prepareModuleForCalibration() override;
@@ -19,6 +24,8 @@ public:
     virtual void fillOutputBuffer(AudioBuffer<float> outputBuffer) override;
     
     virtual Result analyzeRecording(AudioBuffer<float> recordBuffer, CalibrationDataV2& calibrationData) override;
+
+    virtual Result finishStage() override;
 
     virtual Result finishModuleCalibration() override;
     
@@ -31,11 +38,13 @@ public:
 protected:
     enum
     {
-        STAGE_CHECK_ADAPTER_CONNECTIONS = 0,
-        STAGE_CALIBRATE_MIC_INPUTS,
-        STAGE_CALIBRATE_AMP_OUTPUTS,
+        STAGE_CHECK_ADAPTER_CONNECTIONS = 200,
+        STAGE_CALIBRATE_AIOA_MIC_INPUTS,
+        STAGE_CALIBRATE_AIOA_AMP_OUTPUTS,
         
-        STAGE_MODULE_CALIBRATION_DONE = 1000000
+        STAGE_MODULE_CALIBRATION_DONE = 1000000,
+        
+        FIRST_MIC_INPUT_CHANNEL = 0
     };
     
     void updateUncalibratedOutputLimits();
@@ -43,9 +52,9 @@ protected:
     Result prepareStageCheckAdapterConnections();
     Result prepareStageCalibrateMics();
     Result prepareStageCalibrateAmps();
-    Result checkAmpConnection(AudioBuffer<float> recordBuffer, CalibrationDataV2& calibrationData, Range<int> inputs);
-    Result calibrateMicInputs(AudioBuffer<float> recordBuffer, CalibrationDataV2& calibrationData, Range<int> inputs);
-    Result calibrateAmpOutputs(AudioBuffer<float> recordBuffer, CalibrationDataV2& calibrationData);
+    Result checkAmpConnection(AudioBuffer<float> recordBuffer, CalibrationDataV2& calibrationData, int const firstInput, int const lastInput);
+    Result calibrateMicInputs(AudioBuffer<float> recordBuffer, CalibrationDataV2& calibrationData, int const firstInput, int const lastInput);
+    Result calibrateAmpOutputs(AudioBuffer<float> recordBuffer, CalibrationDataV2& calibrationData, int const firstOutput, int const lastOutput, int const firstInput);
     void storeOutputCalibration(int const output, float const inputLevel, CalibrationDataV2& calibrationData);
     Result writeTestAdapter(uint8 byte);
     

@@ -5,18 +5,12 @@
 class AIOAModule : public AIOModule
 {
 public:
-    AIOAModule(int const moduleNumber_, Range<int> &inputChannels_, Range<int> &outputChannels_, uint16 const interfaceModuleVersion_) :
-    AIOModule(moduleNumber_, interfaceModuleVersion_)
+    AIOAModule(int const moduleNumber_, uint16 const interfaceModuleVersion_,
+               int &firstInput_, int &firstOutput_) :
+        AIOModule(moduleNumber_, interfaceModuleVersion_,
+                  firstInput_, 4,
+                  firstOutput_, 2)
     {
-        int numInputs = 4;
-        int numOutputs = 2;
-        
-        inputChannels_.setLength(numInputs);
-        outputChannels_.setLength(numOutputs);
-        inputChannels = inputChannels_;
-        outputChannels = outputChannels_;
-        inputChannels_ += numInputs;
-        outputChannels_ += numOutputs;
     }
     
     virtual uint8 getType() const override

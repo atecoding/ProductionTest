@@ -173,18 +173,10 @@ Result CalibrationUnit::finishModuleCalibration()
     if (nullptr == procedure)
         return invalidProcedureResult;
     
-    
     Result result( procedure->finishModuleCalibration() );
     if (result.wasOk())
     {
-        calibrationData.updateDate();
-        calibrationData.updateChecksum();
-        result = aioUSBDevice->setCalibrationData(&calibrationData.data);
-        
-        if (result.wasOk())
-        {
             moduleNumber++;
-        }
     }
     
     if (isDone() && writeToFlashWhenDone)
@@ -270,6 +262,22 @@ String CalibrationUnit::getHistory()
     }
     
     return text;
+}
+
+void CalibrationUnit::setDevice(ReferenceCountedObjectPtr<USBDevice> aioUSBDevice_)
+{
+	originalCalibrationData.reset();
+	calibrationData.reset();
+
+	if (aioUSBDevice_)
+	{
+		aioUSBDevice_->getCalibrationData(&originalCalibrationData.data);
+		originalCalibrationData.validateChecksum();
+		calibrationData = originalCalibrationData;
+	}
+
+	aioUSBDevice = aioUSBDevice_;
+	calibrationManager.aioChanged();
 }
 
 void CalibrationUnit::configure(CalibrationManagerConfiguration& configuration)

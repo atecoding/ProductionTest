@@ -1,5 +1,4 @@
 #include "base.h"
-#include "AcousticIO.h"
 #include "Description.h"
 #include "DescriptionAM2.h"
 
@@ -7,7 +6,6 @@ DescriptionAM2::DescriptionAM2(uint8 moduleTypes_, uint16 productID_, uint16 con
 Description(moduleTypes_, bcdVersion_),
 productID(productID_)
 {
-
 }
 
 int DescriptionAM2::getNumInputs() const

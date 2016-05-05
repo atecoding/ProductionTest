@@ -13,7 +13,10 @@ public:
     
     virtual int getNumCalibrationStages() const override
     {
-        return STAGE_CALIBRATE_IMON_INPUT + 1;
+        //
+        // Needs to include STAGE_CHECK_ADAPTER_CONNECTIONS, plus the other STAGE_CALIBRATE_AIOS_??? values below
+        //
+        return 6;
     }
     
     virtual Result prepareModuleForCalibration() override;
@@ -22,7 +25,9 @@ public:
     
     virtual Result analyzeRecording(AudioBuffer<float> recordBuffer, CalibrationDataV2& calibrationData) override;
     
-    Result finishModuleCalibration() override;
+    virtual Result finishStage() override;
+    
+    virtual Result finishModuleCalibration() override;
     
     virtual String getConnectPrompt() const override;
     
@@ -33,20 +38,22 @@ public:
 protected:
     enum
     {
-        STAGE_CALIBRATE_MIC_AND_VMON_INPUTS = STAGE_CALIBRATE_MIC_INPUTS,
-        STAGE_CALIBRATE_AMP_AND_VOUT_OUTPUTS = STAGE_CALIBRATE_AMP_OUTPUTS,
-        STAGE_CALIBRATE_IMON_INPUT,
+        STAGE_CALIBRATE_AIOS_VMON_INPUT = 300,
+        STAGE_CALIBRATE_AIOS_VOUT,
+        STAGE_CALIBRATE_AIOS_IMON_INPUT,
+        STAGE_CALIBRATE_AIOS_MIC_INPUTS,
+        STAGE_CALIBRATE_AIOS_AMP_OUTPUTS,
         
         VMON_INPUT_CHANNEL = 2,
         IMON_INPUT_CHANNEL,
-        VOLTAGE_OUTPUT_CHANNEL = 0,
-        AMP_OUTPUT_CHANNEL
+        VOUT_CHANNEL = 0,
+        AIOS_AMP_OUTPUT_CHANNEL
     };
     
-    Result prepareStageCalibrateMicAndVmonInputs();
-    Result prepareStageCalibrateAmpAndVout();
+    Result prepareStageCalibrateVmonInput();
+    Result prepareStageCalibrateVout();
     Result prepareStageCalibrateImon();
-    Result calibrateMicAndVmonInputs(AudioBuffer<float> recordBuffer, CalibrationDataV2& calibrationData);
-    Result calibrateAmpOutputs(AudioBuffer<float> recordBuffer, CalibrationDataV2& calibrationData);
+    Result calibrateVmonInput(AudioBuffer<float> recordBuffer, CalibrationDataV2& calibrationData);
+    Result calibrateVout(AudioBuffer<float> recordBuffer, CalibrationDataV2& calibrationData);
     Result calibrateImonInput(AudioBuffer<float> recordBuffer, CalibrationDataV2& calibrationData);
 };

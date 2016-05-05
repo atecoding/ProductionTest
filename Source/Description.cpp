@@ -11,9 +11,9 @@ String const Description::mbString("MB ");
 Description::Description(uint8 moduleTypes_, uint16 const bcdVersion_) :
 bcdVersion(bcdVersion_)
 {
+    int firstInput = 0;
+    int firstOutput = 0;
     int shift = 0;
-    Range<int> inputChannels(0, 0);
-    Range<int> outputChannels(0, 0);
     uint16 const interfaceModuleVersion = getInterfaceModuleVersion();
     for (int moduleNumber = 0; moduleNumber < Description::MAX_MODULES; ++moduleNumber)
     {
@@ -23,15 +23,15 @@ bcdVersion(bcdVersion_)
         switch (moduleType)
         {
             case ACOUSTICIO_ANALOG_MODULE:
-                module = new AIOAModule(moduleNumber, inputChannels, outputChannels, interfaceModuleVersion);
+                module = new AIOAModule(moduleNumber, interfaceModuleVersion, firstInput, firstOutput);
                 break;
                 
             case ACOUSTICIO_SPKRMON_MODULE:
-                module = new AIOSModule(moduleNumber, inputChannels, outputChannels, interfaceModuleVersion);
+                module = new AIOSModule(moduleNumber, interfaceModuleVersion, firstInput, firstOutput);
                 break;
                 
             case ACOUSTICIO_MIKEYBUS_MODULE:
-                module = new AIOMModule(moduleNumber, inputChannels, outputChannels, interfaceModuleVersion);
+                module = new AIOMModule(moduleNumber, interfaceModuleVersion, firstInput, firstOutput);
                 break;
         }
         
@@ -43,7 +43,14 @@ bcdVersion(bcdVersion_)
 
 uint16 const Description::getInterfaceModuleVersion() const
 {
-	return bcdVersion & ECHOAIO_INTERFACE_MODULE_BCDDEVICE_MASK;
+    uint16 upperBits = bcdVersion & ECHOAIO_INTERFACE_MODULE_BCDDEVICE_MASK;
+    
+    if (upperBits < ECHOAIO_INTERFACE_MODULE_REV2)
+    {
+        return ECHOAIO_INTERFACE_MODULE_REV1;
+    }
+    
+    return upperBits;
 }
 
 bool Description::isInputPresent(int const input) const

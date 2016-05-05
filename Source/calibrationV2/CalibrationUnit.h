@@ -38,6 +38,8 @@ public:
     Result eraseFlashCalibrationData();
     String getHistory();
 
+	void setDevice(ReferenceCountedObjectPtr<USBDevice> aioUSBDevice_);
+
     void configure(CalibrationManagerConfiguration& configuration);
 
 	ReferenceCountedObjectPtr<USBDevice> aioUSBDevice;
