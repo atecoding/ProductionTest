@@ -74,6 +74,22 @@
 		C6B58E8417A7A4EF056B8F94 /* juce_audio_basics.mm in Sources */ = {isa = PBXBuildFile; fileRef = 194248DF049D844C2C0DF843 /* juce_audio_basics.mm */; };
 		C87CD9FB851465C7F455E427 /* AIOTestAdapter_win.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D2E1233B4DBC44DA8D38F13E /* AIOTestAdapter_win.cpp */; };
 		C908715D1CC8921900444B87 /* USBSyncTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C908715C1CC8921900444B87 /* USBSyncTest.cpp */; };
+		C94BE7761CDC0BD6009B8457 /* AIO-S Full Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C94BE76F1CDC0BB5009B8457 /* AIO-S Full Test.xml */; };
+		C94BE7771CDC0BD6009B8457 /* AIO-S Module 1 Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C94BE7701CDC0BB5009B8457 /* AIO-S Module 1 Test.xml */; };
+		C94BE7781CDC0BD6009B8457 /* AIO-S Module 2 Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C94BE7711CDC0BB5009B8457 /* AIO-S Module 2 Test.xml */; };
+		C94BE7791CDC0BDA009B8457 /* AIO-M2 Full Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C94BE7671CDC0BA9009B8457 /* AIO-M2 Full Test.xml */; };
+		C94BE77A1CDC0BDA009B8457 /* AIO-M2 Module 1 Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C94BE7681CDC0BA9009B8457 /* AIO-M2 Module 1 Test.xml */; };
+		C94BE77B1CDC0BDA009B8457 /* AIO-M2 Module 2 Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C94BE7691CDC0BA9009B8457 /* AIO-M2 Module 2 Test.xml */; };
+		C94BE77C1CDC0BDD009B8457 /* AIO-M1 Full Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C94BE75F1CDC0B9B009B8457 /* AIO-M1 Full Test.xml */; };
+		C94BE77D1CDC0BDD009B8457 /* AIO-M1 Module 1 Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C94BE7601CDC0B9B009B8457 /* AIO-M1 Module 1 Test.xml */; };
+		C94BE77E1CDC0BDD009B8457 /* AIO-M1 Module 2 Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C94BE7611CDC0B9B009B8457 /* AIO-M1 Module 2 Test.xml */; };
+		C94BE77F1CDC0BE1009B8457 /* AIO-2 Full Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C94BE7571CDC0B8C009B8457 /* AIO-2 Full Test.xml */; };
+		C94BE7801CDC0BE1009B8457 /* AIO-2 Module 1 Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C94BE7581CDC0B8C009B8457 /* AIO-2 Module 1 Test.xml */; };
+		C94BE7811CDC0BE1009B8457 /* AIO-2 Module 2 Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C94BE7591CDC0B8C009B8457 /* AIO-2 Module 2 Test.xml */; };
+		C94BE7821CDC0BE8009B8457 /* AIO-2 Final Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C94BE7561CDC0B8C009B8457 /* AIO-2 Final Test.xml */; };
+		C94BE7831CDC0BE8009B8457 /* AIO-M1 Final Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C94BE75E1CDC0B9B009B8457 /* AIO-M1 Final Test.xml */; };
+		C94BE7841CDC0BE8009B8457 /* AIO-M2 Final Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C94BE7661CDC0BA9009B8457 /* AIO-M2 Final Test.xml */; };
+		C94BE7851CDC0BE8009B8457 /* AIO-S Final Test.xml in Resources */ = {isa = PBXBuildFile; fileRef = C94BE76E1CDC0BB5009B8457 /* AIO-S Final Test.xml */; };
 		C96D7FBE1CC9D3FF00C029F9 /* AIOPnpHandler_ProductionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D7FA61CC9D3FF00C029F9 /* AIOPnpHandler_ProductionTest.cpp */; };
 		C96D7FBF1CC9D3FF00C029F9 /* CalibrationAudioIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D7FA71CC9D3FF00C029F9 /* CalibrationAudioIO.cpp */; };
 		C96D7FC01CC9D3FF00C029F9 /* CalibrationComponentV2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C96D7FA91CC9D3FF00C029F9 /* CalibrationComponentV2.cpp */; };
@@ -1105,6 +1121,22 @@
 		C936CF4B1CDBEC0000F10D35 /* AIOMModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIOMModule.h; path = ../../Source/AIOMModule.h; sourceTree = "<group>"; };
 		C936CF4C1CDBEC0000F10D35 /* AIOModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIOModule.h; path = ../../Source/AIOModule.h; sourceTree = "<group>"; };
 		C936CF4D1CDBEC0000F10D35 /* AIOSModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIOSModule.h; path = ../../Source/AIOSModule.h; sourceTree = "<group>"; };
+		C94BE7561CDC0B8C009B8457 /* AIO-2 Final Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Final Test.xml"; path = "../../scripts/AIO-2 Final Test.xml"; sourceTree = "<group>"; };
+		C94BE7571CDC0B8C009B8457 /* AIO-2 Full Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Full Test.xml"; path = "../../scripts/AIO-2 Full Test.xml"; sourceTree = "<group>"; };
+		C94BE7581CDC0B8C009B8457 /* AIO-2 Module 1 Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Module 1 Test.xml"; path = "../../scripts/AIO-2 Module 1 Test.xml"; sourceTree = "<group>"; };
+		C94BE7591CDC0B8C009B8457 /* AIO-2 Module 2 Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Module 2 Test.xml"; path = "../../scripts/AIO-2 Module 2 Test.xml"; sourceTree = "<group>"; };
+		C94BE75E1CDC0B9B009B8457 /* AIO-M1 Final Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-M1 Final Test.xml"; path = "../../scripts/AIO-M1 Final Test.xml"; sourceTree = "<group>"; };
+		C94BE75F1CDC0B9B009B8457 /* AIO-M1 Full Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-M1 Full Test.xml"; path = "../../scripts/AIO-M1 Full Test.xml"; sourceTree = "<group>"; };
+		C94BE7601CDC0B9B009B8457 /* AIO-M1 Module 1 Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-M1 Module 1 Test.xml"; path = "../../scripts/AIO-M1 Module 1 Test.xml"; sourceTree = "<group>"; };
+		C94BE7611CDC0B9B009B8457 /* AIO-M1 Module 2 Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-M1 Module 2 Test.xml"; path = "../../scripts/AIO-M1 Module 2 Test.xml"; sourceTree = "<group>"; };
+		C94BE7661CDC0BA9009B8457 /* AIO-M2 Final Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-M2 Final Test.xml"; path = "../../scripts/AIO-M2 Final Test.xml"; sourceTree = "<group>"; };
+		C94BE7671CDC0BA9009B8457 /* AIO-M2 Full Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-M2 Full Test.xml"; path = "../../scripts/AIO-M2 Full Test.xml"; sourceTree = "<group>"; };
+		C94BE7681CDC0BA9009B8457 /* AIO-M2 Module 1 Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-M2 Module 1 Test.xml"; path = "../../scripts/AIO-M2 Module 1 Test.xml"; sourceTree = "<group>"; };
+		C94BE7691CDC0BA9009B8457 /* AIO-M2 Module 2 Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-M2 Module 2 Test.xml"; path = "../../scripts/AIO-M2 Module 2 Test.xml"; sourceTree = "<group>"; };
+		C94BE76E1CDC0BB5009B8457 /* AIO-S Final Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Final Test.xml"; path = "../../scripts/AIO-S Final Test.xml"; sourceTree = "<group>"; };
+		C94BE76F1CDC0BB5009B8457 /* AIO-S Full Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Full Test.xml"; path = "../../scripts/AIO-S Full Test.xml"; sourceTree = "<group>"; };
+		C94BE7701CDC0BB5009B8457 /* AIO-S Module 1 Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Module 1 Test.xml"; path = "../../scripts/AIO-S Module 1 Test.xml"; sourceTree = "<group>"; };
+		C94BE7711CDC0BB5009B8457 /* AIO-S Module 2 Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-S Module 2 Test.xml"; path = "../../scripts/AIO-S Module 2 Test.xml"; sourceTree = "<group>"; };
 		C9690D075B9887A6AF578899 /* juce_osx_MessageQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = juce_osx_MessageQueue.h; path = ../../JuceLibraryCode/modules/juce_events/native/juce_osx_MessageQueue.h; sourceTree = SOURCE_ROOT; };
 		C96D7FA61CC9D3FF00C029F9 /* AIOPnpHandler_ProductionTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AIOPnpHandler_ProductionTest.cpp; path = ../../Source/calibrationV2/AIOPnpHandler_ProductionTest.cpp; sourceTree = "<group>"; };
 		C96D7FA71CC9D3FF00C029F9 /* CalibrationAudioIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CalibrationAudioIO.cpp; path = ../../Source/calibrationV2/CalibrationAudioIO.cpp; sourceTree = "<group>"; };
@@ -3107,6 +3139,10 @@
 		B919EC5A2C0D7AF4E6C95099 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C94BE7521CDC0B6B009B8457 /* AIO-2 */,
+				C94BE7541CDC0B74009B8457 /* AIO-M1 */,
+				C94BE7551CDC0B7A009B8457 /* AIO-M2 */,
+				C94BE7531CDC0B6F009B8457 /* AIO-S */,
 				C96FC6801CD8011700CFF6AA /* check.icns */,
 				C9FDDAEF1CC9DCF800DC18A0 /* factory.icns */,
 				294FCA1109401DBDF86F21D1 /* FinalTest.plist */,
@@ -3207,6 +3243,50 @@
 				BDFCE630AB99544ED873C2BB /* juce_StatisticsAccumulator.h */,
 			);
 			name = maths;
+			sourceTree = "<group>";
+		};
+		C94BE7521CDC0B6B009B8457 /* AIO-2 */ = {
+			isa = PBXGroup;
+			children = (
+				C94BE7561CDC0B8C009B8457 /* AIO-2 Final Test.xml */,
+				C94BE7571CDC0B8C009B8457 /* AIO-2 Full Test.xml */,
+				C94BE7581CDC0B8C009B8457 /* AIO-2 Module 1 Test.xml */,
+				C94BE7591CDC0B8C009B8457 /* AIO-2 Module 2 Test.xml */,
+			);
+			name = "AIO-2";
+			sourceTree = "<group>";
+		};
+		C94BE7531CDC0B6F009B8457 /* AIO-S */ = {
+			isa = PBXGroup;
+			children = (
+				C94BE76E1CDC0BB5009B8457 /* AIO-S Final Test.xml */,
+				C94BE76F1CDC0BB5009B8457 /* AIO-S Full Test.xml */,
+				C94BE7701CDC0BB5009B8457 /* AIO-S Module 1 Test.xml */,
+				C94BE7711CDC0BB5009B8457 /* AIO-S Module 2 Test.xml */,
+			);
+			name = "AIO-S";
+			sourceTree = "<group>";
+		};
+		C94BE7541CDC0B74009B8457 /* AIO-M1 */ = {
+			isa = PBXGroup;
+			children = (
+				C94BE75E1CDC0B9B009B8457 /* AIO-M1 Final Test.xml */,
+				C94BE75F1CDC0B9B009B8457 /* AIO-M1 Full Test.xml */,
+				C94BE7601CDC0B9B009B8457 /* AIO-M1 Module 1 Test.xml */,
+				C94BE7611CDC0B9B009B8457 /* AIO-M1 Module 2 Test.xml */,
+			);
+			name = "AIO-M1";
+			sourceTree = "<group>";
+		};
+		C94BE7551CDC0B7A009B8457 /* AIO-M2 */ = {
+			isa = PBXGroup;
+			children = (
+				C94BE7661CDC0BA9009B8457 /* AIO-M2 Final Test.xml */,
+				C94BE7671CDC0BA9009B8457 /* AIO-M2 Full Test.xml */,
+				C94BE7681CDC0BA9009B8457 /* AIO-M2 Module 1 Test.xml */,
+				C94BE7691CDC0BA9009B8457 /* AIO-M2 Module 2 Test.xml */,
+			);
+			name = "AIO-M2";
 			sourceTree = "<group>";
 		};
 		C9576DA41CC8928B003DF495 /* CalibrationV2 */ = {
@@ -3604,7 +3684,19 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C94BE77E1CDC0BDD009B8457 /* AIO-M1 Module 2 Test.xml in Resources */,
+				C94BE77D1CDC0BDD009B8457 /* AIO-M1 Module 1 Test.xml in Resources */,
 				33625D2A92051D4D5CF07177 /* RecentFilesMenuTemplate.nib in Resources */,
+				C94BE77C1CDC0BDD009B8457 /* AIO-M1 Full Test.xml in Resources */,
+				C94BE7791CDC0BDA009B8457 /* AIO-M2 Full Test.xml in Resources */,
+				C94BE77F1CDC0BE1009B8457 /* AIO-2 Full Test.xml in Resources */,
+				C94BE7801CDC0BE1009B8457 /* AIO-2 Module 1 Test.xml in Resources */,
+				C94BE7761CDC0BD6009B8457 /* AIO-S Full Test.xml in Resources */,
+				C94BE7781CDC0BD6009B8457 /* AIO-S Module 2 Test.xml in Resources */,
+				C94BE77B1CDC0BDA009B8457 /* AIO-M2 Module 2 Test.xml in Resources */,
+				C94BE77A1CDC0BDA009B8457 /* AIO-M2 Module 1 Test.xml in Resources */,
+				C94BE7771CDC0BD6009B8457 /* AIO-S Module 1 Test.xml in Resources */,
+				C94BE7811CDC0BE1009B8457 /* AIO-2 Module 2 Test.xml in Resources */,
 				C9FDDAF01CC9DCF800DC18A0 /* factory.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3613,7 +3705,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C94BE7851CDC0BE8009B8457 /* AIO-S Final Test.xml in Resources */,
+				C94BE7841CDC0BE8009B8457 /* AIO-M2 Final Test.xml in Resources */,
 				C96FC6841CD8028D00CFF6AA /* RecentFilesMenuTemplate.nib in Resources */,
+				C94BE7821CDC0BE8009B8457 /* AIO-2 Final Test.xml in Resources */,
+				C94BE7831CDC0BE8009B8457 /* AIO-M1 Final Test.xml in Resources */,
 				C995FE281CD80315006A37D4 /* check.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
