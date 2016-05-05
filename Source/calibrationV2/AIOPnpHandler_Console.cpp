@@ -1,5 +1,6 @@
 #include "../base.h"
 #include "CalibrationUnit.h"
+#include "CalibrationManagerV2.h"
 
 CalibrationUnit::AIOPnpHandler::AIOPnpHandler(CalibrationUnit& calibrationUnit_, USBDevices* aioUSBDevices_) :
 	calibrationUnit(calibrationUnit_),
@@ -20,5 +21,4 @@ void CalibrationUnit::AIOPnpHandler::changeListenerCallback(ChangeBroadcaster* s
 	ReferenceCountedObjectPtr<USBDevice> currentAIO( aioUSBDevices->getCurrentDevice() );
 	calibrationUnit.setAIOUSBDevice(currentAIO);
 }
-
 

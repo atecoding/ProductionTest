@@ -238,11 +238,6 @@ uint32 ehw::GetBoxType()
 	return properties.usbProductId;
 }
 
-uint32 ehw::GetBoxRev()
-{
-	return properties.usbRevisionId;
-}
-
 uint64 ehw::GetSerialNumber()
 {
 	return 0;

@@ -16,7 +16,7 @@
       <log>LED Test</log>
     </message_box>
 
-    <AIO_firmware_version_test min_version="0x3001"/>
+    <AIO_firmware_version_test min_version="0x3800"/>
 
 
     <AIO_module_type_test>
@@ -697,7 +697,7 @@
         <write page="0x04" address="0x01" value="0x12"/>
     </AIO_mikeybus>
     
-    <!-- Center module - External MB test -->
+    <!-- Outer module - External MB test -->
     <prompt>
         MB External Test Outer Module
         <text>Level check for exernal MB</text>

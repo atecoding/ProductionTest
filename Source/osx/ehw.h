@@ -23,7 +23,7 @@
 #include "hwcaps.h"
 
 #if ACOUSTICIO_BUILD
-#include "Description.h"
+class Description;
 #include "../calibrationV2/CalibrationDataV2.h"
 #endif
 
@@ -69,7 +69,9 @@ public:
     {
         return productID;
     }
-	uint32 GetBoxRev();
+
+    uint32 getFirmwareVersion() const;
+    String getFirmwareVersionString() const;
 
 	uint32 GetDriverVersion();
 	
@@ -87,9 +89,6 @@ public:
 	//}
 	int updatepolledstuff();
 	
-	uint32 getFirmwareVersion() const;
-    String getFirmwareVersionString() const;
-
 
 	//------------------------------------------------------------------------------
 	// Hardware controls

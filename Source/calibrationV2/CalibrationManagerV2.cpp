@@ -289,7 +289,7 @@ String CalibrationManagerV2::getHistory()
 
 void CalibrationManagerV2::setDevices(ReferenceCountedObjectPtr<USBDevice> aioUSBDevice_, AudioIODevice* audioIODevice_)
 {
-	unit.setDevice(aioUSBDevice_);
+	unit.setAIOUSBDevice(aioUSBDevice_);
 	audioIO.setDevice(audioIODevice_);
 }
 

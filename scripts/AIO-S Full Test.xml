@@ -16,7 +16,17 @@
       <log>LED Test</log>
     </message_box>
 
-    <AIO_firmware_version_test min_version="0x3001" />
+    <AIO_firmware_version_test>
+        <interface_module>
+            <revision>0</revision> <!-- rev 1 interface module -->
+            <min_version>0x72</min_version>
+            <max_version>0x72</max_version>
+        </interface_module>
+        <interface_module>
+            <revision>0x3000</revision> <!-- rev 2 interface module -->
+            <min_version>0x3800</min_version>
+        </interface_module>
+    </AIO_firmware_version_test>
     
     <AIO_module_type_test>
         <slot>0</slot>  
@@ -353,7 +363,7 @@
       <input>0</input>
       <output>0</output>
       <num_channels>2</num_channels>
-      <sample_rate>192000</sample_rate>
+      <sample_rate>192000</sample_rate> <!-- will be automatically limited to 96k for older units -->
       <min_level_db>-8.0</min_level_db>
       <max_level_db>-4.0</max_level_db>
     </test>
@@ -365,7 +375,7 @@
       <input>2</input>
       <output>0</output>
       <num_channels>1</num_channels>
-      <sample_rate>192000</sample_rate>
+      <sample_rate>192000</sample_rate> <!-- will be automatically limited to 96k for older units -->
       <min_level_db>-8.0</min_level_db>
       <max_level_db>-4.0</max_level_db>
     </test>
@@ -377,7 +387,7 @@
       <input>3</input>
       <output>0</output>
       <num_channels>1</num_channels>
-      <sample_rate>192000</sample_rate>
+      <sample_rate>192000</sample_rate> <!-- will be automatically limited to 96k for older units -->
       <min_level_db>-22.0</min_level_db>
       <max_level_db>-18.0</max_level_db>
     </test>
@@ -527,7 +537,7 @@
     </Print_error_codes>
 
     <message_box>
-      Connect the Test Adapter to Inputs 5-8
+      Connect the Test Adapter to Inputs 5-8 and AMP 3-4
       <continue_or_stop>1</continue_or_stop>
     </message_box>
 
@@ -709,7 +719,7 @@
       <input>4</input>
       <output>2</output>
       <num_channels>2</num_channels>
-      <sample_rate>192000</sample_rate>
+      <sample_rate>192000</sample_rate> <!-- will be automatically limited to 96k for older units -->
       <min_level_db>-8.0</min_level_db>
       <max_level_db>-4.0</max_level_db>
     </test>
@@ -721,7 +731,7 @@
       <input>6</input>
       <output>2</output>
       <num_channels>2</num_channels>
-      <sample_rate>192000</sample_rate>
+      <sample_rate>192000</sample_rate> <!-- will be automatically limited to 96k for older units -->
       <min_level_db>-8.0</min_level_db>
       <max_level_db>-4.0</max_level_db>
     </test>

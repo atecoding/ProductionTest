@@ -2,6 +2,7 @@
 #include "CalibrationProcedureAIOA.h"
 #include "CalibrationUnit.h"
 #include "../AIOModule.h"
+#include "../Description.h"
 
 const float CalibrationProcedureAIOA::AIOReferencePeakVolts = 2.5f;   // Reference signal is 0 to +5V, but AC coupled so -2.5V to +2.5V (for both signal from test adapter and AIO-S onboard signal)
 const float CalibrationProcedureAIOA::inputPeakVolts = 8.75f;    // Max +8.75V, min -8.75V, common to AIO-2 and AIO-S
@@ -113,7 +114,7 @@ Result CalibrationProcedureAIOA::prepareStageCheckAdapterConnections()
                 if (description->getInputType(input) == Description::TEDS_IN)
                 {
                     uint8 data[ACOUSTICIO_TEDS_DATA_BYTES];
-                    
+
                     result = aioUSBDevice->readTEDSData((uint8)input, data, sizeof(data));
                     if (result.wasOk())
                     {
@@ -145,7 +146,7 @@ Result CalibrationProcedureAIOA::prepareStageCheckAdapterConnections()
 Result CalibrationProcedureAIOA::prepareStageCalibrateMics()
 {
     DBG("CalibrationProcedureAIOA::prepareStageCalibrateMics()");
-    
+
     SquareWaveAudioSource::Configuration squareWaveConfiguration;
     squareWaveConfiguration.frequency = testAdapterSquareWaveFrequency;
     squareWaveConfiguration.minAmplitude = -0.25f;
@@ -278,7 +279,7 @@ Result CalibrationProcedureAIOA::checkAmpConnection(AudioBuffer<float> recordBuf
     {
         return Result::fail("Check AMP connections");
     }
-
+    
     return Result::ok();
 }
 

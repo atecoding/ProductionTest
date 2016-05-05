@@ -84,6 +84,11 @@ public:
         MAX_MODULES = 2
     };
 
+    uint8 getModuleTypes() const
+    {
+        return moduleTypes;
+    }
+    
     uint8 getModuleType(int const moduleNumber) const;
 
 	bool isInputPresent(int const input) const;
@@ -93,6 +98,7 @@ public:
 
 protected:
     OwnedArray<AIOModule> modules;
+    uint8 const moduleTypes;
 	uint16 const bcdVersion;
 
 	const static String analogString;

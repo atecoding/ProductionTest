@@ -9,6 +9,7 @@ String const Description::analogString("Analog ");
 String const Description::mbString("MB ");
 
 Description::Description(uint8 moduleTypes_, uint16 const bcdVersion_) :
+moduleTypes(moduleTypes_),
 bcdVersion(bcdVersion_)
 {
     int firstInput = 0;

@@ -4,30 +4,25 @@
   <!-- **************************************************** -->
 	<!-- Echo AIO                                    -->
 	<!-- **************************************************** -->
-	<device USB_product_ID="0xa0">
+
+  <device USB_product_ID="0xa0">
     <Require_AIO_Test_Adapter>true</Require_AIO_Test_Adapter>
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO</CoreAudio_driver>
 
-    <AIO_firmware_version_test min_version="0x3000" />
-
-    <AIO_module_type_test>
-      <slot>0</slot>
-      <!-- slot 0 == center slot -->
-      <type>1</type>
-      <!-- type 1 == TEDS microphone + class D amp analog module -->
-    </AIO_module_type_test>
+    <AIO_firmware_version_test min_version="0x3800" />
 
     <AIO_module_type_test>
       <slot>1</slot>
       <!-- slot 1 == outer slot -->
       <type>1</type>
-      <!-- type 1 == TEDS microphone + class D amp analog module -->
+      <!-- type 1 == AIO-A module -->
     </AIO_module_type_test>
 
-    <AIO_clear_RAM_calibration />
-
-    <AIO_flash_memory_test />
+    <message_box>
+      Connect the Test Adapter to Inputs 5-8
+      <continue_or_stop>1</continue_or_stop>
+    </message_box>
 
     <!-- Check constant current voltage and current -->
 
@@ -54,9 +49,10 @@
     <AIO_set_constant_current input="6" enabled="1" /> <!-- turn on constant current for input 7 -->
     <AIO_set_constant_current input="7" enabled="1" /> <!-- turn on constant current for input 8 -->
     <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
-    <AIO_write_test_adapter byte="0x00"/> <!-- set adapter for Mic Supply voltage measurement and read ADCs-->
+    <AIO_write_test_adapter byte="0x00"/> <!-- second time to allow capacitor discharge-->
     <AIO_mic_supply_on_voltage_test input="4">
-      <minimum>19.0</minimum> <!-- minimum and maximum are in volts -->
+      <minimum>19.0</minimum>
+      <!-- minimum and maximum are in volts -->
       <maximum>21.0</maximum>
     </AIO_mic_supply_on_voltage_test>
 
@@ -72,9 +68,9 @@
     <AIO_set_constant_current input="6" enabled="0" /> <!-- turn off constant current for input 7 -->
     <AIO_set_constant_current input="7" enabled="0" /> <!-- turn off constant current for input 8 -->
     <Delay_msec>500</Delay_msec>
-    
+
     <!-- Check TEDS read circuits - do this after disabling constant current -->
-    
+
     <AIO_TEDS_test input="4" />
 
     <!-- Test gain settings for inputs and outputs -->
@@ -206,7 +202,7 @@
       <input>4</input>
       <output>2</output>
       <num_channels>2</num_channels>
-      <sample_rate>192000</sample_rate>
+      <sample_rate>192000</sample_rate> <!-- will be automatically limited to 96k for older units -->
       <min_level_db>-8.0</min_level_db>
       <max_level_db>-4.0</max_level_db>
     </test>
@@ -218,7 +214,7 @@
       <input>6</input>
       <output>2</output>
       <num_channels>2</num_channels>
-      <sample_rate>192000</sample_rate>
+      <sample_rate>192000</sample_rate> <!-- will be automatically limited to 96k for older units -->
       <min_level_db>-8.0</min_level_db>
       <max_level_db>-4.0</max_level_db>
     </test>
@@ -244,6 +240,7 @@
       <min_input_db>-200.0</min_input_db>
       <max_input_db>0.0</max_input_db>
       <wait_for_user>0</wait_for_user>
+      <start_group>1</start_group>
     </prompt>
 
     <!-- THD+N and DNR Channels 5-6 -->
@@ -291,7 +288,7 @@
       <sample_rate>96000</sample_rate>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
-      <pass_threshold_db>0.49</pass_threshold_db>
+      <pass_threshold_db>0.75</pass_threshold_db>
       <sweep_time_seconds>2.0</sweep_time_seconds>
       <sweep_delay_seconds>0.4</sweep_delay_seconds>
       <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
@@ -344,7 +341,7 @@
       <sample_rate>96000</sample_rate>
       <output_amplitude_db>-10.0</output_amplitude_db>
       <output_frequency>20.0</output_frequency>
-      <pass_threshold_db>0.49</pass_threshold_db>
+      <pass_threshold_db>0.75</pass_threshold_db>
       <sweep_time_seconds>2.0</sweep_time_seconds>
       <sweep_delay_seconds>0.4</sweep_delay_seconds>
       <sweep_fadein_seconds>0.1</sweep_fadein_seconds>
@@ -362,4 +359,3 @@
   </device>
 
 </root>
-

@@ -11,7 +11,8 @@
 //
 // To detect the interface module version, read the bcdDevice field from the USB
 // device descriptor.  Apply ECHOAIO_INTERFACE_MODULE_BCDDEVICE_MASK with a bitwise and; 
-// the remaing bits indicate the interface module revision.
+// the remaining bits indicate the interface module revision.  Anything below
+// is a revision 1 interface module.
 //
 //======================================================================================
 
@@ -40,6 +41,7 @@ enum
     ECHOAIO_LOCKED_INTERFACE_MODULE_BIT = 11,
     ECHOAIO_LOCKED_INTERFACE_MODULE_MASK = 1 << ECHOAIO_LOCKED_INTERFACE_MODULE_BIT
 };
+
 
 //======================================================================================
 //
@@ -232,6 +234,9 @@ enum
 	ACOUSTICIO_LINE_MODULE
 };
 
+#define AIO_TYPE_AA  (ACOUSTICIO_ANALOG_MODULE << 4 | ACOUSTICIO_ANALOG_MODULE)
+#define AIO_TYPE_XA  (ACOUSTICIO_MODULE_NOT_PRESENT << 4 | ACOUSTICIO_ANALOG_MODULE)
+#define AIO_TYPE_AS  (ACOUSTICIO_ANALOG_MODULE << 4 | ACOUSTICIO_SPKRMON_MODULE)
 #define AIO_TYPE_MA  (ACOUSTICIO_MIKEYBUS_MODULE << 4 | ACOUSTICIO_ANALOG_MODULE)
 #define AIO_TYPE_MM  (ACOUSTICIO_MIKEYBUS_MODULE << 4 | ACOUSTICIO_MIKEYBUS_MODULE)
 

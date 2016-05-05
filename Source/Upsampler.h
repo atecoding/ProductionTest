@@ -12,7 +12,7 @@ public:
 	~Upsampler();
     
     void upsample(AudioSampleBuffer *inputBuffer);
-	Result upsample(AudioBuffer<float> const &inputBuffer, int const inputChannel, AudioBuffer<float> &outputBuffer, int const outputChannel, int &outputSampleCount);
+	Result upsample(AudioBuffer<float> const &inputBuffer, int const inputChannel, AudioBuffer<float> &outputBuffer_, int const outputChannel, int &outputSampleCount_);
     
 	void setOutputBufferSize(double seconds);
 

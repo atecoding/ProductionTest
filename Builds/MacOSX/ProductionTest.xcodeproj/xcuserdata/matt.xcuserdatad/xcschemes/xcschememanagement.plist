@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AIO Final Test (App).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>ProductionTest (App).xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -13,6 +18,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>9467CF0A5927780E968FDAFF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C96FC6821CD8028D00CFF6AA</key>
 		<dict>
 			<key>primary</key>
 			<true/>

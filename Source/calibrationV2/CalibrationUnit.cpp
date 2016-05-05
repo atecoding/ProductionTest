@@ -5,6 +5,7 @@
 #include "CalibrationProcedureAIOS.h"
 #include "CalibrationProcedureAIOM.h"
 #include "crc32.h"
+#include "../Description.h"
 
 const Result CalibrationUnit::invalidProcedureResult(Result::fail("Invalid calibration procedure"));
 
@@ -264,7 +265,7 @@ String CalibrationUnit::getHistory()
     return text;
 }
 
-void CalibrationUnit::setDevice(ReferenceCountedObjectPtr<USBDevice> aioUSBDevice_)
+void CalibrationUnit::setAIOUSBDevice(ReferenceCountedObjectPtr<USBDevice> aioUSBDevice_)
 {
 	originalCalibrationData.reset();
 	calibrationData.reset();
