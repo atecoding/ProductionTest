@@ -74,6 +74,7 @@ public:
 	String GetIdString();
 
 	uint32 GetVendorId();
+	uint8 GetBoxModuleTypes();
 	uint32 GetBoxType();
 	uint32 GetBoxRev();
 	uint64 GetSerialNumber();

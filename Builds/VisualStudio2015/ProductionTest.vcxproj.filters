@@ -3860,5 +3860,8 @@
     <Xml Include="..\..\scripts\AIO-M2 Module 2 Test.xml">
       <Filter>Scripts</Filter>
     </Xml>
+    <Xml Include="..\..\scripts\MasterScript.xml">
+      <Filter>Scripts</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

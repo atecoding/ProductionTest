@@ -233,6 +233,24 @@ uint32 ehw::GetVendorId()
 	return properties.usbVendorId;
 }
 
+uint8 ehw::GetBoxModuleTypes()
+{
+	AIOModule * AIO_Module_1 = getDescription()->getModuleObject(0);
+	AIOModule * AIO_Module_2 = getDescription()->getModuleObject(1);
+
+	if (AIO_Module_1 == nullptr && AIO_Module_2 == nullptr)
+	{
+		return 0xffff;
+	}
+	
+	if (AIO_Module_1 == nullptr || AIO_Module_2 == nullptr)
+	{
+		return AIO_TYPE_XA;
+	}
+
+	return ((AIO_Module_2->getType() << 4) | AIO_Module_1->getType());
+}
+
 uint32 ehw::GetBoxType()
 {
 	return properties.usbProductId;
