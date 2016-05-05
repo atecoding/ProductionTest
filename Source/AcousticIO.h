@@ -11,7 +11,8 @@
 //
 // To detect the interface module version, read the bcdDevice field from the USB
 // device descriptor.  Apply ECHOAIO_INTERFACE_MODULE_BCDDEVICE_MASK with a bitwise and; 
-// the remaining bits indicate the interface module revision.
+// the remaining bits indicate the interface module revision.  Anything below
+// is a revision 1 interface module.
 //
 //======================================================================================
 
@@ -21,7 +22,7 @@ enum
 {
 	ECHOAIO_INTERFACE_MODULE_REV1 = 0x0000,	// Original interface module for 2014 and 2015
 											// XMOS XCore XS1 processor
-	ECHOAIO_INTERFACE_MODULE_REV2 = 0x3800	// Interface module introduced for 2016
+	ECHOAIO_INTERFACE_MODULE_REV2 = 0x3000	// Interface module introduced for 2016
 											// Supports 192 kHz, full calibration, USB sync
 											// XMOS Xcore200 XE216 processor
 };

@@ -1114,6 +1114,11 @@
 		C908715C1CC8921900444B87 /* USBSyncTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = USBSyncTest.cpp; path = ../../Source/USBSyncTest.cpp; sourceTree = "<group>"; };
 		C908715E1CC8922E00444B87 /* AIOTestAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIOTestAdapter.h; path = ../../Source/AIOTestAdapter.h; sourceTree = "<group>"; };
 		C90F82E21CCDC9BB00EFC55A /* AIO-M2 Full Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-M2 Full Test.xml"; path = "../../scripts/AIO-M2 Full Test.xml"; sourceTree = "<group>"; };
+		C936CF491CDBEC0000F10D35 /* AIOAModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIOAModule.h; path = ../../Source/AIOAModule.h; sourceTree = "<group>"; };
+		C936CF4A1CDBEC0000F10D35 /* AIOClockSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIOClockSource.h; path = ../../Source/AIOClockSource.h; sourceTree = "<group>"; };
+		C936CF4B1CDBEC0000F10D35 /* AIOMModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIOMModule.h; path = ../../Source/AIOMModule.h; sourceTree = "<group>"; };
+		C936CF4C1CDBEC0000F10D35 /* AIOModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIOModule.h; path = ../../Source/AIOModule.h; sourceTree = "<group>"; };
+		C936CF4D1CDBEC0000F10D35 /* AIOSModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AIOSModule.h; path = ../../Source/AIOSModule.h; sourceTree = "<group>"; };
 		C94CE66A1CDBD2D200A3C5BB /* AIO-2 Module 1 Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Module 1 Test.xml"; path = "../../scripts/AIO-2 Module 1 Test.xml"; sourceTree = "<group>"; };
 		C94CE66B1CDBD2D200A3C5BB /* AIO-2 Module 2 Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-2 Module 2 Test.xml"; path = "../../scripts/AIO-2 Module 2 Test.xml"; sourceTree = "<group>"; };
 		C94CE66C1CDBD2D200A3C5BB /* AIO-M1 Module 1 Test.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "AIO-M1 Module 1 Test.xml"; path = "../../scripts/AIO-M1 Module 1 Test.xml"; sourceTree = "<group>"; };
@@ -1917,6 +1922,11 @@
 		4681220E30FCD4C47E0B1E13 /* AIO */ = {
 			isa = PBXGroup;
 			children = (
+				C936CF491CDBEC0000F10D35 /* AIOAModule.h */,
+				C936CF4A1CDBEC0000F10D35 /* AIOClockSource.h */,
+				C936CF4B1CDBEC0000F10D35 /* AIOMModule.h */,
+				C936CF4C1CDBEC0000F10D35 /* AIOModule.h */,
+				C936CF4D1CDBEC0000F10D35 /* AIOSModule.h */,
 				C908715E1CC8922E00444B87 /* AIOTestAdapter.h */,
 				9EA9AECBA80000F3574BFB45 /* AcousticIO.h */,
 				930B8FA1037D0738FCE3E6C1 /* Description.cpp */,

@@ -9,6 +9,7 @@ String const Description::analogString("Analog ");
 String const Description::mbString("MB ");
 
 Description::Description(uint8 moduleTypes_, uint16 const bcdVersion_) :
+moduleTypes(moduleTypes_),
 bcdVersion(bcdVersion_)
 {
     int firstInput = 0;
@@ -43,7 +44,14 @@ bcdVersion(bcdVersion_)
 
 uint16 const Description::getInterfaceModuleVersion() const
 {
-	return bcdVersion & ECHOAIO_INTERFACE_MODULE_BCDDEVICE_MASK;
+    uint16 upperBits = bcdVersion & ECHOAIO_INTERFACE_MODULE_BCDDEVICE_MASK;
+    
+    if (upperBits < ECHOAIO_INTERFACE_MODULE_REV2)
+    {
+        return ECHOAIO_INTERFACE_MODULE_REV1;
+    }
+    
+	return upperBits;
 }
 
 bool Description::isInputPresent(int const input) const

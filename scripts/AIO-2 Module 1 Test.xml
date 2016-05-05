@@ -202,7 +202,7 @@
       <input>0</input>
       <output>0</output>
       <num_channels>2</num_channels>
-      <sample_rate>192000</sample_rate>
+      <sample_rate>192000</sample_rate> <!-- will be automatically limited to 96k for older units -->
       <min_level_db>-8.0</min_level_db>
       <max_level_db>-4.0</max_level_db>
     </test>
@@ -214,7 +214,7 @@
       <input>2</input>
       <output>0</output>
       <num_channels>2</num_channels>
-      <sample_rate>192000</sample_rate>
+      <sample_rate>192000</sample_rate> <!-- will be automatically limited to 96k for older units -->
       <min_level_db>-8.0</min_level_db>
       <max_level_db>-4.0</max_level_db>
     </test>

@@ -25,7 +25,7 @@ public:
 
 	virtual bool supportsCalibration() const override
 	{
-		return interfaceModuleVersion >= ECHOAIO_INTERFACE_MODULE_REV2;
+		return true;
 	}
     
 protected:

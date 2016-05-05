@@ -69,7 +69,9 @@ public:
     {
         return productID;
     }
-	uint32 GetBoxRev();
+
+    uint32 getFirmwareVersion() const;
+    String getFirmwareVersionString() const;
 
 	uint32 GetDriverVersion();
 	
@@ -87,9 +89,6 @@ public:
 	//}
 	int updatepolledstuff();
 	
-	uint32 getFirmwareVersion() const;
-    String getFirmwareVersionString() const;
-
 
 	//------------------------------------------------------------------------------
 	// Hardware controls

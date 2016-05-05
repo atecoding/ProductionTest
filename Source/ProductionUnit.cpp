@@ -724,7 +724,7 @@ void ProductionUnit::ParseScript()
 	bool ok;
 	bool quit = false;
 	int rval = -1;
-	uint32 AIO_Revision(_dev->GetBoxRev());
+	uint32 AIO_Revision(_dev->getDescription()->getInterfaceModuleVersion());
 
 	while (_script && _running && deviceAttached)
 	{
@@ -1233,9 +1233,9 @@ void ProductionUnit::ParseScript()
 			// Support for old interface modules
 			// This way we don't need separate scripts for them
 			//
-			if (AIO_Revision == ECHOAIO_INTERFACE_MODULE_REV1)
+			if (ECHOAIO_INTERFACE_MODULE_REV1 == AIO_Revision)
 			{
-				if (_dev->GetBoxModuleTypes() != AIO_TYPE_AS)
+				if (_dev->getDescription()->getModuleTypes() != AIO_TYPE_AS)
 				{
 					_script = _script->getNextElement();
 					continue;
@@ -1302,7 +1302,7 @@ void ProductionUnit::ParseScript()
 			//
 			if (AIO_Revision == ECHOAIO_INTERFACE_MODULE_REV1)
 			{
-				if (_dev->GetBoxModuleTypes() != AIO_TYPE_AS)
+				if (_dev->getDescription()->getModuleTypes() != AIO_TYPE_AS)
 				{
 					_script = _script->getNextElement();
 					continue;
@@ -1340,7 +1340,7 @@ void ProductionUnit::ParseScript()
 			//
 			if (AIO_Revision == ECHOAIO_INTERFACE_MODULE_REV1)
 			{
-				if (_dev->GetBoxModuleTypes() != AIO_TYPE_AS)
+				if (_dev->getDescription()->getModuleTypes() != AIO_TYPE_AS)
 				{
 					_script = _script->getNextElement();
 					continue;
@@ -1366,7 +1366,7 @@ void ProductionUnit::ParseScript()
 			//
 			if (AIO_Revision == ECHOAIO_INTERFACE_MODULE_REV1)
 			{
-				if (_dev->GetBoxModuleTypes() != AIO_TYPE_AS)
+				if (_dev->getDescription()->getModuleTypes() != AIO_TYPE_AS)
 				{
 					_script = _script->getNextElement();
 					continue;
@@ -2260,7 +2260,7 @@ Result ProductionUnit::runCorrectScript()
 {
 	Result result(Result::ok());
 	bool badConfiguration(false);
-	uint32 AIO_Revision(_dev->GetBoxRev());
+	uint32 AIO_Revision(_dev->getDescription()->getInterfaceModuleVersion());
 		
 	//
 	// Find out what revision the AIO is.
@@ -2269,7 +2269,7 @@ Result ProductionUnit::runCorrectScript()
 	// If they do not match a known configuration, return an error.
 	//
 
-	uint8 AIO_Type(_dev->GetBoxModuleTypes());
+	uint8 AIO_Type(_dev->getDescription()->getModuleTypes());
 
 	switch (AIO_Revision)
 	{
@@ -2372,6 +2372,7 @@ Result ProductionUnit::runCorrectScript()
 	{
 		result = Result::fail("Invalid AIO configuration! The modules are not in a valid configuration.");
 	}
+    
 	//
 	// Call the appropriate test scripts based on what revision and modules
 	// the AIO has.

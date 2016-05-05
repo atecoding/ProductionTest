@@ -74,10 +74,12 @@ public:
 	String GetIdString();
 
 	uint32 GetVendorId();
-	uint8 GetBoxModuleTypes();
 	uint32 GetBoxType();
-	uint32 GetBoxRev();
-	uint64 GetSerialNumber();
+    
+    uint32 getFirmwareVersion() const;
+    String getFirmwareVersionString() const;
+    
+    uint64 GetSerialNumber();
 
 	uint32 GetDriverVersion();
 
@@ -107,9 +109,7 @@ public:
 	//	return &(_pstuff.stuff);
 	//}
 	int updatepolledstuff();
-	
-	uint32 getFirmwareVersion() const;
-	String getFirmwareVersionString() const;
+
 
 	//------------------------------------------------------------------------------
 	// Hardware controls

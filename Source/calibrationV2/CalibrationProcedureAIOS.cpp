@@ -2,6 +2,7 @@
 #include "CalibrationProcedureAIOS.h"
 #include "CalibrationUnit.h"
 #include "../AIOModule.h"
+#include "../Description.h"
 
 static const float expectedVmonOverImon = 5.0f;
 
@@ -352,7 +353,7 @@ Result CalibrationProcedureAIOS::finishStage()
 			// Support for old interface modules
 			// This way we don't need separate scripts for them
 			//
-			if (calibrationUnit->aioUSBDevice->GetBoxRev() == ECHOAIO_INTERFACE_MODULE_REV1)
+			if (calibrationUnit->aioUSBDevice->getDescription()->getInterfaceModuleVersion() == ECHOAIO_INTERFACE_MODULE_REV1)
 			{
 				stage = STAGE_MODULE_CALIBRATION_DONE;
 			}
