@@ -2,16 +2,28 @@
 <root>
   
   <!-- **************************************************** -->
-	<!-- Echo AIO                                    -->
-	<!-- **************************************************** -->
+  <!-- Echo AIO-S                                           -->
+  <!-- **************************************************** -->
 
   <device USB_product_ID="0xa0">
     <Require_AIO_Test_Adapter>true</Require_AIO_Test_Adapter>
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO</CoreAudio_driver>
 
-    <AIO_firmware_version_test min_version="0x3800" />
-
+    <AIO_firmware_version_test>
+      <interface_module>
+        <revision>0</revision>
+        <!-- rev 1 interface module -->
+        <min_version>0x72</min_version>
+        <max_version>0x72</max_version>
+      </interface_module>
+      <interface_module>
+        <revision>0x3000</revision>
+        <!-- rev 2 interface module -->
+        <min_version>0x3800</min_version>
+      </interface_module>
+    </AIO_firmware_version_test>
+    
     <AIO_module_type_test>
       <slot>1</slot>
       <!-- slot 1 == outer slot -->

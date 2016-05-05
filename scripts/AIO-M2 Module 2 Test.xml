@@ -6,12 +6,24 @@
 	<!-- **************************************************** -->
     
 	<device USB_product_ID="0xa2">
-    <Require_AIO_Test_Adapter>true</Require_AIO_Test_Adapter>
+    <Require_AIO_Test_Adapter>false</Require_AIO_Test_Adapter>
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
-    <CoreAudio_driver>EchoAIO-M1</CoreAudio_driver>
+    <CoreAudio_driver>EchoAIO-M2</CoreAudio_driver>
 
-    <AIO_firmware_version_test min_version="0x3800" />
-
+    <AIO_firmware_version_test>
+      <interface_module>
+        <revision>0</revision>
+        <!-- rev 1 interface module -->
+        <min_version>0x2002</min_version>
+        <max_version>0x2002</max_version>
+      </interface_module>
+      <interface_module>
+        <revision>0x3000</revision>
+        <!-- rev 2 interface module -->
+        <min_version>0x3800</min_version>
+      </interface_module>
+    </AIO_firmware_version_test>
+    
     <AIO_module_type_test>
       <slot>1</slot>
       <!-- slot 1 == outer slot -->
@@ -28,7 +40,7 @@
 <message_box>
     Plug the USB test cable in to the INPUT connector on the outer module.  Is there 3.3 volts DC between the two wires on the test cable?
     <show_yes_no>1</show_yes_no>
-    <log>MB power supply check</log>
+    <log>MB power supply check (outer)</log>
 </message_box>
 
 <!-- *************************************************
