@@ -232,8 +232,8 @@
     MB External Test Outer Module
     <text>Level check for exernal MB</text>
     <output_amplitude_db>-20.0</output_amplitude_db>
-    <input>4</input>
-    <output>2</output>
+    <input>10</input>
+    <output>10</output>
     <num_channels>2</num_channels>
     <sample_rate>48000</sample_rate>
     <min_input_db>-22.0</min_input_db>
@@ -244,8 +244,8 @@
 
 <test>
     <type>Frequency isolation</type>
-    <input>4</input>
-    <output>2</output>
+    <input>10</input>
+    <output>10</output>
     <num_channels>2</num_channels>
     <sample_rate>48000</sample_rate>
     <output_frequency>984.375</output_frequency>
