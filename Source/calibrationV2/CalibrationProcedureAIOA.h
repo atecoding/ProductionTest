@@ -9,10 +9,7 @@ public:
     
     virtual double getRecordLengthSeconds() const override;
     
-    virtual bool isDone() const override
-    {
-        return STAGE_MODULE_CALIBRATION_DONE == stage;
-    }
+    virtual bool isDone() const override;
     
     virtual int getNumCalibrationStages() const override
     {

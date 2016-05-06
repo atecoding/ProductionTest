@@ -1359,19 +1359,6 @@ void ProductionUnit::ParseScript()
         
         if (_script->hasTagName("AIO_calibrate"))
         {
-			//
-			// Support for old interface modules
-			// This way we don't need separate scripts for them
-			//
-			if (ECHOAIO_INTERFACE_MODULE_REV1 == getAIORevision())
-			{
-				if (_dev->getDescription()->getModuleTypes() != AIO_TYPE_AS)
-				{
-					_script = _script->getNextElement();
-					continue;
-				}
-			}
-
             int firstModule = -1;
             int writeToFlash = 0;
             
@@ -1386,26 +1373,6 @@ void ProductionUnit::ParseScript()
 
             if (_unit_passed && firstModule >= 0)
             {
-				//
-				// Support for old interface modules
-				// This way we don't need separate scripts for them
-				//
-				// Skip the A module in an AIO-S for Revision 1
-				//
-				if (ECHOAIO_INTERFACE_MODULE_REV1 == getAIORevision())
-				{
-					if (firstModule != 0)
-					{
-						continue;
-					}
-				}
-
-                //
-                // Destroy this object's AudioIODevice - this means that the
-                // calibration has to be the last stage of the test
-                //
-                //audioDevice = nullptr;
-                
                 //
                 // Start the calibration
                 //

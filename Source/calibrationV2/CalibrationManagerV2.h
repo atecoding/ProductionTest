@@ -99,6 +99,7 @@ protected:
     Result runModuleProcedureStage();
     Result startAudioIO();
     Result restartModuleCalibration();
+    void finishUnitModule();
     
     virtual void handleAsyncUpdate() override;
     

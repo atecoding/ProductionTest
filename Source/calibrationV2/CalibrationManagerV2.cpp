@@ -117,7 +117,18 @@ Result CalibrationManagerV2::startUnitCalibration()
         result = unit.createModuleProcedure();
         if (result.wasOk())
         {
-            state = STATE_MODULE_READY;
+            //
+            // It's possible that this module does not need to be calibrated
+            // and should be skipped
+            //
+            if (unit.isModuleProcedureDone())
+            {
+                finishUnitModule();
+            }
+            else
+            {
+                state = STATE_MODULE_READY;
+            }
             return result;
         }
     }
@@ -237,28 +248,7 @@ void CalibrationManagerV2::handleAsyncUpdate()
     //
     if (unit.isModuleProcedureDone())
     {
-        //
-        // Finish up this module, then move to the next module
-        //
-        result = unit.finishModuleCalibration();
-        if (result.wasOk())
-        {
-            DBG("CalibrationManagerV2::audioRecordDone() - module is done   state:" << (int)state.getValue());
-            if (unit.isDone())
-            {
-                state = STATE_SHOW_ACTIVE_CALIBRATION;
-                return;
-            }
-            else
-            {
-                result = unit.createModuleProcedure();
-                if (result.wasOk())
-                {
-                    state = STATE_MODULE_READY;
-                    return;
-                }
-            }
-        }
+        finishUnitModule();
     }
     else
     {
@@ -274,6 +264,31 @@ void CalibrationManagerV2::handleAsyncUpdate()
     
     DBG("Failed to continue or finish module procedure");
                 state = STATE_ERROR;
+}
+
+
+void CalibrationManagerV2::finishUnitModule()
+{
+    //
+    // Finish up this module, then move to the next module
+    //
+    result = unit.finishModuleCalibration();
+    if (result.wasOk())
+    {
+        DBG("CalibrationManagerV2::finishUnitModule() - module is done   state:" << (int)state.getValue());
+        if (unit.isDone())
+        {
+            state = STATE_SHOW_ACTIVE_CALIBRATION;
+        }
+        else
+        {
+            result = unit.createModuleProcedure();
+            if (result.wasOk())
+            {
+                state = STATE_MODULE_READY;
+            }
+        }
+    }
 }
 
 

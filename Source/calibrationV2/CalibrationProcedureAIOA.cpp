@@ -28,6 +28,14 @@ double CalibrationProcedureAIOA::getRecordLengthSeconds() const
     return 10.0;
 }
 
+bool CalibrationProcedureAIOA::isDone() const
+{
+    if (false == module->supportsCalibration())
+        return true;
+    
+    return STAGE_MODULE_CALIBRATION_DONE == stage;
+}
+
 Result CalibrationProcedureAIOA::prepareModuleForCalibration()
 {
     DBG("CalibrationProcedureAIOA::prepareModuleForCalibration()  stage:" << stage);
