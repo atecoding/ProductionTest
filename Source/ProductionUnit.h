@@ -28,7 +28,7 @@ public:
 	~ProductionUnit(void);
 
 	bool status();
-	void RunTests(Time const testStartTime_);
+	Result RunTests(Time const testStartTime_);
 
 	void audioDeviceAboutToStart(AudioIODevice *device) override;
 	void audioDeviceIOCallback(const float **inputChannelData, int numInputChannels, float **outputChannelData, int numOutputChannels, int numSamples) override;

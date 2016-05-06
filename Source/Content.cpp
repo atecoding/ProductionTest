@@ -293,14 +293,18 @@ void Content::buttonClicked(Button *button)
 
             finalResult = String::empty;
             repaint();
-            startButton.setEnabled(false);
-            stopButton.setEnabled(true);
-            stopButton.setState(Button::buttonNormal);
-#if ALLOW_USER_SCRIPT_SELECT
-            scriptCombo.setEnabled(false);
-#endif
-            stopButton.grabKeyboardFocus();
-            _unit->RunTests(Time::getCurrentTime());
+            
+            Result runResult( _unit->RunTests(Time::getCurrentTime()) );
+            if (runResult.wasOk())
+            {
+                startButton.setEnabled(false);
+                stopButton.setEnabled(true);
+                stopButton.setState(Button::buttonNormal);
+        #if ALLOW_USER_SCRIPT_SELECT
+                scriptCombo.setEnabled(false);
+        #endif
+                stopButton.grabKeyboardFocus();
+            }
 		}
 #endif
     
@@ -481,9 +485,6 @@ void Content::DevArrived(ehw *dev)
 
 	_unit_name = dev->getcaps()->BoxTypeName();
 
-#ifdef PCI_BUILD
-	_unit->RunTests();
-#else
 	DBG("Content::DevArrived - button enabled");
 
 	startButton.setEnabled(true);
@@ -493,7 +494,6 @@ void Content::DevArrived(ehw *dev)
 	scriptCombo.setEnabled(true);
 #endif
 	startButton.grabKeyboardFocus();
-#endif
 
 	if (application->testManager->getAutostart())
 	{

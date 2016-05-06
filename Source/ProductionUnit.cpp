@@ -332,7 +332,7 @@ uint32 ProductionUnit::getAIORevision() const
 }
 
 
-void ProductionUnit::RunTests(Time const testStartTime_)
+Result ProductionUnit::RunTests(Time const testStartTime_)
 {
     DBG("ProductionUnit::RunTests");
     
@@ -365,7 +365,7 @@ void ProductionUnit::RunTests(Time const testStartTime_)
 		if (child->hasTagName("MasterScript"))
 		{
 			runCorrectScript();
-			return;
+            return Result::ok();
 		}
 
 		while (child)
@@ -385,28 +385,29 @@ void ProductionUnit::RunTests(Time const testStartTime_)
 
 		if (nullptr == _script)
 		{
-			String errorString("Incorrect AIO type for " + f.getFullPathName() + newLine);
+			String errorString("Incorrect AIO type for " + f.getFileNameWithoutExtension() + newLine + newLine);
 			errorString += "Detected " + String(_dev->getcaps()->BoxTypeName());
-			errorString += String::formatted("(product ID 0x%04x)", _dev->GetBoxType());
-			errorString += newLine;
+			errorString += String::formatted(" (product ID 0x%04x)", _dev->GetBoxType());
+			errorString += newLine + newLine;
 			errorString += String::formatted("Test script requires product ID 0x%04x", scriptUSBProductID);
+            errorString += newLine + newLine;
 			AlertWindow::showNativeDialogBox("Production Test",
 				errorString,
 				false);
-			JUCEApplication::quit();
 			DBG("   RunTests exit");
-			return;
+            return Result::fail(errorString);
 		}
 	}
 	else
 	{
+        String error("Could not load " + f.getFullPathName());
 		AlertWindow::showNativeDialogBox(	"Production Test",
-											"Could not load " + f.getFullPathName(),
+											error,
 											false);
-		JUCEApplication::quit();
+		//JUCEApplication::quit();
 		_ok = false;
         DBG("   RunTests exit");
-		return;
+        return Result::fail(error);
 	}
 
 #if ACOUSTICIO_BUILD
@@ -425,7 +426,7 @@ void ProductionUnit::RunTests(Time const testStartTime_)
 				{
 					AlertWindow::showMessageBox(AlertWindow::NoIcon, "Production Test", "Please connect the AcousticIO test adapter to this computer and restart.", "Close");
                     DBG("   RunTests exit");
-					return;
+                    return Result::fail("AIO test adapter not found");
 				}
 			}
 
@@ -444,7 +445,7 @@ void ProductionUnit::RunTests(Time const testStartTime_)
             Result result(_content->promptForSerialNumber(_serial_number));
             if (result.failed())
             {
-                return;
+                return Result::fail("User serial prompt failed");
             }
         }
     }
@@ -457,7 +458,7 @@ void ProductionUnit::RunTests(Time const testStartTime_)
 	if (!createAudioDevice(_script))
     {
         DBG("   RunTests exit");
-		return;
+        return Result::fail("Could not create audio device");
     }
 
 	//
@@ -504,6 +505,8 @@ void ProductionUnit::RunTests(Time const testStartTime_)
 	}
     
     DBG("   RunTests exit");
+    
+    return Result::ok();
 }
 
 void ProductionUnit::audioDeviceAboutToStart(AudioIODevice *device)
@@ -1718,7 +1721,6 @@ bool ProductionUnit::createAudioDevice(XmlElement *script)
 	AlertWindow::showNativeDialogBox(	"Production Test",
 			"Audio driver not found: '" + devicename + "'",
 										false);
-	JUCEApplication::quit();
 	_ok = false;
 	return false;
 }
