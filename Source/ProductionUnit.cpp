@@ -1333,19 +1333,6 @@ void ProductionUnit::ParseScript()
         
         if (_script->hasTagName("AIO_calibration_verification_test"))
         {
-			//
-			// Support for old interface modules
-			// This way we don't need separate scripts for them
-			//
-			if (ECHOAIO_INTERFACE_MODULE_REV1 == getAIORevision())
-			{
-				if (_dev->getDescription()->getModuleTypes() != AIO_TYPE_AS)
-				{
-					_script = _script->getNextElement();
-					continue;
-				}
-			}
-
             if (_unit_passed)
             {
                 runAIOTest(RunCalibrationVerificationTest, "Calibration verification");
@@ -1968,13 +1955,16 @@ void ProductionUnit::finishCalibration()
     
     case CalibrationManagerV2::STATE_SHOW_ACTIVE_CALIBRATION:
         {
-			bool pass = calibrationManager->isUnitDone();
-            _content->AddResult(testName, pass);
-            if (pass)
-                _content->log("Calibration OK");
-            else
-                _content->log("Calibration FAIL");
-            _content->log( calibrationManager->getData().toString() );
+            if (_dev->getDescription()->supportsCalibration())
+            {
+                bool pass = calibrationManager->isUnitDone();
+                _content->AddResult(testName, pass);
+                if (pass)
+                    _content->log("Calibration OK");
+                else
+                    _content->log("Calibration FAIL");
+                _content->log( calibrationManager->getData().toString() );
+            }
         }
         break;
     }

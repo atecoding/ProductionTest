@@ -93,6 +93,8 @@ public:
 
 	bool isInputPresent(int const input) const;
 	bool isOutputPresent(int const output) const;
+    
+    bool supportsCalibration() const;
 
 	virtual Array<AIOClockSource> getSupportedClockSources() const;
 

@@ -8,7 +8,7 @@
 #include "xml.h"
 #include "calibrationV2/crc32.h"
 #include "calibrationV2/CalibrationDataV2.h"
-
+#include "Description.h"
 
 bool RunCalibrationVerificationTest(XmlElement const *element,
                         ehw *dev,
@@ -19,6 +19,15 @@ bool RunCalibrationVerificationTest(XmlElement const *element,
                         ErrorCodes &errorCodes,
                         ValueTree &unitTree)
 {
+    //
+    // Skip if none of the modules for this unit support calibration
+    //
+    if (false == dev->getDescription()->supportsCalibration())
+    {
+        msg = String::empty;
+        return true;
+    }
+    
     msg = String("Calibration verification: ") + newLine;
     
     //

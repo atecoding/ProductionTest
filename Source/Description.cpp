@@ -116,3 +116,19 @@ AIOModule* Description::getModuleObject(int const moduleNumber) const
     
     return modules[moduleNumber];
 }
+
+
+bool Description::supportsCalibration() const
+{
+    int numCalibratableModules = 0;
+    for (int moduleIndex = 0; moduleIndex < Description::MAX_MODULES; ++moduleIndex)
+    {
+        AIOModule* module = getModuleObject(moduleIndex);
+        if (module && module->supportsCalibration())
+        {
+            numCalibratableModules++;
+        }
+    }
+    
+    return numCalibratableModules != 0;
+}

@@ -73,7 +73,7 @@ Result CalibrationUnit::prepareUnitForCalibration()
         for (int tempModuleNumber = 0; tempModuleNumber < Description::MAX_MODULES; ++tempModuleNumber)
         {
             AIOModule* module = descripton->getModuleObject(tempModuleNumber);
-            if (module->supportsCalibration())
+            if (module && module->supportsCalibration())
                 numModulesToCalibrate++;
         }
     }
