@@ -308,7 +308,7 @@ void Content::buttonClicked(Button *button)
 		}
 #endif
     
-    return;
+        return;
 	}
 
 

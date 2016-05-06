@@ -496,17 +496,18 @@ Result ProductionUnit::RunTests(Time const testStartTime_)
 	new_test = false;
 	blocks_recorded = 0;
 	record_done = true;
+    Result result(Result::fail("No test script"));
 
 	_script = _script->getFirstChildElement();	// skip initial device name element
 	if (_script)
 	{
 		_script = _script->getNextElement();
-		ParseScript();
+        result = ParseScript();
 	}
     
     DBG("   RunTests exit");
     
-    return Result::ok();
+    return result;
 }
 
 void ProductionUnit::audioDeviceAboutToStart(AudioIODevice *device)
@@ -732,11 +733,12 @@ void ProductionUnit::handleMessage(const Message &message)
 	}
 }
 
-void ProductionUnit::ParseScript()
+Result ProductionUnit::ParseScript()
 {
 	bool ok;
 	bool quit = false;
-	int rval = -1;
+    int rval = -1;
+    Result scriptResult(Result::ok());
 
 	while (_script && _running && deviceAttached)
 	{
@@ -787,11 +789,12 @@ void ProductionUnit::ParseScript()
 			text = _script->getFirstChildElement();
 			if (!text->isTextElement())
 			{
+                String error("No text for message box in script.");
 				AlertWindow::showNativeDialogBox(	"Production Test",
-													"No text for message box in script.",
+													error,
 													false);
 				JUCEApplication::quit();
-				return;
+                return Result::fail(error);
 			}
 
 			//
@@ -864,11 +867,13 @@ void ProductionUnit::ParseScript()
 			text = _script->getFirstChildElement();
 			if (!text->isTextElement())
 			{
+                String error("No title for prompt in script.");
+
 				AlertWindow::showNativeDialogBox(	"Production Test",
-													"No title for prompt in script.",
+													error,
 													false);
 				JUCEApplication::quit();
-				return;
+                return Result::fail(error);
 			}
 
 			//
@@ -890,7 +895,7 @@ void ProductionUnit::ParseScript()
 			//
 			TestPrompt tp(_script,_input,_output,ok);
 			if (!ok)
-				return;
+                return Result::fail("Unable to init test prompt");
 
 			if((tp.num_channels == 1) && (_channel_group_passed == 2))
 			{
@@ -936,7 +941,7 @@ void ProductionUnit::ParseScript()
 			//
 			ok = openAudioDevice(tp.sample_rate);
 			if (!ok)
-				return;
+                return Result::fail("Unable to open audio device");
 
 			//
 			// show user prompt
@@ -1010,10 +1015,11 @@ void ProductionUnit::ParseScript()
 
 			if (!ok || (NULL == _test))
 			{
+                String error("Test object init failed; missing parameter?");
 				AlertWindow::showNativeDialogBox(	"Production Test",
-													"Test object init failed; missing parameter?",
+													error,
 													false);
-				return;
+                return Result::fail(error);
 			}
             
             if (0 != _test->requiredTestAdapterProductId && false == aioTestAdapter.checkProductID( _test->requiredTestAdapterProductId))                
@@ -1039,14 +1045,14 @@ void ProductionUnit::ParseScript()
 
 			ok = openAudioDevice(_test->sample_rate);
 			if (!ok)
-				return;
+                return Result::fail("Unable to open audio device for test");
 
             startAudioDevice();
             Thread::sleep(20);  // prime the pump
 			new_test.exchange(1);
 
 			_script = _script->getNextElement();
-			return;
+            return Result::ok();
 		}
 
 
@@ -1060,7 +1066,7 @@ void ProductionUnit::ParseScript()
 		{
 			AudioOutput ao(_script,ok);
 			if (!ok)
-				return;
+                return Result::fail("Unable to create AudioOutput object");
 
 			ao.Setup(audioDevice->getCurrentBufferSizeSamples(),_tone,active_outputs);
 
@@ -1069,7 +1075,7 @@ void ProductionUnit::ParseScript()
 			//
 			ok = openAudioDevice(ao.sample_rate);
 			if (!ok)
-				return;
+				return Result::fail("Unable to open audio device for AudioOutput");
 
             startAudioDevice();
 
@@ -1314,10 +1320,6 @@ void ProductionUnit::ParseScript()
         if (_script->hasTagName("AIO_power_supply_reset_test"))
         {
             runAIOTest(RunPowerSupplyResetTest, "Power supply reset");
-            if (false == _unit_passed)
-            {
- //               break; fixme
-            }
             continue;
         }
         
@@ -1326,6 +1328,7 @@ void ProductionUnit::ParseScript()
             runAIOTest(RunModuleTypeTest, "Module type");
             if (false == _unit_passed)
             {
+                scriptResult = Result::fail("Wrong module types");
                 break;
             }
             continue;
@@ -1371,7 +1374,7 @@ void ProductionUnit::ParseScript()
                 configuration.writeToFlash = writeToFlash != 0;
                 calibrationManager->configure(configuration);
                 calibrationManager->userAction(CalibrationManagerV2::ACTION_CALIBRATE);
-				return;
+                return Result::ok();
             }
             
 			continue;
@@ -1485,15 +1488,16 @@ void ProductionUnit::ParseScript()
 		//
 		// Unknown tag name
 		//
-		_content->log(String("Unknown XML tag: ") + _script->getTagName());
+        String xmlError(String("Unknown XML tag: ") + _script->getTagName());
+		_content->log(xmlError);
 		Cleanup();
-		return;
+        return Result::fail(xmlError);
 	}
     
     if (false == deviceAttached)
     {
         DBG("Cancel script parsing - device no longer attached");
-        return;
+        return Result::fail("Device removed");
     }
 
 	//
@@ -1568,6 +1572,8 @@ void ProductionUnit::ParseScript()
 	{ 
 		JUCEApplication::quit();
 	}
+    
+    return scriptResult;
 }
 
 static RelativeTime ticksToRelativeTime(int64 const ticks)

@@ -119,7 +119,7 @@ protected:
 	void CreateLogFile();
 	void Cleanup();
 	bool ShowMeterWindow(Test &test);
-	void ParseScript();
+	Result ParseScript();
 	void FinishGroup();
     bool createAudioDevice(XmlElement *script);
 	bool openAudioDevice(double sampleRate);
