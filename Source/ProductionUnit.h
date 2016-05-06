@@ -60,6 +60,8 @@ public:
     
     void setSerialNumber(String const serialNumber_);
     
+    uint32 getAIORevision() const;
+    
     ValueTree unitTree;
 
 protected:
@@ -120,7 +122,7 @@ protected:
 	void ParseScript();
 	void FinishGroup();
     bool createAudioDevice(XmlElement *script);
-	bool openAudioDevice(int sample_rate);
+	bool openAudioDevice(double sampleRate);
     bool startAudioDevice();
     void stopAudioDevice();
     void audioDeviceTimedOut();

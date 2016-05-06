@@ -1,12 +1,9 @@
 #include "base.h"
 #include "Test.h"
 #include "Analysis.h"
-#include "wavefile.h"
 #include "xml.h"
-#include "ehw.h"
-#include "ehwlist.h"
-#include "hwcaps.h"
 #include "App.h"
+#include "ProductionUnit.h"
 
 Test::Test(XmlElement *xe,bool &ok, ProductionUnit* unit_) :
 	input (-1),
@@ -34,14 +31,14 @@ Test::Test(XmlElement *xe,bool &ok, ProductionUnit* unit_) :
 		}
 	}
 
-	getIntValue(xe,T("input"),input);
-	getIntValue(xe,T("output"),output);
-	getIntValue(xe,T("num_channels"),num_channels);
-	ok = getIntValue(xe, T("sample_rate_check"), sample_rate_check);
+	getIntValue(xe, "input", input);
+	getIntValue(xe, "output", output);
+	getIntValue(xe, "num_channels", num_channels);
+	ok = getIntValue(xe, "sample_rate_check", sample_rate_check);
 	if (!ok)
 		sample_rate_check = 0;
-	ok = getIntValue(xe,T("sample_rate"),sample_rate);
-	ok &= getFloatValue(xe,T("output_amplitude_db"),output_amplitude_db);
+	ok = getIntValue(xe, "sample_rate", sample_rate);
+	ok &= getFloatValue(xe, "output_amplitude_db", output_amplitude_db);
 
 	if (sample_rate_check != 0)
 	{
@@ -57,6 +54,16 @@ Test::Test(XmlElement *xe,bool &ok, ProductionUnit* unit_) :
 	getFloatValue(xe, "max_sample_rate", maxSampleRate);
     
     getHexValue(xe, "required_test_adapter_product_id", requiredTestAdapterProductId); // Not required
+    
+    if (ECHOAIO_INTERFACE_MODULE_REV1 == unit_->getAIORevision())
+    {
+        if (minSampleRate > 144000.0)
+            minSampleRate *= 0.5f;
+        if (maxSampleRate > 144000.0)
+            maxSampleRate *= 0.5f;
+        if (sample_rate > 144000.0)
+            sample_rate *= 0.5f;
+    }
 
 	output_frequency = 1000.0f;
 }

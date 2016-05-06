@@ -322,6 +322,16 @@ void ProductionUnit::setSerialNumber(const String serialNumber_)
     _serial_number = serialNumber_;
 }
 
+
+uint32 ProductionUnit::getAIORevision() const
+{
+    if (_dev)
+        return _dev->getDescription()->getInterfaceModuleVersion();
+        
+    return 0;
+}
+
+
 void ProductionUnit::RunTests(Time const testStartTime_)
 {
     DBG("ProductionUnit::RunTests");
@@ -724,7 +734,6 @@ void ProductionUnit::ParseScript()
 	bool ok;
 	bool quit = false;
 	int rval = -1;
-	uint32 AIO_Revision(_dev->getDescription()->getInterfaceModuleVersion());
 
 	while (_script && _running && deviceAttached)
 	{
@@ -866,7 +875,7 @@ void ProductionUnit::ParseScript()
 			if (text->getText().trim() == "USB Clock Source Check")
 			{
 				
-				if (AIO_Revision == ECHOAIO_INTERFACE_MODULE_REV1)
+				if (ECHOAIO_INTERFACE_MODULE_REV1 == getAIORevision())
 				{
 					_script = _script->getNextElement();
 					continue;
@@ -922,19 +931,6 @@ void ProductionUnit::ParseScript()
 			//
 			// Set up the audio driver
 			//
-
-			//
-			// Support for old interface modules
-			// This way we don't need separate scripts for them
-			//
-			if (AIO_Revision == ECHOAIO_INTERFACE_MODULE_REV1)
-			{
-				if (tp.sample_rate > 96000)
-				{
-					tp.sample_rate = 96000;
-				}
-			}
-
 			ok = openAudioDevice(tp.sample_rate);
 			if (!ok)
 				return;
@@ -993,7 +989,7 @@ void ProductionUnit::ParseScript()
 			// Support for old interface modules
 			// This way we don't need separate scripts for them
 			//
-			if (AIO_Revision == ECHOAIO_INTERFACE_MODULE_REV1)
+			if (ECHOAIO_INTERFACE_MODULE_REV1 == getAIORevision())
 			{
 				XmlElement* _type(_script->getChildByName("type"));
 				
@@ -1007,7 +1003,7 @@ void ProductionUnit::ParseScript()
 				}
 			}
 
-			_test = Test::Create(_script,_input,_output,ok,this);
+			_test = Test::Create(_script,_input, _output, ok, this);
 
 			if (!ok || (NULL == _test))
 			{
@@ -1165,7 +1161,7 @@ void ProductionUnit::ParseScript()
 			// Support for old interface modules
 			// This way we don't need separate scripts for them
 			//
-			if (AIO_Revision == ECHOAIO_INTERFACE_MODULE_REV1)
+			if (ECHOAIO_INTERFACE_MODULE_REV1 == getAIORevision())
 			{
 				_script = _script->getNextElement();
 				continue;
@@ -1195,7 +1191,7 @@ void ProductionUnit::ParseScript()
 			// Support for old interface modules
 			// This way we don't need separate scripts for them
 			//
-			if (AIO_Revision == ECHOAIO_INTERFACE_MODULE_REV1)
+			if (ECHOAIO_INTERFACE_MODULE_REV1 == getAIORevision())
 			{
 				_script = _script->getNextElement();
 				continue;
@@ -1233,7 +1229,7 @@ void ProductionUnit::ParseScript()
 			// Support for old interface modules
 			// This way we don't need separate scripts for them
 			//
-			if (ECHOAIO_INTERFACE_MODULE_REV1 == AIO_Revision)
+			if (ECHOAIO_INTERFACE_MODULE_REV1 == getAIORevision())
 			{
 				if (_dev->getDescription()->getModuleTypes() != AIO_TYPE_AS)
 				{
@@ -1300,7 +1296,7 @@ void ProductionUnit::ParseScript()
 			// Support for old interface modules
 			// This way we don't need separate scripts for them
 			//
-			if (AIO_Revision == ECHOAIO_INTERFACE_MODULE_REV1)
+			if (ECHOAIO_INTERFACE_MODULE_REV1 == getAIORevision())
 			{
 				if (_dev->getDescription()->getModuleTypes() != AIO_TYPE_AS)
 				{
@@ -1338,7 +1334,7 @@ void ProductionUnit::ParseScript()
 			// Support for old interface modules
 			// This way we don't need separate scripts for them
 			//
-			if (AIO_Revision == ECHOAIO_INTERFACE_MODULE_REV1)
+			if (ECHOAIO_INTERFACE_MODULE_REV1 == getAIORevision())
 			{
 				if (_dev->getDescription()->getModuleTypes() != AIO_TYPE_AS)
 				{
@@ -1364,7 +1360,7 @@ void ProductionUnit::ParseScript()
 			// Support for old interface modules
 			// This way we don't need separate scripts for them
 			//
-			if (AIO_Revision == ECHOAIO_INTERFACE_MODULE_REV1)
+			if (ECHOAIO_INTERFACE_MODULE_REV1 == getAIORevision())
 			{
 				if (_dev->getDescription()->getModuleTypes() != AIO_TYPE_AS)
 				{
@@ -1393,7 +1389,7 @@ void ProductionUnit::ParseScript()
 				//
 				// Skip the A module in an AIO-S for Revision 1
 				//
-				if (AIO_Revision == ECHOAIO_INTERFACE_MODULE_REV1)
+				if (ECHOAIO_INTERFACE_MODULE_REV1 == getAIORevision())
 				{
 					if (firstModule != 0)
 					{
@@ -1727,30 +1723,31 @@ bool ProductionUnit::createAudioDevice(XmlElement *script)
 	return false;
 }
 
-bool ProductionUnit::openAudioDevice(int sample_rate)
+bool ProductionUnit::openAudioDevice(double sampleRate)
 {
 	BitArray inputs,outputs;
 	String err;
     int64 begin = Time::getHighResolutionTicks();
+    
+    //
+    // Support for old interface modules
+    // This way we don't need separate scripts for them
+    //
+    if (ECHOAIO_INTERFACE_MODULE_REV1 == getAIORevision())
+    {
+        if (sampleRate > 96000.0)
+        {
+            sampleRate = 96000.0;
+        }
+    }
 
-#ifdef PCI_BUILD
-	int channels;
-
-	channels = _dev->getcaps()->numrecchan();
-	channels = jmin( 10, channels);
-	inputs.setRange(0,channels,true);
-	channels = _dev->getcaps()->numplaychan();
-	channels = jmin( 10, channels);
-	outputs.setRange(0,channels,true);
-#else
 	inputs.setRange(0,_dev->getcaps()->numrecchan(),true);
 	outputs.setRange(0,_dev->getcaps()->numplaychan(),true);
-#endif
 
 	if (audioDevice->isOpen())
 	{
 		//DBG("audioDevice is open");
-		if ((audioDevice->getCurrentSampleRate() != sample_rate) ||
+		if ((audioDevice->getCurrentSampleRate() != sampleRate) ||
 			 (inputs != audioDevice->getActiveInputChannels ()) ||
 			 (outputs != audioDevice->getActiveOutputChannels()))
 		{
@@ -1766,7 +1763,7 @@ bool ProductionUnit::openAudioDevice(int sample_rate)
         Array<int> availableBufferSizes(audioDevice->getAvailableBufferSizes());
         int bufferSize = availableBufferSizes.getLast();
 
-		err = audioDevice->open(inputs,outputs,sample_rate,bufferSize);
+		err = audioDevice->open(inputs, outputs, sampleRate, bufferSize);
 		if (err.isNotEmpty())
 		{
 			AlertWindow::showNativeDialogBox(	"Production Test",
@@ -2173,7 +2170,7 @@ void ProductionUnit::runOfflineTest(XmlElement *script)
     int input = 0,output = 0;
     
     ScopedPointer<ToneGeneratorAudioSource> offlineTone = new ToneGeneratorAudioSource;
-    ScopedPointer<Test> offlineTest = Test::Create(_script,input,output,ok,this);
+    ScopedPointer<Test> offlineTest = Test::Create(_script, input, output, ok, this);
     
     if (!ok || (nullptr == offlineTest))
     {
