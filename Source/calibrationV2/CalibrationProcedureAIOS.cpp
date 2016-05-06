@@ -347,7 +347,10 @@ Result CalibrationProcedureAIOS::finishStage()
             break;
 
         case STAGE_CALIBRATE_AIOS_IMON_INPUT:
-            stage = STAGE_CALIBRATE_AIOS_MIC_INPUTS;
+            if (module->getInterfaceModuleVersion() < ECHOAIO_INTERFACE_MODULE_REV2)
+                stage = STAGE_MODULE_CALIBRATION_DONE;
+            else
+                stage = STAGE_CALIBRATE_AIOS_MIC_INPUTS;
             break;
             
         case STAGE_CALIBRATE_AIOS_MIC_INPUTS:

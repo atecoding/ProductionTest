@@ -177,7 +177,7 @@ Result CalibrationUnit::finishModuleCalibration()
     Result result( procedure->finishModuleCalibration() );
     if (result.wasOk())
     {
-            moduleNumber++;
+        moduleNumber++;
     }
     
     if (isDone() && writeToFlashWhenDone)

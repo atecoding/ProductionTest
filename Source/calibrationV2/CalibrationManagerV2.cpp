@@ -105,6 +105,8 @@ Result CalibrationManagerV2::startUnitCalibration()
 {
     DBG("CalibrationManagerV2::startUnitCalibration()");
     
+    state = STATE_PREPARING;
+    
     //
     // Call CalibrationUnit::prepareForCalibration to set up the entire unit
     //
@@ -249,6 +251,7 @@ void CalibrationManagerV2::handleAsyncUpdate()
     if (unit.isModuleProcedureDone())
     {
         finishUnitModule();
+        return;
     }
     else
     {
@@ -263,7 +266,7 @@ void CalibrationManagerV2::handleAsyncUpdate()
     }
     
     DBG("Failed to continue or finish module procedure");
-                state = STATE_ERROR;
+    state = STATE_ERROR;
 }
 
 
