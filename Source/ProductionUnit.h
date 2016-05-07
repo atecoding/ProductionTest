@@ -94,8 +94,8 @@ protected:
 	Atomic<int32> new_test;
     int audioCallbackCount;
 	int totalAudioCallbackSamples;
-    int timerIntervalMsec;
-	bool record_done;
+    int lastAudioCallbackCount;
+    bool record_done;
     int64 maxAudioDeviceCreateTicks;
     int64 maxAudioDeviceOpenTicks;
     int64 maxAudioDeviceStartTicks;

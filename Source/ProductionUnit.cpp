@@ -520,10 +520,10 @@ void ProductionUnit::audioDeviceAboutToStart(AudioIODevice *device)
 	}
     
     audioCallbackCount = 0;
+    lastAudioCallbackCount = 0;
     totalAudioCallbackSamples = 0;
     
-    timerIntervalMsec = 2000;
-    startTimer(timerIntervalMsec);
+    startTimer(3000);
 }
 
 void ProductionUnit::audioDeviceStopped()
@@ -545,7 +545,6 @@ void ProductionUnit::audioDeviceIOCallback
     Test* test = _test;
     
     audioCallbackCount++;
-    startTimer(timerIntervalMsec);
 
     int64 now = Time::getHighResolutionTicks();
 	
@@ -644,6 +643,12 @@ void ProductionUnit::audioDeviceIOCallback
 
 void ProductionUnit::timerCallback()
 {
+    if (audioCallbackCount != lastAudioCallbackCount)
+    {
+        lastAudioCallbackCount = audioCallbackCount;
+        return;
+    }
+    
     audioDeviceTimedOut();
 }
 
