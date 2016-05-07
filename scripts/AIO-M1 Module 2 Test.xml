@@ -51,7 +51,7 @@
  
  ****************************************************** -->
 
-<message_box>Leave the Test Adapter connected to Inputs 1-4 and AMP 1-2.    Connect the AIO-M Tester to INPUT connector on the outer module.</message_box>
+<message_box>Connect the AIO-M Tester to INPUT connector on the outer module.</message_box>
 
 <Delay_msec>1000</Delay_msec>
 
