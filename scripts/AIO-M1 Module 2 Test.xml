@@ -43,6 +43,101 @@
     <log>MB power supply check</log>
 </message_box>
 
+    <!-- *************************************************
+     
+     MB host chip - local TDM loopback mode
+     
+    ****************************************************** -->
+
+    <AIO_mikeybus module="1">
+      <read page="0x01" address="0x24" value="0xcc"/>
+
+      <write page="0x00" address="0x01" value="0x01"/>
+      <write page="0x00" address="0x06" value="0x00"/>
+      <write page="0x02" address="0x01" value="0xe0"/>
+      <write page="0x01" address="0x07" value="0x19"/>
+      <write page="0x01" address="0x09" value="0x1a"/>
+      <write page="0x01" address="0x01" value="0x00"/>
+      <write page="0x01" address="0x03" value="0x00"/>
+      <write page="0x01" address="0x15" value="0x28"/>
+      <write page="0x01" address="0x16" value="0x2c"/>
+      <write page="0x01" address="0x17" value="0x28"/>
+      <write page="0x01" address="0x18" value="0x2c"/>
+      <write page="0x01" address="0x19" value="0x28"/>
+      <write page="0x01" address="0x1a" value="0x2c"/>
+      <write page="0x01" address="0x1b" value="0x28"/>
+      <write page="0x01" address="0x1c" value="0x2c"/>
+      <write page="0x01" address="0x1d" value="0x28"/>
+      <write page="0x01" address="0x1e" value="0x2c"/>
+
+      <write page="0x00" address="0x14" value="0x00"/>
+      <write page="0x00" address="0x15" value="0x03"/>
+      <write page="0x00" address="0x16" value="0x06"/>
+      <write page="0x00" address="0x17" value="0x09"/>
+      <write page="0x00" address="0x18" value="0x0c"/>
+      <write page="0x00" address="0x19" value="0x0f"/>
+      <write page="0x00" address="0x1a" value="0x12"/>
+      <write page="0x00" address="0x1b" value="0x15"/>
+      <write page="0x00" address="0x1c" value="0x18"/>
+      <write page="0x00" address="0x1d" value="0x1b"/>
+      <write page="0x00" address="0x1e" value="0x3f"/>
+      <write page="0x00" address="0x1f" value="0xff"/>
+      <write page="0x00" address="0x20" value="0xff"/>
+      <write page="0x00" address="0x21" value="0xff"/>
+      <write page="0x00" address="0x22" value="0x40"/>
+      <write page="0x00" address="0x23" value="0x43"/>
+      <write page="0x00" address="0x24" value="0x46"/>
+      <write page="0x00" address="0x25" value="0x49"/>
+      <write page="0x00" address="0x26" value="0x4c"/>
+      <write page="0x00" address="0x27" value="0x4f"/>
+      <write page="0x00" address="0x28" value="0x52"/>
+      <write page="0x00" address="0x29" value="0x55"/>
+      <write page="0x00" address="0x2a" value="0x58"/>
+      <write page="0x00" address="0x2b" value="0x59"/>
+      <write page="0x00" address="0x11" value="0xc0"/>
+      <write page="0x00" address="0x12" value="0x0c"/>
+    </AIO_mikeybus>
+
+    <!-- Outer module - TDM loopback test -->
+    <prompt>
+      TDM Loopback Outer Module
+      <text>Level check for TDM loopback</text>
+      <output_amplitude_db>-20.0</output_amplitude_db>
+      <input>10</input>
+      <output>10</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-22.0</min_input_db>
+      <max_input_db>18.0</max_input_db>
+      <wait_for_user>0</wait_for_user>
+      <start_group>1</start_group>
+    </prompt>
+
+    <test>
+      <type>THD+N</type>
+      <input>10</input>
+      <output>10</output>
+      <num_channels>10</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_frequency>997.0</output_frequency>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <pass_threshold_db>-128.0</pass_threshold_db>
+    </test>
+
+    <test>
+      <type>Level check</type>
+      <input>10</input>
+      <output>10</output>
+      <num_channels>10</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_frequency>997.0</output_frequency>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <min_level_db>-4.0</min_level_db>
+      <max_level_db>-2.0</max_level_db>
+    </test>
+
+    <Finish_group/>
+
 <!-- *************************************************
  
  External MB test - outer module
