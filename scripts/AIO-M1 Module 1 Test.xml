@@ -31,6 +31,8 @@
       <!-- type 1 == AIO-A module -->
     </AIO_module_type_test>
 
+    <AIO_set_clock_source source="internal" />
+
     <AIO_clear_RAM_calibration />
 
     <!-- Start testing the center module -->

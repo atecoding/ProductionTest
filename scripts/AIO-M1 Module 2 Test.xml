@@ -31,7 +31,9 @@
       <!-- type 3 == AIO-M module -->
     </AIO_module_type_test>
 
-<!-- *************************************************
+    <AIO_set_clock_source source="internal" />
+
+    <!-- *************************************************
  
  MB power supply check
  

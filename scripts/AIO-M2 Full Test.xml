@@ -43,7 +43,9 @@
     </AIO_module_type_test>
 
     <AIO_flash_memory_test />
-    
+
+    <AIO_set_clock_source source="internal" />
+
     <!-- *************************************************
      
      MB power supply check

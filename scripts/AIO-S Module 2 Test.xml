@@ -31,6 +31,10 @@
       <!-- type 1 == AIO-A module -->
     </AIO_module_type_test>
 
+    <AIO_set_clock_source source="internal" />
+
+    <AIO_clear_RAM_calibration />
+
     <message_box>
       Connect the Test Adapter to Inputs 5-8
       <continue_or_stop>1</continue_or_stop>

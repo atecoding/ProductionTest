@@ -29,7 +29,9 @@
       <!-- slot 0 == center slot -->
       <type>3</type>
       <!-- type 1 == AMB module -->
-    </AIO_module_type_test>  
+    </AIO_module_type_test>
+
+    <AIO_set_clock_source source="internal" />
 
     <!-- *************************************************
      
