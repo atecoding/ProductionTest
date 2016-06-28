@@ -19,7 +19,7 @@
       <interface_module>
         <revision>0x3000</revision>
         <!-- rev 2 interface module -->
-        <min_version>0x3800</min_version>
+        <min_version>0x3802</min_version>
       </interface_module>
     </AIO_firmware_version_test>
     
