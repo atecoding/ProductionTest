@@ -46,60 +46,6 @@
 
     <AIO_flash_memory_test />
 
-    <!-- Test USB synchronized clock source -->
-    <!-- 350 msec delay is somewhat arbitrary; needs to be at least 225 msec on the Mac -->
-
-    <prompt>
-      USB Clock Source Check
-      <text>Check USB Sync Clock Source</text>
-      <output_amplitude_db>-20.0</output_amplitude_db>
-      <input>0</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <min_input_db>-200.0</min_input_db>
-      <max_input_db>0.0</max_input_db>
-      <wait_for_user>0</wait_for_user>
-      <start_group>1</start_group>
-    </prompt>
-
-    <AIO_set_clock_source source="internal" />
-    <AIO_set_USB_clock_rate rate="32000" />
-    <Delay_msec>350</Delay_msec>
-    <AIO_set_clock_source source="USB" />
-    <test>
-      USB Sync Clock Source Check
-      <type>USB sync</type>
-      <output_amplitude_db>-0.0</output_amplitude_db>
-      <input>0</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <sample_rate_check>32000</sample_rate_check>
-      <min_level_db>-200</min_level_db>
-      <max_level_db>0.0</max_level_db>
-    </test>
-
-    <AIO_set_clock_source source="internal" />
-    <AIO_set_USB_clock_rate rate="48000" />
-    <Delay_msec>350</Delay_msec>
-    <AIO_set_clock_source source="USB" />
-
-    <test>
-      USB Sync Clock Source Check
-      <type>USB sync</type>
-      <output_amplitude_db>-0.0</output_amplitude_db>
-      <input>0</input>
-      <output>0</output>
-      <num_channels>2</num_channels>
-      <sample_rate>48000</sample_rate>
-      <sample_rate_check>48000</sample_rate_check>
-      <min_level_db>-200</min_level_db>
-      <max_level_db>0.0</max_level_db>
-    </test>
-
-    <AIO_set_clock_source source="internal" />
-
     <!-- Start testing the center module -->
 
     <message_box>Connect the Test Adapter to Inputs 1-4 and AMP 1-2</message_box>
@@ -778,14 +724,68 @@
       <write_to_flash>1</write_to_flash>
     </AIO_calibrate>
 
+    <AIO_calibration_verification_test/>
+
+    <!-- Test USB synchronized clock source -->
+    <!-- 350 msec delay is somewhat arbitrary; needs to be at least 225 msec on the Mac -->
+
+    <prompt>
+      USB Clock Source Check
+      <text>Check USB Sync Clock Source</text>
+      <output_amplitude_db>-20.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-200.0</min_input_db>
+      <max_input_db>0.0</max_input_db>
+      <wait_for_user>0</wait_for_user>
+      <start_group>1</start_group>
+    </prompt>
+
+    <AIO_set_clock_source source="internal" />
+    <AIO_set_USB_clock_rate rate="32000" />
+    <Delay_msec>350</Delay_msec>
+    <AIO_set_clock_source source="USB" />
+    <test>
+      USB Sync Clock Source Check
+      <type>USB sync</type>
+      <output_amplitude_db>-0.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <sample_rate_check>32000</sample_rate_check>
+      <min_level_db>-200</min_level_db>
+      <max_level_db>0.0</max_level_db>
+    </test>
+
+    <AIO_set_clock_source source="internal" />
+    <AIO_set_USB_clock_rate rate="48000" />
+    <Delay_msec>350</Delay_msec>
+    <AIO_set_clock_source source="USB" />
+
+    <test>
+      USB Sync Clock Source Check
+      <type>USB sync</type>
+      <output_amplitude_db>-0.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <sample_rate_check>48000</sample_rate_check>
+      <min_level_db>-200</min_level_db>
+      <max_level_db>0.0</max_level_db>
+    </test>
+
+    <AIO_set_clock_source source="internal" />
+
     <Print_error_codes>
       <text> - Module 2</text>
       <first_channel>4</first_channel>
       <last_channel>7</last_channel>
       <codes>0 1 2 4 5 6</codes>
     </Print_error_codes>
-
-    <AIO_calibration_verification_test/>
 
   </device>
 
