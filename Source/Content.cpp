@@ -295,7 +295,7 @@ void Content::buttonClicked(Button *button)
             repaint();
             
             Result runResult( _unit->RunTests(Time::getCurrentTime()) );
-            if (runResult.wasOk())
+            if (runResult.wasOk() && _unit->_running)
             {
                 startButton.setEnabled(false);
                 stopButton.setEnabled(true);
