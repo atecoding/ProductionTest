@@ -3921,7 +3921,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/ProductionTest.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.echoaudio.ProductionTest;
 				SDKROOT_ppc = macosx10.5;
@@ -3978,7 +3978,7 @@
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/ProductionTest.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.echoaudio.ProductionTest;
 				SDKROOT_ppc = macosx10.5;
@@ -4033,7 +4033,7 @@
 				);
 				INFOPLIST_FILE = FinalTest.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.echoaudio.AIOFinalTest;
 				PRODUCT_NAME = "AIO Final Test";
@@ -4070,7 +4070,7 @@
 				);
 				INFOPLIST_FILE = FinalTest.plist;
 				INSTALL_PATH = "$(HOME)/Applications";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MACOSX_DEPLOYMENT_TARGET_ppc = 10.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.echoaudio.AIOFinalTest;
 				PRODUCT_NAME = "AIO Final Test";

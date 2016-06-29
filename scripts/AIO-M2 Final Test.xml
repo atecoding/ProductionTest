@@ -2,10 +2,10 @@
 <root>
 
   <!-- **************************************************** -->
-  <!-- Echo AIO-2                                           -->
+  <!-- Echo AIO-M2                                          -->
   <!-- **************************************************** -->
   
-  <device USB_product_ID="0xa0">
+  <device USB_product_ID="0xa2">
     <ASIO_driver>ASIO Echo AIO</ASIO_driver>
     <CoreAudio_driver>EchoAIO-M2</CoreAudio_driver>
 
@@ -24,13 +24,17 @@
     </AIO_firmware_version_test>
     
     <AIO_module_type_test>
-        <slot>0</slot>  <!-- slot 1 == outer slot -->
-        <type>1</type>  <!-- type 1 == TEDS microphone + class D amp analog module -->
+        <slot>0</slot>
+        <!-- slot 0 == center slot -->
+        <type>3</type>
+        <!-- type 3 == AIO-M module -->
     </AIO_module_type_test>
     
     <AIO_module_type_test>
-        <slot>1</slot>  <!-- slot 1 == outer slot -->
-        <type>1</type>  <!-- type 1 == TEDS microphone + class D amp analog module -->
+        <slot>1</slot>
+        <!-- slot 1 == outer slot -->
+        <type>3</type>
+        <!-- type 3 == AIO-M module -->
     </AIO_module_type_test>
 
   </device>
