@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<root>
+  
+  <!-- **************************************************** -->
+	<!-- Echo Streamware BR                                     -->
+	<!-- **************************************************** -->
+  <device>
+    Streamware BR
+    <ASIO_driver>ASIO Streamware BR Audio</ASIO_driver>
+
+    <message_box>Connect Headphone Out to Analog Inputs (SPDIF NOT CONNECTED!)</message_box>
+
+    <prompt>
+      Headphone Output to Analog Inputs
+      <text>Test Audio Quality Headphones to Inputs</text>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-4.0</min_input_db>
+      <max_input_db>-2.0</max_input_db>
+      <wait_for_user>1</wait_for_user>
+    </prompt>
+
+    <!-- THD+N and DNR Channels 1-2 -->
+
+    <test>
+      Headphones to Inputs 1 and 2
+      <type>THD+N</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>44100</sample_rate>
+      <output_amplitude_db>-1.0</output_amplitude_db>
+      <pass_threshold_db>-88.0</pass_threshold_db>
+    </test>
+
+    <test>
+      <type>Dynamic range</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-60.0</output_amplitude_db>
+      <pass_threshold_db>102.0</pass_threshold_db>
+    </test>
+
+    <!-- Frequency response tests for 1-2 -->
+
+    <test>
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-10.0</output_amplitude_db>
+      <output_frequency>20.0</output_frequency>
+      <pass_threshold_db>-13.5</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-10.0</output_amplitude_db>
+      <output_frequency>1000.0</output_frequency>
+      <pass_threshold_db>-13.5</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-10.0</output_amplitude_db>
+      <output_frequency>10000.0</output_frequency>
+      <pass_threshold_db>-13.5</pass_threshold_db>
+    </test>
+    <test>
+      <type>Frequency response</type>
+      <input>0</input>
+      <output>0</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <output_amplitude_db>-10.0</output_amplitude_db>
+      <output_frequency>20000.0</output_frequency>
+      <pass_threshold_db>-13.5</pass_threshold_db>
+    </test>
+
+    <message_box>Connect SPDIF Out to S/PDIF In</message_box>
+
+    <prompt>
+      Digital out to digial in
+      <text>Test digital inputs and outputs</text>
+      <output_amplitude_db>-3.0</output_amplitude_db>
+      <input>2</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_input_db>-200.0</min_input_db>
+      <max_input_db>0.0</max_input_db>
+      <wait_for_user>1</wait_for_user>
+    </prompt>
+
+    <test>
+      SPDIF In to Out
+      <type>THD+N</type>
+      <input>2</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>44100</sample_rate>
+      <min_sample_rate>30000</min_sample_rate>
+      <max_sample_rate>40000</max_sample_rate>
+      <output_amplitude_db>-1.0</output_amplitude_db>
+      <pass_threshold_db>-88.0</pass_threshold_db>
+    </test>
+
+    <test>
+      <type>Dynamic range</type>
+      <input>2</input>
+      <output>2</output>
+      <num_channels>2</num_channels>
+      <sample_rate>48000</sample_rate>
+      <min_sample_rate>30000</min_sample_rate>
+      <max_sample_rate>40000</max_sample_rate>
+      <output_amplitude_db>-60.0</output_amplitude_db>
+      <pass_threshold_db>102.0</pass_threshold_db>
+    </test>
+
+  </device>
+
+</root>
+

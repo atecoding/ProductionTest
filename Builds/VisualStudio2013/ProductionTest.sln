@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2013 for Windows Desktop
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProductionTest", "ProductionTest.vcxproj", "{498A5E7A-69BC-9F52-F361-A970D485F629}"
 EndProject
@@ -8,6 +8,7 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug AIO|Win32 = Debug AIO|Win32
 		Debug AnalyzerBR|Win32 = Debug AnalyzerBR|Win32
+		Debug StreamwareBR|Win32 = Debug StreamwareBR|Win32
 		Debug|Win32 = Debug|Win32
 		Release AIO|Win32 = Release AIO|Win32
 		Release|Win32 = Release|Win32
@@ -17,6 +18,8 @@ Global
 		{498A5E7A-69BC-9F52-F361-A970D485F629}.Debug AIO|Win32.Build.0 = Debug AIO|Win32
 		{498A5E7A-69BC-9F52-F361-A970D485F629}.Debug AnalyzerBR|Win32.ActiveCfg = Debug AnalyzerBR|Win32
 		{498A5E7A-69BC-9F52-F361-A970D485F629}.Debug AnalyzerBR|Win32.Build.0 = Debug AnalyzerBR|Win32
+		{498A5E7A-69BC-9F52-F361-A970D485F629}.Debug StreamwareBR|Win32.ActiveCfg = Debug StreamwareBR|Win32
+		{498A5E7A-69BC-9F52-F361-A970D485F629}.Debug StreamwareBR|Win32.Build.0 = Debug StreamwareBR|Win32
 		{498A5E7A-69BC-9F52-F361-A970D485F629}.Debug|Win32.ActiveCfg = Debug|Win32
 		{498A5E7A-69BC-9F52-F361-A970D485F629}.Debug|Win32.Build.0 = Debug|Win32
 		{498A5E7A-69BC-9F52-F361-A970D485F629}.Release AIO|Win32.ActiveCfg = Release AIO|Win32
