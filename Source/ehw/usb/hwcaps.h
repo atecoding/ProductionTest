@@ -56,6 +56,7 @@ public:
 		ECHO2 = 0x10,
 		ECHO4 = 0x40,
 		ANALYZERBR = 0x80,
+		STREAMWAREBR = 0x81,
 		ACOUSTICIO = 0xa0
 	};
 	

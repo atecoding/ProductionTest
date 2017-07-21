@@ -20,6 +20,10 @@ String ProductionTestsXmlFileName("AIOProductionTests.xml");
 String ProductionTestsXmlFileName("ABRProductionTests.xml");
 #endif
 
+#if STREAMWAREBR_BUILD
+String ProductionTestsXmlFileName("SBRProductionTests.xml");
+#endif
+
 //==============================================================================
 
 void App::initialise (const String& commandLine)

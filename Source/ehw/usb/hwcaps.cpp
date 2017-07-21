@@ -26,7 +26,10 @@ int32 hwcaps::numbusin()
 
 	case ANALYZERBR:
 		return 4;
-	
+
+	case STREAMWAREBR:
+		return 4;
+
 	case ECHO2:
 		return 2;
 
@@ -45,6 +48,9 @@ int32 hwcaps::numbusout()
 		return 4;
 
 	case ANALYZERBR:
+		return 4;
+
+	case STREAMWAREBR:
 		return 4;
 
 	case ECHO2:
@@ -67,6 +73,9 @@ int32 hwcaps::numplaychan(int /*samplerate*/)
 	case ANALYZERBR:
 		return 4;
 
+	case STREAMWAREBR:
+		return 4;
+
 	case ECHO2:
 		return 4;
 
@@ -85,6 +94,9 @@ int32 hwcaps::numrecchan(int /*samplerate*/)
 		return 8;
 
 	case ANALYZERBR:
+		return 4;
+
+	case STREAMWAREBR:
 		return 4;
 
 	case ECHO2:
@@ -112,6 +124,9 @@ char const *hwcaps::BoxTypeName()
 
 	case ANALYZERBR:
 		return "Analyzer BR";
+
+	case STREAMWAREBR:
+		return "Streamware BR";
 	}
 
 	return "Echo USB";
@@ -145,6 +160,9 @@ int hwcaps::MixInGroupSize(int /*group*/)
 		return 8;
 
 	case ANALYZERBR:
+		return 2;
+
+	case STREAMWAREBR:
 		return 2;
 
 	case ECHO2:
@@ -228,6 +246,9 @@ int hwcaps::NumMixOutGroups()
 	case ANALYZERBR:
 		return 2;
 
+	case STREAMWAREBR:
+		return 2;
+
 	case ECHO2:
 		return 2;
 
@@ -263,6 +284,9 @@ int hwcaps::MixOutGroup(int chan)
 	case ANALYZERBR:
 		return chan >> 1;
 
+	case STREAMWAREBR:
+		return chan >> 1;
+
 	case ECHO2:
 		return chan >> 1;
 
@@ -282,6 +306,9 @@ int hwcaps::MixOutGroupOffset(int chan)
 	case ANALYZERBR:
 		return chan % 2;
 	
+	case STREAMWAREBR:
+		return chan % 2;
+
 	case ECHO2:
 		return chan % 2;
 
@@ -309,6 +336,9 @@ int hwcaps::MinSampleRate()
 		return 48000;
 
 	case ANALYZERBR:
+		return 44100;
+
+	case STREAMWAREBR:
 		return 44100;
 
 	case ECHO2:
